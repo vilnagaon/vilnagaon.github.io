@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse Inventaire — Teatower — 10 Mars 2026</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+    --text: #e4e4e7; --muted: #9ca3af; --accent: #6366f1;
+    --red: #ef4444; --orange: #f59e0b; --green: #22c55e; --blue: #3b82f6;
+    --red-bg: rgba(239,68,68,.12); --orange-bg: rgba(245,158,11,.12);
+    --green-bg: rgba(34,197,94,.12); --blue-bg: rgba(59,130,246,.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
+  h2 { font-size: 1.3rem; font-weight: 600; margin: 32px 0 16px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 20px 0 10px; color: var(--text); }
+  .subtitle { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .kpi-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .kpi-box .label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .kpi-box .value { font-size: 1.8rem; font-weight: 700; margin: 4px 0; }
+  .kpi-box .detail { font-size: .8rem; color: var(--muted); }
+  .red { color: var(--red); }
+  .orange { color: var(--orange); }
+  .green { color: var(--green); }
+  .blue { color: var(--blue); }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  th { text-align: left; padding: 8px 10px; background: rgba(99,102,241,.08); color: var(--accent); font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: .75rem; font-weight: 600; }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange); }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-blue { background: var(--blue-bg); color: var(--blue); }
+  .bar { height: 8px; border-radius: 4px; display: inline-block; vertical-align: middle; }
+  .bar-red { background: var(--red); }
+  .bar-orange { background: var(--orange); }
+  .bar-green { background: var(--green); }
+  .bar-blue { background: var(--blue); }
+  .root-cause { border-left: 3px solid var(--red); padding: 14px 18px; margin: 12px 0; background: var(--red-bg); border-radius: 0 8px 8px 0; }
+  .root-cause h4 { color: var(--red); margin-bottom: 4px; }
+  .improvement { border-left: 3px solid var(--green); padding: 14px 18px; margin: 12px 0; background: var(--green-bg); border-radius: 0 8px 8px 0; }
+  .improvement h4 { color: var(--green); margin-bottom: 4px; }
+  .wave-box { border-left: 3px solid var(--accent); padding: 14px 18px; margin: 12px 0; background: rgba(99,102,241,.08); border-radius: 0 8px 8px 0; }
+  .section-intro { color: var(--muted); font-size: .9rem; margin-bottom: 14px; }
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: .7rem; font-weight: 600; margin-left: 4px; }
+  .score-circle { display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; font-size: 1.4rem; font-weight: 700; border: 3px solid; }
+  .experts { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .expert-tag { padding: 6px 14px; border-radius: 20px; font-size: .8rem; font-weight: 600; }
+  .neg-bar { height: 6px; background: var(--red); border-radius: 3px; display: inline-block; vertical-align: middle; opacity: .8; }
+</style>
+</head>
+<body>
+
+<h1>Analyse Inventaire Teatower</h1>
+<p class="subtitle">Audit des ecarts de stock — Central (TT/Stock) vs Magasins (Liege, Namur, Waterloo) — 10 Mars 2026</p>
+
+<div class="experts">
+  <span class="expert-tag" style="background:rgba(99,102,241,.15);color:var(--accent);">Fabian — Expert Odoo v19</span>
+  <span class="expert-tag" style="background:rgba(34,197,94,.15);color:var(--green);">Nick — Expert Supply Chain (APICS CSCP/CPIM)</span>
+</div>
+
+<!-- Maturity Score -->
+<div class="card" style="display:flex;align-items:center;gap:20px;">
+  <div class="score-circle" style="border-color:var(--red);color:var(--red);">4/10</div>
+  <div>
+    <strong>Score de maturite inventaire</strong><br>
+    <span style="color:var(--muted);font-size:.9rem;">Les ecarts d'inventaire revelent 3 problemes systemiques dans la gestion des flux Odoo. Les stocks negatifs ne sont pas de vrais manquants physiques — ce sont des flux manquants dans le systeme.</span>
+  </div>
+</div>
+
+<!-- KPI Overview -->
+<h2>Vue d'ensemble</h2>
+<div class="grid-4">
+  <div class="kpi-box">
+    <div class="label">References en stock</div>
+    <div class="value">633</div>
+    <div class="detail">sur 4 emplacements</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">Stocks negatifs</div>
+    <div class="value red">196</div>
+    <div class="detail">133 central + 63 magasins</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">Valeur stock (abs.)</div>
+    <div class="value">86 594 &euro;</div>
+    <div class="detail">quants positifs + negatifs</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">Transferts en attente</div>
+    <div class="value orange">103</div>
+    <div class="detail">50 brouillon + 49 assignes + 4 confirmes</div>
+  </div>
+</div>
+
+<!-- Stock per location -->
+<h2>Stock par emplacement</h2>
+<div class="card">
+<table>
+  <thead>
+    <tr><th>Emplacement</th><th>Refs (positif)</th><th>Qte positive</th><th style="color:var(--red)">Refs negatives</th><th>Total lignes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>TT/Stock</strong> (Central)</td><td>112</td><td>523 104</td><td><span class="badge badge-red">133</span></td><td>245</td></tr>
+    <tr><td><strong>LIEGE/Stock</strong></td><td>382</td><td>13 640</td><td><span class="badge badge-orange">38</span></td><td>420</td></tr>
+    <tr><td><strong>NAM/Stock</strong></td><td>348</td><td>4 966</td><td><span class="badge badge-green">6</span></td><td>354</td></tr>
+    <tr><td><strong>WAT/Stock</strong></td><td>453</td><td>24 117</td><td><span class="badge badge-orange">19</span></td><td>472</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Negative stock by category -->
+<h2>Stocks negatifs par categorie</h2>
+<p class="section-intro">Repartition des articles en stock negatif par type de produit et par emplacement.</p>
+
+<div class="grid-3">
+  <!-- TT/Stock -->
+  <div class="card">
+    <h3>TT/Stock (Central) <span class="badge badge-red">133 refs</span></h3>
+    <table>
+      <thead><tr><th>Categorie</th><th>Refs</th><th>Unites</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Echantillons</td><td>24</td><td class="red">-57 707</td><td><span class="neg-bar" style="width:100%"></span></td></tr>
+        <tr><td>Consommables</td><td>8</td><td class="red">-11 155</td><td><span class="neg-bar" style="width:19%"></span></td></tr>
+        <tr><td>Vrac remplissage</td><td>16</td><td class="red">-4 660</td><td><span class="neg-bar" style="width:8%"></span></td></tr>
+        <tr><td>Autre</td><td>50</td><td class="red">-2 088</td><td><span class="neg-bar" style="width:4%"></span></td></tr>
+        <tr><td>Accessoires</td><td>18</td><td class="red">-173</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Infusettes</td><td>14</td><td class="red">-28</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Vrac conditionne</td><td>3</td><td class="red">-19</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LIEGE -->
+  <div class="card">
+    <h3>LIEGE/Stock <span class="badge badge-orange">38 refs</span></h3>
+    <table>
+      <thead><tr><th>Categorie</th><th>Refs</th><th>Unites</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Vrac remplissage</td><td>18</td><td class="red">-10 647</td><td><span class="neg-bar" style="width:100%"></span></td></tr>
+        <tr><td>Vrac conditionne</td><td>4</td><td class="red">-14</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Autre</td><td>5</td><td class="red">-13</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Accessoires</td><td>4</td><td class="red">-12</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Echantillons</td><td>2</td><td class="red">-6</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Consommables</td><td>4</td><td class="red">-6</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+        <tr><td>Infusettes</td><td>1</td><td class="red">-5</td><td><span class="neg-bar" style="width:1%"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NAM + WAT -->
+  <div class="card">
+    <h3>NAM/Stock <span class="badge badge-green">6 refs</span></h3>
+    <table>
+      <thead><tr><th>Categorie</th><th>Refs</th><th>Unites</th></tr></thead>
+      <tbody>
+        <tr><td>Autre</td><td>4</td><td class="red">-7</td></tr>
+        <tr><td>Accessoires</td><td>1</td><td class="red">-1</td></tr>
+        <tr><td>Vrac conditionne</td><td>1</td><td class="red">-1</td></tr>
+      </tbody>
+    </table>
+    <h3 style="margin-top:18px;">WAT/Stock <span class="badge badge-orange">19 refs</span></h3>
+    <table>
+      <thead><tr><th>Categorie</th><th>Refs</th><th>Unites</th></tr></thead>
+      <tbody>
+        <tr><td>Vrac remplissage</td><td>3</td><td class="red">-3 027</td></tr>
+        <tr><td>Autre</td><td>11</td><td class="red">-28</td></tr>
+        <tr><td>Accessoires</td><td>2</td><td class="red">-24</td></tr>
+        <tr><td>Consommables</td><td>3</td><td class="red">-19</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Root Causes -->
+<h2>3 Causes racines identifiees</h2>
+
+<div class="root-cause">
+  <h4>1. Echantillons : jamais entres en stock (-57 707 unites au central)</h4>
+  <p>Les echantillons [E0xxx] sont distribues en degustations, salons et magasins mais <strong>aucune reception fournisseur</strong> ne les entre en stock. Chaque sortie creuse un negatif plus profond. Ce n'est pas un ecart physique — c'est un flux entrant manquant dans Odoo.</p>
+</div>
+
+<div class="root-cause">
+  <h4>2. Vrac remplissage : transferts unidirectionnels (-10 647g Liege)</h4>
+  <p>Waterloo a du stock positif (800-1000g par ref, receptions initiales en vrac). <strong>Liege est systematiquement negatif</strong> : le POS deduit le stock mais les transferts depuis le Central ne sont pas valides. Namur est toujours a 0 (n'utilise pas les articles VR ou vend le vrac differemment).</p>
+</div>
+
+<div class="root-cause">
+  <h4>3. Accessoires/Boites : Central negatif, magasins positifs</h4>
+  <p>Les boites Teatower [A09xx] montrent Central a -3 a -10, magasins a +20/+24. Les transferts internes ont ete valides cote magasin mais <strong>pas debites du central</strong>, ou les receptions fournisseur ont ete enregistrees directement en magasin.</p>
+</div>
+
+<!-- Top negatives Central -->
+<h2>Top stocks negatifs — Central (TT/Stock)</h2>
+<div class="card">
+<table>
+  <thead><tr><th>#</th><th>Produit</th><th>Quantite</th><th></th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>[E0301] Tisane tropicale (Echantillon)</td><td class="red">-11 660</td><td><span class="neg-bar" style="width:100%"></span></td></tr>
+    <tr><td>2</td><td>[C0019] Sachet Teatower Classique</td><td class="red">-9 030</td><td><span class="neg-bar" style="width:77%"></span></td></tr>
+    <tr><td>3</td><td>[E0913] Feerie d'Hivers (Echantillon)</td><td class="red">-6 888</td><td><span class="neg-bar" style="width:59%"></span></td></tr>
+    <tr><td>4</td><td>[E0732] Gourmandise de Noel (Echantillon)</td><td class="red">-5 162</td><td><span class="neg-bar" style="width:44%"></span></td></tr>
+    <tr><td>5</td><td>[E0711] Offrande des Rois Mages (Echantillon)</td><td class="red">-5 162</td><td><span class="neg-bar" style="width:44%"></span></td></tr>
+    <tr><td>6</td><td>[E0891] Tresor des lutins (Echantillon)</td><td class="red">-5 162</td><td><span class="neg-bar" style="width:44%"></span></td></tr>
+    <tr><td>7</td><td>[E0778] Speculoos & Cie (Echantillon)</td><td class="red">-2 590</td><td><span class="neg-bar" style="width:22%"></span></td></tr>
+    <tr><td>8</td><td>[E0600] La lampe merveilleuse (Echantillon)</td><td class="red">-2 590</td><td><span class="neg-bar" style="width:22%"></span></td></tr>
+    <tr><td>9</td><td>[E0845] Mamy Granny BIO (Echantillon)</td><td class="red">-2 590</td><td><span class="neg-bar" style="width:22%"></span></td></tr>
+    <tr><td>10</td><td>[E0793] Orangipane (Echantillon)</td><td class="red">-2 590</td><td><span class="neg-bar" style="width:22%"></span></td></tr>
+    <tr><td>11</td><td>[E0638] Serenite BIO (Echantillon)</td><td class="red">-2 398</td><td><span class="neg-bar" style="width:21%"></span></td></tr>
+    <tr><td>12</td><td>[E0205] Etoiles filantes (Echantillon)</td><td class="red">-2 398</td><td><span class="neg-bar" style="width:21%"></span></td></tr>
+    <tr><td>13</td><td>[D011] Gobelet degustation</td><td class="red">-2 000</td><td><span class="neg-bar" style="width:17%"></span></td></tr>
+    <tr><td>14</td><td>[EM0091] EM0091</td><td class="red">-1 624</td><td><span class="neg-bar" style="width:14%"></span></td></tr>
+    <tr><td>15</td><td>[VR0767] Vrac remplissage Earl grey</td><td class="red">-900</td><td><span class="neg-bar" style="width:8%"></span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Top negatives Stores -->
+<h2>Top stocks negatifs — Magasins</h2>
+<div class="grid-3">
+  <div class="card">
+    <h3>LIEGE <span class="badge badge-red">-10 647g vrac</span></h3>
+    <table>
+      <thead><tr><th>Produit</th><th>Qte</th></tr></thead>
+      <tbody>
+        <tr><td>[VR0868] Citron meringue</td><td class="red">-1 530</td></tr>
+        <tr><td>[VR0832] La nana de Wepion</td><td class="red">-1 415</td></tr>
+        <tr><td>[VR0767] Earl grey</td><td class="red">-1 190</td></tr>
+        <tr><td>[VR0631] Le the des amoureux</td><td class="red">-1 020</td></tr>
+        <tr><td>[VR0666] English Breakfast</td><td class="red">-970</td></tr>
+        <tr><td>[VR0878] Guarana Boost</td><td class="red">-800</td></tr>
+        <tr><td>[VR0617] Liberte</td><td class="red">-700</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>WATERLOO <span class="badge badge-orange">-3 027g vrac</span></h3>
+    <table>
+      <thead><tr><th>Produit</th><th>Qte</th></tr></thead>
+      <tbody>
+        <tr><td>[VR0666] English Breakfast</td><td class="red">-1 526</td></tr>
+        <tr><td>[VR0767] Earl grey</td><td class="red">-1 218</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:.8rem;margin-top:10px;">Waterloo a aussi de nombreuses refs VR en <strong style="color:var(--green)">positif</strong> (800-1000g) grace aux receptions initiales.</p>
+  </div>
+  <div class="card">
+    <h3>NAMUR <span class="badge badge-green">6 refs seulement</span></h3>
+    <p style="color:var(--muted);font-size:.85rem;margin-top:10px;">Namur presente les ecarts les plus faibles du reseau :<br> 4 refs "Autre" (-7 unites), 1 Accessoire (-1), 1 Vrac conditionne (-1).<br><br>
+    <strong>Modele a suivre</strong> pour les autres magasins.</p>
+  </div>
+</div>
+
+<!-- VR Root Cause Table -->
+<h2>Analyse Vrac Remplissage — Ecarts cross-locations</h2>
+<p class="section-intro">Le vrac remplissage [VR] est le symptome le plus visible du probleme de transferts. Waterloo a recu du stock initial, Liege n'a jamais ete approvisionne correctement, Namur n'utilise pas ces references.</p>
+
+<div class="card">
+<table>
+  <thead>
+    <tr><th>Produit VR</th><th>Total net</th><th>Central</th><th>Liege</th><th>Namur</th><th>Waterloo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>[VR0767] Earl grey</td><td class="red"><strong>-3 308</strong></td><td class="red">-900</td><td class="red">-1 190</td><td>0</td><td class="red">-1 218</td></tr>
+    <tr><td>[VR0666] English Breakfast</td><td class="red"><strong>-2 996</strong></td><td class="red">-500</td><td class="red">-970</td><td>0</td><td class="red">-1 526</td></tr>
+    <tr><td>[VR0832] La nana de Wepion</td><td class="red"><strong>-2 198</strong></td><td class="red">-500</td><td class="red">-1 415</td><td>0</td><td>-283</td></tr>
+    <tr><td>[VR0631] Le the des amoureux</td><td class="red"><strong>-1 020</strong></td><td>0</td><td class="red">-1 020</td><td>0</td><td>0</td></tr>
+    <tr><td>[VR0638] Serenite BIO</td><td class="red"><strong>-800</strong></td><td>-200</td><td class="red">-600</td><td>0</td><td>0</td></tr>
+    <tr><td>[VR0868] Citron meringue</td><td class="red"><strong>-730</strong></td><td>0</td><td class="red">-1 530</td><td>0</td><td class="green">+800</td></tr>
+    <tr><td>[VR0279] Le panier de grand maman</td><td class="red"><strong>-434</strong></td><td>-490</td><td>-400</td><td>0</td><td class="green">+456</td></tr>
+    <tr><td>[VR0617] Liberte</td><td class="red"><strong>-280</strong></td><td>-500</td><td class="red">-700</td><td>0</td><td class="green">+920</td></tr>
+    <tr><td>[VR0626] Sencha BIO</td><td class="red">-101</td><td>0</td><td>-101</td><td>0</td><td>0</td></tr>
+    <tr><td>[VR0121] Lady Dodo</td><td class="red">-88</td><td>-320</td><td class="red">-660</td><td>0</td><td class="green">+892</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0878] Guarana Boost</td><td class="green"><strong>+200</strong></td><td>0</td><td class="red">-800</td><td>0</td><td class="green">+1 000</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0717] Pomme d'Amour</td><td class="green">+255</td><td>0</td><td>-250</td><td>0</td><td class="green">+505</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0854] Camomille BIO</td><td class="green">+275</td><td>-50</td><td>-30</td><td>0</td><td class="green">+355</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0813] The du desert</td><td class="green">+383</td><td>-100</td><td>-308</td><td>0</td><td class="green">+791</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0205] Etoiles filantes</td><td class="green">+557</td><td>-200</td><td>-193</td><td>0</td><td class="green">+950</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>[VR0634] Gourmandise</td><td class="green">+589</td><td>-100</td><td>0</td><td>0</td><td class="green">+689</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ABC Classification -->
+<h2>Classification ABC des stocks</h2>
+<p class="section-intro">Analyse Pareto sur la valeur du stock — base du plan de comptage cyclique.</p>
+
+<div class="grid-3">
+  <div class="kpi-box" style="border-color:var(--red);">
+    <div class="label">Classe A — 80% de la valeur</div>
+    <div class="value">131 <span style="font-size:.9rem;color:var(--muted)">refs</span></div>
+    <div class="detail">69 216 &euro; &nbsp; <span class="badge badge-red">46 avec negatif</span></div>
+  </div>
+  <div class="kpi-box" style="border-color:var(--orange);">
+    <div class="label">Classe B — 15% de la valeur</div>
+    <div class="value">207 <span style="font-size:.9rem;color:var(--muted)">refs</span></div>
+    <div class="detail">13 035 &euro; &nbsp; <span class="badge badge-orange">25 avec negatif</span></div>
+  </div>
+  <div class="kpi-box" style="border-color:var(--green);">
+    <div class="label">Classe C — 5% de la valeur</div>
+    <div class="value">295 <span style="font-size:.9rem;color:var(--muted)">refs</span></div>
+    <div class="detail">4 343 &euro; &nbsp; <span class="badge badge-green">98 avec negatif</span></div>
+  </div>
+</div>
+
+<!-- Class A negatives -->
+<h2>46 Produits Classe A en stock negatif — Priorite comptage</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+  <thead>
+    <tr><th>#</th><th>Produit</th><th>Valeur</th><th>Central</th><th>Liege</th><th>Namur</th><th>Waterloo</th><th>Type</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>[E0301] Tisane tropicale (Echantillon)</td><td class="red">-1 982 &euro;</td><td class="red">-11 660</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>2</td><td>[EM0091] EM0091</td><td class="red">-1 299 &euro;</td><td class="red">-1 624</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>3</td><td>[E0891] Tresor des lutins</td><td class="red">-878 &euro;</td><td class="red">-5 162</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>4</td><td>[A0297] Fouet a Matcha en Bambou</td><td class="green">777 &euro;</td><td class="red">-8</td><td>29</td><td>32</td><td>18</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+    <tr><td>5</td><td>[E0732] Gourmandise de Noel</td><td class="red">-774 &euro;</td><td class="red">-5 162</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>6</td><td>[E0711] Offrande des Rois Mages</td><td class="red">-774 &euro;</td><td class="red">-5 162</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>7</td><td>[E0600] La lampe merveilleuse</td><td class="red">-440 &euro;</td><td class="red">-2 590</td><td>-1</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>8</td><td>[E0778] Speculoos & Cie</td><td class="red">-440 &euro;</td><td class="red">-2 590</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>9</td><td>[E0845] Mamy Granny BIO</td><td class="red">-440 &euro;</td><td class="red">-2 590</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>10</td><td>[E0793] Orangipane</td><td class="red">-414 &euro;</td><td class="red">-2 590</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>11</td><td>[E0638] Serenite BIO</td><td class="red">-408 &euro;</td><td class="red">-2 398</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>12</td><td>[E0205] Etoiles filantes</td><td class="red">-384 &euro;</td><td class="red">-2 398</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>13</td><td>[MP_1V0301] Tisane tropicale</td><td class="red">-349 &euro;</td><td class="red">-20</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>14</td><td>[MP_1V0279] Le panier de grand maman</td><td class="red">-344 &euro;</td><td class="red">-24</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>15</td><td>[A1074] Fouet electrique Matcha</td><td class="green">291 &euro;</td><td class="red">-8</td><td>13</td><td>20</td><td>8</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+    <tr><td>16</td><td>[MP_1V0600] La lampe merveilleuse</td><td class="red">-286 &euro;</td><td class="red">-17</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>17</td><td>[MP_1V0848] Ginger Cool BIO</td><td class="red">-246 &euro;</td><td class="red">-12</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>18</td><td>[MP_1V0205] Etoiles filantes</td><td class="red">-219 &euro;</td><td class="red">-16</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>19</td><td>[C0189] Coffret ZEN - 3 boites 20gr</td><td class="red">-215 &euro;</td><td class="red">-8</td><td>-1</td><td>0</td><td class="red">-16</td><td><span class="tag badge-orange">Coffret</span></td></tr>
+    <tr><td>20</td><td>[MP_1V0868] Citron Meringue</td><td class="red">-211 &euro;</td><td class="red">-11</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>21</td><td>[A0274] Filtre pince Diam. 4,5cm</td><td class="green">210 &euro;</td><td class="red">-10</td><td>70</td><td>26</td><td>54</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+    <tr><td>22</td><td>[MP_1V0315] Orange royale</td><td class="red">-202 &euro;</td><td class="red">-11</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-orange">Matiere premiere</span></td></tr>
+    <tr><td>23</td><td>[A1075] Verre a Matcha double bulle</td><td class="green">202 &euro;</td><td class="red">-2</td><td>13</td><td>15</td><td>5</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+    <tr><td>24</td><td>[E0863] Masala Chai</td><td class="red">-153 &euro;</td><td class="red">-898</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>25</td><td>[A0503] Filtre feuille verte</td><td class="green">150 &euro;</td><td class="red">-3</td><td>24</td><td>36</td><td>11</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+    <tr><td>26</td><td>[A0916] Boite Kaki 20g</td><td class="green">139 &euro;</td><td class="red">-4</td><td>20</td><td>24</td><td>26</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>27</td><td>[A0918] Boite Rouille 20g</td><td class="green">139 &euro;</td><td class="red">-3</td><td>20</td><td>24</td><td>25</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>28</td><td>[A0917] Boite Moutarde 20g</td><td class="green">136 &euro;</td><td class="red">-3</td><td>20</td><td>24</td><td>24</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>29</td><td>[E0253] Voyage a Venise</td><td class="red">-135 &euro;</td><td class="red">-898</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>30</td><td>[E0869] Hansel & Gretel</td><td class="red">-134 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>31</td><td>[A0920] Boite Bordeaux 20g</td><td class="green">134 &euro;</td><td class="red">-3</td><td>20</td><td>24</td><td>23</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>32</td><td>[A0915] Boite Vert clair 25g</td><td class="green">134 &euro;</td><td class="red">-3</td><td>20</td><td>24</td><td>23</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>33</td><td>[A0921] Boite Lila 20g</td><td class="green">132 &euro;</td><td class="red">-3</td><td>20</td><td>20</td><td>26</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>34</td><td>[A0914] Boite Bleu gris 20g</td><td class="green">122 &euro;</td><td class="red">-9</td><td>20</td><td>24</td><td>23</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>35</td><td>[A0919] Boite Corail 20g</td><td class="green">122 &euro;</td><td class="red">-5</td><td>20</td><td>20</td><td>23</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>36</td><td>[E0723] Namaste BIO</td><td class="red">-121 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>37</td><td>[E0874] Cafe liegeois</td><td class="red">-121 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>38</td><td>[A0913] Boite Bleu fonce 20g</td><td class="green">116 &euro;</td><td class="red">-10</td><td>20</td><td>20</td><td>25</td><td><span class="tag badge-blue">Boite</span></td></tr>
+    <tr><td>39</td><td>[E0859] Delice de Montelimar</td><td class="red">-114 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>40</td><td>[E0837] Vert Pistache</td><td class="red">-114 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>41</td><td>[E0867] Douceur epicee</td><td class="red">-114 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>42</td><td>[E0315] Orange Royale</td><td class="red">-114 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>43</td><td>[E0836] Ayurveda BIO</td><td class="red">-114 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>44</td><td>[I0778] Speculoos & Cie (20 infusettes)</td><td class="green">110 &euro;</td><td class="red">-1</td><td>22</td><td>30</td><td>18</td><td><span class="tag badge-blue">Infusette</span></td></tr>
+    <tr><td>45</td><td>[E0841] Lacquemant liegeois</td><td class="red">-108 &euro;</td><td class="red">-672</td><td>0</td><td>0</td><td>0</td><td><span class="tag badge-red">Echantillon</span></td></tr>
+    <tr><td>46</td><td>[A1078] Theiere en verre 320ml Qwetch</td><td class="red">-105 &euro;</td><td class="red">-6</td><td>0</td><td>0</td><td>-1</td><td><span class="tag badge-blue">Accessoire</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Transaction Analysis -->
+<h2>Analyse des transactions (90 jours)</h2>
+<p class="section-intro">Volumes de mouvements entrants, sortants et internes sur les 3 derniers mois.</p>
+
+<div class="grid-3">
+  <div class="card">
+    <h3>Entrants <span class="badge badge-green">138</span></h3>
+    <table>
+      <thead><tr><th>Mois</th><th>Mouvements</th></tr></thead>
+      <tbody>
+        <tr><td>Dec 2025</td><td>28</td></tr>
+        <tr><td>Jan 2026</td><td>53</td></tr>
+        <tr><td>Fev 2026</td><td>43</td></tr>
+        <tr><td>Mar 2026</td><td>14</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:.8rem;margin-top:8px;">Route principale :<br>Fournisseurs &rarr; TT/Entree (127)</p>
+  </div>
+
+  <div class="card">
+    <h3>Sortants <span class="badge badge-red">2 000+</span></h3>
+    <table>
+      <thead><tr><th>Route</th><th>Mouvements</th></tr></thead>
+      <tbody>
+        <tr><td>NAM &rarr; Clients</td><td>770</td></tr>
+        <tr><td>LIEGE &rarr; Clients</td><td>604</td></tr>
+        <tr><td>TT/Sortie &rarr; Clients</td><td>235</td></tr>
+        <tr><td>WAT &rarr; Clients</td><td>221</td></tr>
+        <tr><td>POP &rarr; Clients</td><td>165</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Internes <span class="badge badge-blue">2 000+</span></h3>
+    <table>
+      <thead><tr><th>Route</th><th>Mouvements</th></tr></thead>
+      <tbody>
+        <tr><td>TT/PICK &rarr; TT/Sortie</td><td>1 080</td></tr>
+        <tr><td>TT/Stock &rarr; TT/Sortie</td><td>512</td></tr>
+        <tr><td>TT/Entree &rarr; TT/Stock</td><td>98</td></tr>
+        <tr><td style="color:var(--orange);">TT/Stock &rarr; NAM</td><td style="color:var(--orange);">32</td></tr>
+        <tr><td style="color:var(--orange);">TT/Stock &rarr; LIEGE</td><td style="color:var(--orange);">28</td></tr>
+        <tr><td style="color:var(--orange);">TT/Stock &rarr; WAT</td><td style="color:var(--orange);">24</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--orange);font-size:.8rem;margin-top:8px;font-weight:600;">Seulement 84 transferts vers magasins sur 90 jours — insuffisant vs 2000+ sorties POS</p>
+  </div>
+</div>
+
+<div class="card" style="border-color:var(--orange);">
+  <h3 style="color:var(--orange);">Transferts en attente — 103 non valides</h3>
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="kpi-box" style="border-color:var(--orange);">
+      <div class="label">Brouillon</div>
+      <div class="value orange">50</div>
+    </div>
+    <div class="kpi-box" style="border-color:var(--orange);">
+      <div class="label">Assigne</div>
+      <div class="value orange">49</div>
+    </div>
+    <div class="kpi-box" style="border-color:var(--blue);">
+      <div class="label">Confirme</div>
+      <div class="value blue">4</div>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:.85rem;margin-top:10px;">Ces 103 transferts non finalises contribuent directement aux ecarts de stock. Chaque transfert non valide = stock debite d'un cote mais pas credite de l'autre.</p>
+</div>
+
+<!-- Cycle Count Plan -->
+<h2>Plan de comptage cyclique (Cycle Count)</h2>
+<p class="section-intro">Approche recommandee par Nick : comptage cyclique ABC au lieu d'un inventaire physique complet. Plus leger, plus frequent, plus precis sur les refs a forte valeur.</p>
+
+<div class="card">
+<table>
+  <thead>
+    <tr><th>Classe</th><th>Refs</th><th>% Valeur</th><th>Frequence comptage</th><th>Methode</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge badge-red">A</span></td><td>131</td><td>80%</td><td><strong>Hebdomadaire</strong> (negatifs d'abord) puis mensuel</td><td>Comptage par emplacement</td></tr>
+    <tr><td><span class="badge badge-orange">B</span></td><td>207</td><td>15%</td><td><strong>Mensuel</strong></td><td>20% echantillonnage par semaine</td></tr>
+    <tr><td><span class="badge badge-green">C</span></td><td>295</td><td>5%</td><td><strong>Trimestriel</strong></td><td>Comptage lors du reappro</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Vague 1 — Cette semaine : 46 produits Classe A negatifs</h3>
+<div class="wave-box">
+  <table>
+    <thead><tr><th>Priorite</th><th>Categorie</th><th>Refs</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-red">P1</span></td><td>Vrac remplissage [VR] negatif</td><td>16 refs</td><td>Peser physiquement les bocaux en magasin (grammes)</td></tr>
+      <tr><td><span class="badge badge-orange">P2</span></td><td>Accessoires [A0] (boites, filtres, fouets)</td><td>12 refs</td><td>Compter sur etagere + reserve</td></tr>
+      <tr><td><span class="badge badge-blue">P3</span></td><td>Coffrets [C0]</td><td>3 refs</td><td>Compter en zone cadeaux</td></tr>
+      <tr><td style="color:var(--muted);">—</td><td style="color:var(--muted);">Echantillons [E0]</td><td style="color:var(--muted);">—</td><td style="color:var(--muted);">Ne pas compter — correction comptable, pas physique</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Vague 2 — Semaine prochaine</h3>
+<div class="wave-box">
+  <p>25 produits Classe B avec stock negatif — meme processus de comptage.</p>
+</div>
+
+<!-- Process Improvements -->
+<h2>Ameliorations de processus recommandees</h2>
+
+<div class="improvement">
+  <h4>1. Creer un flux de reception echantillons avant distribution</h4>
+  <p>Elimine 100% des negatifs echantillons. Dans Odoo : creer une route "Reception echantillons" qui genere automatiquement un bon de reception a TT/Stock avant tout mouvement sortant.</p>
+</div>
+
+<div class="improvement">
+  <h4>2. Transferts internes en 2 etapes pour le vrac remplissage</h4>
+  <p>Central envoie (deduction validee) + magasin recoit (addition validee). Les deux cotes du transfert doivent etre valides pour eviter les ecarts unidirectionnels.</p>
+</div>
+
+<div class="improvement">
+  <h4>3. Activer le module stock.cycle.count dans Odoo</h4>
+  <p>Configurer les frequences ABC directement dans Odoo pour un maintien continu de la precision des stocks.</p>
+</div>
+
+<div class="improvement">
+  <h4>4. Alerte stock negatif automatisee</h4>
+  <p>Regle Odoo qui bloque ou notifie quand une quantite passe sous 0. Detection immediate au lieu de decouverte tardive lors d'un audit.</p>
+</div>
+
+<!-- Corrections post-comptage -->
+<h2>Corrections Odoo post-comptage</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>RAZ tous les echantillons [E0] negatifs a 0 au central</td><td>Ecriture comptable (pas physique) — supprime 57 707 unites fantomes</td></tr>
+      <tr><td>2</td><td>Ajuster les articles VR selon comptage physique reel</td><td>Reconcilie Liege (-10 647g) et Waterloo avec la realite terrain</td></tr>
+      <tr><td>3</td><td>Corriger accessoires Central vs magasins</td><td>Equilibre les boites Teatower [A09xx] entre Central (-3 a -10) et magasins (+20/+24)</td></tr>
+      <tr><td>4</td><td>Valider ou annuler les 103 transferts en attente</td><td>Elimine la source principale d'ecarts futurs</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Footer -->
+<div style="margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem;text-align:center;">
+  <p>Analyse generee le 10 Mars 2026 — Experts: Fabian (Odoo v19) & Nick (Supply Chain APICS CSCP/CPIM)</p>
+  <p>Donnees extraites depuis Odoo JSON-RPC (tea-tree.odoo.com) — Instance Teatower</p>
+</div>
+
+</body>
+</html>
