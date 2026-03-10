@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I0631 — Le the des amoureux — Analyse mouvements 7 jours</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+    --text: #e4e4e7; --muted: #9ca3af; --accent: #6366f1;
+    --red: #ef4444; --orange: #f59e0b; --green: #22c55e; --blue: #3b82f6;
+    --red-bg: rgba(239,68,68,.12); --orange-bg: rgba(245,158,11,.12);
+    --green-bg: rgba(34,197,94,.12); --blue-bg: rgba(59,130,246,.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 2px; }
+  .product-code { color: var(--accent); font-size: 1rem; font-weight: 600; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 28px 0 14px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
+  .subtitle { color: var(--muted); font-size: .85rem; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .kpi-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .kpi-box .label { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .kpi-box .value { font-size: 1.7rem; font-weight: 700; margin: 4px 0; }
+  .kpi-box .detail { font-size: .78rem; color: var(--muted); }
+  .red { color: var(--red); } .orange { color: var(--orange); } .green { color: var(--green); } .blue { color: var(--blue); }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { text-align: left; padding: 7px 10px; background: rgba(99,102,241,.08); color: var(--accent); font-weight: 600; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: .72rem; font-weight: 600; }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange); }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-blue { background: var(--blue-bg); color: var(--blue); }
+  .alert-box { border-left: 3px solid var(--red); padding: 14px 18px; margin: 14px 0; background: var(--red-bg); border-radius: 0 8px 8px 0; }
+  .alert-box h4 { color: var(--red); margin-bottom: 4px; font-size: .95rem; }
+  .info-box { border-left: 3px solid var(--blue); padding: 14px 18px; margin: 14px 0; background: var(--blue-bg); border-radius: 0 8px 8px 0; }
+  .info-box h4 { color: var(--blue); margin-bottom: 4px; font-size: .95rem; }
+  .ok-box { border-left: 3px solid var(--green); padding: 14px 18px; margin: 14px 0; background: var(--green-bg); border-radius: 0 8px 8px 0; }
+  .ok-box h4 { color: var(--green); margin-bottom: 4px; font-size: .95rem; }
+  .flow-bar { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+  .flow-bar .bar { height: 10px; border-radius: 5px; }
+  .flow-bar .bar-green { background: var(--green); }
+  .flow-bar .bar-red { background: var(--red); }
+  .flow-bar .bar-blue { background: var(--blue); }
+  .flow-bar .bar-orange { background: var(--orange); }
+  .flow-label { font-size: .78rem; min-width: 140px; color: var(--muted); }
+  .flow-value { font-size: .78rem; font-weight: 600; min-width: 40px; }
+  .day-header { background: rgba(99,102,241,.06); padding: 6px 10px; font-weight: 600; color: var(--accent); font-size: .85rem; border-bottom: 1px solid var(--border); }
+  .move-in td:first-child { border-left: 3px solid var(--green); }
+  .move-out td:first-child { border-left: 3px solid var(--red); }
+  .move-int td:first-child { border-left: 3px solid var(--blue); }
+  .move-pending td { opacity: .7; font-style: italic; }
+  .store-card { border-top: 3px solid; }
+  .stock-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .timeline { position: relative; padding-left: 20px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 10px; padding-left: 16px; }
+  .timeline-item::before { content: ''; position: absolute; left: -17px; top: 6px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg); }
+  .timeline-item.done::before { background: var(--green); border-color: var(--green); }
+  .timeline-item.pending::before { background: var(--orange); border-color: var(--orange); }
+  .timeline-item.blocked::before { background: var(--red); border-color: var(--red); }
+</style>
+</head>
+<body>
+
+<span class="product-code">I0631</span>
+<h1>Le the des amoureux (20 infusettes)</h1>
+<p class="subtitle">Analyse des mouvements d'inventaire — 3 au 10 mars 2026 &nbsp;|&nbsp; Categorie : The Vert</p>
+
+<!-- KPIs -->
+<div class="grid-4">
+  <div class="kpi-box">
+    <div class="label">Stock total disponible</div>
+    <div class="value">363</div>
+    <div class="detail">dont 32 reservees</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">Sorties clients / semaine</div>
+    <div class="value red">~60</div>
+    <div class="detail">POS 24 + e-com ~36</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">Ventes POS</div>
+    <div class="value">24 u.</div>
+    <div class="detail">261.00 &euro; TTC</div>
+  </div>
+  <div class="kpi-box">
+    <div class="label">En attente reception</div>
+    <div class="value orange">1 465</div>
+    <div class="detail">1000 + 450 + 15</div>
+  </div>
+</div>
+
+<!-- Alert -->
+<div class="alert-box">
+  <h4>Alerte : Liege — Reappro bloque</h4>
+  <p>2 transferts vers Liege (8 + 6 = <strong>14 unites</strong>) sont en statut "assigned" depuis le 3 et 7 mars — jamais valides. Stock Liege : <strong>10 unites</strong>. Au rythme de 11 ventes/semaine, <strong>rupture dans 6-7 jours</strong>.</p>
+</div>
+
+<!-- Stock par emplacement -->
+<h2>Stock actuel par emplacement</h2>
+<div class="card">
+<table>
+  <thead><tr><th>Emplacement</th><th>Quantite</th><th>Reserve</th><th></th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--green)"></span>TT/Stock/PICK (A-21)</td>
+      <td><strong>257</strong></td><td>26</td>
+      <td><span class="bar bar-green" style="width:180px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--blue)"></span>Transit entre entrepots</td>
+      <td>62</td><td>0</td>
+      <td><span class="bar bar-blue" style="width:43px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--accent)"></span>GMS/Stock</td>
+      <td>40</td><td>0</td>
+      <td><span class="bar bar-blue" style="width:28px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--green)"></span>NAM/Stock (Namur)</td>
+      <td>20</td><td>0</td>
+      <td><span class="bar bar-green" style="width:14px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--orange)"></span>WAT/Stock (Waterloo)</td>
+      <td>18</td><td>0</td>
+      <td><span class="bar bar-green" style="width:13px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--muted)"></span>TT/Entree</td>
+      <td>12</td><td>0</td>
+      <td><span class="bar bar-blue" style="width:8px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--orange)"></span>LIEGE/Stock</td>
+      <td><strong style="color:var(--orange)">10</strong></td><td>0</td>
+      <td><span class="bar bar-orange" style="width:7px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--muted)"></span>TT/Sortie</td>
+      <td>6</td><td>6</td>
+      <td><span class="bar bar-blue" style="width:4px;height:8px;display:inline-block;border-radius:4px;"></span></td>
+    </tr>
+    <tr>
+      <td><span class="stock-dot" style="background:var(--red)"></span>POP/Stock</td>
+      <td class="red"><strong>-14</strong></td><td>0</td>
+      <td><span class="badge badge-red">negatif</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Flux de la semaine -->
+<h2>Flux de la semaine</h2>
+<div class="card">
+  <div class="flow-bar">
+    <span class="flow-label">Reception fournisseur</span>
+    <span class="bar bar-green" style="width:50px"></span>
+    <span class="flow-value green">25 recues</span>
+    <span style="font-size:.75rem;color:var(--orange)">+ 15 en attente</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">Ajustement transit</span>
+    <span class="bar bar-blue" style="width:200px"></span>
+    <span class="flow-value blue">149</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">Reappro GMS</span>
+    <span class="bar bar-blue" style="width:55px"></span>
+    <span class="flow-value blue">32</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">Reappro Namur</span>
+    <span class="bar bar-green" style="width:15px"></span>
+    <span class="flow-value green">8 &check;</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">Reappro Waterloo</span>
+    <span class="bar bar-green" style="width:12px"></span>
+    <span class="flow-value green">6 &check;</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">Reappro Liege</span>
+    <span class="bar bar-orange" style="width:28px"></span>
+    <span class="flow-value orange">14 bloque!</span>
+  </div>
+  <div style="height:8px;border-top:1px dashed var(--border);margin:10px 0;"></div>
+  <div class="flow-bar">
+    <span class="flow-label">Ventes POS</span>
+    <span class="bar bar-red" style="width:48px"></span>
+    <span class="flow-value red">-24</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">E-commerce expedie</span>
+    <span class="bar bar-red" style="width:72px"></span>
+    <span class="flow-value red">-36</span>
+  </div>
+  <div class="flow-bar">
+    <span class="flow-label">E-commerce en cours</span>
+    <span class="bar bar-orange" style="width:36px"></span>
+    <span class="flow-value orange">-18 pending</span>
+  </div>
+</div>
+
+<!-- Ventes POS par magasin -->
+<h2>Ventes POS par magasin</h2>
+<div class="grid-3">
+  <!-- Liege -->
+  <div class="card store-card" style="border-color:var(--orange);">
+    <h3>Liege <span class="badge badge-orange">11 unites &bull; 126.05 &euro;</span></h3>
+    <table>
+      <thead><tr><th>Date</th><th>Ticket</th><th>Qte</th><th>Montant</th></tr></thead>
+      <tbody>
+        <tr><td>03/03 09:30</td><td>4870</td><td>1</td><td>11.00 &euro;</td></tr>
+        <tr><td>03/03 09:37</td><td>4871</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/03 10:47</td><td>4877</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/05 11:25</td><td>4939</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/06 10:56</td><td>4968</td><td>1</td><td>11.00 &euro;</td></tr>
+        <tr><td>03/06 10:59</td><td>4969</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/07 15:06</td><td>5046</td><td>1</td><td>11.00 &euro;</td></tr>
+        <tr><td>03/07 16:15</td><td>5061</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/07 16:21</td><td>5064</td><td>2</td><td>20.90 &euro;</td></tr>
+      </tbody>
+    </table>
+    <div class="alert-box" style="margin-top:12px;margin-bottom:0;">
+      <h4>Stock : 10 &rarr; Rupture dans ~6 jours</h4>
+      <p>14 unites de reappro bloqueees (LIEGE/INT/00130 + 00143)</p>
+    </div>
+  </div>
+
+  <!-- Namur -->
+  <div class="card store-card" style="border-color:var(--green);">
+    <h3>Namur <span class="badge badge-green">13 unites &bull; 135.85 &euro;</span></h3>
+    <table>
+      <thead><tr><th>Date</th><th>Ticket</th><th>Qte</th><th>Montant</th></tr></thead>
+      <tbody>
+        <tr><td>03/04 14:23</td><td>8004</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/05 16:21</td><td>8065</td><td><strong>6</strong></td><td>62.70 &euro;</td></tr>
+        <tr><td>03/06 13:31</td><td>8103</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/07 10:46</td><td>8148</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/07 16:59</td><td>8252</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/09 14:42</td><td>8273</td><td>1</td><td>10.45 &euro;</td></tr>
+        <tr><td>03/10 11:58</td><td>8286</td><td>1</td><td>10.45 &euro;</td></tr>
+      </tbody>
+    </table>
+    <div class="ok-box" style="margin-top:12px;margin-bottom:0;">
+      <h4>Stock : 20 &rarr; OK (~1.5 semaines)</h4>
+      <p>Reappro de 8 unites recue le 9 mars</p>
+    </div>
+  </div>
+
+  <!-- Waterloo -->
+  <div class="card store-card" style="border-color:var(--blue);">
+    <h3>Waterloo <span class="badge badge-blue">0 vente cette semaine</span></h3>
+    <p style="color:var(--muted);padding:20px 0;text-align:center;font-size:.9rem;">Aucune vente POS enregistree<br>du 3 au 10 mars</p>
+    <div class="info-box" style="margin-bottom:0;">
+      <h4>Stock : 18 &rarr; Confortable</h4>
+      <p>Reappro de 6 unites recue le 4 mars</p>
+    </div>
+  </div>
+</div>
+
+<!-- Chronologie des mouvements -->
+<h2>Chronologie complete des mouvements</h2>
+
+<!-- Mars 3 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Lundi 3 mars — 14 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-int"><td>07:55</td><td>TT/PICK/07729</td><td>6</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>07:58</td><td>TT/OUT/06883</td><td>6</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:35</td><td>TT/PICK/07716</td><td>2</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:36</td><td>TT/PICK/07721</td><td>2</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>09:30</td><td>LIEGE/POS/04885</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>09:37</td><td>LIEGE/POS/04886</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-in move-pending"><td>09:38</td><td>TT/IN/00641 (P00451)</td><td>15</td><td>Fournisseur &rarr; TT/Entree</td><td><span class="badge badge-green">Reception</span></td><td><span class="badge badge-orange">assigned</span></td></tr>
+    <tr class="move-out"><td>09:47</td><td>TT/OUT/06894</td><td>2</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>09:48</td><td>TT/OUT/06893</td><td>2</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>10:47</td><td>LIEGE/POS/04892</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int move-pending"><td>12:00</td><td>LIEGE/INT/00130</td><td>8</td><td>TT/Stock &rarr; LIEGE</td><td><span class="badge badge-blue">Reappro</span></td><td><span class="badge badge-orange">assigned</span></td></tr>
+    <tr class="move-in"><td>12:23</td><td>TT/IN/00639 (P00451)</td><td>25</td><td>Fournisseur &rarr; TT/Entree</td><td><span class="badge badge-green">Reception</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>12:37</td><td>TT/STOR/00566</td><td>25</td><td>TT/Entree &rarr; TT/Stock</td><td><span class="badge badge-blue">Rangement</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>13:54</td><td>TT/PICK/07755</td><td>5</td><td>GMS/Stock &rarr; Clients</td><td><span class="badge badge-red">GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 4 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Mardi 4 mars — 9 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-int"><td>07:20</td><td>TT/PICK/07751</td><td>5</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>07:24</td><td>TT/OUT/06908</td><td>5</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:36</td><td>Ajustement inventaire</td><td>6</td><td>TT/Stock &rarr; PICK/A-08</td><td><span class="badge badge-blue">Ajust.</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:36</td><td>Ajustement inventaire</td><td>10</td><td>PICK/A-21 &rarr; TT/Stock</td><td><span class="badge badge-blue">Ajust.</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:36</td><td>Ajustement inventaire</td><td>4</td><td>TT/Stock &rarr; PICK/A-21-02</td><td><span class="badge badge-blue">Ajust.</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:37</td><td>Ajustement inventaire</td><td>149</td><td>Transit &rarr; TT/Stock</td><td><span class="badge badge-blue">Transit</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:37</td><td>Ajustement inventaire</td><td>149</td><td>TT/Stock &rarr; PICK/A-21</td><td><span class="badge badge-blue">Rangement</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>11:14</td><td>WAT/INT/00115</td><td>6</td><td>TT/Stock &rarr; WAT/Stock</td><td><span class="badge badge-blue">Reappro</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>14:23</td><td>NAM/POS/06671</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 5 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Mercredi 5 mars — 2 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-out"><td>11:25</td><td>LIEGE/POS/04954</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>16:21</td><td>NAM/POS/06732</td><td>6</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 6 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Jeudi 6 mars — 7 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-out"><td>10:00</td><td>TT/PICK/07804</td><td>6</td><td>GMS/Stock &rarr; Clients</td><td><span class="badge badge-red">GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>10:08</td><td>TT/PICK/07805</td><td>8</td><td>GMS/Stock &rarr; Clients</td><td><span class="badge badge-red">GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>10:56</td><td>LIEGE/POS/04983</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>10:59</td><td>LIEGE/POS/04984</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>11:05</td><td>TT/PICK/07800</td><td>4</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>11:09</td><td>TT/OUT/06947</td><td>4</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>13:31</td><td>NAM/POS/06770</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 7 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Vendredi 7 mars — 6 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-out"><td>10:46</td><td>NAM/POS/06815</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int move-pending"><td>12:00</td><td>LIEGE/INT/00143</td><td>6</td><td>TT/Stock &rarr; LIEGE</td><td><span class="badge badge-blue">Reappro</span></td><td><span class="badge badge-orange">assigned</span></td></tr>
+    <tr class="move-out"><td>15:06</td><td>LIEGE/POS/05061</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>16:15</td><td>LIEGE/POS/05076</td><td>1</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>16:21</td><td>LIEGE/POS/05079</td><td>2</td><td>LIEGE &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>16:59</td><td>NAM/POS/06920</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 8 -->
+<div class="card" style="opacity:.5;text-align:center;padding:12px;">
+  <span style="color:var(--muted);font-size:.85rem;">Samedi 8 mars — Aucun mouvement</span>
+</div>
+
+<!-- Mars 9 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Dimanche 9 mars — 9 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-int"><td>07:24</td><td>TT/GMS/00327</td><td>24</td><td>TT/Stock &rarr; GMS/Stock</td><td><span class="badge badge-blue">Reappro GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>08:35</td><td>TT/PICK/07814</td><td>6</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out move-pending"><td>08:35</td><td>TT/OUT/06965</td><td>6</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-orange">assigned</span></td></tr>
+    <tr class="move-int"><td>10:06</td><td>TT/PICK/07821</td><td>1</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>12:22</td><td>TT/OUT/06972</td><td>1</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>12:52</td><td>TT/PICK/07864</td><td>6</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>12:57</td><td>TT/OUT/06997</td><td>6</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>13:56</td><td>NAM/INT/01465</td><td>8</td><td>TT/Stock &rarr; NAM/Stock</td><td><span class="badge badge-blue">Reappro</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>14:42</td><td>NAM/POS/06943</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mars 10 -->
+<div class="card">
+<table>
+  <thead><tr><td colspan="6" class="day-header">Lundi 10 mars — 5 mouvements</td></tr>
+  <tr><th>Heure</th><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Statut</th></tr></thead>
+  <tbody>
+    <tr class="move-out"><td>07:51</td><td>TT/PICK/07869</td><td>4</td><td>GMS/Stock &rarr; Clients</td><td><span class="badge badge-red">GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>08:18</td><td>TT/PICK/07870</td><td>4</td><td>GMS/Stock &rarr; Clients</td><td><span class="badge badge-red">GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int"><td>09:08</td><td>TT/GMS/00337</td><td>8</td><td>TT/Stock &rarr; GMS/Stock</td><td><span class="badge badge-blue">Reappro GMS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-out"><td>11:58</td><td>NAM/POS/06956</td><td>1</td><td>NAM &rarr; Clients</td><td><span class="badge badge-red">POS</span></td><td><span class="badge badge-green">done</span></td></tr>
+    <tr class="move-int move-pending"><td>14:00</td><td>TT/PICK/07896</td><td>12</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td><span class="badge badge-orange">assigned</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Mouvements en attente -->
+<h2>Mouvements en attente (toutes dates)</h2>
+<div class="card" style="border-color:var(--orange);">
+<table>
+  <thead><tr><th>Reference</th><th>Qte</th><th>De &rarr; Vers</th><th>Type</th><th>Origine</th></tr></thead>
+  <tbody>
+    <tr style="background:var(--green-bg);">
+      <td>TT/IN/00531</td><td><strong class="green">1 000</strong></td><td>Fournisseur &rarr; TT/Entree</td><td><span class="badge badge-green">Achat</span></td><td>P00394</td>
+    </tr>
+    <tr style="background:var(--green-bg);">
+      <td>TT/MO/03468</td><td><strong class="green">450</strong></td><td>Production &rarr; TT/Stock</td><td><span class="badge badge-green">Fabrication</span></td><td>Ordre de fabrication</td>
+    </tr>
+    <tr style="background:var(--green-bg);">
+      <td>TT/IN/00641</td><td><strong class="green">15</strong></td><td>Fournisseur &rarr; TT/Entree</td><td><span class="badge badge-green">Achat</span></td><td>P00451</td>
+    </tr>
+    <tr style="background:var(--orange-bg);">
+      <td>LIEGE/INT/00130</td><td><strong class="orange">8</strong></td><td>TT/Stock &rarr; LIEGE</td><td><span class="badge badge-orange">Reappro</span></td><td>OP/32659</td>
+    </tr>
+    <tr style="background:var(--orange-bg);">
+      <td>LIEGE/INT/00143</td><td><strong class="orange">6</strong></td><td>TT/Stock &rarr; LIEGE</td><td><span class="badge badge-orange">Reappro</span></td><td>OP/32659</td>
+    </tr>
+    <tr>
+      <td>TT/PICK/07896</td><td>12</td><td>TT/Stock/PICK &rarr; TT/Sortie</td><td><span class="badge badge-blue">Pick</span></td><td>S05146</td>
+    </tr>
+    <tr>
+      <td>TT/OUT/06965</td><td>6</td><td>TT/Sortie &rarr; Clients</td><td><span class="badge badge-red">E-com</span></td><td>S05122</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Diagnostic -->
+<h2>Diagnostic</h2>
+
+<div class="ok-box">
+  <h4>Stock central : position solide</h4>
+  <p>257 unites en PICK + 1 465 en attente de reception (1 000 achat + 450 production + 15 reliquat). Aucun risque de rupture au central. Rotation saine : ~60 u./semaine sur un stock de 257 = <strong>~4 semaines de couverture</strong>.</p>
+</div>
+
+<div class="ok-box">
+  <h4>Namur & Waterloo : bien geres</h4>
+  <p>Les transferts de reappro ont ete valides et recus (NAM 8u. le 9/03, WAT 6u. le 4/03). Namur vend regulierement (13u./semaine) avec un stock de 20 = 1.5 semaines. Waterloo : pas de vente cette semaine, stock de 18 confortable.</p>
+</div>
+
+<div class="alert-box">
+  <h4>Liege : meme probleme systemique que l'analyse globale</h4>
+  <p>Le systeme de reappro automatique (OP/32659) genere correctement les transferts, mais ils restent bloques en <strong>"assigned"</strong> — personne ne valide l'expedition cote central. Liege vend 11u./semaine avec seulement 10 en stock. <strong>Action : valider LIEGE/INT/00130 et LIEGE/INT/00143 immediatement.</strong></p>
+</div>
+
+<div class="info-box">
+  <h4>POP/Stock : stock negatif (-14)</h4>
+  <p>L'emplacement POP (Pop-up store ?) montre un stock negatif de -14 unites. Meme schema que les echantillons : sorties enregistrees sans reception prealable.</p>
+</div>
+
+<!-- Footer -->
+<div style="margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:.78rem;text-align:center;">
+  <p>Analyse generee le 10 mars 2026 — Donnees Odoo JSON-RPC (tea-tree.odoo.com)</p>
+  <p>Modeles : stock.quant, stock.move, pos.order, pos.order.line</p>
+</div>
+
+</body>
+</html>
