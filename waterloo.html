@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drive-to-Store Waterloo — Plan d'action — Teatower</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+    --text: #e4e4e7; --muted: #9ca3af; --accent: #6366f1;
+    --red: #ef4444; --orange: #f59e0b; --green: #22c55e; --blue: #3b82f6; --purple: #a855f7;
+    --red-bg: rgba(239,68,68,.12); --orange-bg: rgba(245,158,11,.12);
+    --green-bg: rgba(34,197,94,.12); --blue-bg: rgba(59,130,246,.12); --purple-bg: rgba(168,85,247,.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 2px; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 30px 0 14px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; }
+  .sub { color: var(--muted); font-size: .85rem; margin-bottom: 22px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .kpi .l { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .kpi .v { font-size: 1.6rem; font-weight: 700; margin: 3px 0; }
+  .kpi .d { font-size: .76rem; color: var(--muted); }
+  .red { color: var(--red); } .orange { color: var(--orange); } .green { color: var(--green); } .blue { color: var(--blue); } .purple { color: var(--purple); }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { text-align: left; padding: 7px 10px; background: rgba(99,102,241,.07); color: var(--accent); font-weight: 600; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 6px 10px; border-bottom: 1px solid rgba(42,45,58,.5); }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  .b { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: .72rem; font-weight: 600; }
+  .b-r { background: var(--red-bg); color: var(--red); }
+  .b-o { background: var(--orange-bg); color: var(--orange); }
+  .b-g { background: var(--green-bg); color: var(--green); }
+  .b-b { background: var(--blue-bg); color: var(--blue); }
+  .b-p { background: var(--purple-bg); color: var(--purple); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; border-radius: 4px; display: inline-block; vertical-align: middle; }
+
+  .idea-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 12px; position: relative; overflow: hidden; }
+  .idea-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px; }
+  .idea-card.quick::before { background: var(--green); }
+  .idea-card.weekly::before { background: var(--blue); }
+  .idea-card.collab::before { background: var(--purple); }
+  .idea-card.digital::before { background: var(--orange); }
+  .idea-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: .8rem; font-weight: 700; margin-right: 10px; flex-shrink: 0; }
+  .idea-card.quick .idea-num { background: var(--green-bg); color: var(--green); }
+  .idea-card.weekly .idea-num { background: var(--blue-bg); color: var(--blue); }
+  .idea-card.collab .idea-num { background: var(--purple-bg); color: var(--purple); }
+  .idea-card.digital .idea-num { background: var(--orange-bg); color: var(--orange); }
+  .idea-header { display: flex; align-items: center; margin-bottom: 8px; }
+  .idea-title { font-weight: 700; font-size: .95rem; }
+  .idea-body { color: var(--muted); font-size: .85rem; padding-left: 38px; }
+  .idea-body strong { color: var(--text); }
+  .idea-tags { padding-left: 38px; margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .alert-box { border-left: 3px solid var(--red); padding: 14px 18px; margin: 14px 0; background: var(--red-bg); border-radius: 0 8px 8px 0; }
+  .alert-box h4 { color: var(--red); margin-bottom: 4px; font-size: .92rem; }
+  .data-box { border-left: 3px solid var(--blue); padding: 14px 18px; margin: 14px 0; background: var(--blue-bg); border-radius: 0 8px 8px 0; }
+  .data-box h4 { color: var(--blue); margin-bottom: 4px; font-size: .92rem; }
+  .opp-box { border-left: 3px solid var(--green); padding: 14px 18px; margin: 14px 0; background: var(--green-bg); border-radius: 0 8px 8px 0; }
+  .opp-box h4 { color: var(--green); margin-bottom: 4px; font-size: .92rem; }
+
+  .roadmap { position: relative; }
+  .roadmap-row { display: grid; grid-template-columns: 80px 1fr; gap: 16px; margin-bottom: 0; }
+  .roadmap-week { font-weight: 700; font-size: .85rem; padding: 14px 0; color: var(--accent); position: relative; }
+  .roadmap-week::after { content: ''; position: absolute; right: -8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .roadmap-items { padding: 10px 0 10px 12px; border-bottom: 1px solid var(--border); }
+  .roadmap-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; font-size: .84rem; }
+  .roadmap-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .roadmap-meta { display: flex; gap: 12px; margin-top: 2px; font-size: .72rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>Drive-to-Store Waterloo</h1>
+<p class="sub">Plan d'action pour tripler le trafic en magasin &bull; Base sur l'analyse inventaire Classe A (24 fev — 10 mars 2026)</p>
+
+<!-- Diagnostic KPIs -->
+<h2>Diagnostic : Waterloo vs reseau</h2>
+
+<div class="grid-4">
+  <div class="kpi" style="border-top:3px solid var(--red);">
+    <div class="l">CA POS Waterloo</div>
+    <div class="v red">1 152 &euro;</div>
+    <div class="d">9.4% du total POS</div>
+  </div>
+  <div class="kpi" style="border-top:3px solid var(--green);">
+    <div class="l">CA POS Namur</div>
+    <div class="v green">5 113 &euro;</div>
+    <div class="d">42% du total &bull; x4.4 Waterloo</div>
+  </div>
+  <div class="kpi" style="border-top:3px solid var(--accent);">
+    <div class="l">CA POS Liege</div>
+    <div class="v blue">3 897 &euro;</div>
+    <div class="d">32% du total &bull; x3.4 Waterloo</div>
+  </div>
+  <div class="kpi" style="border-top:3px solid var(--purple);">
+    <div class="l">CA POS Pop-Up</div>
+    <div class="v purple">2 038 &euro;</div>
+    <div class="d">17% du total &bull; x1.8 Waterloo</div>
+  </div>
+</div>
+
+<div class="alert-box">
+  <h4>Waterloo sous-performe sur tous les indicateurs</h4>
+  <p>112 unites vendues en 2 semaines (vs 464 Namur). Ecarts de <strong>-77% a -100%</strong> sur les top sellers. Plusieurs best-sellers a <strong>0 vente</strong> (Blue Earl Grey, Fouet Matcha electrique). Le probleme n'est pas l'assortiment — c'est le trafic.</p>
+</div>
+
+<!-- Ecarts produits -->
+<div class="card">
+  <h3>Ecarts de vente : Waterloo vs Namur &amp; Liege (2 semaines)</h3>
+  <table>
+    <thead><tr><th>Produit</th><th class="num">Namur</th><th class="num">Liege</th><th class="num" style="color:var(--red)">Waterloo</th><th>Ecart</th></tr></thead>
+    <tbody>
+      <tr><td>V0832 La Nana de Wepion</td><td class="num"><strong>40</strong></td><td class="num">15</td><td class="num red"><strong>4</strong></td><td><span class="b b-r">-90% vs Namur</span></td></tr>
+      <tr><td>V0735 Peche de vigne BIO</td><td class="num"><strong>29</strong></td><td class="num">18</td><td class="num red"><strong>4</strong></td><td><span class="b b-r">-86% vs Namur</span></td></tr>
+      <tr><td>I0631 Le the des amoureux</td><td class="num"><strong>26</strong></td><td class="num">22</td><td class="num red"><strong>5</strong></td><td><span class="b b-r">-81% vs Namur</span></td></tr>
+      <tr><td>V0878 Guarana Boost</td><td class="num"><strong>13</strong></td><td class="num">6</td><td class="num red"><strong>2</strong></td><td><span class="b b-r">-85% vs Namur</span></td></tr>
+      <tr><td>V0669 Vert Jasmin</td><td class="num"><strong>13</strong></td><td class="num">6</td><td class="num red"><strong>3</strong></td><td><span class="b b-r">-77% vs Namur</span></td></tr>
+      <tr><td>I0723 Namaste BIO</td><td class="num">7</td><td class="num"><strong>10</strong></td><td class="num red"><strong>1</strong></td><td><span class="b b-r">-86%</span></td></tr>
+      <tr><td>I0880 Blue Earl Grey BIO</td><td class="num">3</td><td class="num"><strong>10</strong></td><td class="num red"><strong>0</strong></td><td><span class="b b-r">-100%</span></td></tr>
+      <tr><td>A1074 Fouet electrique Matcha</td><td class="num">1</td><td class="num"><strong>10</strong></td><td class="num red"><strong>0</strong></td><td><span class="b b-r">-100%</span></td></tr>
+      <tr><td>V0907 Matcha Fruit passion</td><td class="num">6</td><td class="num">4</td><td class="num red"><strong>0</strong></td><td><span class="b b-r">-100%</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Opportunite Matcha -->
+<div class="opp-box">
+  <h4>Opportunite Matcha : prouvee par le Pop-Up</h4>
+  <p>Le Pop-Up genere <strong>1 158 &euro; de Matcha</strong> en 2 semaines (30 unites V0895, 13 V0907, 8 A1135 coffrets, 6 A0297 fouets). Waterloo a la clientele (pouvoir d'achat eleve, expats) mais <strong>0 activation</strong> sur cette gamme. Un atelier Matcha + Matcha Bar peut debloquer ce potentiel.</p>
+</div>
+
+<!-- 15 Ideas -->
+<h2>15 idees drive-to-store</h2>
+
+<!-- Quick Wins -->
+<h3 style="color:var(--green);">Quick wins — cette semaine</h3>
+
+<div class="idea-card quick">
+  <div class="idea-header">
+    <span class="idea-num">1</span>
+    <span class="idea-title">"Waterloo Exclusive" — Matcha Bar en magasin</span>
+  </div>
+  <div class="idea-body">
+    Installer un coin degustation Matcha permanent avec <strong>preparation en direct</strong>. Le Pop-Up prouve la demande (1 158 &euro; / 2 sem.). Waterloo a 0 vente sur V0895, V0907, A1074. Ce n'est pas un probleme de demande — c'est un probleme d'activation. Degustation gratuite = conversion en vente d'accessoires (<strong>fouet 16 &euro; + bol 15 &euro; + coffret 39 &euro; = panier 70 &euro;+</strong>).
+  </div>
+  <div class="idea-tags">
+    <span class="b b-g">0 &euro;</span>
+    <span class="b b-g">Impact fort</span>
+    <span class="b b-g">Immediat</span>
+  </div>
+</div>
+
+<div class="idea-card quick">
+  <div class="idea-header">
+    <span class="idea-num">2</span>
+    <span class="idea-title">Click &amp; Collect incentive (-10% ou echantillon)</span>
+  </div>
+  <div class="idea-body">
+    Les infusettes se vendent <strong>2x a 19x plus en e-commerce</strong> qu'en POS. Offrir -10% ou un echantillon gratuit pour toute commande web retiree a Waterloo. <strong>Convertir le flux e-com en trafic physique.</strong> Chaque visite Click &amp; Collect = opportunite de vente additionnelle en magasin.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-g">~2 &euro;/commande</span>
+    <span class="b b-g">Impact moyen</span>
+    <span class="b b-g">Immediat</span>
+  </div>
+</div>
+
+<div class="idea-card quick">
+  <div class="idea-header">
+    <span class="idea-num">3</span>
+    <span class="idea-title">Google Business Profile — posts hebdomadaires</span>
+  </div>
+  <div class="idea-body">
+    Poster chaque lundi : produit de la semaine, event a venir, photo de la vitrine. <strong>80% du trafic local passe par Google Maps.</strong> Verifier que les horaires, photos et avis sont a jour. Repondre a chaque avis. Ajouter les attributs "degustation sur place", "produits bio".
+  </div>
+  <div class="idea-tags">
+    <span class="b b-g">0 &euro;</span>
+    <span class="b b-g">Visibilite SEO local</span>
+    <span class="b b-g">15 min/semaine</span>
+  </div>
+</div>
+
+<!-- Weekly Activations -->
+<h3 style="color:var(--blue);">Activations hebdomadaires (rotation)</h3>
+
+<div class="idea-card weekly">
+  <div class="idea-header">
+    <span class="idea-num">4</span>
+    <span class="idea-title">"The du mardi" — degustation hebdo gratuite</span>
+  </div>
+  <div class="idea-body">
+    Chaque mardi 10h-12h, degustation d'un the different. <strong>Pas besoin d'acheter.</strong> Objectif : creer une habitude de passage. Le mardi est souvent creux en retail. Alterner les gammes : semaine 1 = vrac classique, semaine 2 = infusion bien-etre, semaine 3 = the vert japonais, semaine 4 = the glace.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-b">~20 &euro;/semaine</span>
+    <span class="b b-b">Fidelisation</span>
+    <span class="b b-b">Recurrent</span>
+  </div>
+</div>
+
+<div class="idea-card weekly">
+  <div class="idea-header">
+    <span class="idea-num">5</span>
+    <span class="idea-title">Atelier Matcha 45 min (samedi, 15 &euro;)</span>
+  </div>
+  <div class="idea-body">
+    Waterloo = 0 vente fouet Matcha, 0 fouet electrique en 2 semaines. Le Pop-Up en vend 6 + 30 Matcha. <strong>Le probleme n'est pas la demande — c'est l'activation.</strong> Un atelier convertit en vente d'accessoires. 8-10 participants x 15 &euro; = 120-150 &euro; de recette atelier + ventes accessoires estimees 200-300 &euro; supplementaires.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-b">~50 &euro; materiel</span>
+    <span class="b b-g">Impact fort</span>
+    <span class="b b-b">2x/mois</span>
+  </div>
+</div>
+
+<div class="idea-card weekly">
+  <div class="idea-header">
+    <span class="idea-num">6</span>
+    <span class="idea-title">"The &amp; Bouquin" avec une librairie locale</span>
+  </div>
+  <div class="idea-body">
+    Waterloo a plusieurs librairies. Partenariat : degustation en librairie OU coin lecture en boutique avec selection de livres. <strong>Audience ciblee, culturelle, forte affinite the.</strong> Event mensuel "book club du the" : chaque participant choisit un livre + un the assorti.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-b">~30 &euro;/event</span>
+    <span class="b b-b">Cross-audience</span>
+    <span class="b b-b">1x/mois</span>
+  </div>
+</div>
+
+<div class="idea-card weekly">
+  <div class="idea-header">
+    <span class="idea-num">7</span>
+    <span class="idea-title">"Pause The" pour les bureaux du coin</span>
+  </div>
+  <div class="idea-body">
+    Waterloo a beaucoup de PME et independants. Proposition : livraison d'un <strong>plateau degustation (10-15 &euro;)</strong> dans les bureaux proches avec flyer "venez nous voir". B2B qui genere du B2C. 5 bureaux/semaine = 25 personnes exposees = ~5 visites en magasin.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-b">~10 &euro;/plateau</span>
+    <span class="b b-b">B2B &rarr; B2C</span>
+    <span class="b b-b">Prospection</span>
+  </div>
+</div>
+
+<!-- Collabs locales -->
+<h3 style="color:var(--purple);">Collabs locales (au-dela des retailers)</h3>
+
+<div class="idea-card collab">
+  <div class="idea-header">
+    <span class="idea-num">8</span>
+    <span class="idea-title">Yoga / pilates / bien-etre studios</span>
+  </div>
+  <div class="idea-body">
+    Waterloo regorge de studios. Partenariat : echantillon dans le sac de bienvenue, affiche en studio, <strong>"the post-cours" offert en boutique sur presentation du pass</strong>. Guarana Boost et tisanes bien-etre = match parfait. Objectif : 3 studios partenaires = ~200 membres exposes.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-p">Echantillons</span>
+    <span class="b b-p">Trafic qualifie</span>
+    <span class="b b-p">Bien-etre</span>
+  </div>
+</div>
+
+<div class="idea-card collab">
+  <div class="idea-header">
+    <span class="idea-num">9</span>
+    <span class="idea-title">Ecoles internationales &amp; communaute expat</span>
+  </div>
+  <div class="idea-body">
+    Waterloo = forte communaute expat (ISB, St John's). Les parents expats adorent decouvrir le local. Proposer des <strong>"tea discovery kits"</strong> pour les events d'ecole, kermesses, fetes de parents. Flyer bilingue FR/EN avec offre "welcome 10%" en boutique.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-p">~50 &euro;/event</span>
+    <span class="b b-p">Expats</span>
+    <span class="b b-p">Haut pouvoir d'achat</span>
+  </div>
+</div>
+
+<div class="idea-card collab">
+  <div class="idea-header">
+    <span class="idea-num">10</span>
+    <span class="idea-title">Marche de Waterloo (mercredi &amp; samedi)</span>
+  </div>
+  <div class="idea-body">
+    Presence physique avec un petit stand degustation au marche. <strong>Pas de vente — juste des echantillons + flyer</strong> avec offre en magasin ("presentez ce flyer pour un echantillon gratuit en boutique"). Cout minimal, visibilite maximale aupres des habitants.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-p">~30 &euro;/samedi</span>
+    <span class="b b-g">Impact fort</span>
+    <span class="b b-p">Notoriete locale</span>
+  </div>
+</div>
+
+<div class="idea-card collab">
+  <div class="idea-header">
+    <span class="idea-num">11</span>
+    <span class="idea-title">Restaurants &amp; cafes sans offre the</span>
+  </div>
+  <div class="idea-body">
+    Beaucoup de restos a Waterloo servent du Lipton en sachet. Proposition : fournir leur <strong>carte the (5-6 references)</strong> en echange de visibilite ("The servi par Teatower — boutique rue X"). Double benefice : revenus HORECA + drive-to-store pour les clients curieux.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-p">Marge HORECA</span>
+    <span class="b b-p">Visibilite permanente</span>
+    <span class="b b-p">Prospection</span>
+  </div>
+</div>
+
+<!-- Digital local -->
+<h3 style="color:var(--orange);">Digital local</h3>
+
+<div class="idea-card digital">
+  <div class="idea-header">
+    <span class="idea-num">12</span>
+    <span class="idea-title">Campagne Meta hyper-locale (rayon 3km)</span>
+  </div>
+  <div class="idea-body">
+    Budget : <strong>5 &euro;/jour</strong>. Cible : femmes 28-55, interets the/bien-etre/bio, rayon 3km Waterloo. Format : Reel de 15 secondes "visite notre boutique" avec le gerant qui montre un produit. CTA : "Degustation gratuite ce samedi". Audience estimee : 15 000-25 000 personnes dans la zone.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-o">150 &euro;/mois</span>
+    <span class="b b-o">+30-50 visites/mois</span>
+    <span class="b b-o">Mesurable</span>
+  </div>
+</div>
+
+<div class="idea-card digital">
+  <div class="idea-header">
+    <span class="idea-num">13</span>
+    <span class="idea-title">Micro-influenceurs locaux Waterloo</span>
+  </div>
+  <div class="idea-body">
+    Pas besoin de 100K followers. <strong>2-3 comptes Instagram Waterloo / Brabant wallon</strong> avec 2-5K followers. Invitation en boutique, degustation, post organique. Cout : 1 coffret offert par influenceur. ROI : 1 post = 500-2 000 impressions locales qualifiees.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-o">2 coffrets</span>
+    <span class="b b-o">Authenticite</span>
+    <span class="b b-o">Local</span>
+  </div>
+</div>
+
+<div class="idea-card digital">
+  <div class="idea-header">
+    <span class="idea-num">14</span>
+    <span class="idea-title">Programme fidelite "Passeport The"</span>
+  </div>
+  <div class="idea-body">
+    Carte papier simple : <strong>10 passages = 1 boite de 100g offerte</strong>. Objectif : transformer les visiteurs uniques en habitues. Le panier moyen de Waterloo est probablement correct — c'est le nombre de visites qui manque. Cout : impression des cartes (~20 &euro;) + 1 boite offerte / 10 visites.
+  </div>
+  <div class="idea-tags">
+    <span class="b b-o">~20 &euro; setup</span>
+    <span class="b b-o">Frequence de visite</span>
+    <span class="b b-o">Long terme</span>
+  </div>
+</div>
+
+<div class="idea-card digital">
+  <div class="idea-header">
+    <span class="idea-num">15</span>
+    <span class="idea-title">Sac kraft co-brande avec les collabs</span>
+  </div>
+  <div class="idea-body">
+    A chaque collab retailer, les deux commercants utilisent un <strong>sac ou flyer commun</strong>. Le client du fleuriste repart avec un echantillon Teatower et vice versa. Multiplicateur de visibilite entre les deux bases clients. Fonctionne aussi avec le boulanger, le chocolatier, le caviste...
+  </div>
+  <div class="idea-tags">
+    <span class="b b-o">~50 &euro;/collab</span>
+    <span class="b b-o">Cross-clients</span>
+    <span class="b b-o">Systematiser</span>
+  </div>
+</div>
+
+<!-- Roadmap -->
+<h2>Roadmap — 4 semaines</h2>
+
+<div class="card">
+<div class="roadmap">
+
+  <div class="roadmap-row">
+    <div class="roadmap-week">S11<br><span style="font-weight:400;font-size:.72rem;color:var(--muted)">10-16 mars</span></div>
+    <div class="roadmap-items">
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--green);"></span>
+        <div>
+          <strong>Google Business Profile</strong> — mise a jour complete + 1er post
+          <div class="roadmap-meta"><span>0 &euro;</span><span>15 min</span><span class="green">Quick win</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--green);"></span>
+        <div>
+          <strong>Click &amp; Collect -10%</strong> — activer la promo sur Shopify
+          <div class="roadmap-meta"><span>~2 &euro;/commande</span><span>30 min setup</span><span class="green">Quick win</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--orange);"></span>
+        <div>
+          <strong>Lancer la campagne Meta 3km</strong> — creer le Reel + lancer a 5 &euro;/jour
+          <div class="roadmap-meta"><span>150 &euro;/mois</span><span>1h creation</span><span class="orange">Digital</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--green);"></span>
+        <div>
+          <strong>Installer le Matcha Bar</strong> — espace degustation permanent en magasin
+          <div class="roadmap-meta"><span>~30 &euro; materiel</span><span>1h setup</span><span class="green">Quick win</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-row">
+    <div class="roadmap-week">S12<br><span style="font-weight:400;font-size:.72rem;color:var(--muted)">17-23 mars</span></div>
+    <div class="roadmap-items">
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--blue);"></span>
+        <div>
+          <strong>1er Atelier Matcha</strong> — samedi 22 mars, 10h30, 8-10 places
+          <div class="roadmap-meta"><span>~50 &euro;</span><span>Objectif 300 &euro; ventes accessoires</span><span class="blue">Atelier</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--blue);"></span>
+        <div>
+          <strong>1er "The du mardi"</strong> — mardi 18, 10h-12h, degustation gratuite
+          <div class="roadmap-meta"><span>~20 &euro;</span><span>Recurrent chaque mardi</span><span class="blue">Hebdo</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--orange);"></span>
+        <div>
+          <strong>Contacter 2 micro-influenceurs</strong> — DM Instagram Waterloo/BW
+          <div class="roadmap-meta"><span>2 coffrets</span><span>Posts S13-S14</span><span class="orange">Digital</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-row">
+    <div class="roadmap-week">S13<br><span style="font-weight:400;font-size:.72rem;color:var(--muted)">24-30 mars</span></div>
+    <div class="roadmap-items">
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--purple);"></span>
+        <div>
+          <strong>Contact 3 studios yoga/pilates</strong> — proposition partenariat echantillons
+          <div class="roadmap-meta"><span>Echantillons</span><span>~200 membres exposes</span><span class="purple">Collab</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--purple);"></span>
+        <div>
+          <strong>Collab retailer bi-mensuelle</strong> + sac co-brande
+          <div class="roadmap-meta"><span>~50 &euro;</span><span>Cross-clients</span><span class="purple">Collab</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--blue);"></span>
+        <div>
+          <strong>"The du mardi" #2</strong> — gamme bien-etre (Namaste, Guarana Boost)
+          <div class="roadmap-meta"><span>~20 &euro;</span><span>Recurrent</span><span class="blue">Hebdo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-row">
+    <div class="roadmap-week">S14<br><span style="font-weight:400;font-size:.72rem;color:var(--muted)">31 mars - 6 avr</span></div>
+    <div class="roadmap-items">
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--purple);"></span>
+        <div>
+          <strong>Stand degustation marche Waterloo</strong> — samedi matin, echantillons + flyers
+          <div class="roadmap-meta"><span>~30 &euro;</span><span>Notoriete locale massive</span><span class="purple">Collab</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--purple);"></span>
+        <div>
+          <strong>Prospection "Pause The" bureaux</strong> — 5 premiers plateaux livres
+          <div class="roadmap-meta"><span>~50 &euro;</span><span>B2B &rarr; B2C</span><span class="purple">Collab</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--blue);"></span>
+        <div>
+          <strong>Atelier Matcha #2</strong> + "The &amp; Bouquin" avec librairie locale
+          <div class="roadmap-meta"><span>~80 &euro;</span><span>2 events samedi</span><span class="blue">Atelier</span></div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <span class="roadmap-dot" style="background:var(--green);"></span>
+        <div>
+          <strong>Lancer le Passeport The</strong> — cartes fidelite papier en magasin
+          <div class="roadmap-meta"><span>~20 &euro; impression</span><span>Long terme</span><span class="green">Fidelite</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Budget -->
+<h2>Budget total — 4 semaines</h2>
+<div class="card">
+<table>
+  <thead><tr><th>Poste</th><th class="num">Semaine</th><th class="num">Mois</th><th>Type</th></tr></thead>
+  <tbody>
+    <tr><td>Campagne Meta hyper-locale</td><td class="num">35 &euro;</td><td class="num"><strong>150 &euro;</strong></td><td><span class="b b-o">Recurrent</span></td></tr>
+    <tr><td>Degustations "The du mardi"</td><td class="num">20 &euro;</td><td class="num"><strong>80 &euro;</strong></td><td><span class="b b-b">Recurrent</span></td></tr>
+    <tr><td>Ateliers Matcha (x2)</td><td class="num">—</td><td class="num"><strong>100 &euro;</strong></td><td><span class="b b-b">2x/mois</span></td></tr>
+    <tr><td>Echantillons collabs (studios, marche)</td><td class="num">~30 &euro;</td><td class="num"><strong>120 &euro;</strong></td><td><span class="b b-p">Collab</span></td></tr>
+    <tr><td>Coffrets micro-influenceurs (x2)</td><td class="num">—</td><td class="num"><strong>~60 &euro;</strong></td><td><span class="b b-o">One-shot</span></td></tr>
+    <tr><td>Cartes fidelite + sacs co-brandes</td><td class="num">—</td><td class="num"><strong>~70 &euro;</strong></td><td><span class="b b-g">Setup</span></td></tr>
+    <tr style="background:rgba(99,102,241,.06);"><td><strong>TOTAL</strong></td><td class="num">—</td><td class="num"><strong style="color:var(--accent);font-size:1.1rem;">~580 &euro;</strong></td><td><span class="b b-b">4 semaines</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Objectifs -->
+<h2>Objectifs mesurables</h2>
+<div class="grid-3">
+  <div class="kpi" style="border-top:3px solid var(--green);">
+    <div class="l">CA POS Waterloo — Objectif S18</div>
+    <div class="v green">3 000 &euro;</div>
+    <div class="d">vs 1 152 &euro; actuel (+160%)</div>
+  </div>
+  <div class="kpi" style="border-top:3px solid var(--blue);">
+    <div class="l">Unites vendues / 2 semaines</div>
+    <div class="v blue">300 u.</div>
+    <div class="d">vs 112 actuel (+168%)</div>
+  </div>
+  <div class="kpi" style="border-top:3px solid var(--purple);">
+    <div class="l">Ventes Matcha / mois</div>
+    <div class="v purple">40 u.</div>
+    <div class="d">vs ~2 actuel (deblocage)</div>
+  </div>
+</div>
+
+<div class="data-box">
+  <h4>Mesure du succes</h4>
+  <p>Suivre dans le <strong>Morning Dashboard</strong> existant : CA POS Waterloo quotidien, evolution semaine par semaine, nombre de tickets, panier moyen, et comparer a Namur/Liege. Le plus gros levier rapide reste <strong>l'atelier Matcha + le Matcha Bar</strong> : le Pop-Up prouve que le potentiel est la.</p>
+</div>
+
+<!-- Footer -->
+<div style="margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:.78rem;text-align:center;">
+  <p>Plan drive-to-store genere le 10 mars 2026 — Base sur l'analyse Classe A (195 SKUs, 24 fev — 10 mars)</p>
+  <p>Donnees POS : Odoo JSON-RPC (tea-tree.odoo.com) &bull; Magasins : Liege, Namur, Waterloo, Pop-Up</p>
+</div>
+
+</body>
+</html>
