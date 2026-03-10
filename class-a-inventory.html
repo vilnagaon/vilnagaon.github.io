@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classe A — Analyse inventaire 2 semaines — Teatower</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+    --text: #e4e4e7; --muted: #9ca3af; --accent: #6366f1;
+    --red: #ef4444; --orange: #f59e0b; --green: #22c55e; --blue: #3b82f6; --purple: #a855f7;
+    --red-bg: rgba(239,68,68,.12); --orange-bg: rgba(245,158,11,.12);
+    --green-bg: rgba(34,197,94,.12); --blue-bg: rgba(59,130,246,.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px; max-width: 1500px; margin: 0 auto; font-size: 14px; }
+  h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 2px; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 28px 0 12px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  h3 { font-size: .95rem; font-weight: 600; margin: 14px 0 8px; }
+  .sub { color: var(--muted); font-size: .82rem; margin-bottom: 20px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .kpi .l { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .kpi .v { font-size: 1.6rem; font-weight: 700; margin: 2px 0; }
+  .kpi .d { font-size: .75rem; color: var(--muted); }
+  .red { color: var(--red); } .orange { color: var(--orange); } .green { color: var(--green); } .blue { color: var(--blue); } .purple { color: var(--purple); }
+  table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+  th { text-align: left; padding: 6px 8px; background: rgba(99,102,241,.07); color: var(--accent); font-weight: 600; border-bottom: 1px solid var(--border); white-space: nowrap; position: sticky; top: 0; }
+  td { padding: 5px 8px; border-bottom: 1px solid rgba(42,45,58,.5); }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  .b { display: inline-block; padding: 1px 6px; border-radius: 5px; font-size: .68rem; font-weight: 600; }
+  .b-r { background: var(--red-bg); color: var(--red); }
+  .b-o { background: var(--orange-bg); color: var(--orange); }
+  .b-g { background: var(--green-bg); color: var(--green); }
+  .b-b { background: var(--blue-bg); color: var(--blue); }
+  .alert { border-left: 3px solid var(--red); padding: 12px 16px; margin: 12px 0; background: var(--red-bg); border-radius: 0 8px 8px 0; }
+  .alert h4 { color: var(--red); margin-bottom: 3px; font-size: .9rem; }
+  .info { border-left: 3px solid var(--blue); padding: 12px 16px; margin: 12px 0; background: var(--blue-bg); border-radius: 0 8px 8px 0; }
+  .info h4 { color: var(--blue); margin-bottom: 3px; font-size: .9rem; }
+  .ok { border-left: 3px solid var(--green); padding: 12px 16px; margin: 12px 0; background: var(--green-bg); border-radius: 0 8px 8px 0; }
+  .ok h4 { color: var(--green); margin-bottom: 3px; font-size: .9rem; }
+  .bar { height: 7px; border-radius: 4px; display: inline-block; vertical-align: middle; }
+  .scroll-table { max-height: 600px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .store-bar { display: inline-block; height: 14px; border-radius: 3px; vertical-align: middle; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 8px 0; font-size: .75rem; }
+  .legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+  .legend .lg::before { background: var(--accent); }
+  .legend .nm::before { background: var(--green); }
+  .legend .pop::before { background: var(--purple); }
+  .legend .wat::before { background: var(--orange); }
+  .highlight { background: rgba(239,68,68,.06); }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .filter-btn { padding: 4px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--muted); cursor: pointer; font-size: .75rem; }
+  .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(99,102,241,.1); }
+</style>
+</head>
+<body>
+
+<h1>Analyse Inventaire Classe A — 2 semaines</h1>
+<p class="sub">195 produits Classe A (80% de la valeur stock) &bull; Periode : 24 fev — 10 mars 2026 &bull; 3 268 mouvements analyses</p>
+
+<!-- KPIs -->
+<div class="grid-4">
+  <div class="kpi">
+    <div class="l">Produits Classe A</div>
+    <div class="v">195</div>
+    <div class="d">80% valeur stock (308 078 &euro;)</div>
+  </div>
+  <div class="kpi">
+    <div class="l">Mouvements (2 sem.)</div>
+    <div class="v">3 268</div>
+    <div class="d">stock.move valides</div>
+  </div>
+  <div class="kpi">
+    <div class="l">Ventes POS</div>
+    <div class="v">1 053 u.</div>
+    <div class="d">12 200 &euro; TTC &bull; 75 SKUs actifs</div>
+  </div>
+  <div class="kpi">
+    <div class="l">Mouvements en attente</div>
+    <div class="v orange">376</div>
+    <div class="d">transferts non valides</div>
+  </div>
+</div>
+
+<!-- POS Store Performance -->
+<h2>Performance POS par magasin (2 semaines)</h2>
+<div class="grid-4">
+  <div class="kpi" style="border-top: 3px solid var(--green);">
+    <div class="l">Namur</div>
+    <div class="v green">5 113 &euro;</div>
+    <div class="d">428 lignes &bull; 464 unites</div>
+  </div>
+  <div class="kpi" style="border-top: 3px solid var(--accent);">
+    <div class="l">Liege</div>
+    <div class="v blue">3 897 &euro;</div>
+    <div class="d">325 lignes &bull; 353 unites</div>
+  </div>
+  <div class="kpi" style="border-top: 3px solid var(--purple);">
+    <div class="l">Pop-Up Store</div>
+    <div class="v purple">2 038 &euro;</div>
+    <div class="d">124 lignes &bull; 124 unites</div>
+  </div>
+  <div class="kpi" style="border-top: 3px solid var(--orange);">
+    <div class="l">Waterloo</div>
+    <div class="v orange">1 152 &euro;</div>
+    <div class="d">102 lignes &bull; 112 unites</div>
+  </div>
+</div>
+
+<!-- Top 25 POS -->
+<h2>Top 25 ventes POS par produit &amp; magasin</h2>
+<div class="legend">
+  <span class="lg">Liege</span>
+  <span class="nm">Namur</span>
+  <span class="pop">Pop-Up</span>
+  <span class="wat">Waterloo</span>
+</div>
+<div class="card">
+<div class="scroll-table" style="max-height:700px;">
+<table>
+  <thead>
+    <tr><th>#</th><th>Code</th><th>Produit</th><th class="num">Liege</th><th class="num">Namur</th><th class="num">Pop-Up</th><th class="num">WAT</th><th class="num">Total</th><th class="num">CA TTC</th><th>Repartition</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>I0631</td><td>Le the des amoureux (infusettes)</td><td class="num">22</td><td class="num">26</td><td class="num">14</td><td class="num">5</td><td class="num"><strong>67</strong></td><td class="num">712 &euro;</td><td><span class="store-bar" style="width:33px;background:var(--accent)"></span><span class="store-bar" style="width:39px;background:var(--green)"></span><span class="store-bar" style="width:21px;background:var(--purple)"></span><span class="store-bar" style="width:7px;background:var(--orange)"></span></td></tr>
+    <tr><td>2</td><td>V0631</td><td>Le the des amoureux (vrac)</td><td class="num">25</td><td class="num">31</td><td class="num">0</td><td class="num">4</td><td class="num"><strong>60</strong></td><td class="num">575 &euro;</td><td><span class="store-bar" style="width:42px;background:var(--accent)"></span><span class="store-bar" style="width:52px;background:var(--green)"></span><span class="store-bar" style="width:7px;background:var(--orange)"></span></td></tr>
+    <tr><td>3</td><td>V0895</td><td>Matcha japonais</td><td class="num">7</td><td class="num">21</td><td class="num">30</td><td class="num">1</td><td class="num"><strong>59</strong></td><td class="num"><strong class="green">1 158 &euro;</strong></td><td><span class="store-bar" style="width:12px;background:var(--accent)"></span><span class="store-bar" style="width:36px;background:var(--green)"></span><span class="store-bar" style="width:51px;background:var(--purple)"></span><span class="store-bar" style="width:2px;background:var(--orange)"></span></td></tr>
+    <tr><td>4</td><td>V0832</td><td>La Nana de Wepion (vrac)</td><td class="num">15</td><td class="num">40</td><td class="num">0</td><td class="num">4</td><td class="num"><strong>59</strong></td><td class="num">562 &euro;</td><td><span class="store-bar" style="width:25px;background:var(--accent)"></span><span class="store-bar" style="width:68px;background:var(--green)"></span><span class="store-bar" style="width:7px;background:var(--orange)"></span></td></tr>
+    <tr><td>5</td><td>I0279</td><td>Le panier de grand maman (infusettes)</td><td class="num">25</td><td class="num">17</td><td class="num">11</td><td class="num">5</td><td class="num"><strong>58</strong></td><td class="num">615 &euro;</td><td><span class="store-bar" style="width:43px;background:var(--accent)"></span><span class="store-bar" style="width:29px;background:var(--green)"></span><span class="store-bar" style="width:19px;background:var(--purple)"></span><span class="store-bar" style="width:9px;background:var(--orange)"></span></td></tr>
+    <tr><td>6</td><td>V0735</td><td>Peche de vigne BIO (vrac)</td><td class="num">18</td><td class="num">29</td><td class="num">0</td><td class="num">4</td><td class="num"><strong>51</strong></td><td class="num">489 &euro;</td><td><span class="store-bar" style="width:35px;background:var(--accent)"></span><span class="store-bar" style="width:57px;background:var(--green)"></span><span class="store-bar" style="width:8px;background:var(--orange)"></span></td></tr>
+    <tr><td>7</td><td>V0734</td><td>Jardin de Babylone (vrac)</td><td class="num">16</td><td class="num">18</td><td class="num">0</td><td class="num">7</td><td class="num"><strong>41</strong></td><td class="num">381 &euro;</td><td><span class="store-bar" style="width:39px;background:var(--accent)"></span><span class="store-bar" style="width:44px;background:var(--green)"></span><span class="store-bar" style="width:17px;background:var(--orange)"></span></td></tr>
+    <tr><td>8</td><td>A0261</td><td>Filtres a the jetables M</td><td class="num">10</td><td class="num">16</td><td class="num">0</td><td class="num">5</td><td class="num"><strong>31</strong></td><td class="num">179 &euro;</td><td><span class="store-bar" style="width:32px;background:var(--accent)"></span><span class="store-bar" style="width:52px;background:var(--green)"></span><span class="store-bar" style="width:16px;background:var(--orange)"></span></td></tr>
+    <tr><td>9</td><td>V0846</td><td>Ginger Smith (vrac)</td><td class="num">10</td><td class="num">19</td><td class="num">0</td><td class="num">2</td><td class="num"><strong>31</strong></td><td class="num">299 &euro;</td><td><span class="store-bar" style="width:32px;background:var(--accent)"></span><span class="store-bar" style="width:61px;background:var(--green)"></span><span class="store-bar" style="width:6px;background:var(--orange)"></span></td></tr>
+    <tr><td>10</td><td>I0735</td><td>Peche de vigne BIO (infusettes)</td><td class="num">7</td><td class="num">13</td><td class="num">0</td><td class="num">5</td><td class="num"><strong>25</strong></td><td class="num">263 &euro;</td><td><span class="store-bar" style="width:28px;background:var(--accent)"></span><span class="store-bar" style="width:52px;background:var(--green)"></span><span class="store-bar" style="width:20px;background:var(--orange)"></span></td></tr>
+    <tr><td>11</td><td>A0274</td><td>Filtre pince 4,5cm</td><td class="num">2</td><td class="num">20</td><td class="num">0</td><td class="num">2</td><td class="num"><strong>24</strong></td><td class="num">82 &euro;</td><td><span class="store-bar" style="width:8px;background:var(--accent)"></span><span class="store-bar" style="width:83px;background:var(--green)"></span><span class="store-bar" style="width:8px;background:var(--orange)"></span></td></tr>
+    <tr><td>12</td><td>V0907</td><td>Matcha Fruit de la passion</td><td class="num">4</td><td class="num">6</td><td class="num">13</td><td class="num">0</td><td class="num"><strong>23</strong></td><td class="num">562 &euro;</td><td><span class="store-bar" style="width:17px;background:var(--accent)"></span><span class="store-bar" style="width:26px;background:var(--green)"></span><span class="store-bar" style="width:57px;background:var(--purple)"></span></td></tr>
+    <tr><td>13</td><td>V0669</td><td>Vert Jasmin (vrac)</td><td class="num">6</td><td class="num">13</td><td class="num">0</td><td class="num">3</td><td class="num"><strong>22</strong></td><td class="num">211 &euro;</td><td><span class="store-bar" style="width:27px;background:var(--accent)"></span><span class="store-bar" style="width:59px;background:var(--green)"></span><span class="store-bar" style="width:14px;background:var(--orange)"></span></td></tr>
+    <tr><td>14</td><td>V0878</td><td>Guarana Boost (vrac)</td><td class="num">6</td><td class="num">13</td><td class="num">0</td><td class="num">2</td><td class="num"><strong>21</strong></td><td class="num">201 &euro;</td><td><span class="store-bar" style="width:29px;background:var(--accent)"></span><span class="store-bar" style="width:62px;background:var(--green)"></span><span class="store-bar" style="width:10px;background:var(--orange)"></span></td></tr>
+    <tr><td>15</td><td>A0304</td><td>Verre double paroi 300ml</td><td class="num">7</td><td class="num">11</td><td class="num">0</td><td class="num">2</td><td class="num"><strong>20</strong></td><td class="num">143 &euro;</td><td><span class="store-bar" style="width:35px;background:var(--accent)"></span><span class="store-bar" style="width:55px;background:var(--green)"></span><span class="store-bar" style="width:10px;background:var(--orange)"></span></td></tr>
+    <tr><td>16</td><td>V0628</td><td>Oasis du desert BIO (vrac)</td><td class="num">9</td><td class="num">4</td><td class="num">0</td><td class="num">7</td><td class="num"><strong>20</strong></td><td class="num">193 &euro;</td><td><span class="store-bar" style="width:45px;background:var(--accent)"></span><span class="store-bar" style="width:20px;background:var(--green)"></span><span class="store-bar" style="width:35px;background:var(--orange)"></span></td></tr>
+    <tr><td>17</td><td>I0820</td><td>Marrakech Sunset BIO (infusettes)</td><td class="num">10</td><td class="num">4</td><td class="num">0</td><td class="num">5</td><td class="num"><strong>19</strong></td><td class="num">189 &euro;</td><td><span class="store-bar" style="width:53px;background:var(--accent)"></span><span class="store-bar" style="width:21px;background:var(--green)"></span><span class="store-bar" style="width:26px;background:var(--orange)"></span></td></tr>
+    <tr><td>18</td><td>I0723</td><td>Namaste BIO (infusettes)</td><td class="num">10</td><td class="num">7</td><td class="num">0</td><td class="num">1</td><td class="num"><strong>18</strong></td><td class="num">190 &euro;</td><td><span class="store-bar" style="width:56px;background:var(--accent)"></span><span class="store-bar" style="width:39px;background:var(--green)"></span><span class="store-bar" style="width:6px;background:var(--orange)"></span></td></tr>
+    <tr><td>19</td><td>V0863</td><td>Masala Chai (vrac)</td><td class="num">7</td><td class="num">9</td><td class="num">0</td><td class="num">2</td><td class="num"><strong>18</strong></td><td class="num">174 &euro;</td><td><span class="store-bar" style="width:39px;background:var(--accent)"></span><span class="store-bar" style="width:50px;background:var(--green)"></span><span class="store-bar" style="width:11px;background:var(--orange)"></span></td></tr>
+    <tr><td>20</td><td>V0121</td><td>Lady Dodo (vrac)</td><td class="num">6</td><td class="num">7</td><td class="num">0</td><td class="num">5</td><td class="num"><strong>18</strong></td><td class="num">173 &euro;</td><td><span class="store-bar" style="width:33px;background:var(--accent)"></span><span class="store-bar" style="width:39px;background:var(--green)"></span><span class="store-bar" style="width:28px;background:var(--orange)"></span></td></tr>
+    <tr><td>21</td><td>GI0634</td><td>Gourmandise glacee</td><td class="num">0</td><td class="num">0</td><td class="num">16</td><td class="num">0</td><td class="num"><strong>16</strong></td><td class="num">136 &euro;</td><td><span class="store-bar" style="width:100px;background:var(--purple)"></span></td></tr>
+    <tr><td>22</td><td>A0266</td><td>Filtre panier noir 7cm</td><td class="num">8</td><td class="num">7</td><td class="num">0</td><td class="num">1</td><td class="num"><strong>16</strong></td><td class="num">108 &euro;</td><td><span class="store-bar" style="width:50px;background:var(--accent)"></span><span class="store-bar" style="width:44px;background:var(--green)"></span><span class="store-bar" style="width:6px;background:var(--orange)"></span></td></tr>
+    <tr><td>23</td><td>V0854</td><td>Camomille BIO (vrac)</td><td class="num">5</td><td class="num">7</td><td class="num">0</td><td class="num">4</td><td class="num"><strong>16</strong></td><td class="num">170 &euro;</td><td><span class="store-bar" style="width:31px;background:var(--accent)"></span><span class="store-bar" style="width:44px;background:var(--green)"></span><span class="store-bar" style="width:25px;background:var(--orange)"></span></td></tr>
+    <tr><td>24</td><td>A1074</td><td>Fouet electrique Matcha</td><td class="num">10</td><td class="num">1</td><td class="num">3</td><td class="num">0</td><td class="num"><strong>14</strong></td><td class="num">202 &euro;</td><td><span class="store-bar" style="width:71px;background:var(--accent)"></span><span class="store-bar" style="width:7px;background:var(--green)"></span><span class="store-bar" style="width:21px;background:var(--purple)"></span></td></tr>
+    <tr><td>25</td><td>A1135</td><td>Coffret Matcha Traditionnel</td><td class="num">4</td><td class="num">2</td><td class="num">8</td><td class="num">0</td><td class="num"><strong>14</strong></td><td class="num"><strong class="green">548 &euro;</strong></td><td><span class="store-bar" style="width:29px;background:var(--accent)"></span><span class="store-bar" style="width:14px;background:var(--green)"></span><span class="store-bar" style="width:57px;background:var(--purple)"></span></td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- Movement Summary - Top movers -->
+<h2>Flux complets — Top 30 produits les plus actifs</h2>
+<p style="color:var(--muted);font-size:.8rem;margin-bottom:10px;">Tous les flux sur 2 semaines : receptions fournisseur, ventes POS, expeditions e-commerce, transferts internes, mouvements en attente.</p>
+
+<div class="card">
+<div class="scroll-table" style="max-height:700px;">
+<table>
+  <thead>
+    <tr><th>#</th><th>Code</th><th>Produit</th><th class="num" style="color:var(--green)">Entrant</th><th class="num" style="color:var(--red)">POS</th><th class="num" style="color:var(--red)">E-com</th><th class="num" style="color:var(--blue)">Transferts</th><th class="num">Mvts</th><th class="num" style="color:var(--orange)">Pending #</th><th class="num" style="color:var(--orange)">Pending qty</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>I0279</td><td>Le panier de grand maman (infusettes)</td><td class="num green">1 542</td><td class="num red">58</td><td class="num red">197</td><td class="num blue">134</td><td class="num">145</td><td class="num orange">6</td><td class="num orange">1 549</td></tr>
+    <tr><td>2</td><td>I0631</td><td>Le the des amoureux (infusettes)</td><td class="num green">1 040</td><td class="num red">67</td><td class="num red">209</td><td class="num blue">62</td><td class="num">135</td><td class="num orange">7</td><td class="num orange">1 497</td></tr>
+    <tr><td>3</td><td>V0631</td><td>Le the des amoureux (vrac)</td><td class="num green">600</td><td class="num red">60</td><td class="num red">120</td><td class="num blue">87</td><td class="num">111</td><td class="num orange">5</td><td class="num orange">713</td></tr>
+    <tr><td>4</td><td>I0735</td><td>Peche de vigne BIO (infusettes)</td><td class="num green">1 000</td><td class="num red">25</td><td class="num red">127</td><td class="num blue">80</td><td class="num">95</td><td class="num orange">4</td><td class="num orange">1 012</td></tr>
+    <tr><td>5</td><td>V0735</td><td>Peche de vigne BIO (vrac)</td><td class="num green">500</td><td class="num red">51</td><td class="num red">85</td><td class="num blue">76</td><td class="num">98</td><td class="num orange">3</td><td class="num orange">510</td></tr>
+    <tr><td>6</td><td>V0895</td><td>Matcha japonais</td><td class="num green">75</td><td class="num red">59</td><td class="num red">98</td><td class="num blue">77</td><td class="num">93</td><td class="num orange">3</td><td class="num orange">149</td></tr>
+    <tr><td>7</td><td>V0832</td><td>La Nana de Wepion (vrac)</td><td class="num green">700</td><td class="num red">59</td><td class="num red">88</td><td class="num blue">117</td><td class="num">82</td><td class="num orange">4</td><td class="num orange">912</td></tr>
+    <tr><td>8</td><td>A0304</td><td>Verre double paroi 300ml</td><td class="num green">10</td><td class="num red">20</td><td class="num red">49</td><td class="num blue">51</td><td class="num">81</td><td class="num orange">9</td><td class="num orange">3 097</td></tr>
+    <tr><td>9</td><td>I0880</td><td>Blue Earl Grey BIO (infusettes)</td><td class="num">0</td><td class="num red">13</td><td class="num red">151</td><td class="num blue">30</td><td class="num">74</td><td class="num orange">2</td><td class="num orange">254</td></tr>
+    <tr><td>10</td><td>I0723</td><td>Namaste BIO (infusettes)</td><td class="num green">600</td><td class="num red">18</td><td class="num red">84</td><td class="num blue">42</td><td class="num">73</td><td class="num orange">6</td><td class="num orange">656</td></tr>
+    <tr><td>11</td><td>I0628</td><td>Oasis du desert BIO (infusettes)</td><td class="num green">800</td><td class="num red">14</td><td class="num red">159</td><td class="num blue">22</td><td class="num">73</td><td class="num orange">3</td><td class="num orange">1 052</td></tr>
+    <tr><td>12</td><td>V0734</td><td>Jardin de Babylone (vrac)</td><td class="num green">300</td><td class="num red">41</td><td class="num red">60</td><td class="num blue">75</td><td class="num">70</td><td class="num orange">2</td><td class="num orange">306</td></tr>
+    <tr><td>13</td><td>I0751</td><td>I love you (infusettes)</td><td class="num">0</td><td class="num red">14</td><td class="num red">160</td><td class="num blue">16</td><td class="num">70</td><td class="num orange">2</td><td class="num orange">212</td></tr>
+    <tr><td>14</td><td>GI0634</td><td>Gourmandise glacee</td><td class="num green">50</td><td class="num red">16</td><td class="num red">167</td><td class="num">0</td><td class="num">65</td><td class="num orange">4</td><td class="num orange">44</td></tr>
+    <tr><td>15</td><td>I0669</td><td>Vert Jasmin (infusettes)</td><td class="num">0</td><td class="num red">13</td><td class="num red">98</td><td class="num blue">28</td><td class="num">63</td><td class="num orange">4</td><td class="num orange">97</td></tr>
+    <tr><td>16</td><td>V0846</td><td>Ginger Smith (vrac)</td><td class="num">0</td><td class="num red">31</td><td class="num red">48</td><td class="num blue">63</td><td class="num">57</td><td class="num orange">3</td><td class="num orange">40</td></tr>
+    <tr><td>17</td><td>GI0735</td><td>Peche de Vigne BIO glacee</td><td class="num green">50</td><td class="num red">8</td><td class="num red">153</td><td class="num">0</td><td class="num">54</td><td class="num orange">3</td><td class="num orange">69</td></tr>
+    <tr><td>18</td><td>I0820</td><td>Marrakech Sunset BIO (infusettes)</td><td class="num green">501</td><td class="num red">19</td><td class="num red">58</td><td class="num blue">28</td><td class="num">53</td><td class="num orange">1</td><td class="num orange">500</td></tr>
+    <tr><td>19</td><td>I0878</td><td>Guarana Boost (infusettes)</td><td class="num">0</td><td class="num red">12</td><td class="num red">111</td><td class="num blue">16</td><td class="num">50</td><td class="num orange">2</td><td class="num orange">106</td></tr>
+    <tr><td>20</td><td>V0669</td><td>Vert Jasmin (vrac)</td><td class="num">0</td><td class="num red">22</td><td class="num red">79</td><td class="num blue">22</td><td class="num">49</td><td class="num orange">2</td><td class="num orange">34</td></tr>
+    <tr><td>21</td><td>V0628</td><td>Oasis du desert BIO (vrac)</td><td class="num green">400</td><td class="num red">20</td><td class="num red">53</td><td class="num blue">8</td><td class="num">49</td><td class="num orange">5</td><td class="num orange">409</td></tr>
+    <tr><td>22</td><td>A0261</td><td>Filtres a the jetables M</td><td class="num green">48</td><td class="num red">31</td><td class="num red">40</td><td class="num blue">65</td><td class="num">49</td><td class="num orange">3</td><td class="num orange">81</td></tr>
+    <tr><td>23</td><td>V0121</td><td>Lady Dodo (vrac)</td><td class="num green">400</td><td class="num red">18</td><td class="num red">44</td><td class="num blue">40</td><td class="num">48</td><td class="num orange">3</td><td class="num orange">504</td></tr>
+    <tr><td>24</td><td>V0878</td><td>Guarana Boost (vrac)</td><td class="num">0</td><td class="num red">21</td><td class="num red">40</td><td class="num blue">34</td><td class="num">46</td><td class="num orange">3</td><td class="num orange">104</td></tr>
+    <tr><td>25</td><td>V0907</td><td>Matcha Fruit de la passion</td><td class="num green">75</td><td class="num red">23</td><td class="num red">49</td><td class="num blue">12</td><td class="num">40</td><td class="num orange">1</td><td class="num orange">15</td></tr>
+    <tr><td>26</td><td>V0301</td><td>Tisane tropicale (vrac)</td><td class="num green">400</td><td class="num red">13</td><td class="num red">43</td><td class="num blue">18</td><td class="num">40</td><td class="num orange">3</td><td class="num orange">410</td></tr>
+    <tr><td>27</td><td>I0635</td><td>Silhouette (infusettes)</td><td class="num green">500</td><td class="num red">6</td><td class="num red">115</td><td class="num">0</td><td class="num">39</td><td class="num orange">3</td><td class="num orange">706</td></tr>
+    <tr><td>28</td><td>I0600</td><td>La lampe merveilleuse (infusettes)</td><td class="num">0</td><td class="num red">6</td><td class="num red">44</td><td class="num blue">14</td><td class="num">38</td><td class="num orange">3</td><td class="num orange">8</td></tr>
+    <tr><td>29</td><td>V0751</td><td>I love you (vrac)</td><td class="num">0</td><td class="num red">13</td><td class="num red">59</td><td class="num blue">20</td><td class="num">37</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>30</td><td>V0863</td><td>Masala Chai (vrac)</td><td class="num green">300</td><td class="num red">18</td><td class="num red">24</td><td class="num blue">27</td><td class="num">37</td><td class="num orange">2</td><td class="num orange">302</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- Insights -->
+<h2>Insights cles</h2>
+
+<div class="alert">
+  <h4>E-commerce domine les volumes</h4>
+  <p>Pour la plupart des produits actifs, l'e-commerce represente <strong>2x a 10x les volumes POS</strong>. Exemples : I0751 "I love you" — 160 e-com vs 14 POS, GI0634 "Gourmandise glacee" — 167 e-com vs 16 POS, I0880 "Blue Earl Grey" — 151 e-com vs 13 POS.</p>
+</div>
+
+<div class="alert">
+  <h4>Stocks negatifs en emplacements physiques</h4>
+  <p>Produits avec stock negatif en magasin/entrepot reel (pas juste virtuel) :</p>
+  <ul style="margin-top:6px;padding-left:20px;font-size:.85rem;">
+    <li><strong>C0183</strong> Coffret Matcha x Alpro : -7 TT/Stock, -2 WAT/Stock</li>
+    <li><strong>A0905</strong> Boite Vert clair 100g : -46 TT/Stock, -18 WAT/Stock</li>
+    <li><strong>V0895</strong> Matcha japonais : -30 POP/Stock</li>
+    <li><strong>A0844</strong> Sablier Tasty brew : -43 TT/Stock</li>
+    <li><strong>A1103</strong> Carafe Dibrix : -13 TT/Stock</li>
+    <li><strong>HH005</strong> Miel Menthe : -14 TT/Stock</li>
+    <li><strong>V0735</strong> Peche de vigne BIO : -1 LIEGE/Stock</li>
+    <li><strong>HC250121</strong> Lady Dodo 25 env. : -1 WAT/Stock</li>
+  </ul>
+</div>
+
+<div class="info">
+  <h4>Echantillons : flux massifs sans reception</h4>
+  <p>Les echantillons [E0xxx] montrent des receptions entrantes enormes (E0628 : 62 500, E0735 : 30 000, E0121 : 25 000, E0880 : 15 000) mais aussi des <strong>stocks negatifs massifs</strong> chez Partners/Vendors et TT/Stock, confirmant que les flux entrants/sortants ne sont pas correctement mappes.</p>
+</div>
+
+<div class="info">
+  <h4>Packaging : gros volumes en attente</h4>
+  <p>TT-PACK-FRUITS (45 045 u.), TT-PACK-VERT (44 785 u.), TT-PACK-ROOIBOS (9 404 u.), TT-PACK-MATE (7 430 u.) — tous en pending. Ces volumes de packaging suggerent une grosse campagne de conditionnement a venir.</p>
+</div>
+
+<div class="ok">
+  <h4>Namur : magasin le plus performant</h4>
+  <p>Namur genere <strong>5 113 &euro;</strong> sur 2 semaines (42% du CA POS total), avec 464 unites vendues. Top seller : La Nana de Wepion (40 unites a Namur vs 15 a Liege). Le magasin est egalement le mieux approvisionne avec le moins de stocks negatifs (6 refs seulement).</p>
+</div>
+
+<div class="ok">
+  <h4>Pop-Up Store : forte valeur sur les Matcha</h4>
+  <p>Le Pop-Up concentre les ventes sur les produits Matcha : V0895 (30 unites, 51% du total), V0907 (13 unites, 57%), A1135 Coffret Matcha (8 unites, 57%), A0297 Fouet Bambou (6 unites, 55%). Positionnement niche clair et efficace.</p>
+</div>
+
+<!-- Ratio e-com/POS -->
+<h2>Ratio E-commerce / POS (top 15 SKUs actifs)</h2>
+<p style="color:var(--muted);font-size:.8rem;margin-bottom:10px;">Produits avec le plus grand ecart entre volumes e-commerce et POS — indicateur du canal dominant.</p>
+<div class="card">
+<table>
+  <thead><tr><th>Produit</th><th class="num">POS</th><th class="num">E-com</th><th class="num">Ratio</th><th>Dominance</th></tr></thead>
+  <tbody>
+    <tr><td>I0751 — I love you (infusettes)</td><td class="num">14</td><td class="num">160</td><td class="num"><strong>11.4x</strong></td><td><span class="bar" style="width:100px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>GI0634 — Gourmandise glacee</td><td class="num">16</td><td class="num">167</td><td class="num"><strong>10.4x</strong></td><td><span class="bar" style="width:95px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0880 — Blue Earl Grey BIO</td><td class="num">13</td><td class="num">151</td><td class="num"><strong>11.6x</strong></td><td><span class="bar" style="width:100px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>GI0735 — Peche de Vigne glacee</td><td class="num">8</td><td class="num">153</td><td class="num"><strong>19.1x</strong></td><td><span class="bar" style="width:100px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0878 — Guarana Boost (infusettes)</td><td class="num">12</td><td class="num">111</td><td class="num"><strong>9.3x</strong></td><td><span class="bar" style="width:85px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0635 — Silhouette (infusettes)</td><td class="num">6</td><td class="num">115</td><td class="num"><strong>19.2x</strong></td><td><span class="bar" style="width:100px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0669 — Vert Jasmin (infusettes)</td><td class="num">13</td><td class="num">98</td><td class="num"><strong>7.5x</strong></td><td><span class="bar" style="width:70px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0628 — Oasis du desert BIO</td><td class="num">14</td><td class="num">159</td><td class="num"><strong>11.4x</strong></td><td><span class="bar" style="width:100px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>I0723 — Namaste BIO (infusettes)</td><td class="num">18</td><td class="num">84</td><td class="num"><strong>4.7x</strong></td><td><span class="bar" style="width:45px;background:var(--red);"></span> E-com</td></tr>
+    <tr><td>V0669 — Vert Jasmin (vrac)</td><td class="num">22</td><td class="num">79</td><td class="num"><strong>3.6x</strong></td><td><span class="bar" style="width:35px;background:var(--red);"></span> E-com</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>V0832 — La Nana de Wepion (vrac)</td><td class="num">59</td><td class="num">88</td><td class="num">1.5x</td><td><span class="bar" style="width:15px;background:var(--orange);"></span> Equilibre</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>V0895 — Matcha japonais</td><td class="num">59</td><td class="num">98</td><td class="num">1.7x</td><td><span class="bar" style="width:17px;background:var(--orange);"></span> Equilibre</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>I0631 — Le the des amoureux</td><td class="num">67</td><td class="num">209</td><td class="num">3.1x</td><td><span class="bar" style="width:30px;background:var(--red);"></span> E-com</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>V0631 — Le the des amoureux (vrac)</td><td class="num">60</td><td class="num">120</td><td class="num">2.0x</td><td><span class="bar" style="width:20px;background:var(--orange);"></span> Equilibre</td></tr>
+    <tr style="background:rgba(34,197,94,.05);"><td>A0274 — Filtre pince 4,5cm</td><td class="num">24</td><td class="num">32</td><td class="num">1.3x</td><td><span class="bar" style="width:13px;background:var(--green);"></span> Equilibre</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Waterloo under-performance -->
+<h2>Waterloo : sous-performance significative</h2>
+<div class="card">
+  <p style="color:var(--muted);font-size:.85rem;margin-bottom:10px;">Waterloo ne represente que <strong>9.4%</strong> du CA POS (1 152 &euro; / 12 200 &euro;). Comparaison avec Namur et Liege sur les top sellers :</p>
+  <table>
+    <thead><tr><th>Produit</th><th class="num">Namur</th><th class="num">Liege</th><th class="num" style="color:var(--red)">Waterloo</th><th>Ecart</th></tr></thead>
+    <tbody>
+      <tr><td>V0832 La Nana de Wepion</td><td class="num">40</td><td class="num">15</td><td class="num red"><strong>4</strong></td><td><span class="b b-r">-90% vs NAM</span></td></tr>
+      <tr><td>V0735 Peche de vigne</td><td class="num">29</td><td class="num">18</td><td class="num red"><strong>4</strong></td><td><span class="b b-r">-86% vs NAM</span></td></tr>
+      <tr><td>V0878 Guarana Boost</td><td class="num">13</td><td class="num">6</td><td class="num red"><strong>2</strong></td><td><span class="b b-r">-85% vs NAM</span></td></tr>
+      <tr><td>V0669 Vert Jasmin</td><td class="num">13</td><td class="num">6</td><td class="num red"><strong>3</strong></td><td><span class="b b-r">-77% vs NAM</span></td></tr>
+      <tr><td>I0723 Namaste BIO</td><td class="num">7</td><td class="num">10</td><td class="num red"><strong>1</strong></td><td><span class="b b-r">-86% vs NAM</span></td></tr>
+      <tr><td>I0880 Blue Earl Grey</td><td class="num">3</td><td class="num">10</td><td class="num red"><strong>0</strong></td><td><span class="b b-r">-100% vs LG</span></td></tr>
+      <tr><td>A1074 Fouet Matcha</td><td class="num">1</td><td class="num">10</td><td class="num red"><strong>0</strong></td><td><span class="b b-r">-100% vs LG</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Summary stats -->
+<h2>Synthese des flux (2 semaines)</h2>
+<div class="grid-3">
+  <div class="card" style="border-top:3px solid var(--green);">
+    <h3 class="green">Entrants</h3>
+    <table>
+      <tbody>
+        <tr><td>Receptions fournisseur</td><td class="num"><strong>157 564 u.</strong></td></tr>
+        <tr><td style="color:var(--muted);font-size:.75rem">dont echantillons</td><td class="num" style="color:var(--muted);font-size:.75rem">~145 000 u.</td></tr>
+        <tr><td style="color:var(--muted);font-size:.75rem">dont produits (hors ech.)</td><td class="num" style="color:var(--muted);font-size:.75rem">~12 500 u.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="border-top:3px solid var(--red);">
+    <h3 class="red">Sortants</h3>
+    <table>
+      <tbody>
+        <tr><td>Ventes POS (4 magasins)</td><td class="num"><strong>1 053 u.</strong></td></tr>
+        <tr><td>Expeditions e-commerce</td><td class="num"><strong>~4 500 u.</strong></td></tr>
+        <tr><td>Total CA POS</td><td class="num"><strong>12 200 &euro;</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="border-top:3px solid var(--orange);">
+    <h3 class="orange">En attente</h3>
+    <table>
+      <tbody>
+        <tr><td>Mouvements pending</td><td class="num"><strong>376</strong></td></tr>
+        <tr><td>Packaging en attente</td><td class="num">~107 000 u.</td></tr>
+        <tr><td>Echantillons pending</td><td class="num">~224 000 u.</td></tr>
+        <tr><td>Produits pending (real)</td><td class="num">~23 000 u.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="margin-top:36px;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:.75rem;text-align:center;">
+  <p>Analyse generee le 10 mars 2026 — 195 produits Classe A — Donnees Odoo JSON-RPC (tea-tree.odoo.com)</p>
+  <p>Modeles : stock.quant, stock.move, pos.order, pos.order.line &bull; Periode : 24 fev — 10 mars 2026</p>
+</div>
+
+</body>
+</html>
