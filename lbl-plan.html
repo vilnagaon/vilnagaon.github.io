@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liege-Bastogne-Liege — Plan Ouverture 26 Avril 2026</title>
+<style>
+  :root {
+    --green: #2d6a4f; --green-bg: #f0f7f4;
+    --red: #c1121f; --red-light: #fde8e8;
+    --gold: #b5851b; --gold-light: #f5e6c8;
+    --blue: #1d3557; --blue-light: #e8f0fe;
+    --orange: #e76f51; --orange-light: #fef0ec;
+    --purple: #6c3d91; --purple-light: #f3eaf8;
+    --gray: #6c757d; --gray-light: #f8f9fa;
+    --border: #dee2e6; --text: #212529; --white: #fff;
+    --yellow: #ffc300; --yellow-light: #fff8e1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--gray-light); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, var(--red) 100%); color: var(--white); padding: 48px 40px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 100px; opacity: 0.08; }
+  .header h1 { font-size: 30px; margin-bottom: 8px; position: relative; }
+  .header .subtitle { font-size: 16px; opacity: 0.85; position: relative; }
+  .header .date { font-size: 12px; opacity: 0.5; margin-top: 14px; position: relative; }
+  .header .event-badge { display: inline-block; background: var(--yellow); color: #1a1a2e; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; position: relative; }
+
+  .section { background: var(--white); border-radius: 12px; padding: 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .section-subtitle { color: var(--gray); font-size: 13px; margin-bottom: 20px; }
+
+  /* KPI */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .kpi.target { border-color: var(--green); background: var(--green-bg); }
+  .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 3px; }
+  .kpi-value { font-size: 24px; font-weight: 800; }
+  .kpi-detail { font-size: 11px; color: var(--gray); }
+
+  /* Lesson from 2025 */
+  .lesson-box { background: var(--yellow-light); border: 2px solid var(--yellow); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .lesson-box h3 { font-size: 16px; margin-bottom: 10px; }
+  .lesson-box p { font-size: 13px; line-height: 1.6; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  th { background: var(--gray-light); padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); border-bottom: 2px solid var(--border); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.highlight { background: var(--green-bg); }
+
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .insight-card { border-left: 4px solid var(--green); background: var(--green-bg); padding: 14px 16px; border-radius: 0 8px 8px 0; }
+  .insight-card.warning { border-left-color: var(--red); background: var(--red-light); }
+  .insight-card.info { border-left-color: var(--gold); background: var(--gold-light); }
+  .insight-card.purple { border-left-color: var(--purple); background: var(--purple-light); }
+  .insight-card h4 { font-size: 13px; margin-bottom: 3px; }
+  .insight-card p { font-size: 12px; color: #444; line-height: 1.5; }
+
+  /* Product selection */
+  .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .prod-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .prod-card.hero { border-color: var(--green); background: var(--green-bg); border-width: 2px; }
+  .prod-card.hero::before { content: 'HERO'; display: block; font-size: 9px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .prod-card.sport { border-color: var(--orange); background: var(--orange-light); }
+  .prod-card.sport::before { content: 'SPORT'; display: block; font-size: 9px; font-weight: 800; color: var(--orange); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .prod-card.cadeau { border-color: var(--purple); background: var(--purple-light); }
+  .prod-card.cadeau::before { content: 'CADEAU'; display: block; font-size: 9px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .prod-card.cross { border-color: var(--gold); background: var(--gold-light); }
+  .prod-card.cross::before { content: 'CROSS-SELL'; display: block; font-size: 9px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .prod-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .prod-stats { font-size: 11px; color: var(--gray); }
+  .prod-price { font-size: 18px; font-weight: 800; color: var(--green); margin-top: 6px; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before { content: ''; position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; }
+  .tl-item.red::before { background: var(--red); box-shadow: 0 0 0 2px var(--red); }
+  .tl-item.green::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+  .tl-item.blue::before { background: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
+  .tl-item.gold::before { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+  .tl-item.purple::before { background: var(--purple); box-shadow: 0 0 0 2px var(--purple); }
+  .tl-date { font-size: 12px; font-weight: 700; }
+  .tl-content { font-size: 13px; }
+  .tl-content strong { color: var(--text); }
+
+  /* Email cards */
+  .email-card { border: 2px solid var(--blue); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .email-header { background: var(--blue); color: white; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .email-date { font-size: 13px; font-weight: 600; }
+  .email-segment { background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; font-size: 11px; }
+  .email-body { padding: 16px 18px; }
+  .email-subject { font-size: 16px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+  .email-preview { font-size: 13px; color: var(--gray); font-style: italic; margin-bottom: 10px; }
+  .email-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-gold { background: var(--gold-light); color: var(--gold); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+
+  /* Vitrine layout */
+  .vitrine-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .vitrine-zone { border: 2px dashed var(--border); border-radius: 10px; padding: 16px; }
+  .vitrine-zone h4 { font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .vitrine-zone ul { font-size: 12px; padding-left: 16px; }
+  .vitrine-zone li { margin-bottom: 4px; }
+  .vitrine-zone.main { border-color: var(--green); background: var(--green-bg); }
+  .vitrine-zone.caisse { border-color: var(--gold); background: var(--gold-light); }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+  .ci-stock { background: var(--orange); }
+  .ci-store { background: var(--green); }
+  .ci-email { background: var(--blue); }
+  .ci-social { background: var(--purple); }
+  .ci-ops { background: var(--gray); }
+  .ci-track { background: var(--gold); }
+
+  .synthesis { background: linear-gradient(135deg, var(--yellow-light) 0%, var(--green-bg) 100%); border: 2px solid var(--green); border-radius: 12px; padding: 28px; }
+  .synthesis h3 { font-size: 18px; margin-bottom: 12px; }
+  .synthesis p { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+
+  .footer { text-align: center; padding: 20px; color: var(--gray); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .header { padding: 24px; }
+    .vitrine-grid { grid-template-columns: 1fr; }
+    .prod-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="event-badge">Liege-Bastogne-Liege 2026</div>
+    <h1>Plan Ouverture Dimanche 26 Avril</h1>
+    <div class="subtitle">Vitrine, produits, emails, sampling, tracking — le plan complet</div>
+    <div class="date">Teatower Liege | Base sur les ventes mars 2026 + campagnes avril 2025 | Genere le 30 mars 2026</div>
+  </div>
+
+  <!-- LECON 2025 -->
+  <div class="lesson-box">
+    <h3>Ce qu'on apprend d'avril 2025</h3>
+    <p><strong>Aucune campagne liee a LBL n'a ete envoyee en avril 2025.</strong> Zero mention du cyclisme, zero segment Liege, zero drive-to-store autour de l'evenement. Les 16 campagnes envoyees etaient generiques (from "Teatower", ~59 000 envois, ~18% open, ~0.2% click). La seule campagne segmentee Liege du mois — "OUFTI ! -10% sur nos specialites liegeoises" (4 avril) — a fait <strong>37.2% open rate</strong> sur 4 460 envois. C'est 2x la moyenne.</p>
+    <p style="margin-top:10px"><strong>Conclusion :</strong> LBL 2025 a ete une opportunite completement ratee. En 2026, on fait l'inverse : campagne dediee, segment Liege, angle sportif, drive-to-store avec degustation.</p>
+  </div>
+
+  <!-- KPIs OBJECTIF -->
+  <div class="kpi-row">
+    <div class="kpi target">
+      <div class="kpi-label">Objectif CA dimanche</div>
+      <div class="kpi-value" style="color:var(--green)">1 000 &euro;</div>
+      <div class="kpi-detail">+5x un dimanche normal</div>
+    </div>
+    <div class="kpi target">
+      <div class="kpi-label">Commandes cible</div>
+      <div class="kpi-value" style="color:var(--green)">45+</div>
+      <div class="kpi-detail">Panier moyen 22 &euro;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Horaire</div>
+      <div class="kpi-value" style="color:var(--blue)">10h-18h</div>
+      <div class="kpi-detail">8 heures d'ouverture</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Email cible</div>
+      <div class="kpi-value" style="color:var(--blue)">35%+</div>
+      <div class="kpi-detail">Open rate segment Liege</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Sampling</div>
+      <div class="kpi-value" style="color:var(--orange)">100+</div>
+      <div class="kpi-detail">Degustations iced tea</div>
+    </div>
+  </div>
+
+  <!-- CONTEXTE LBL -->
+  <div class="section">
+    <div class="section-title">Contexte : Liege-Bastogne-Liege</div>
+    <div class="section-subtitle">Monument du cyclisme mondial — 112e edition, dimanche 26 avril 2026</div>
+
+    <div class="insight-grid">
+      <div class="insight-card info">
+        <h4>Le plus gros evenement sportif de l'annee a Liege</h4>
+        <p>Des dizaines de milliers de spectateurs dans les rues. L'arrivee est dans le centre de Liege. Public international (belge, neerlandais, francais, allemand). Atmosphere festive toute la journee.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Public sportif + accompagnants</h4>
+        <p>Le public LBL n'est pas que des fans de velo — c'est aussi des familles, des groupes d'amis, des touristes. Beaucoup de passage pieton dans les rues du centre entre 10h et 18h.</p>
+      </div>
+      <div class="insight-card purple">
+        <h4>Angle Teatower : recuperation + energie + local</h4>
+        <p>Positionner Teatower comme la pause naturelle du spectateur sportif. The glace, Guarana Boost Paulette (collab 100% liegeoise), matcha energisant. Pas du dopage — du plaisir.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECTION PRODUITS -->
+  <div class="section">
+    <div class="section-title">Selection Produits — LBL Day</div>
+    <div class="section-subtitle">Base sur les ventes Liege mars 2026 (833 commandes, 19 992 EUR) + angle sportif</div>
+
+    <div class="prod-grid">
+      <div class="prod-card hero">
+        <div class="prod-name">Infusion du Printemps 2026</div>
+        <div class="prod-stats">Star #1 Liege | 87 pcs / 830 EUR en mars</div>
+        <div class="prod-price">9.50 &euro;</div>
+      </div>
+      <div class="prod-card sport">
+        <div class="prod-name">Jus Paulette x Teatower</div>
+        <div class="prod-stats">Guarana Boost | 12 bouteilles/mois Liege</div>
+        <div class="prod-price">3.00 &euro;</div>
+      </div>
+      <div class="prod-card sport">
+        <div class="prod-name">Matcha Japonais 50g</div>
+        <div class="prod-stats">EGCG anti-inflammatoire | 20 pcs / 382 EUR mars</div>
+        <div class="prod-price">20.00 &euro;</div>
+      </div>
+      <div class="prod-card sport">
+        <div class="prod-name">Ginger Hot</div>
+        <div class="prod-stats">Recuperation | 33 pcs / 337 EUR mars (vrac+infusettes)</div>
+        <div class="prod-price">10.00 &euro;</div>
+      </div>
+      <div class="prod-card hero">
+        <div class="prod-name">Liberte 100g</div>
+        <div class="prod-stats">Bestseller #3 Liege | 42 pcs / 403 EUR mars</div>
+        <div class="prod-price">9.75 &euro;</div>
+      </div>
+      <div class="prod-card cadeau">
+        <div class="prod-name">Coffret Matcha Traditionnel</div>
+        <div class="prod-stats">Cadeau premium | 11 pcs / 422 EUR mars</div>
+        <div class="prod-price">38.00 &euro;</div>
+      </div>
+      <div class="prod-card cross">
+        <div class="prod-name">Verre double paroi 300ml</div>
+        <div class="prod-stats">Cross-sell #1 | 15 pcs / 109 EUR mars Liege</div>
+        <div class="prod-price">7.37 &euro;</div>
+      </div>
+      <div class="prod-card cross">
+        <div class="prod-name">Assortiment Decouverte</div>
+        <div class="prod-stats">Entree de gamme | 21 pcs / 302 EUR mars</div>
+        <div class="prod-price">14.25 &euro;</div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Angle sport : le triptyque energetique</h4>
+        <p><strong>Jus Paulette</strong> (avant l'effort) + <strong>Matcha</strong> (EGCG anti-inflammatoire) + <strong>Ginger Hot</strong> (recuperation). L'article "15 km de Liege" detaille la science derriere chaque produit. Utiliser les memes arguments.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Sampling : iced tea devant la boutique</h4>
+        <p>Preparer <strong>Infusion du Printemps 2026 glacee</strong> + <strong>Ginger Cool BIO glace</strong> en grande quantite. C'est le produit de premiere impression pour les passants. Objectif : 100+ degustations.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VITRINE -->
+  <div class="section">
+    <div class="section-title">Plan Vitrine &amp; Merchandising</div>
+    <div class="section-subtitle">Theme : "Le ravitaillement du spectateur" — energie naturelle x heritage liegeois</div>
+
+    <div class="vitrine-grid">
+      <div class="vitrine-zone main">
+        <h4 style="color:var(--green)">Vitrine principale + entree</h4>
+        <ul>
+          <li><strong>Display central :</strong> Jus Paulette x Teatower en pyramide (3 etages) — collab 100% liegeoise en hero</li>
+          <li><strong>Panneau :</strong> "Le ravitaillement du spectateur" avec le triptyque Avant/Pendant/Apres</li>
+          <li><strong>Table sampling :</strong> devant la boutique si trottoir le permet (regle 1,5m pietons) — iced tea + gobelets</li>
+          <li><strong>Infusion du Printemps :</strong> en facing lateral, boite ouverte pour le parfum</li>
+          <li><strong>Coffrets Matcha :</strong> display "idee cadeau" pour les accompagnants qui attendent</li>
+        </ul>
+      </div>
+      <div class="vitrine-zone caisse">
+        <h4 style="color:var(--gold)">Zone caisse — Cross-sell</h4>
+        <ul>
+          <li><strong>Verre double paroi</strong> — a 7.37 EUR, achat impulsif parfait</li>
+          <li><strong>Assortiment decouverte</strong> — pour les nouveaux clients qui decouvrent</li>
+          <li><strong>Jus Paulette</strong> — a 3 EUR, achat rapide pour les presses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAN EMAIL -->
+  <div class="section">
+    <div class="section-title">Plan Email — Sequence LBL</div>
+    <div class="section-subtitle">3 emails : annonce, rappel, jour J. From "Audrey de Teatower". Segment Liege + segment sportif.</div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <div class="email-date">Mardi 21 avril — 18h</div>
+        <div class="email-segment">Segment Liege (6 500+)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">Liege-Bastogne-Liege dimanche : Teatower est sur la ligne d'arrivee</div>
+        <div class="email-preview">Ouvert de 10h a 18h le 26 avril. Degustation iced tea gratuite devant la boutique.</div>
+        <div class="email-tags">
+          <span class="tag tag-green">Drive-to-store</span>
+          <span class="tag tag-gold">Reciprocite (degustation gratuite)</span>
+          <span class="tag tag-blue">Unite (evenement liegeois)</span>
+          <span class="tag tag-purple">Autorite (sur la ligne d'arrivee)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Annonce ouverture dimanche + le triptyque energetique (Jus Paulette avant, eau pendant, the vert apres) + lien vers l'article 15km + CTA "Passez nous voir"</p>
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <div class="email-date">Vendredi 24 avril — 10h</div>
+        <div class="email-segment">Segment Liege (non-ouvrants email 1)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">Dimanche a Liege : votre the glace vous attend (offert avec cet email)</div>
+        <div class="email-preview">Montrez cet email en boutique dimanche = degustation iced tea offerte. Ouvert 10h-18h.</div>
+        <div class="email-tags">
+          <span class="tag tag-green">Drive-to-store</span>
+          <span class="tag tag-gold">Reciprocite (offert avec email)</span>
+          <span class="tag tag-red">Urgence (dimanche uniquement)</span>
+          <span class="tag tag-blue">Tracking (email = coupon)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Rappel + "montrez cet email" = mesure directe du drive-to-store. Axe sur les produits sport (Paulette, Matcha, Ginger). Photos vitrine.</p>
+      </div>
+    </div>
+
+    <div class="email-card" style="border-color:var(--green)">
+      <div class="email-header" style="background:var(--green)">
+        <div class="email-date">Dimanche 26 avril — 9h</div>
+        <div class="email-segment">Segment Liege COMPLET + "Autres" sportifs</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">C'est maintenant : Teatower Liege ouvert pour Liege-Bastogne-Liege</div>
+        <div class="email-preview">De 10h a 18h, passez nous voir. Degustation iced tea gratuite devant la boutique.</div>
+        <div class="email-tags">
+          <span class="tag tag-green">Drive-to-store</span>
+          <span class="tag tag-red">Urgence maximale (aujourd'hui)</span>
+          <span class="tag tag-blue">Format prouve : 32.6% open (1er mars)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Email court, factuel. "On est ouvert, voici l'adresse, venez." Le format "cet apres-midi ouvert" du 1er mars a fait 32.6% — reproduire exactement ce format.</p>
+      </div>
+    </div>
+
+    <div class="insight-card warning" style="margin-top:12px">
+      <h4>Lecon avril 2025 : ne PAS faire de campagne generique</h4>
+      <p>Les 16 campagnes d'avril 2025 etaient toutes envoyees a 59 000+ contacts, from "Teatower", sans segmentation, sans lien avec LBL. Resultat : 17-18% open, 0.14% click. La seule campagne segmentee Liege a fait 37.2%. <strong>Toujours segmenter. Toujours localiser.</strong></p>
+    </div>
+  </div>
+
+  <!-- SOCIAL MEDIA -->
+  <div class="section">
+    <div class="section-title">Social Media — Sequence LBL</div>
+    <div class="section-subtitle">Instagram + Facebook Teatower</div>
+
+    <div class="timeline">
+      <div class="tl-item blue">
+        <div class="tl-date" style="color:var(--blue)">Lundi 20 avril</div>
+        <div class="tl-content"><strong>Post Instagram :</strong> "Dimanche prochain, Teatower Liege sera sur la ligne d'arrivee de LBL. On prepare le ravitaillement." Photo de la preparation du iced tea en coulisses. Teaser.</div>
+      </div>
+      <div class="tl-item green">
+        <div class="tl-date" style="color:var(--green)">Jeudi 23 avril</div>
+        <div class="tl-content"><strong>Reel/Story :</strong> Le triptyque energetique Avant/Pendant/Apres avec les produits. Format court, sportif. Taguer @paulette_juicery si possible.</div>
+      </div>
+      <div class="tl-item gold">
+        <div class="tl-date" style="color:var(--gold)">Samedi 25 avril — soir</div>
+        <div class="tl-content"><strong>Story :</strong> "Demain on est ouvert 10h-18h pour LBL. Degustation iced tea gratuite devant la boutique." Countdown sticker.</div>
+      </div>
+      <div class="tl-item red">
+        <div class="tl-date" style="color:var(--red)">Dimanche 26 avril — matin + live</div>
+        <div class="tl-content"><strong>Stories live :</strong> L'ambiance dans la rue, les cyclistes qui passent, la table de degustation, les clients qui entrent. Contenu brut, authentique. Montrer que Teatower fait partie de l'evenement.</div>
+      </div>
+      <div class="tl-item purple">
+        <div class="tl-date" style="color:var(--purple)">Lundi 27 avril</div>
+        <div class="tl-content"><strong>Post recap :</strong> "Merci LBL ! X degustations, X clients, et une belle journee liegeoise." Photo de l'equipe. Community building.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAMPLING OPERATIONS -->
+  <div class="section">
+    <div class="section-title">Operations Sampling</div>
+    <div class="section-subtitle">Degustation devant la boutique — le levier #1 de conversion le jour J</div>
+
+    <table>
+      <tr><th>Element</th><th>Quantite</th><th>Detail</th></tr>
+      <tr><td><strong>Iced tea Infusion Printemps</strong></td><td class="num">5 litres</td><td>Preparer la veille, garder au frais. Le produit star — 830 EUR/mois a Liege.</td></tr>
+      <tr><td><strong>Iced tea Ginger Cool BIO</strong></td><td class="num">3 litres</td><td>Angle sport/recuperation. Gingembre + the vert = EGCG + gingerol.</td></tr>
+      <tr><td><strong>Gobelets carton biodegradables</strong></td><td class="num">150 pcs</td><td>10 cl par degustation. Prevoir logo Teatower si possible.</td></tr>
+      <tr><td><strong>Jus Paulette</strong></td><td class="num">24 bouteilles</td><td>En display sur la table. Vente directe a 3 EUR, achat impulsif.</td></tr>
+      <tr><td><strong>Table pliante</strong></td><td class="num">1</td><td>Verifier deballage autorise (regle 1,5m passage pietons).</td></tr>
+      <tr><td><strong>Panneau/roll-up</strong></td><td class="num">1</td><td>"Le ravitaillement du spectateur — Degustation gratuite"</td></tr>
+      <tr><td><strong>Flyers avec code promo</strong></td><td class="num">200 pcs</td><td>Code "LBL26" pour -10% en ligne. Mesure conversion post-evenement.</td></tr>
+    </table>
+  </div>
+
+  <!-- TRACKING -->
+  <div class="section">
+    <div class="section-title">Tracking &amp; Mesure</div>
+    <div class="section-subtitle">Pour la premiere fois, mesurer le ROI exact de l'ouverture dominicale</div>
+
+    <table>
+      <tr><th>Canal</th><th>Mecanisme</th><th>KPI</th></tr>
+      <tr><td><strong>POS en boutique</strong></td><td>Code promo "LBL26" en caisse pour identifier les clients LBL</td><td>Nombre de redemptions, CA genere</td></tr>
+      <tr><td><strong>Email "montrez cet email"</strong></td><td>Compter manuellement les clients qui montrent l'email</td><td>Conversion email → visite physique</td></tr>
+      <tr><td><strong>Sampling</strong></td><td>Compter les gobelets distribues (depart 150, compter restants)</td><td>Nombre de degustations</td></tr>
+      <tr><td><strong>Flyers</strong></td><td>Code "LBL26" sur teatower.com, unique a l'evenement</td><td>Conversions e-commerce post-event</td></tr>
+      <tr><td><strong>Social media</strong></td><td>Stories views, engagement, DMs recus</td><td>Reach + engagement</td></tr>
+      <tr><td><strong>POS global</strong></td><td>Comparer CA dimanche 26 vs CA moyen journee Liege (~650 EUR)</td><td>Uplift CA</td></tr>
+    </table>
+  </div>
+
+  <!-- PLANNING JOUR J -->
+  <div class="section">
+    <div class="section-title">Planning Jour J — Dimanche 26 Avril</div>
+
+    <div class="timeline">
+      <div class="tl-item green">
+        <div class="tl-date" style="color:var(--green)">8h30 — Preparation</div>
+        <div class="tl-content">Arrivee equipe. Installer table sampling devant. Preparer iced tea. Verifier stock Jus Paulette, Matcha, Ginger Hot. Ouvrir POS, activer code LBL26.</div>
+      </div>
+      <div class="tl-item blue">
+        <div class="tl-date" style="color:var(--blue)">9h00 — Email J</div>
+        <div class="tl-content">Envoi email "C'est maintenant" au segment Liege + sportifs. Post Story Instagram "On est ouvert !".</div>
+      </div>
+      <div class="tl-item gold">
+        <div class="tl-date" style="color:var(--gold)">10h00 — Ouverture</div>
+        <div class="tl-content">Debut sampling iced tea. Distribution flyers aux passants. La course passe en matinee — trafic pieton eleve.</div>
+      </div>
+      <div class="tl-item red">
+        <div class="tl-date" style="color:var(--red)">12h-15h — Pic</div>
+        <div class="tl-content">Arrivee des coureurs, ambiance festive. Pic de trafic attendu. Stories live. Pousser Jus Paulette + Matcha. Vente suggestive verre double paroi en caisse.</div>
+      </div>
+      <div class="tl-item purple">
+        <div class="tl-date" style="color:var(--purple)">15h-18h — Fin de course</div>
+        <div class="tl-content">Les spectateurs rentrent — derniere fenetre de conversion. Pousser les coffrets cadeaux et l'Assortiment decouverte. Infusion du Printemps en degustation chaude si meteo fraiche.</div>
+      </div>
+      <div class="tl-item green">
+        <div class="tl-date" style="color:var(--green)">18h — Fermeture</div>
+        <div class="tl-content">Compter gobelets restants, noter CA POS, compter redemptions LBL26. Photo equipe pour post recap lundi.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <div class="section-title">Checklist — A Preparer Avant le 26 Avril</div>
+
+    <ul class="checklist">
+      <li><div class="check-icon ci-stock">1</div><div><strong>Reappro stock :</strong> Infusion Printemps (87 pcs/mois = verifier stock), Matcha Japonais (20 pcs), Ginger Hot (vrac + infusettes), Jus Paulette x24 bouteilles, Verres double paroi x20+, Coffrets Matcha x5, Assortiment Decouverte x10+.</div></li>
+      <li><div class="check-icon ci-store">2</div><div><strong>Vitrine LBL :</strong> Installer vitrine "Le ravitaillement du spectateur" le samedi 25 au soir. Pyramide Jus Paulette en hero. Panneau triptyque Avant/Pendant/Apres.</div></li>
+      <li><div class="check-icon ci-store">3</div><div><strong>Cross-sell caisse :</strong> Verre double paroi + Jus Paulette a cote du terminal. Verifier que le code LBL26 est actif dans Odoo POS.</div></li>
+      <li><div class="check-icon ci-email">4</div><div><strong>Programmer les 3 emails</strong> dans Mailchimp : 21/04 18h (annonce), 24/04 10h (rappel non-ouvrants), 26/04 9h (jour J). From: "Audrey de Teatower". Segment Liege.</div></li>
+      <li><div class="check-icon ci-social">5</div><div><strong>Preparer les contenus social media :</strong> Post teaser lundi 20, Reel triptyque jeudi 23, Story countdown samedi 25. Coordonner avec Audrey.</div></li>
+      <li><div class="check-icon ci-ops">6</div><div><strong>Sampling materiel :</strong> Commander gobelets carton (150+), imprimer flyers avec code LBL26 (200 pcs), verifier table pliante disponible. Autorisation deballage devant boutique.</div></li>
+      <li><div class="check-icon ci-ops">7</div><div><strong>Staffing :</strong> Confirmer qui ouvre (8h30-13h) et qui ferme (13h-18h30). Minimum 2 personnes en permanence (1 caisse + 1 sampling/accueil).</div></li>
+      <li><div class="check-icon ci-ops">8</div><div><strong>Iced tea :</strong> Preparer samedi 25 au soir : 5L Infusion Printemps + 3L Ginger Cool BIO. Garder au frais. Prevoir glacons.</div></li>
+      <li><div class="check-icon ci-track">9</div><div><strong>Creer code promo LBL26</strong> dans Odoo POS (-10%) + dans Shopify (-10% sur teatower.com). Valide 26-30 avril uniquement.</div></li>
+      <li><div class="check-icon ci-track">10</div><div><strong>Article 15 km :</strong> L'article "Avant. Pendant. Apres." est pret sur vilnagaon.github.io/15km-liege.html. Lien a inclure dans les emails et sur les flyers (QR code).</div></li>
+    </ul>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="section">
+    <div class="section-title">Budget Estimatif</div>
+    <table>
+      <tr><th>Poste</th><th>Cout</th><th>Note</th></tr>
+      <tr><td>Gobelets carton 150 pcs</td><td class="num">~25 &euro;</td><td>Biodegradables</td></tr>
+      <tr><td>The pour iced tea (8L)</td><td class="num">~15 &euro;</td><td>Cout matiere Infusion Printemps + Ginger Cool</td></tr>
+      <tr><td>Glacons</td><td class="num">~5 &euro;</td><td>2-3 sacs</td></tr>
+      <tr><td>Flyers 200 pcs</td><td class="num">~30 &euro;</td><td>Impression couleur A6</td></tr>
+      <tr><td>Staffing supplementaire</td><td class="num">~150 &euro;</td><td>1 personne x 8h dimanche</td></tr>
+      <tr class="highlight"><td><strong>Total</strong></td><td class="num"><strong>~225 &euro;</strong></td><td>ROI positif des 10 ventes supplementaires (10 x 22 EUR panier = 220 EUR)</td></tr>
+    </table>
+  </div>
+
+  <!-- SYNTHESE -->
+  <div class="synthesis">
+    <h3>Resume Executif</h3>
+    <p><strong>L'annee derniere, LBL a Liege = 0 action Teatower.</strong> En 2026, on deploie le plan complet : 3 emails segmentes Liege (format prouve a 37.2% open), sampling iced tea devant la boutique (100+ degustations), vitrine sportive avec la collab Paulette x Teatower en hero, et tracking par code LBL26 pour mesurer le ROI.</p>
+    <p><strong>Objectif :</strong> 1 000 EUR de CA le dimanche 26 avril = +5x un dimanche normal. Budget : ~225 EUR. Rentabilise des la 10e vente supplementaire.</p>
+    <p><strong>Les 3 produits a pousser :</strong> Jus Paulette (3 EUR, achat impulsif, angle liegeois), Matcha Japonais (20 EUR, EGCG anti-inflammatoire, cadeau), Infusion du Printemps glacee (sampling = premiere impression).</p>
+  </div>
+
+  <div class="footer">
+    Plan LBL 26 Avril 2026 | Teatower Liege<br>
+    Base sur : ventes POS Liege mars 2026 + campagnes Mailchimp avril 2025 + analyse 50 campagnes Rebecca/Celine<br>
+    Genere le 30 mars 2026
+  </div>
+
+</div>
+</body>
+</html>
