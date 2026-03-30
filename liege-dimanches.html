@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liege — Plan Ouvertures Dimanches Avril 2026</title>
+<style>
+  :root {
+    --red: #c1121f; --red-light: #fde8e8; --red-bg: #fff5f5;
+    --green: #2d6a4f; --green-bg: #f0f7f4;
+    --gold: #b5851b; --gold-light: #f5e6c8;
+    --blue: #1d3557; --blue-light: #e8f0fe;
+    --purple: #6c3d91; --purple-light: #f3eaf8;
+    --orange: #e76f51; --orange-light: #fef0ec;
+    --gray: #6c757d; --gray-light: #f8f9fa;
+    --border: #dee2e6; --text: #212529; --white: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--gray-light); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .header { background: linear-gradient(135deg, var(--red) 0%, #780000 100%); color: var(--white); padding: 44px 40px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header::after { content: ''; position: absolute; right: -20px; top: -20px; width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+  .header h1 { font-size: 28px; margin-bottom: 6px; position: relative; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; position: relative; }
+  .header .date { font-size: 12px; opacity: 0.5; margin-top: 12px; position: relative; }
+  .header .context { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 16px; margin-top: 16px; font-size: 13px; opacity: 0.9; position: relative; }
+
+  .section { background: var(--white); border-radius: 12px; padding: 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .section-subtitle { color: var(--gray); font-size: 13px; margin-bottom: 20px; }
+
+  /* Calendar */
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 20px; }
+  .cal-header { text-align: center; font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; padding: 8px 4px; }
+  .cal-day { border: 1px solid var(--border); border-radius: 8px; padding: 8px; min-height: 80px; font-size: 12px; position: relative; }
+  .cal-day.empty { border: none; background: transparent; }
+  .cal-day.sunday { background: var(--red-bg); border-color: var(--red); }
+  .cal-day.event { border-width: 2px; }
+  .cal-day.ferie { background: var(--blue-light); border-color: var(--blue); }
+  .cal-day.vacances { background: #fef9ef; }
+  .cal-day .day-num { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .cal-day .day-num.red { color: var(--red); }
+  .cal-day .day-num.blue { color: var(--blue); }
+  .cal-day .day-event { font-size: 9px; font-weight: 600; line-height: 1.3; }
+  .cal-day .day-tag { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 8px; font-weight: 700; text-transform: uppercase; margin-top: 3px; }
+  .tag-open { background: var(--green); color: white; }
+  .tag-event { background: var(--orange); color: white; }
+  .tag-ferie { background: var(--blue); color: white; }
+  .tag-vacances { background: var(--gold); color: white; }
+
+  /* Sunday cards */
+  .sunday-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .sunday-card { border: 2px solid var(--red); border-radius: 12px; overflow: hidden; }
+  .sunday-header { background: var(--red); color: white; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .sunday-date { font-size: 16px; font-weight: 700; }
+  .sunday-tag { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .sunday-body { padding: 18px; }
+  .sunday-event { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--red); }
+  .sunday-details { font-size: 12.5px; color: #444; margin-bottom: 12px; line-height: 1.5; }
+  .sunday-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .sunday-kpi { text-align: center; background: var(--gray-light); border-radius: 6px; padding: 8px; }
+  .sunday-kpi .val { font-size: 18px; font-weight: 800; color: var(--red); }
+  .sunday-kpi .lab { font-size: 9px; color: var(--gray); text-transform: uppercase; }
+  .sunday-actions { font-size: 12px; }
+  .sunday-actions li { margin-bottom: 4px; }
+
+  /* Revenue projection */
+  .proj-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .proj-card { border-radius: 10px; padding: 16px; text-align: center; border: 1px solid var(--border); }
+  .proj-card.total { background: var(--red); color: white; border: none; }
+  .proj-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; margin-bottom: 4px; }
+  .proj-value { font-size: 28px; font-weight: 800; }
+  .proj-detail { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+  /* Insight cards */
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .insight-card { border-left: 4px solid var(--green); background: var(--green-bg); padding: 14px 16px; border-radius: 0 8px 8px 0; }
+  .insight-card.warning { border-left-color: var(--red); background: var(--red-light); }
+  .insight-card.info { border-left-color: var(--gold); background: var(--gold-light); }
+  .insight-card.orange { border-left-color: var(--orange); background: var(--orange-light); }
+  .insight-card h4 { font-size: 13px; margin-bottom: 3px; }
+  .insight-card p { font-size: 12px; color: #444; line-height: 1.5; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin-bottom: 16px; }
+  .checklist li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+  .check-icon.email { background: var(--blue); }
+  .check-icon.store { background: var(--green); }
+  .check-icon.social { background: var(--purple); }
+  .check-icon.ops { background: var(--orange); }
+
+  /* Newsletter plan */
+  .nl-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+  .nl-card.highlight { border-color: var(--red); background: var(--red-bg); }
+  .nl-date { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; }
+  .nl-subject { font-size: 15px; font-weight: 700; margin: 4px 0; }
+  .nl-subject.red { color: var(--red); }
+  .nl-details { font-size: 12px; color: #555; }
+  .nl-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .nl-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .nl-tag.segment { background: var(--blue-light); color: var(--blue); }
+  .nl-tag.cialdini { background: var(--gold-light); color: var(--gold); }
+  .nl-tag.drive { background: var(--green-bg); color: var(--green); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; margin-bottom: 16px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before { content: ''; position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--red); border: 2px solid white; box-shadow: 0 0 0 2px var(--red); }
+  .tl-item.done::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+  .tl-item .tl-date { font-size: 11px; font-weight: 600; color: var(--red); }
+  .tl-item.done .tl-date { color: var(--green); }
+  .tl-item .tl-content { font-size: 13px; }
+
+  /* Mai section */
+  .mai-card { background: linear-gradient(135deg, var(--gold-light) 0%, var(--orange-light) 100%); border: 2px solid var(--gold); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .mai-card h3 { color: var(--gold); margin-bottom: 8px; }
+  .mai-card p { font-size: 13px; line-height: 1.6; }
+
+  .footer { text-align: center; padding: 20px; color: var(--gray); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .header { padding: 24px; }
+    .store-grid, .sunday-grid { grid-template-columns: 1fr; }
+    .proj-grid { grid-template-columns: repeat(2, 1fr); }
+    .cal-grid { font-size: 10px; }
+    .cal-day { min-height: 60px; padding: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Liege — Plan Ouvertures Dimanches</h1>
+    <div class="subtitle">Avril & Mai 2026 — Rattraper la chute et capter le trafic evenementiel</div>
+    <div class="date">Teatower Liege | Genere le 30 mars 2026</div>
+    <div class="context">
+      <strong>Contexte :</strong> CA Liege S13 a 3 374 EUR (-43.9% vs S12). Moyenne 4 semaines : 4 745 EUR/sem. Objectif : rattraper via les ouvertures dominicales sur les evenements majeurs d'avril.
+    </div>
+  </div>
+
+  <!-- CALENDRIER AVRIL -->
+  <div class="section">
+    <div class="section-title">Calendrier Avril 2026</div>
+    <div class="section-subtitle">Vacances de Paques du 4 au 19 avril | 3 dimanches evenementiels + 1 dimanche vacances</div>
+
+    <div class="cal-grid">
+      <div class="cal-header">Lun</div>
+      <div class="cal-header">Mar</div>
+      <div class="cal-header">Mer</div>
+      <div class="cal-header">Jeu</div>
+      <div class="cal-header">Ven</div>
+      <div class="cal-header">Sam</div>
+      <div class="cal-header" style="color:var(--red)">Dim</div>
+
+      <!-- Semaine 1 : 1-5 avril -->
+      <div class="cal-day"><div class="day-num">1</div></div>
+      <div class="cal-day"><div class="day-num">2</div></div>
+      <div class="cal-day"><div class="day-num">3</div><div class="day-event">Vendredi Saint</div><div class="day-tag tag-vacances">Conge</div></div>
+      <div class="cal-day vacances event" style="border-color:var(--orange)"><div class="day-num">4</div><div class="day-event">Week-end des Coteaux J1</div><div class="day-tag tag-event">Event</div></div>
+      <div class="cal-day sunday event" style="border-color:var(--red)"><div class="day-num red">5</div><div class="day-event">PAQUES + Coteaux J2</div><div class="day-tag tag-open">Ouvert</div><div class="day-tag tag-event">Event</div></div>
+
+      <!-- Semaine 2 : 6-12 avril -->
+      <div class="cal-day ferie"><div class="day-num blue">6</div><div class="day-event">Lundi de Paques</div><div class="day-tag tag-ferie">Ferie</div></div>
+      <div class="cal-day vacances"><div class="day-num">7</div><div class="day-tag tag-vacances">Vacances</div></div>
+      <div class="cal-day vacances"><div class="day-num">8</div></div>
+      <div class="cal-day vacances"><div class="day-num">9</div></div>
+      <div class="cal-day vacances"><div class="day-num">10</div></div>
+      <div class="cal-day vacances"><div class="day-num">11</div></div>
+      <div class="cal-day sunday event"><div class="day-num red">12</div><div class="day-event">15 km de Liege</div><div class="day-tag tag-open">Ouvert</div><div class="day-tag tag-event">Event</div></div>
+
+      <!-- Semaine 3 : 13-19 avril -->
+      <div class="cal-day vacances"><div class="day-num">13</div></div>
+      <div class="cal-day vacances"><div class="day-num">14</div></div>
+      <div class="cal-day vacances"><div class="day-num">15</div></div>
+      <div class="cal-day vacances"><div class="day-num">16</div></div>
+      <div class="cal-day vacances"><div class="day-num">17</div></div>
+      <div class="cal-day vacances"><div class="day-num">18</div></div>
+      <div class="cal-day sunday"><div class="day-num red">19</div><div class="day-event">Dernier dim vacances</div><div class="day-tag tag-open">Ouvert</div><div class="day-tag tag-vacances">Vacances</div></div>
+
+      <!-- Semaine 4 : 20-26 avril -->
+      <div class="cal-day"><div class="day-num">20</div></div>
+      <div class="cal-day"><div class="day-num">21</div></div>
+      <div class="cal-day"><div class="day-num">22</div></div>
+      <div class="cal-day"><div class="day-num">23</div></div>
+      <div class="cal-day"><div class="day-num">24</div></div>
+      <div class="cal-day"><div class="day-num">25</div></div>
+      <div class="cal-day sunday event"><div class="day-num red">26</div><div class="day-event">Liege-Bastogne-Liege</div><div class="day-tag tag-open">Ouvert</div><div class="day-tag tag-event">Event</div></div>
+
+      <!-- Semaine 5 : 27-30 avril -->
+      <div class="cal-day"><div class="day-num">27</div></div>
+      <div class="cal-day"><div class="day-num">28</div></div>
+      <div class="cal-day"><div class="day-num">29</div></div>
+      <div class="cal-day"><div class="day-num">30</div></div>
+      <div class="cal-day empty"></div>
+      <div class="cal-day empty"></div>
+      <div class="cal-day empty"></div>
+    </div>
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:11px; color:var(--gray);">
+      <span><span class="day-tag tag-open" style="vertical-align:middle">Ouvert</span> Ouverture dominicale</span>
+      <span><span class="day-tag tag-event" style="vertical-align:middle">Event</span> Evenement majeur</span>
+      <span><span class="day-tag tag-ferie" style="vertical-align:middle">Ferie</span> Jour ferie</span>
+      <span><span class="day-tag tag-vacances" style="vertical-align:middle">Vacances</span> Conge scolaire</span>
+    </div>
+  </div>
+
+  <!-- 4 DIMANCHES DETAILLES -->
+  <div class="section">
+    <div class="section-title">4 Dimanches d'Ouverture — Detail</div>
+    <div class="section-subtitle">Horaires, evenements, objectifs et actions specifiques</div>
+
+    <div class="sunday-grid">
+
+      <!-- DIM 5 AVRIL -->
+      <div class="sunday-card">
+        <div class="sunday-header">
+          <div class="sunday-date">Dimanche 5 avril</div>
+          <div class="sunday-tag">PAQUES</div>
+        </div>
+        <div class="sunday-body">
+          <div class="sunday-event">Paques + Week-end des Coteaux J2</div>
+          <div class="sunday-details">Illuminations, concerts et animations dans le centre historique. Conge de Paques = familles en ville. Croisement du public evenementiel + touristes de Paques.</div>
+          <div class="sunday-kpis">
+            <div class="sunday-kpi"><div class="val">11h-18h</div><div class="lab">Horaire</div></div>
+            <div class="sunday-kpi"><div class="val">800 &euro;</div><div class="lab">Objectif CA</div></div>
+            <div class="sunday-kpi"><div class="val">35+</div><div class="lab">Obj. commandes</div></div>
+          </div>
+          <ul class="sunday-actions">
+            <li><strong>Vitrine :</strong> Theme Paques — oeufs de the, coffrets cadeaux, Infusion du Printemps en hero</li>
+            <li><strong>Promo :</strong> "Offrez un oeuf de the pour tout achat > 20 EUR" (reciprocite)</li>
+            <li><strong>Cross-sell :</strong> Verre double paroi a cote de la caisse (succes Namur)</li>
+            <li><strong>Email :</strong> Segment Liege, jeudi 2 avril 18h</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DIM 12 AVRIL -->
+      <div class="sunday-card">
+        <div class="sunday-header">
+          <div class="sunday-date">Dimanche 12 avril</div>
+          <div class="sunday-tag">COURSE</div>
+        </div>
+        <div class="sunday-body">
+          <div class="sunday-event">15 km de Liege Metropole</div>
+          <div class="sunday-details">Des milliers de coureurs + accompagnants dans les rues de Liege. Public sportif, sante, bien-etre. Vacances scolaires = familles presentes aussi.</div>
+          <div class="sunday-kpis">
+            <div class="sunday-kpi"><div class="val">10h-17h</div><div class="lab">Horaire</div></div>
+            <div class="sunday-kpi"><div class="val">600 &euro;</div><div class="lab">Objectif CA</div></div>
+            <div class="sunday-kpi"><div class="val">30+</div><div class="lab">Obj. commandes</div></div>
+          </div>
+          <ul class="sunday-actions">
+            <li><strong>Vitrine :</strong> Theme "Recuperation" — infusions detox, Guarana Boost, the vert</li>
+            <li><strong>Promo :</strong> "The glace offert aux coureurs avec leur dossard" (reciprocite + preuve sociale)</li>
+            <li><strong>Sampling :</strong> Table de degustation devant la boutique si trottoir le permet</li>
+            <li><strong>Email :</strong> Segment Liege, jeudi 9 avril 18h</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DIM 19 AVRIL -->
+      <div class="sunday-card">
+        <div class="sunday-header">
+          <div class="sunday-date">Dimanche 19 avril</div>
+          <div class="sunday-tag">VACANCES</div>
+        </div>
+        <div class="sunday-body">
+          <div class="sunday-event">Dernier dimanche des vacances de Paques</div>
+          <div class="sunday-details">Pas d'evenement majeur mais dernier jour de vacances = familles qui profitent. Bon moment pour fidiliser les clients qui sont venus les 2 dimanches precedents.</div>
+          <div class="sunday-kpis">
+            <div class="sunday-kpi"><div class="val">11h-17h</div><div class="lab">Horaire</div></div>
+            <div class="sunday-kpi"><div class="val">400 &euro;</div><div class="lab">Objectif CA</div></div>
+            <div class="sunday-kpi"><div class="val">20+</div><div class="lab">Obj. commandes</div></div>
+          </div>
+          <ul class="sunday-actions">
+            <li><strong>Vitrine :</strong> "Preparez la rentree" — thes energisants, matcha, coffrets decouverte</li>
+            <li><strong>Promo :</strong> Carte fidelite — tampon x2 le dimanche</li>
+            <li><strong>Email :</strong> Segment Liege, vendredi 17 avril 10h (weekend planning)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DIM 26 AVRIL -->
+      <div class="sunday-card">
+        <div class="sunday-header">
+          <div class="sunday-date">Dimanche 26 avril</div>
+          <div class="sunday-tag">CYCLISME</div>
+        </div>
+        <div class="sunday-body">
+          <div class="sunday-event">Liege-Bastogne-Liege</div>
+          <div class="sunday-details">Course cycliste mythique (monument du cyclisme). Des dizaines de milliers de spectateurs dans Liege. Public international, atmosphere festive. Le plus gros potentiel des 4 dimanches.</div>
+          <div class="sunday-kpis">
+            <div class="sunday-kpi"><div class="val">10h-18h</div><div class="lab">Horaire</div></div>
+            <div class="sunday-kpi"><div class="val">1 000 &euro;</div><div class="lab">Objectif CA</div></div>
+            <div class="sunday-kpi"><div class="val">45+</div><div class="lab">Obj. commandes</div></div>
+          </div>
+          <ul class="sunday-actions">
+            <li><strong>Vitrine :</strong> Theme sport + energie — Matcha, Guarana Boost, Ginger Hot en hero</li>
+            <li><strong>Promo :</strong> "The de la victoire" — blend special en edition limitee ?</li>
+            <li><strong>Sampling :</strong> Degustation iced tea devant la boutique (meteo permise)</li>
+            <li><strong>Email :</strong> Segment Liege, jeudi 23 avril 18h + segment "Autres" sportifs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTION FINANCIERE -->
+  <div class="section">
+    <div class="section-title">Projection Financiere — Impact des 4 Dimanches</div>
+    <div class="section-subtitle">Basee sur les donnees historiques Liege (ouverture dimanche 1er mars : 13h-17h)</div>
+
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-label">Dim 5 avril</div>
+        <div class="proj-value" style="color:var(--red)">800 &euro;</div>
+        <div class="proj-detail">Paques + Coteaux</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-label">Dim 12 avril</div>
+        <div class="proj-value" style="color:var(--red)">600 &euro;</div>
+        <div class="proj-detail">15 km Liege</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-label">Dim 19 avril</div>
+        <div class="proj-value" style="color:var(--gold)">400 &euro;</div>
+        <div class="proj-detail">Vacances (pas d'event)</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-label">Dim 26 avril</div>
+        <div class="proj-value" style="color:var(--red)">1 000 &euro;</div>
+        <div class="proj-detail">LBL (plus gros potentiel)</div>
+      </div>
+    </div>
+
+    <div class="proj-grid">
+      <div class="proj-card total" style="grid-column: span 2;">
+        <div class="proj-label">Total 4 dimanches</div>
+        <div class="proj-value">+2 800 &euro;</div>
+        <div class="proj-detail">CA supplementaire estime sur avril</div>
+      </div>
+      <div class="proj-card total" style="grid-column: span 2; background: var(--green);">
+        <div class="proj-label">Impact sur CA mensuel Liege</div>
+        <div class="proj-value">+15%</div>
+        <div class="proj-detail">Sur base moy. 4 sem. (4 745 EUR x 4.3 = ~20 400 EUR/mois)</div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Reference : dimanche 1er mars a Liege</h4>
+        <p>Ouverture 13h-17h, email "Cet apres-midi ouvert !" = 32.6% open rate. Format prouve et bien recu par le segment Liege. Les clients Liege sont conditionnes a checker les ouvertures exceptionnelles.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Panier moyen dimanche = potentiellement plus eleve</h4>
+        <p>Les clients qui se deplacent un dimanche ont un intent d'achat plus fort (effort delibere). Le panier moyen pourrait atteindre 25-28 EUR vs 20.83 EUR en semaine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLAN NEWSLETTER -->
+  <div class="section">
+    <div class="section-title">Plan Newsletter Liege — Avril</div>
+    <div class="section-subtitle">4 emails segmentes Liege + 1 email "Autres" pour LBL. From: "Audrey de Teatower". 3+ principes Cialdini par sujet.</div>
+
+    <div class="nl-card highlight">
+      <div class="nl-date">Jeudi 2 avril — 18h</div>
+      <div class="nl-subject red">Liege : dimanche de Paques, on vous ouvre nos portes (et on a un petit cadeau)</div>
+      <div class="nl-details">Preview: "Teatower Liege ouvert dimanche 5 avril de 11h a 18h — venez feter Paques avec nous."</div>
+      <div class="nl-tags">
+        <span class="nl-tag segment">Segment Liege</span>
+        <span class="nl-tag cialdini">Reciprocite (cadeau)</span>
+        <span class="nl-tag cialdini">Urgence (dimanche)</span>
+        <span class="nl-tag cialdini">Unite (Paques)</span>
+        <span class="nl-tag drive">Drive-to-store</span>
+      </div>
+    </div>
+
+    <div class="nl-card highlight">
+      <div class="nl-date">Jeudi 9 avril — 18h</div>
+      <div class="nl-subject red">Coureurs des 15 km : votre the glace vous attend chez Teatower dimanche</div>
+      <div class="nl-details">Preview: "Montrez votre dossard = the glace offert. Ouvert de 10h a 17h ce dimanche."</div>
+      <div class="nl-tags">
+        <span class="nl-tag segment">Segment Liege</span>
+        <span class="nl-tag cialdini">Reciprocite (the offert)</span>
+        <span class="nl-tag cialdini">Preuve sociale (coureurs)</span>
+        <span class="nl-tag cialdini">Unite (communaute sportive)</span>
+        <span class="nl-tag drive">Drive-to-store</span>
+      </div>
+    </div>
+
+    <div class="nl-card">
+      <div class="nl-date">Vendredi 17 avril — 10h</div>
+      <div class="nl-subject">Dernier dimanche de vacances a Liege — on prolonge le plaisir</div>
+      <div class="nl-details">Preview: "Dimanche 19 avril, Teatower Liege ouvert de 11h a 17h. Points fidelite x2."</div>
+      <div class="nl-tags">
+        <span class="nl-tag segment">Segment Liege</span>
+        <span class="nl-tag cialdini">Rarete (dernier dimanche)</span>
+        <span class="nl-tag cialdini">Engagement (fidelite)</span>
+        <span class="nl-tag drive">Drive-to-store</span>
+      </div>
+    </div>
+
+    <div class="nl-card highlight">
+      <div class="nl-date">Jeudi 23 avril — 18h</div>
+      <div class="nl-subject red">Liege-Bastogne-Liege dimanche : Teatower est sur la ligne d'arrivee</div>
+      <div class="nl-details">Preview: "Ouvert de 10h a 18h le 26 avril. Degustation iced tea gratuite devant la boutique."</div>
+      <div class="nl-tags">
+        <span class="nl-tag segment">Segment Liege + Autres</span>
+        <span class="nl-tag cialdini">Reciprocite (degustation)</span>
+        <span class="nl-tag cialdini">Unite (evenement sportif)</span>
+        <span class="nl-tag cialdini">Autorite (sur la ligne)</span>
+        <span class="nl-tag drive">Drive-to-store</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST OPERATIONNELLE -->
+  <div class="section">
+    <div class="section-title">Checklist Operationnelle</div>
+    <div class="section-subtitle">A preparer avant le 5 avril</div>
+
+    <ul class="checklist">
+      <li><div class="check-icon ops">1</div><div><strong>Confirmer les horaires d'ouverture</strong> avec l'equipe Liege. Prevoir staffing dimanche (qui ouvre ? qui ferme ?).</div></li>
+      <li><div class="check-icon ops">2</div><div><strong>Stock cible :</strong> Reappro Infusion Printemps (star #1), Verre double paroi (cross-sell Namur a repliquer), Matcha japonais, Ginger Hot. Verifier les ruptures identifiees en S13.</div></li>
+      <li><div class="check-icon store">3</div><div><strong>Vitrine Paques :</strong> Preparer la vitrine theme Paques pour le 4 avril. Coffrets cadeaux en hero. Oeufs de the en cross-sell.</div></li>
+      <li><div class="check-icon store">4</div><div><strong>Cross-sell caisse :</strong> Installer le display Verre double paroi a cote de la caisse (17 pcs vendues/sem a Namur, 0 a Liege).</div></li>
+      <li><div class="check-icon email">5</div><div><strong>Programmer les 4 newsletters</strong> segment Liege dans Mailchimp. From: "Audrey de Teatower". Sujets valides ci-dessus.</div></li>
+      <li><div class="check-icon social">6</div><div><strong>Posts Instagram/Facebook</strong> — Annoncer les ouvertures dimanche sur les reseaux sociaux de Teatower. Story le samedi soir + post le dimanche matin.</div></li>
+      <li><div class="check-icon ops">7</div><div><strong>Tracking :</strong> Code promo "DIMANCHE-LG" pour mesurer les ventes generees par les emails. Utiliser en caisse POS.</div></li>
+      <li><div class="check-icon ops">8</div><div><strong>Degustation 15km + LBL :</strong> Preparer iced tea en quantite + table pliante + gobelets. Verifier si deballage devant la boutique est autorise (cf. regle 1,5m pietons).</div></li>
+    </ul>
+  </div>
+
+  <!-- GRANDE FETE DU COMMERCE -->
+  <div class="mai-card">
+    <h3>Bonus Mai : Grande Fete du Commerce (28-30 mai)</h3>
+    <p><strong>Jeudi 28 au samedi 30 mai</strong> — Les rues restent ouvertes aux voitures. Deballage autorise devant le commerce (laisser 1,5m de passage pietons). Si trottoir trop etroit, possibilite de s'installer en zone pietonne.</p>
+    <p style="margin-top:10px"><strong>Opportunite Teatower :</strong> Table de degustation devant la boutique pendant 3 jours. Presenter les thes glaces de la collection ete. Cross-sell avec les verres iced tea. C'est le lancement de la saison estivale.</p>
+    <p style="margin-top:10px"><strong>A preparer :</strong> Demande d'autorisation deballage aupres de la Ville de Liege. Commander table, parasol, gobelets biodegradables. Prevoir stock iced tea suffisant pour 3 jours de sampling.</p>
+  </div>
+
+  <!-- RESUME EXECUTIF -->
+  <div class="section" style="background: linear-gradient(135deg, var(--red-bg) 0%, var(--gold-light) 100%); border: 2px solid var(--red);">
+    <div class="section-title">Resume Executif</div>
+    <table style="font-size:13px; margin-top:12px; margin-bottom:16px;">
+      <tr>
+        <th>Date</th>
+        <th>Evenement</th>
+        <th>Horaire</th>
+        <th>Objectif CA</th>
+        <th>Email</th>
+        <th>Action cle</th>
+      </tr>
+      <tr>
+        <td><strong>Dim 5 avril</strong></td>
+        <td>Paques + Coteaux</td>
+        <td>11h-18h</td>
+        <td class="num"><strong>800 &euro;</strong></td>
+        <td>Jeu 2/04 18h</td>
+        <td>Vitrine Paques + cadeau</td>
+      </tr>
+      <tr>
+        <td><strong>Dim 12 avril</strong></td>
+        <td>15 km de Liege</td>
+        <td>10h-17h</td>
+        <td class="num"><strong>600 &euro;</strong></td>
+        <td>Jeu 9/04 18h</td>
+        <td>The glace offert aux coureurs</td>
+      </tr>
+      <tr>
+        <td><strong>Dim 19 avril</strong></td>
+        <td>Vacances Paques</td>
+        <td>11h-17h</td>
+        <td class="num">400 &euro;</td>
+        <td>Ven 17/04 10h</td>
+        <td>Points fidelite x2</td>
+      </tr>
+      <tr>
+        <td><strong>Dim 26 avril</strong></td>
+        <td>Liege-Bastogne-Liege</td>
+        <td>10h-18h</td>
+        <td class="num"><strong>1 000 &euro;</strong></td>
+        <td>Jeu 23/04 18h</td>
+        <td>Degustation devant boutique</td>
+      </tr>
+      <tr style="background:var(--red-light); font-weight:700;">
+        <td colspan="3">TOTAL 4 DIMANCHES</td>
+        <td class="num" style="color:var(--red)">+2 800 &euro;</td>
+        <td colspan="2">= +15% sur le CA mensuel Liege</td>
+      </tr>
+    </table>
+    <p style="font-size:13px; line-height:1.6;">
+      <strong>Strategie :</strong> Chaque dimanche est un levier distinct — Paques (familles), 15 km (sportifs), vacances (fideles), LBL (spectateurs internationaux). L'email "Audrey de Teatower" avec horaires precis le jeudi soir est le format prouve (32.6% open le 1er mars). Le tracking par code promo "DIMANCHE-LG" permettra de mesurer le ROI pour la premiere fois.
+    </p>
+  </div>
+
+  <div class="footer">
+    Plan strategique Ouvertures Dimanches Liege | Teatower | 30 mars 2026
+  </div>
+
+</div>
+</body>
+</html>
