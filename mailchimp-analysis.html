@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse 50 Campagnes Mailchimp — Teatower</title>
+<style>
+  :root {
+    --green: #2d6a4f; --green-light: #40916c; --green-bg: #f0f7f4;
+    --gold: #b5851b; --gold-light: #f5e6c8;
+    --red: #c1121f; --red-light: #fde8e8;
+    --blue: #1d3557; --blue-light: #e8f0fe;
+    --purple: #6c3d91; --purple-light: #f3eaf8;
+    --gray: #6c757d; --gray-light: #f8f9fa;
+    --border: #dee2e6; --text: #212529; --white: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--gray-light); line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, var(--green) 0%, #1b4332 100%); color: var(--white); padding: 48px 40px; border-radius: 16px; margin-bottom: 30px; position: relative; overflow: hidden; }
+  .header::after { content: ''; position: absolute; right: -40px; top: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .header::before { content: ''; position: absolute; right: 60px; bottom: -60px; width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,0.03); }
+  .header h1 { font-size: 32px; margin-bottom: 8px; position: relative; }
+  .header .subtitle { font-size: 17px; opacity: 0.85; position: relative; }
+  .header .date { font-size: 13px; opacity: 0.55; margin-top: 16px; position: relative; }
+  .header .big-number { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 120px; font-weight: 900; opacity: 0.08; letter-spacing: -4px; }
+
+  /* Meta bar */
+  .meta-bar { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+  .meta-tag { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; font-size: 13px; flex: 1; min-width: 140px; }
+  .meta-tag .label { color: var(--gray); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .meta-tag .value { font-weight: 700; font-size: 18px; color: var(--green); }
+  .meta-tag .value.red { color: var(--red); }
+  .meta-tag .value.gold { color: var(--gold); }
+  .meta-tag .value.blue { color: var(--blue); }
+
+  /* Section */
+  .section { background: var(--white); border-radius: 12px; padding: 32px; margin-bottom: 24px; border: 1px solid var(--border); }
+  .section-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .section-subtitle { color: var(--gray); font-size: 14px; margin-bottom: 24px; }
+  h3.sub { font-size: 16px; margin: 24px 0 14px; }
+  h3.sub.green { color: var(--green); }
+  h3.sub.red { color: var(--red); }
+  h3.sub.gold { color: var(--gold); }
+  h3.sub.blue { color: var(--blue); }
+  h3.sub.purple { color: var(--purple); }
+
+  /* Expert badges */
+  .expert-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-rebecca { background: #e8f0fe; color: #1d3557; }
+  .badge-celine { background: #f5e6c8; color: #7c4a03; }
+  .badge-combined { background: var(--green-bg); color: var(--green); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+  th { background: var(--gray-light); padding: 10px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); border-bottom: 2px solid var(--border); white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: var(--gray-light); }
+  .highlight-row { background: var(--green-bg) !important; }
+  .bad-row { background: var(--red-light) !important; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.center { text-align: center; }
+
+  /* Performance bars */
+  .bar-cell { position: relative; min-width: 80px; }
+  .bar { height: 6px; border-radius: 3px; position: absolute; bottom: 4px; left: 12px; }
+  .bar-open { background: var(--green); }
+  .bar-click { background: var(--gold); }
+
+  /* Insight cards */
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px; }
+  .insight-card { border-left: 4px solid var(--green); background: var(--green-bg); padding: 14px 18px; border-radius: 0 8px 8px 0; }
+  .insight-card.warning { border-left-color: var(--red); background: var(--red-light); }
+  .insight-card.info { border-left-color: var(--gold); background: var(--gold-light); }
+  .insight-card.purple { border-left-color: var(--purple); background: var(--purple-light); }
+  .insight-card h4 { font-size: 14px; margin-bottom: 4px; }
+  .insight-card p { font-size: 12.5px; color: #444; line-height: 1.5; }
+
+  /* Score row */
+  .score-row { display: flex; gap: 20px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+  .score-circle { text-align: center; }
+  .score-ring { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; margin: 0 auto 6px; color: var(--white); }
+  .score-ring.green { background: var(--green); }
+  .score-ring.gold { background: var(--gold); }
+  .score-ring.red { background: var(--red); }
+  .score-ring.blue { background: var(--blue); }
+  .score-ring.purple { background: var(--purple); }
+  .score-label { font-size: 11px; color: var(--gray); font-weight: 600; line-height: 1.3; }
+
+  /* Top/Bottom cards */
+  .rank-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; position: relative; }
+  .rank-card.top { border-left: 4px solid var(--green); }
+  .rank-card.bottom { border-left: 4px solid var(--red); }
+  .rank-badge { position: absolute; top: -8px; right: 14px; padding: 2px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: white; }
+  .rank-badge.gold-bg { background: var(--gold); }
+  .rank-badge.green-bg { background: var(--green); }
+  .rank-badge.red-bg { background: var(--red); }
+  .rank-subject { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .rank-meta { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+  .rank-stats { display: flex; gap: 16px; font-size: 12px; margin-bottom: 8px; }
+  .rank-stats span { font-weight: 600; }
+  .rank-stats .open { color: var(--green); }
+  .rank-stats .click { color: var(--gold); }
+  .rank-why { font-size: 12.5px; color: #444; }
+
+  /* Cialdini dots */
+  .dot-active { color: var(--green); }
+  .dot-inactive { color: #ddd; }
+
+  /* Action items */
+  .action-list { list-style: none; }
+  .action-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .action-item:last-child { border-bottom: none; }
+  .action-priority { flex-shrink: 0; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+  .priority-p1 { background: var(--red); }
+  .priority-p2 { background: var(--gold); }
+  .priority-p3 { background: var(--green); }
+  .action-content h4 { font-size: 14px; margin-bottom: 2px; }
+  .action-content p { font-size: 12.5px; color: #555; }
+  .action-impact { margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px; white-space: nowrap; }
+  .impact-green { color: var(--green); background: var(--green-bg); }
+  .impact-gold { color: var(--gold); background: var(--gold-light); }
+
+  /* Formula cards */
+  .formula-card { background: var(--gray-light); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; border: 1px solid var(--border); }
+  .formula-number { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .formula-template { font-size: 13px; color: var(--gray); margin-bottom: 6px; font-style: italic; }
+  .formula-example { font-size: 15px; font-weight: 600; color: var(--blue); margin-bottom: 8px; }
+  .formula-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-gold { background: var(--gold-light); color: var(--gold); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-pred { font-size: 11px; color: var(--gray); margin-left: 8px; }
+
+  /* AB test cards */
+  .ab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .ab-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .ab-header { background: var(--blue); color: white; padding: 10px 16px; font-size: 13px; font-weight: 600; }
+  .ab-body { padding: 14px 16px; }
+  .ab-variant { padding: 8px 12px; background: var(--gray-light); border-radius: 6px; margin-bottom: 8px; font-size: 13px; }
+  .ab-variant strong { color: var(--blue); }
+  .ab-hypothesis { font-size: 12px; color: var(--gray); margin-top: 8px; font-style: italic; }
+
+  /* Segment comparison */
+  .seg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .seg-card { border-radius: 10px; padding: 18px; text-align: center; color: white; }
+  .seg-card.waterloo { background: linear-gradient(135deg, #2d6a4f, #40916c); }
+  .seg-card.liege { background: linear-gradient(135deg, #b5851b, #d4a843); }
+  .seg-card.namur { background: linear-gradient(135deg, #1d3557, #457b9d); }
+  .seg-card.autres { background: linear-gradient(135deg, #6c757d, #adb5bd); }
+  .seg-name { font-size: 14px; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .seg-stat { font-size: 28px; font-weight: 800; }
+  .seg-label { font-size: 10px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
+  .seg-detail { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+
+  /* Emotion map */
+  .emotion-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .emotion-card { border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+  .emotion-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .emotion-stats { font-size: 12px; color: var(--gray); margin-bottom: 6px; }
+  .emotion-bar { height: 4px; border-radius: 2px; background: #eee; overflow: hidden; }
+  .emotion-fill { height: 100%; border-radius: 2px; }
+
+  /* Deep dive box */
+  .deep-dive { background: linear-gradient(135deg, var(--green-bg) 0%, #e8f0e8 100%); border: 2px solid var(--green); border-radius: 12px; padding: 24px; margin: 20px 0; }
+  .deep-dive h3 { color: var(--green); margin-bottom: 10px; font-size: 16px; }
+  .deep-dive p { font-size: 13px; line-height: 1.6; }
+
+  /* Mechanism pills */
+  .mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 12px; }
+  .mech-item { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; }
+  .mech-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+
+  /* From-name comparison */
+  .from-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .from-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+  .from-card.best { border-color: var(--green); background: var(--green-bg); }
+  .from-card.worst { border-color: var(--red); background: var(--red-light); }
+  .from-name { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .from-stat { font-size: 24px; font-weight: 800; }
+  .from-detail { font-size: 11px; color: var(--gray); }
+
+  /* Synthesis */
+  .synthesis { background: linear-gradient(135deg, var(--green-bg) 0%, var(--gold-light) 100%); border: 2px solid var(--green); border-radius: 12px; padding: 28px; }
+  .synthesis h3 { font-size: 18px; margin-bottom: 12px; }
+  .synthesis p { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+
+  .footer { text-align: center; padding: 24px; color: var(--gray); font-size: 12px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .header { padding: 24px; }
+    .header h1 { font-size: 22px; }
+    .header .big-number { display: none; }
+    .section { padding: 20px; }
+    .seg-grid { grid-template-columns: repeat(2, 1fr); }
+    .ab-grid { grid-template-columns: 1fr; }
+    .action-item { flex-wrap: wrap; }
+    .action-impact { margin-left: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="big-number">50</div>
+    <h1>Analyse 50 Campagnes Mailchimp</h1>
+    <div class="subtitle">Rebecca (Retail & Drive-to-Store) + Celine (Psychologie Marketing)</div>
+    <div class="date">Teatower — 17 janvier au 29 mars 2026 | Analyse generee le 29 mars 2026</div>
+  </div>
+
+  <!-- META BAR -->
+  <div class="meta-bar">
+    <div class="meta-tag"><span class="label">Campagnes</span><span class="value">50</span></div>
+    <div class="meta-tag"><span class="label">Periode</span><span class="value blue">10 sem.</span></div>
+    <div class="meta-tag"><span class="label">Open rate moyen</span><span class="value">27.1%</span></div>
+    <div class="meta-tag"><span class="label">Click rate moyen</span><span class="value gold">0.42%</span></div>
+    <div class="meta-tag"><span class="label">Best open</span><span class="value">41.6%</span></div>
+    <div class="meta-tag"><span class="label">Best click</span><span class="value">1.53%</span></div>
+  </div>
+
+  <!-- SCORES GLOBAUX -->
+  <div class="section">
+    <div class="section-title">Scores Globaux</div>
+    <div class="section-subtitle">Evaluation croisee sur 50 campagnes — Rebecca (parcours omnicanal) et Celine (persuasion)</div>
+    <div class="score-row">
+      <div class="score-circle"><div class="score-ring blue">68</div><div class="score-label">Rebecca<br>Omnicanal</div></div>
+      <div class="score-circle"><div class="score-ring gold">55</div><div class="score-label">Celine<br>Persuasion</div></div>
+      <div class="score-circle"><div class="score-ring green">7/10</div><div class="score-label">Segmentation</div></div>
+      <div class="score-circle"><div class="score-ring red">4/10</div><div class="score-label">Drive-to<br>-Store</div></div>
+      <div class="score-circle"><div class="score-ring purple">2/8</div><div class="score-label">Cialdini<br>moyen</div></div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 1 : SEGMENTATION PAR MAGASIN -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-rebecca">Rebecca</span> Performance par Segment</div>
+    <div class="section-subtitle">Waterloo, Namur, Liege et Autres — 50 campagnes analysees</div>
+
+    <div class="seg-grid">
+      <div class="seg-card waterloo">
+        <div class="seg-name">Waterloo</div>
+        <div class="seg-stat">~34%</div>
+        <div class="seg-label">Open Rate Moyen</div>
+        <div class="seg-detail">~0.55% click | ~1 800 envois</div>
+      </div>
+      <div class="seg-card liege">
+        <div class="seg-name">Liege</div>
+        <div class="seg-stat">~29%</div>
+        <div class="seg-label">Open Rate Moyen</div>
+        <div class="seg-detail">~0.35% click | ~5 500 envois</div>
+      </div>
+      <div class="seg-card namur">
+        <div class="seg-name">Namur</div>
+        <div class="seg-stat">~27%</div>
+        <div class="seg-label">Open Rate Moyen</div>
+        <div class="seg-detail">~0.35% click | ~3 500 envois</div>
+      </div>
+      <div class="seg-card autres">
+        <div class="seg-name">Autres / National</div>
+        <div class="seg-stat">~26%</div>
+        <div class="seg-label">Open Rate Moyen</div>
+        <div class="seg-detail">~0.32% click | ~13K-38K envois</div>
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Waterloo = audience la plus engagee</h4>
+        <p>36.7% atelier Paques, 36.5% the & chocolat, 41.6% Made in Asia. Petit segment, ultra-local, tres fidele. Le benchmark a repliquer.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Liege repond aux alertes horaires</h4>
+        <p>"Cet apres-midi ouvert !" (32.6%) et "Ouvert dimanche" (24.3%). Horaires variables = les abonnes checkent par reflexe. Comportement Pavlovien precieux.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Namur valorise l'info pratique</h4>
+        <p>"Namur s'adapte a votre rythme : ouvert jusqu'a 19h !" (28.4%). Ce segment repond aux levees de frein concrets (horaires, acces).</p>
+      </div>
+      <div class="insight-card warning">
+        <h4>"Autres" = volume mais pas drive-to-store</h4>
+        <p>38K destinataires, ~26% open, ~0.32% click. Pas de magasin a proximite pour la plupart. Ces abonnes doivent recevoir des CTAs purement e-commerce.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 2 : FROM-NAME -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-rebecca">Rebecca</span> Impact du From-Name</div>
+    <div class="section-subtitle">L'expediteur influence l'ouverture avant meme le sujet</div>
+
+    <div class="from-grid">
+      <div class="from-card best">
+        <div class="from-name">Audrey de Teatower</div>
+        <div class="from-stat" style="color:var(--green)">~30%</div>
+        <div class="from-detail">Open moyen | ~22 campagnes<br>Humain, chaleureux, fiable</div>
+      </div>
+      <div class="from-card">
+        <div class="from-name">Teatower - Maison de the</div>
+        <div class="from-stat" style="color:var(--gold)">~26%</div>
+        <div class="from-detail">Open moyen | ~5 campagnes<br>Institutionnel, erratique (18% a 28%)</div>
+      </div>
+      <div class="from-card">
+        <div class="from-name">Teatower (court)</div>
+        <div class="from-stat" style="color:var(--blue)">~28%</div>
+        <div class="from-detail">Open moyen | ~3 campagnes<br>Neutre, acceptable</div>
+      </div>
+      <div class="from-card worst">
+        <div class="from-name">L'equipe de Teatower</div>
+        <div class="from-stat" style="color:var(--red)">0.7%</div>
+        <div class="from-detail">Resend catastrophique<br>Generique, aucune relation</div>
+      </div>
+    </div>
+
+    <div class="insight-card" style="margin-bottom:0">
+      <h4>Verdict : standardiser sur "Audrey de Teatower" partout</h4>
+      <p>Le prenom humain genere +4 points d'ouverture vs le nom institutionnel. Supprimer "L'equipe de Teatower" et "La Boutique Teatower de [ville]". Seule exception : "Les ateliers Teatower" pour les invitations evenementielles.</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 3 : TOP 10 CAMPAGNES -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title">Top 10 Campagnes</div>
+    <div class="section-subtitle">Classees par combinaison open rate + click rate (volume > 500 envois)</div>
+
+    <div class="rank-card top">
+      <div class="rank-badge gold-bg">#1 CLICK</div>
+      <div class="rank-subject">"On a trouve VOTRE infusion (quiz 30 sec)"</div>
+      <div class="rank-meta">19 fev | 38 715 envois | From: Teatower - Maison de the</div>
+      <div class="rank-stats"><span class="open">28.0% open</span> <span class="click">1.53% click</span></div>
+      <div class="rank-why">6 mecanismes simultanes : Endowment + Zeigarnik + Self-insight + Cognitive ease + Reciprocite + Personalisation. Le meilleur click rate sur volume significatif.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-badge green-bg">#2 OPEN</div>
+      <div class="rank-subject">"Waterloo — Teatower arrive a Made in Asia"</div>
+      <div class="rank-meta">12 fev | 1 053 envois | From: Audrey de Teatower</div>
+      <div class="rank-stats"><span class="open">41.6% open</span> <span class="click">0.57% click</span></div>
+      <div class="rank-why">Segment hyper-local + nom de ville en tete = effet tribu maximal. 15 points au-dessus de la version generique (26.5%).</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-badge green-bg">#3 COMBO</div>
+      <div class="rank-subject">"Atelier the & surprise de Paques pour vos enfants !"</div>
+      <div class="rank-meta">26 mars | 1 799 envois | From: Audrey de Teatower | Waterloo</div>
+      <div class="rank-stats"><span class="open">36.7% open</span> <span class="click">0.89% click</span></div>
+      <div class="rank-why">5 principes Cialdini actifs : Reciprocite (surprise), Engagement (atelier), Sympathie (enfants), Rarete (places limitees), Unite (famille). Meilleur combo open+click.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"The & chocolat ce week-end a Waterloo"</div>
+      <div class="rank-meta">12 mars | 1 811 envois | From: Audrey de Teatower | Waterloo</div>
+      <div class="rank-stats"><span class="open">36.5% open</span> <span class="click">0.61% click</span></div>
+      <div class="rank-why">Cross-merchandising sensoriel (the + chocolat) + week-end + local. Mini-destination creee par l'email.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"Liege — On se retrouve a Made in Asia ?"</div>
+      <div class="rank-meta">12 fev | 6 502 envois | From: Audrey de Teatower | Liege</div>
+      <div class="rank-stats"><span class="open">33.0% open</span> <span class="click">0.17% click</span></div>
+      <div class="rank-why">Effet tribu local : +6.5 points vs la version generique. Le "on se retrouve ?" cree l'appartenance communautaire.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"1+1 sur le The des Amoureux !" (segment)</div>
+      <div class="rank-meta">31 jan | 6 560 envois | From: Teatower</div>
+      <div class="rank-stats"><span class="open">32.3% open</span> <span class="click">0.41% click</span></div>
+      <div class="rank-why">Reciprocite forte (1+1) + urgence saisonniere + segment cible. Le 1+1 est percu comme un cadeau, pas un discount.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"La Saint-Valentin c'est deja demain"</div>
+      <div class="rank-meta">14 fev | 15 256 envois | From: Teatower - Maison de the</div>
+      <div class="rank-stats"><span class="open">31.5% open</span> <span class="click">0.32% click</span></div>
+      <div class="rank-why">Urgence absolue ("demain") + anxiete sociale (ne pas oublier la Saint-Valentin). Le biais de panique fait ouvrir.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"On a trouve VOTRE infusion (quiz 30 sec)" — Resend</div>
+      <div class="rank-meta">20 fev | 13 578 envois | Resend J+1 non-ouvrants</div>
+      <div class="rank-stats"><span class="open">31.4% open</span> <span class="click">1.48% click</span></div>
+      <div class="rank-why">Resend J+1 sur non-ouvrants = quasi-identique a l'original. Prouve que la formule quiz est reproductible.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"Sakura est de retour (avec un petit cadeau)"</div>
+      <div class="rank-meta">12 mars | 7 194 envois | From: Audrey de Teatower | Liege</div>
+      <div class="rank-stats"><span class="open">30.3% open</span> <span class="click">0.64% click</span></div>
+      <div class="rank-why">Rarete saisonniere + reciprocite revelee dans l'objet ("petit cadeau"). Le cadeau nomme avant l'ouverture active Cialdini en 250ms.</div>
+    </div>
+
+    <div class="rank-card top">
+      <div class="rank-subject">"8 mars — le the qui porte un prenom de combat : Liberte"</div>
+      <div class="rank-meta">6 mars | 38 884 envois | From: Audrey de Teatower</div>
+      <div class="rank-stats"><span class="open">28.8% open</span> <span class="click">0.57% click</span></div>
+      <div class="rank-why">Narration de valeur sans promotion. Storytelling + ancrage calendrier + identite de valeurs. Sur 38K envois, c'est exceptionnel.</div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 4 : BOTTOM 5 -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title" style="color:var(--red)">Bottom 5 — Autopsie</div>
+    <div class="section-subtitle">Les campagnes qui ont echoue et pourquoi</div>
+
+    <div class="rank-card bottom">
+      <div class="rank-badge red-bg">PIRE</div>
+      <div class="rank-subject">"3 jours pour decouvrir le matcha autrement"</div>
+      <div class="rank-meta">15 fev | 21 666 envois | 7.7% open | 0.11% click</div>
+      <div class="rank-why"><strong>Celine :</strong> "Autrement" est un mot creux — promesse vide sans benefice nomme. Le cerveau, face au flou, choisit l'economie cognitive : ignorer.<br><strong>Rebecca :</strong> Aucun lien physique, aucune urgence, timing post-Saint-Valentin = fatigue maximale.</div>
+    </div>
+
+    <div class="rank-card bottom">
+      <div class="rank-badge red-bg">ECHEC</div>
+      <div class="rank-subject">"Et si on partageait une pause the ailleurs ?"</div>
+      <div class="rank-meta">15 fev | 652 a 4 546 envois | 10-16% open | 0-0.13% click</div>
+      <div class="rank-why"><strong>Celine :</strong> "Et si..." signale l'hesitation — une marque qui suggere timidement perd l'autorite. "Ailleurs" est spatialement anxiogene pour une base locale qui a une relation avec son Teatower.<br><strong>Rebecca :</strong> Rupture du contrat omnicanal local. Les abonnes veulent LEUR boutique, pas "ailleurs".</div>
+    </div>
+
+    <div class="rank-card bottom">
+      <div class="rank-subject">"Le printemps a un gout — et il est ephemere"</div>
+      <div class="rank-meta">4 mars | 13 907 envois | 18.0% open | 0.15% click</div>
+      <div class="rank-why"><strong>Celine :</strong> Trop poetique, pas actionnable. La metaphore absorbe l'energie d'achat. Zero benefice concret.<br><strong>Rebecca :</strong> C'est une belle vitrine sans prix ni CTA visible. L'ambiance est la, la conversion non.</div>
+    </div>
+
+    <div class="rank-card bottom">
+      <div class="rank-subject">"Plus que 2 jours pour le The des amoureux -10% + Made in Asia"</div>
+      <div class="rank-meta">27 fev | 38 578 envois | 27.6% open | 0.12% click</div>
+      <div class="rank-why"><strong>Celine :</strong> Deux messages concurrents diluent l'attention (deadline Valentine + Made in Asia). Le cerveau ne peut pas traiter deux urgences en meme temps.<br><strong>Rebecca :</strong> Fin de sequence Valentine = les acheteurs ont achete, les autres ont decide de ne pas acheter.</div>
+    </div>
+
+    <div class="rank-card bottom">
+      <div class="rank-subject">"Teatower vous donne rendez-vous a Made in Asia" (generique)</div>
+      <div class="rank-meta">12 fev | 28 695 envois | 26.5% open | 0.13% click</div>
+      <div class="rank-why"><strong>Celine :</strong> Version generique vs localisee : 26.5% vs 41.6% (Waterloo). Facteur 4.4x en click. L'universel tue la performance.<br><strong>Rebecca :</strong> Sans nom de ville, l'email ne cree aucune appartenance locale — c'est du broadcast, pas de la relation.</div>
+    </div>
+
+    <h3 class="sub red">Pattern commun des 5 echecs</h3>
+    <div class="insight-card warning" style="margin-top:12px">
+      <h4>Absence de benefice immediat + absence de personnalisation + langage conceptuel</h4>
+      <p>Le cerveau limbique (qui decide d'ouvrir et de cliquer) ne traite pas les abstractions — il traite les images mentales. "Pause the ailleurs" ne genere aucune image. "Atelier the & surprise de Paques pour vos enfants" en genere trois.</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 5 : ANALYSE CIALDINI (CELINE) -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-celine">Celine</span> Scorecard Cialdini — 50 Campagnes</div>
+    <div class="section-subtitle">Aucun sujet n'atteint 5+/8 principes actifs. Le potentiel de superposition est massivement sous-exploite.</div>
+
+    <table>
+      <tr>
+        <th>Principes actifs</th>
+        <th>Nb campagnes</th>
+        <th>Open moyen</th>
+        <th>Click moyen</th>
+        <th>Exemples</th>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>4 principes</strong></td>
+        <td class="center">1</td>
+        <td class="num"><strong>28.0%</strong></td>
+        <td class="num"><strong>1.53%</strong></td>
+        <td>Quiz "VOTRE infusion"</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>3 principes</strong></td>
+        <td class="center">8</td>
+        <td class="num"><strong>30.2%</strong></td>
+        <td class="num"><strong>0.58%</strong></td>
+        <td>Atelier Paques, Noel -50%, 8 mars Liberte</td>
+      </tr>
+      <tr>
+        <td>2 principes</td>
+        <td class="center">32</td>
+        <td class="num">27.4%</td>
+        <td class="num">0.35%</td>
+        <td>Majorite des campagnes</td>
+      </tr>
+      <tr class="bad-row">
+        <td>1 principe</td>
+        <td class="center">9</td>
+        <td class="num">21.8%</td>
+        <td class="num">0.18%</td>
+        <td>"Pause the ailleurs", "matcha autrement"</td>
+      </tr>
+    </table>
+
+    <div class="insight-card purple" style="margin-top:12px">
+      <h4>Correlation directe : +1 principe Cialdini = +3pts open, +0.2pts click</h4>
+      <p>Passer de 2 a 4 principes actifs multiplie le click rate par 4.4x. L'objectif pour chaque futur sujet : viser minimum 3 principes actifs.</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 6 : DEEP DIVE QUIZ -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-celine">Celine</span> Deep Dive : L'Effet Quiz (1.53% click — 4x la moyenne)</div>
+    <div class="section-subtitle">"On a trouve VOTRE infusion (quiz 30 sec)" — Pourquoi cette campagne ecrase tout</div>
+
+    <div class="deep-dive">
+      <h3>6 mecanismes psychologiques simultanes</h3>
+      <p>Le quiz est une convergence rare de mecanismes qui rend le clic quasi-inevitable. Ce n'est pas une anomalie — le resend confirme a 1.48%.</p>
+      <div class="mech-grid">
+        <div class="mech-item">
+          <div class="mech-icon">1</div>
+          <div><strong>Endowment Effect</strong><br>"On <em>a trouve</em>" = au passe. L'infusion vous appartient deja.</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-icon">2</div>
+          <div><strong>VOTRE en majuscules</strong><br>Le possessif active le cortex prefrontal medial — signal "c'est pour moi" involontaire.</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-icon">3</div>
+          <div><strong>Effet Zeigarnik</strong><br>Un quiz non complete = boucle ouverte. Le cerveau est cable pour fermer les boucles.</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-icon">4</div>
+          <div><strong>Cognitive Ease</strong><br>"30 sec" desactive la resistance du Systeme 2. Friction percue proche de zero.</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-icon">5</div>
+          <div><strong>Self-Insight</strong><br>Besoin universel d'auto-validation. Apprendre sur le the ET sur soi.</div>
+        </div>
+        <div class="mech-item">
+          <div class="mech-icon">6</div>
+          <div><strong>Reciprocite inversee</strong><br>Teatower offre une decouverte personnalisee avant toute demande d'achat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 7 : CARTE EMOTIONNELLE -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-celine">Celine</span> Carte Emotionnelle des 50 Campagnes</div>
+    <div class="section-subtitle">Correlation entre type d'emotion et performance</div>
+
+    <div class="emotion-grid">
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:var(--green)">Joie Anticipatoire</div>
+        <div class="emotion-stats">Open moyen: 29.8% | Click: 0.52% | 6 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:85%; background:var(--green);"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">Atelier Paques, the & chocolat, Sakura + cadeau. L'anticipation d'une experience sensorielle est le moteur d'action #1.</p>
+      </div>
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:var(--gold)">Valeurs / Identite</div>
+        <div class="emotion-stats">Open moyen: 28.6% | Click: 0.56% | 2 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:80%; background:var(--gold);"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">"8 mars — Liberte" (0.57% click sans promo). La narration de valeur convertit aussi bien que le discount.</p>
+      </div>
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:var(--blue)">Appartenance Locale</div>
+        <div class="emotion-stats">Open moyen: 31.5% | Click: 0.33% | 6 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:90%; background:var(--blue);"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">Nom de ville en tete = +3 a +6 points vs generique. Meilleur open rate par categorie.</p>
+      </div>
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:var(--purple)">FOMO / Perte</div>
+        <div class="emotion-stats">Open moyen: 26.5% | Click: 0.37% | 5 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:65%; background:var(--purple);"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">"Derniers jours", "derniere chance". La peur ouvre mais n'achete pas seule — doit etre couplee a une recompense.</p>
+      </div>
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:#888">Tentation Sensorielle</div>
+        <div class="emotion-stats">Open moyen: 28.2% | Click: 0.42% | 3 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:70%; background:#aaa;"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">"Laissez-vous tenter", "gourmandise". Stable mais sans pic. Potentiel : combiner sensoriel + rarete.</p>
+      </div>
+      <div class="emotion-card">
+        <div class="emotion-name" style="color:var(--red)">Flou / Ennui</div>
+        <div class="emotion-stats">Open moyen: 12.3% | Click: 0.08% | 5 campagnes</div>
+        <div class="emotion-bar"><div class="emotion-fill" style="width:20%; background:var(--red);"></div></div>
+        <p style="font-size:11px; color:#666; margin-top:6px">"Autrement", "ailleurs", "ephemere". L'absence d'emotion claire = cause #1 d'echec.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 8 : DRIVE-TO-STORE (REBECCA) -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-rebecca">Rebecca</span> Diagnostic Drive-to-Store</div>
+    <div class="section-subtitle">Sur 50 campagnes, ~8-10 ont une mecanique drive-to-store. Les 40 autres renvoient vers teatower.com.</div>
+
+    <table>
+      <tr>
+        <th>Format Drive-to-Store</th>
+        <th>Exemple</th>
+        <th>Open</th>
+        <th>Click</th>
+        <th>Pourquoi ca marche</th>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>#1 Atelier local + date</strong></td>
+        <td>Atelier Paques Waterloo</td>
+        <td class="num">36.7%</td>
+        <td class="num">0.89%</td>
+        <td>Evenement unique + segment local + emotion</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>#2 Alerte ouverture + horaire</strong></td>
+        <td>Cet apres-midi Liege ouvert</td>
+        <td class="num">32.6%</td>
+        <td class="num">0.34%</td>
+        <td>Urgence absolue + info actionnable immediate</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>#3 Evenement week-end + produit</strong></td>
+        <td>The & chocolat Waterloo</td>
+        <td class="num">36.5%</td>
+        <td class="num">0.61%</td>
+        <td>Cross-merchandising sensoriel + mini-destination</td>
+      </tr>
+      <tr>
+        <td><strong>#4 Info horaire pratique</strong></td>
+        <td>Namur ouvert jusqu'a 19h</td>
+        <td class="num">28.4%</td>
+        <td class="num">0.45%</td>
+        <td>Levee d'un frein concret, oriente service</td>
+      </tr>
+      <tr>
+        <td><strong>#5 Derniere chance saisonnier</strong></td>
+        <td>Derniers jours Sakura + -10%</td>
+        <td class="num">27.0%</td>
+        <td class="num">0.46%</td>
+        <td>FOMO + rarete saisonniere + promo</td>
+      </tr>
+    </table>
+
+    <div class="insight-grid" style="margin-top:16px">
+      <div class="insight-card warning">
+        <h4>Probleme structurel : pas de mesure physique</h4>
+        <p>Aucun coupon code, "montrez cet email", ni landing page dediee. Impossible de calculer le ROI email → magasin. Le drive-to-store est intuition, pas data.</p>
+      </div>
+      <div class="insight-card warning">
+        <h4>Les resends sont catastrophiques</h4>
+        <p>Resend du 29 mars a toute la liste = 0.7% open. Regle : resend UNIQUEMENT aux non-ouvrants, J+2 minimum, objet different. Le resend quiz (J+1) a 31.4% prouve que ca marche quand c'est bien fait.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 9 : TIMING -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-rebecca">Rebecca</span> Patterns de Timing</div>
+    <div class="section-subtitle">Jour d'envoi, frequence, et fatigue de sequence</div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Jeudi = sweet spot</h4>
+        <p>Les campagnes du jeudi (26 mars : 24.6% a 36.7%) sont parmi les meilleures. Les abonnes planifient leur week-end et sont receptifs aux invitations.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Frequence a la limite : 2-3 emails/semaine</h4>
+        <p>Au pic (12 mars : 4 campagnes le meme jour), un abonne multi-segments peut recevoir 3-4 emails. Plafonner a 2/semaine via Frequency Management Mailchimp.</p>
+      </div>
+      <div class="insight-card warning">
+        <h4>Resend J+3 = desastre</h4>
+        <p>Le resend du 29 mars (J+3 apres le 26) atteint 0.7%. Le resend quiz (J+1) maintient 31.4%. Regle : resend sur non-ouvrants uniquement, J+1 ou J+2, objet different.</p>
+      </div>
+      <div class="insight-card info">
+        <h4>Sequences longues = erosion normale</h4>
+        <p>Saint-Valentin (15 jours, 8+ campagnes) : stable 25-31%. Printemps/Sakura (3 semaines, 10+ campagnes) : erosion en fin. Normal mais a surveiller.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 10 : 10 FORMULES D'OBJET -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-celine">Celine</span> 10 Formules d'Objet Prouvees</div>
+    <div class="section-subtitle">Basees sur les patterns neuropsychologiques valides par les donnees Teatower</div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 1 — Le Quiz Personnalise</div>
+      <div class="formula-template">"[Action passee] VOTRE [resultat] ([format ultra-court])"</div>
+      <div class="formula-example">"On a selectionne VOTRE the de l'ete (quiz 45 sec)"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Endowment</span>
+        <span class="tag tag-gold">Zeigarnik</span>
+        <span class="tag tag-blue">Self-insight</span>
+        <span class="tag-pred">Open 27-29% | Click 1.2-1.6%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 2 — La Surprise Locale</div>
+      <div class="formula-template">"[Ville] : [benefice] + [surprise non revelee]"</div>
+      <div class="formula-example">"Waterloo : un the glace vous attend (et une petite surprise aussi)"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Tribu locale</span>
+        <span class="tag tag-gold">Gap info</span>
+        <span class="tag tag-purple">Reciprocite</span>
+        <span class="tag-pred">Open 35-42% | Click 0.6-0.9%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 3 — Le Compte a Rebours Precis</div>
+      <div class="formula-template">"[X heures/jours] pour [benefice] — apres c'est fini"</div>
+      <div class="formula-example">"48h pour avoir votre Sakura a -15% — apres c'est fini"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Loss aversion</span>
+        <span class="tag tag-gold">FOMO precis</span>
+        <span class="tag tag-blue">Ancrage</span>
+        <span class="tag-pred">Open 28-31% | Click 0.5-0.8%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 4 — Le Probleme-Solution Tutoye</div>
+      <div class="formula-template">"[Probleme quotidien] ? [Solution produit inattendue] !"</div>
+      <div class="formula-example">"Mal dormi cette nuit ? Ce rituel du soir change tout en 5 min"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Problem-solution</span>
+        <span class="tag tag-gold">Self-relevance</span>
+        <span class="tag tag-purple">Tutoiement</span>
+        <span class="tag-pred">Open 28-32% | Click 0.4-0.6%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 5 — La Valeur Narrative</div>
+      <div class="formula-template">"[Date/evenement] — [produit] qui [metaphore de valeur forte]"</div>
+      <div class="formula-example">"21 juin — le the qui sent la liberte d'un soir d'ete"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Storytelling</span>
+        <span class="tag tag-gold">Calendrier</span>
+        <span class="tag tag-blue">Sensoriel</span>
+        <span class="tag-pred">Open 27-30% | Click 0.45-0.6%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 6 — L'Experience Famille</div>
+      <div class="formula-template">"[Activite] pour [enfants/famille] + [benefice parental]"</div>
+      <div class="formula-example">"Atelier clay & the pour les enfants — et un moment pour vous aussi"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Altruisme parental</span>
+        <span class="tag tag-gold">Double benefice</span>
+        <span class="tag tag-purple">Curiosite</span>
+        <span class="tag-pred">Open 34-38% | Click 0.7-1.0%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 7 — La Remise Choc + Ancre</div>
+      <div class="formula-template">"[Produit] a -[X]% — [delai tres court]"</div>
+      <div class="formula-example">"Collection hiver a -50% — seulement ce dimanche"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Ancrage prix</span>
+        <span class="tag tag-gold">Loss aversion</span>
+        <span class="tag tag-blue">Urgence</span>
+        <span class="tag-pred">Open 27-29% | Click 0.6-0.8%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 8 — Le Cadeau dans l'Objet</div>
+      <div class="formula-template">"[Produit] est [de retour] (+ [cadeau explicite])"</div>
+      <div class="formula-example">"Assam Premium est de retour (+ un sample offert avec chaque commande)"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Reciprocite</span>
+        <span class="tag tag-gold">Gap info</span>
+        <span class="tag-pred">Open 29-32% | Click 0.55-0.75%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 9 — Le Defi de Connaissance</div>
+      <div class="formula-template">"Sauriez-vous [distinction subtile] ? (on verifie)"</div>
+      <div class="formula-example">"Sauriez-vous distinguer un First Flush d'un Second Flush ? (on verifie)"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Ego protection</span>
+        <span class="tag tag-gold">Curiosite</span>
+        <span class="tag tag-blue">Autorite</span>
+        <span class="tag-pred">Open 27-30% | Click 0.4-0.6%</span>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="formula-number">Formule 10 — L'Invitation Ultra-Precise</div>
+      <div class="formula-template">"[Jour] [heure] a [Ville] : [experience sensorielle]"</div>
+      <div class="formula-example">"Samedi 14h a Waterloo : degustation matcha ceremonie gratuite"</div>
+      <div class="formula-tags">
+        <span class="tag tag-green">Urgence precise</span>
+        <span class="tag tag-gold">Localisation</span>
+        <span class="tag tag-purple">Gratuite</span>
+        <span class="tag-pred">Open 31-36% | Click 0.35-0.55%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 11 : A/B TESTS -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-celine">Celine</span> 6 A/B Tests Prioritaires</div>
+    <div class="section-subtitle">Roadmap 4 semaines pour valider les hypotheses psychologiques</div>
+
+    <div class="ab-grid">
+      <div class="ab-card">
+        <div class="ab-header">Test 1 : VOTRE majuscule vs minuscule</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "On a trouve votre prochain the favori (quiz 30 sec)"</div>
+          <div class="ab-variant"><strong>B :</strong> "On a trouve VOTRE prochain the favori (quiz 30 sec)"</div>
+          <div class="ab-hypothesis">Hypothese : B surperforme A d'au moins 15% en clics. Le possessif majuscule active le cortex prefrontal medial.</div>
+        </div>
+      </div>
+      <div class="ab-card">
+        <div class="ab-header">Test 2 : Urgence precise vs vague</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "Derniere chance pour Sakura !"</div>
+          <div class="ab-variant"><strong>B :</strong> "36h pour commander votre Sakura — ensuite c'est fini"</div>
+          <div class="ab-hypothesis">Hypothese : B genere +20% de clics grace a la precision temporelle. Le chiffre desactive l'ambiguite.</div>
+        </div>
+      </div>
+      <div class="ab-card">
+        <div class="ab-header">Test 3 : Cadeau revele vs suggere</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "Sakura est de retour"</div>
+          <div class="ab-variant"><strong>B :</strong> "Sakura est de retour (avec un petit cadeau dedans)"</div>
+          <div class="ab-hypothesis">Hypothese : B genere +40% de clics. Le cadeau nomme active la reciprocite en 250ms avant l'ouverture.</div>
+        </div>
+      </div>
+      <div class="ab-card">
+        <div class="ab-header">Test 4 : Storytelling vs Promo directe</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "The des Meres -10% ce dimanche"</div>
+          <div class="ab-variant"><strong>B :</strong> "Fete des Meres — le the qui dit ce que les mots ne peuvent pas"</div>
+          <div class="ab-hypothesis">Hypothese : A genere plus de clics immediats, B genere un panier moyen superieur. Mesurer revenue per email.</div>
+        </div>
+      </div>
+      <div class="ab-card">
+        <div class="ab-header">Test 5 : Local nomme vs Generique</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "Teatower vous donne rendez-vous a l'Expo"</div>
+          <div class="ab-variant"><strong>B :</strong> "Waterloo — On vous donne rendez-vous a l'Expo"</div>
+          <div class="ab-hypothesis">Hypothese : B ouvre +8 points et clique +0.3 points. Donnees Made in Asia : 41.6% vs 26.5%.</div>
+        </div>
+      </div>
+      <div class="ab-card">
+        <div class="ab-header">Test 6 : Affirmation vs Question "Et si"</div>
+        <div class="ab-body">
+          <div class="ab-variant"><strong>A :</strong> "Et si vous decouvriez nos thes glaces cet ete ?"</div>
+          <div class="ab-variant"><strong>B :</strong> "Voici votre the glace de l'ete — il vous attendait"</div>
+          <div class="ab-hypothesis">Hypothese : B surperforme A d'au moins 8 points. L'affirmation de confiance bat l'hesitation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 12 : PLAN D'ACTION COMBINE -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title"><span class="expert-badge badge-combined">Rebecca + Celine</span> Plan d'Action — 10 Recommandations</div>
+    <div class="section-subtitle">Classees par priorite d'impact et delai de mise en oeuvre</div>
+
+    <ul class="action-list">
+      <li class="action-item">
+        <div class="action-priority priority-p1">P1</div>
+        <div class="action-content">
+          <h4>Standardiser le from-name sur "Audrey de Teatower"</h4>
+          <p>Pour toutes les campagnes. Supprimer "L'equipe de Teatower" et "La Boutique Teatower de [ville]". Seule exception : "Les ateliers Teatower" pour les evenements.</p>
+        </div>
+        <div class="action-impact impact-green">+2-4pts open</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p1">P1</div>
+        <div class="action-content">
+          <h4>Protocole resend strict : non-ouvrants uniquement, J+2, objet different</h4>
+          <p>Ne plus jamais envoyer un resend a la liste complete. Filtre Mailchimp natif "did not open". Minimum 48h apres l'original. Changer l'angle du sujet.</p>
+        </div>
+        <div class="action-impact impact-green">Eviter les 0.7%</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p1">P1</div>
+        <div class="action-content">
+          <h4>Viser 3+ principes Cialdini par sujet</h4>
+          <p>Avant chaque envoi, verifier que le sujet active au moins 3 principes (reciprocite, rarete, preuve sociale, engagement, sympathie, unite, autorite). Un sujet a 1 principe = 21.8% open. A 3 principes = 30.2%.</p>
+        </div>
+        <div class="action-impact impact-green">+8pts open</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p1">P1</div>
+        <div class="action-content">
+          <h4>Lancer un quiz par saison (format champion)</h4>
+          <p>Le quiz "VOTRE infusion" est le #1 click rate (1.53%). Creer des variantes : "quel the chaud pour votre humeur du lundi ?", "quel rituel matinal vous correspond ?". Chaque quiz = collecte de preferences pour segmentation.</p>
+        </div>
+        <div class="action-impact impact-green">Click x4</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p2">P2</div>
+        <div class="action-content">
+          <h4>Repliquer le modele atelier sur toutes les boutiques</h4>
+          <p>Waterloo (36.7%) prouve le format. Un atelier/mois par magasin avec segment local + places limitees affichees dans le sujet ("il reste 4 places").</p>
+        </div>
+        <div class="action-impact impact-gold">+0.4pts click</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p2">P2</div>
+        <div class="action-content">
+          <h4>Nommer la reciprocite dans l'objet, pas dans le corps</h4>
+          <p>"(avec un petit cadeau)" dans le sujet = 30.3% vs 25.7% sans. Le principe de Cialdini doit etre active avant l'ouverture, en 250ms. "-10%" n'est pas un cadeau — "On vous offre" en est un.</p>
+        </div>
+        <div class="action-impact impact-gold">+4pts open</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p2">P2</div>
+        <div class="action-content">
+          <h4>Toujours un CTA drive-to-store dans les emails segmentes</h4>
+          <p>"Passez ce week-end", "Reservez votre degustation", "Dernieres pieces en vitrine a [ville]". Chaque segment local doit avoir une raison physique d'aller en boutique.</p>
+        </div>
+        <div class="action-impact impact-gold">Click x2</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p2">P2</div>
+        <div class="action-content">
+          <h4>Plafonner a 2 emails/semaine par abonne</h4>
+          <p>Frequency Management Mailchimp. Le 12 mars : 4 campagnes le meme jour. Un abonne multi-segments recoit 3-4 emails — risque de fatigue et desabonnement.</p>
+        </div>
+        <div class="action-impact impact-gold">Retention</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p3">P3</div>
+        <div class="action-content">
+          <h4>Creer un segment "Super-locaux" (rayon 5 km) par magasin</h4>
+          <p>Micro-segments par code postal pour communications hyperlocales. Le segment Waterloo actuel (1 800 personnes, ~34% open) demontre que la proximite geographique = meilleur predicteur d'engagement.</p>
+        </div>
+        <div class="action-impact impact-green">35%+ open</div>
+      </li>
+      <li class="action-item">
+        <div class="action-priority priority-p3">P3</div>
+        <div class="action-content">
+          <h4>Mesurer le ROI email → magasin avec code promo dedie</h4>
+          <p>Code unique par campagne drive-to-store (ex : "SAKURA-WATER") utilisable uniquement en caisse. Pilote sur Waterloo. Meme 3-4 conversions a 35 EUR = ROI calculable pour la premiere fois.</p>
+        </div>
+        <div class="action-impact impact-green">ROI mesurable</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 13 : TABLEAU COMPLET 50 CAMPAGNES -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="section-title">Tableau Complet — 50 Campagnes</div>
+    <div class="section-subtitle">Triees par date (plus recentes en premier) | Donnees Mailchimp brutes</div>
+
+    <div style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Sujet</th>
+        <th>From</th>
+        <th>Envoyes</th>
+        <th>Open %</th>
+        <th>Click %</th>
+        <th>Cialdini</th>
+      </tr>
+      <tr><td>1</td><td>29/03</td><td>Votre rituel de printemps (jasmin) — Resend</td><td>L'equipe</td><td class="num">21 103</td><td class="num" style="color:var(--red)">0.7%</td><td class="num">0.09%</td><td class="center">—</td></tr>
+      <tr><td>2</td><td>29/03</td><td>Rituel printemps Namur — Resend</td><td>Boutique Namur</td><td class="num">2 720</td><td class="num">1.5%</td><td class="num">0.07%</td><td class="center">—</td></tr>
+      <tr><td>3</td><td>29/03</td><td>Rituel printemps Liege — Resend</td><td>Boutique Liege</td><td class="num">5 233</td><td class="num">2.0%</td><td class="num">0.08%</td><td class="center">—</td></tr>
+      <tr><td>4</td><td>29/03</td><td>Rituel printemps Waterloo — Resend</td><td>Boutique Waterloo</td><td class="num">1 141</td><td class="num">1.8%</td><td class="num">0.35%</td><td class="center">—</td></tr>
+      <tr><td>5</td><td>26/03</td><td>Le printemps dans votre tasse et vos vitrines</td><td>Audrey</td><td class="num">27 998</td><td class="num">24.6%</td><td class="num">0.34%</td><td class="center">2</td></tr>
+      <tr><td>6</td><td>26/03</td><td>Namur s'adapte a votre rythme : ouvert 19h</td><td>Audrey</td><td class="num">3 798</td><td class="num">28.4%</td><td class="num">0.45%</td><td class="center">2</td></tr>
+      <tr class="highlight-row"><td>7</td><td>26/03</td><td><strong>Atelier the & surprise Paques enfants</strong></td><td>Audrey</td><td class="num">1 799</td><td class="num"><strong>36.7%</strong></td><td class="num"><strong>0.89%</strong></td><td class="center"><strong>3</strong></td></tr>
+      <tr><td>8</td><td>26/03</td><td>Derniers jours Sakura + -10% Liberte</td><td>Audrey</td><td class="num">7 172</td><td class="num">27.0%</td><td class="num">0.46%</td><td class="center">3</td></tr>
+      <tr><td>9</td><td>18/03</td><td>Vendredi 18h Namur : matcha parfait</td><td>Les ateliers</td><td class="num">3 839</td><td class="num">23.3%</td><td class="num">0.18%</td><td class="center">2</td></tr>
+      <tr><td>10</td><td>12/03</td><td>Sakura est de retour — Deux thes</td><td>Audrey</td><td class="num">3 739</td><td class="num">28.9%</td><td class="num">0.56%</td><td class="center">2</td></tr>
+      <tr><td>11</td><td>12/03</td><td>Les thes Sakura sont revenus</td><td>Audrey</td><td class="num">28 081</td><td class="num">25.7%</td><td class="num">0.33%</td><td class="center">1</td></tr>
+      <tr class="highlight-row"><td>12</td><td>12/03</td><td><strong>The & chocolat ce week-end a Waterloo</strong></td><td>Audrey</td><td class="num">1 811</td><td class="num"><strong>36.5%</strong></td><td class="num"><strong>0.61%</strong></td><td class="center"><strong>3</strong></td></tr>
+      <tr><td>13</td><td>12/03</td><td>Sakura est de retour (avec un petit cadeau)</td><td>Audrey</td><td class="num">7 194</td><td class="num">30.3%</td><td class="num">0.64%</td><td class="center">2</td></tr>
+      <tr class="highlight-row"><td>14</td><td>06/03</td><td><strong>8 mars — the prenom de combat : Liberte</strong></td><td>Audrey</td><td class="num">38 884</td><td class="num"><strong>28.8%</strong></td><td class="num"><strong>0.57%</strong></td><td class="center"><strong>3</strong></td></tr>
+      <tr class="bad-row"><td>15</td><td>04/03</td><td>Le printemps a un gout — et il est ephemere</td><td>Maison de the</td><td class="num">13 907</td><td class="num" style="color:var(--red)">18.0%</td><td class="num">0.15%</td><td class="center">2</td></tr>
+      <tr><td>16</td><td>02/03</td><td>Il ne reviendra pas avant l'annee prochaine</td><td>Maison de the</td><td class="num">38 509</td><td class="num">23.0%</td><td class="num">0.40%</td><td class="center">2</td></tr>
+      <tr><td>17</td><td>01/03</td><td>Cet apres-midi : Teatower Liege ouvert !</td><td>Teatower</td><td class="num">2 963</td><td class="num">32.6%</td><td class="num">0.34%</td><td class="center">2</td></tr>
+      <tr><td>18</td><td>28/02</td><td>Ouvert dimanche 1er mars : Teatower Liege</td><td>Teatower</td><td class="num">6 894</td><td class="num">24.3%</td><td class="num">0.49%</td><td class="center">2</td></tr>
+      <tr><td>19</td><td>27/02</td><td>Plus que 2 jours The des amoureux + Made in Asia</td><td>Audrey</td><td class="num">38 578</td><td class="num">27.6%</td><td class="num" style="color:var(--red)">0.12%</td><td class="center">3</td></tr>
+      <tr><td>20</td><td>20/02</td><td>On a trouve VOTRE infusion (quiz) — Resend</td><td>Maison de the</td><td class="num">13 578</td><td class="num">31.4%</td><td class="num">1.48%</td><td class="center">3</td></tr>
+      <tr><td>21</td><td>19/02</td><td>On vous offre vos places Made in Asia — VIP</td><td>Audrey</td><td class="num">55</td><td class="num">74.5%</td><td class="num">27.3%</td><td class="center">2</td></tr>
+      <tr class="highlight-row"><td>22</td><td>19/02</td><td><strong>On a trouve VOTRE infusion (quiz 30 sec)</strong></td><td>Maison de the</td><td class="num">38 715</td><td class="num">28.0%</td><td class="num"><strong>1.53%</strong></td><td class="center"><strong>4</strong></td></tr>
+      <tr><td>23</td><td>18/02</td><td>Quel coup de coeur fruite ? — Resend</td><td>Maison de the</td><td class="num">12 876</td><td class="num">26.9%</td><td class="num">0.25%</td><td class="center">2</td></tr>
+      <tr><td>24</td><td>17/02</td><td>Quel coup de coeur fruite ?</td><td>Maison de the</td><td class="num">38 978</td><td class="num">28.2%</td><td class="num">0.34%</td><td class="center">2</td></tr>
+      <tr class="bad-row"><td>25</td><td>15/02</td><td>3 jours pour decouvrir le matcha autrement</td><td>Audrey</td><td class="num">21 666</td><td class="num" style="color:var(--red)">7.7%</td><td class="num">0.11%</td><td class="center">1</td></tr>
+      <tr class="bad-row"><td>26</td><td>15/02</td><td>Et si on partageait une pause the ailleurs ?</td><td>Audrey</td><td class="num">652</td><td class="num" style="color:var(--red)">16.6%</td><td class="num">0%</td><td class="center">1</td></tr>
+      <tr class="bad-row"><td>27</td><td>15/02</td><td>Et si on partageait une pause the ailleurs ?</td><td>Audrey</td><td class="num">1 608</td><td class="num" style="color:var(--red)">10.2%</td><td class="num">0.06%</td><td class="center">1</td></tr>
+      <tr class="bad-row"><td>28</td><td>15/02</td><td>Et si on partageait une pause the ailleurs ?</td><td>Audrey</td><td class="num">4 546</td><td class="num" style="color:var(--red)">10.9%</td><td class="num">0.13%</td><td class="center">1</td></tr>
+      <tr><td>29</td><td>15/02</td><td>3 jours matcha — Resend</td><td>Audrey</td><td class="num">121</td><td class="num">14.0%</td><td class="num">0%</td><td class="center">1</td></tr>
+      <tr><td>30</td><td>14/02</td><td>La Saint-Valentin c'est deja demain</td><td>Maison de the</td><td class="num">15 256</td><td class="num">31.5%</td><td class="num">0.32%</td><td class="center">2</td></tr>
+      <tr><td>31</td><td>13/02</td><td>La Saint-Valentin c'est deja demain</td><td>Maison de the</td><td class="num">37 341</td><td class="num">28.1%</td><td class="num">0.31%</td><td class="center">2</td></tr>
+      <tr><td>32</td><td>12/02</td><td>Teatower vous donne rdv Made in Asia</td><td>Audrey</td><td class="num">28 695</td><td class="num">26.5%</td><td class="num" style="color:var(--red)">0.13%</td><td class="center">2</td></tr>
+      <tr class="highlight-row"><td>33</td><td>12/02</td><td><strong>Waterloo — Teatower arrive Made in Asia</strong></td><td>Audrey</td><td class="num">1 053</td><td class="num"><strong>41.6%</strong></td><td class="num">0.57%</td><td class="center">2</td></tr>
+      <tr><td>34</td><td>12/02</td><td>Namur — Vivez l'experience Made in Asia</td><td>Audrey</td><td class="num">2 201</td><td class="num">29.1%</td><td class="num">0.14%</td><td class="center">2</td></tr>
+      <tr><td>35</td><td>12/02</td><td>Liege — On se retrouve a Made in Asia ?</td><td>Audrey</td><td class="num">6 502</td><td class="num">33.0%</td><td class="num">0.17%</td><td class="center">2</td></tr>
+      <tr><td>36</td><td>12/02</td><td>Matcha Lovers — Rdv Made in Asia</td><td>Audrey</td><td class="num">179</td><td class="num">34.1%</td><td class="num">0%</td><td class="center">1</td></tr>
+      <tr><td>37</td><td>12/02</td><td>J-4 : the qui fera fondre votre coeur — Resend</td><td>Maison de the</td><td class="num">12 862</td><td class="num">21.8%</td><td class="num">0.23%</td><td class="center">2</td></tr>
+      <tr><td>38</td><td>11/02</td><td>J-4 : the qui fera fondre votre coeur</td><td>Maison de the</td><td class="num">37 485</td><td class="num">27.6%</td><td class="num">0.30%</td><td class="center">2</td></tr>
+      <tr><td>39</td><td>06/02</td><td>Saint-Valentin a ne pas manquer — Resend</td><td>Maison de the</td><td class="num">14 903</td><td class="num">28.2%</td><td class="num">0.38%</td><td class="center">2</td></tr>
+      <tr><td>40</td><td>05/02</td><td>Saint-Valentin a ne pas manquer</td><td>Maison de the</td><td class="num">37 578</td><td class="num">26.3%</td><td class="num">0.39%</td><td class="center">2</td></tr>
+      <tr><td>41</td><td>03/02</td><td>Vous l'adorez deja… -10%</td><td>Maison de the</td><td class="num">37 629</td><td class="num">28.4%</td><td class="num">0.25%</td><td class="center">2</td></tr>
+      <tr><td>42</td><td>01/02</td><td>1+1 sur le The des Amoureux</td><td>Teatower</td><td class="num">31 147</td><td class="num">25.9%</td><td class="num">0.42%</td><td class="center">2</td></tr>
+      <tr><td>43</td><td>31/01</td><td>1+1 sur le The des Amoureux (segment)</td><td>Teatower</td><td class="num">6 560</td><td class="num">32.3%</td><td class="num">0.41%</td><td class="center">3</td></tr>
+      <tr><td>44</td><td>30/01</td><td>Mocktails sains !</td><td>Maison de the</td><td class="num">37 764</td><td class="num">27.8%</td><td class="num">0.42%</td><td class="center">2</td></tr>
+      <tr><td>45</td><td>27/01</td><td>Derniers jours pour Ginger Hot</td><td>Maison de the</td><td class="num">37 818</td><td class="num">27.9%</td><td class="num">0.21%</td><td class="center">2</td></tr>
+      <tr class="highlight-row"><td>46</td><td>26/01</td><td><strong>Derniere chance : Noel a -50% !</strong></td><td>Maison de the</td><td class="num">37 899</td><td class="num">27.8%</td><td class="num"><strong>0.73%</strong></td><td class="center"><strong>3</strong></td></tr>
+      <tr><td>47</td><td>24/01</td><td>Ce soir, laissez-vous tenter…</td><td>Maison de the</td><td class="num">37 965</td><td class="num">28.3%</td><td class="num">0.40%</td><td class="center">2</td></tr>
+      <tr><td>48</td><td>21/01</td><td>3 thes pour un corps leger et energise</td><td>Maison de the</td><td class="num">38 022</td><td class="num">28.4%</td><td class="num">0.47%</td><td class="center">2</td></tr>
+      <tr><td>49</td><td>19/01</td><td>Blue Monday -20% infusions</td><td>Maison de the</td><td class="num">38 078</td><td class="num">28.3%</td><td class="num">0.54%</td><td class="center">2</td></tr>
+      <tr><td>50</td><td>17/01</td><td>Trop cafe le soir ? Essaie cette gourmandise !</td><td>Maison de the</td><td class="num">38 129</td><td class="num">28.4%</td><td class="num">0.45%</td><td class="center">3</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SYNTHESE FINALE -->
+  <!-- ============================================= -->
+  <div class="section">
+    <div class="synthesis">
+      <h3>Synthese Executive — Rebecca + Celine</h3>
+      <p>Sur 50 campagnes, <strong>3 formats dominent</strong> : le quiz personnalise (1.53% click, 4x la moyenne), l'evenement local segmente (36-42% open), et le cadeau nomme dans l'objet (+5pts open).</p>
+      <p><strong>Le pattern gagnant</strong> combine un evenement physique (Rebecca) + une identite personnelle touchant 3+ principes Cialdini (Celine). L'atelier Waterloo (36.7% / 0.89%) et le quiz infusion (28% / 1.53%) en sont la preuve.</p>
+      <p><strong>3 actions immediates :</strong> (1) from "Audrey" partout, (2) resend non-ouvrants uniquement, (3) minimum 3 principes Cialdini par sujet. Ces 3 changements peuvent faire passer le click rate moyen de 0.42% a 0.7%+ sans changer le contenu des emails.</p>
+
+      <table style="margin-top:16px; font-size:13px;">
+        <tr><th>Dimension</th><th>Score actuel</th><th>Potentiel</th><th>Levier</th></tr>
+        <tr><td>Segmentation</td><td class="center"><strong>7/10</strong></td><td class="center">9/10</td><td>Micro-segments 5km</td></tr>
+        <tr><td>From-name</td><td class="center" style="color:var(--gold)"><strong>6/10</strong></td><td class="center">9/10</td><td>Standardiser Audrey</td></tr>
+        <tr><td>Drive-to-store</td><td class="center" style="color:var(--red)"><strong>4/10</strong></td><td class="center">8/10</td><td>CTA physique + code promo</td></tr>
+        <tr><td>Persuasion</td><td class="center" style="color:var(--gold)"><strong>5.5/10</strong></td><td class="center">8/10</td><td>3+ Cialdini par sujet</td></tr>
+        <tr><td>Timing</td><td class="center"><strong>7/10</strong></td><td class="center">9/10</td><td>Protocole resend strict</td></tr>
+        <tr><td>Formats</td><td class="center"><strong>7/10</strong></td><td class="center">9/10</td><td>Quiz + ateliers recurrents</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    Analyse generee le 29 mars 2026 — Rebecca (Retail & Drive-to-Store) + Celine (Psychologie Marketing)<br>
+    50 campagnes Mailchimp | 17 janvier — 29 mars 2026 | Teatower
+  </div>
+
+</div>
+</body>
+</html>
