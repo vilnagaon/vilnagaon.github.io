@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campagne Paques 2026 — Chasse aux Oeufs Teatower</title>
+<style>
+  :root {
+    --green: #2d6a4f; --green-bg: #f0f7f4;
+    --red: #c1121f; --red-light: #fde8e8;
+    --gold: #b5851b; --gold-light: #f5e6c8;
+    --blue: #1d3557; --blue-light: #e8f0fe;
+    --orange: #e76f51; --orange-light: #fef0ec;
+    --purple: #6c3d91; --purple-light: #f3eaf8;
+    --gray: #6c757d; --gray-light: #f8f9fa;
+    --border: #dee2e6; --text: #212529; --white: #fff;
+    --choco: #5c3317; --choco-light: #f5ede6;
+    --easter: #a855f7; --easter-light: #faf5ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--gray-light); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .header { background: linear-gradient(135deg, var(--choco) 0%, var(--easter) 100%); color: var(--white); padding: 48px 40px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header h1 { font-size: 30px; margin-bottom: 8px; position: relative; }
+  .header .subtitle { font-size: 16px; opacity: 0.85; position: relative; }
+  .header .date { font-size: 12px; opacity: 0.5; margin-top: 14px; position: relative; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; position: relative; }
+
+  .section { background: var(--white); border-radius: 12px; padding: 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .section-subtitle { color: var(--gray); font-size: 13px; margin-bottom: 20px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+  th { background: var(--gray-light); padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); border-bottom: 2px solid var(--border); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  tr.highlight { background: var(--green-bg); }
+  tr.bad { background: var(--red-light); }
+
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .insight-card { border-left: 4px solid var(--green); background: var(--green-bg); padding: 14px 16px; border-radius: 0 8px 8px 0; }
+  .insight-card.warning { border-left-color: var(--red); background: var(--red-light); }
+  .insight-card.info { border-left-color: var(--gold); background: var(--gold-light); }
+  .insight-card.purple { border-left-color: var(--purple); background: var(--purple-light); }
+  .insight-card.choco { border-left-color: var(--choco); background: var(--choco-light); }
+  .insight-card h4 { font-size: 13px; margin-bottom: 3px; }
+  .insight-card p { font-size: 12px; color: #444; line-height: 1.5; }
+
+  /* KPI */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .kpi.target { border-color: var(--green); background: var(--green-bg); }
+  .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 3px; }
+  .kpi-value { font-size: 24px; font-weight: 800; }
+  .kpi-detail { font-size: 11px; color: var(--gray); }
+
+  /* Email cards */
+  .email-card { border: 2px solid var(--blue); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .email-card.liege { border-color: var(--red); }
+  .email-header { background: var(--blue); color: white; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .email-card.liege .email-header { background: var(--red); }
+  .email-date { font-size: 13px; font-weight: 600; }
+  .email-segment { background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; font-size: 11px; }
+  .email-body { padding: 16px 18px; }
+  .email-subject { font-size: 16px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+  .email-card.liege .email-subject { color: var(--red); }
+  .email-preview { font-size: 13px; color: var(--gray); font-style: italic; margin-bottom: 10px; }
+  .email-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-gold { background: var(--gold-light); color: var(--gold); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-choco { background: var(--choco-light); color: var(--choco); }
+
+  /* Mechanic box */
+  .mechanic-box { background: var(--easter-light); border: 2px solid var(--easter); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .mechanic-box h3 { color: var(--easter); margin-bottom: 12px; font-size: 18px; }
+  .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step { text-align: center; padding: 16px; border-radius: 10px; background: white; }
+  .step-num { font-size: 32px; font-weight: 900; color: var(--easter); }
+  .step-title { font-size: 14px; font-weight: 700; margin: 6px 0 4px; }
+  .step-detail { font-size: 12px; color: var(--gray); }
+
+  /* Comparison */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .compare-card { border-radius: 10px; padding: 20px; }
+  .compare-card.old { background: var(--red-light); border: 1px solid var(--red); }
+  .compare-card.new { background: var(--green-bg); border: 1px solid var(--green); }
+  .compare-card h4 { font-size: 14px; margin-bottom: 10px; }
+  .compare-card ul { font-size: 13px; padding-left: 18px; }
+  .compare-card li { margin-bottom: 4px; }
+
+  /* Product grid */
+  .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .prod-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .prod-card.hero { border-color: var(--choco); background: var(--choco-light); }
+  .prod-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .prod-stats { font-size: 11px; color: var(--gray); }
+  .prod-price { font-size: 16px; font-weight: 800; color: var(--green); margin-top: 4px; }
+  .prod-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .prod-label.choco { color: var(--choco); }
+  .prod-label.cadeau { color: var(--purple); }
+  .prod-label.star { color: var(--gold); }
+
+  .checklist { list-style: none; }
+  .checklist li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+  .synthesis { background: linear-gradient(135deg, var(--choco-light) 0%, var(--easter-light) 100%); border: 2px solid var(--easter); border-radius: 12px; padding: 28px; }
+  .synthesis h3 { font-size: 18px; margin-bottom: 12px; }
+  .synthesis p { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+
+  .footer { text-align: center; padding: 20px; color: var(--gray); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .step-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Paques 2026 — Dimanche 5 Avril</div>
+    <h1>Campagne Chasse aux Oeufs Teatower</h1>
+    <div class="subtitle">Mecanique gamifiee + drive-to-store Liege + segmentation 4 magasins</div>
+    <div class="date">Base sur les resultats Paques 2025 (1 192 EUR, 49 commandes, 2 campagnes) | Genere le 31 mars 2026</div>
+  </div>
+
+  <!-- RESULTATS 2025 -->
+  <div class="section">
+    <div class="section-title">Retour sur Paques 2025 — Ce qui a marche, ce qui a rate</div>
+    <div class="section-subtitle">2 campagnes chasse aux oeufs + 1 flash -20% sante + 1 segment Liege</div>
+
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Sujet</th>
+        <th>Envois</th>
+        <th>Open</th>
+        <th>Click</th>
+        <th>Revenue</th>
+        <th>Orders</th>
+      </tr>
+      <tr class="highlight">
+        <td>1 avr</td>
+        <td><strong>Chasse aux oeufs : 3 oeufs, 1 code = -20%</strong></td>
+        <td class="num">60 055</td>
+        <td class="num">19.4%</td>
+        <td class="num"><strong>0.45%</strong></td>
+        <td class="num"><strong>610 &euro;</strong></td>
+        <td class="num">25</td>
+      </tr>
+      <tr>
+        <td>3 avr</td>
+        <td>-10% Rooibos Etoile Filante</td>
+        <td class="num">59 971</td>
+        <td class="num">19.0%</td>
+        <td class="num">0.14%</td>
+        <td class="num">356 &euro;</td>
+        <td class="num">6</td>
+      </tr>
+      <tr class="highlight">
+        <td>4 avr</td>
+        <td><strong>OUFTI ! -10% specialites liegeoises</strong> (segment Liege)</td>
+        <td class="num">4 460</td>
+        <td class="num"><strong>37.2%</strong></td>
+        <td class="num">0.29%</td>
+        <td class="num">63 &euro;</td>
+        <td class="num">1</td>
+      </tr>
+      <tr class="highlight">
+        <td>6-7 avr</td>
+        <td><strong>Flash sante -20% sur tout</strong> (envoi + resend)</td>
+        <td class="num">111 069</td>
+        <td class="num">15.1%</td>
+        <td class="num"><strong>0.33%</strong></td>
+        <td class="num"><strong>3 371 &euro;</strong></td>
+        <td class="num">77</td>
+      </tr>
+      <tr>
+        <td>9 avr</td>
+        <td>Thes gourmands de Paques -20% chasse aux oeufs</td>
+        <td class="num">59 778</td>
+        <td class="num">19.3%</td>
+        <td class="num">0.36%</td>
+        <td class="num">582 &euro;</td>
+        <td class="num">24</td>
+      </tr>
+    </table>
+
+    <div class="compare-grid">
+      <div class="compare-card old">
+        <h4 style="color:var(--red)">Ce qui n'a pas marche en 2025</h4>
+        <ul>
+          <li>Pas de segmentation (60K envois broadcast)</li>
+          <li>From "Teatower" generique (pas de prenom)</li>
+          <li>Liege ferme le dimanche de Paques</li>
+          <li>Chasse aux oeufs uniquement online — pas de mecanique en boutique</li>
+          <li>Pas de drive-to-store</li>
+        </ul>
+      </div>
+      <div class="compare-card new">
+        <h4 style="color:var(--green)">Ce qu'on fait differemment en 2026</h4>
+        <ul>
+          <li><strong>4 segments</strong> : Waterloo, Namur, Liege, Autres</li>
+          <li>From <strong>"Audrey de Teatower"</strong> (+4pts open)</li>
+          <li><strong>Liege ouvert dimanche 5 avril</strong> (Paques + Coteaux)</li>
+          <li>Chasse aux oeufs <strong>en boutique ET en ligne</strong></li>
+          <li><strong>Drive-to-store</strong> : oeufs caches en magasin</li>
+          <li>3+ principes Cialdini par email</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi target">
+      <div class="kpi-label">Objectif revenue email</div>
+      <div class="kpi-value" style="color:var(--green)">2 500 &euro;</div>
+      <div class="kpi-detail">vs 1 192 EUR en 2025 (+110%)</div>
+    </div>
+    <div class="kpi target">
+      <div class="kpi-label">Orders cible</div>
+      <div class="kpi-value" style="color:var(--green)">80+</div>
+      <div class="kpi-detail">vs 49 en 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Open rate cible</div>
+      <div class="kpi-value" style="color:var(--blue)">30%+</div>
+      <div class="kpi-detail">Segments locaux (ref: 37.2%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Click rate cible</div>
+      <div class="kpi-value" style="color:var(--gold)">0.5%+</div>
+      <div class="kpi-detail">vs 0.45% best 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">CA Liege dimanche</div>
+      <div class="kpi-value" style="color:var(--red)">800 &euro;</div>
+      <div class="kpi-detail">vs 0 EUR 2025 (ferme)</div>
+    </div>
+  </div>
+
+  <!-- MECANIQUE -->
+  <div class="mechanic-box">
+    <h3>Mecanique : La Chasse aux Oeufs Teatower 2026</h3>
+    <p style="font-size:13px; margin-bottom:16px">En 2025, les oeufs etaient uniquement en ligne (3 oeufs caches sur le site = 1 code -20%). En 2026, on double la mecanique : <strong>en boutique ET en ligne</strong>.</p>
+
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Trouvez 3 oeufs sur teatower.com</div>
+        <div class="step-detail">3 oeufs caches sur 3 pages produit differentes. Chaque oeuf revele une lettre. Les 3 lettres forment le code promo.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">OU trouvez l'oeuf en boutique</div>
+        <div class="step-detail">Un oeuf dore cache dans chaque magasin. Le trouver = <strong>-20% immediat</strong> sur votre achat. Pas besoin de code.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Le code donne -20%</div>
+        <div class="step-detail">Valable sur tout le site du <strong>1er au 6 avril</strong>. Un seul usage par client. Cumulable avec les achats en boutique.</div>
+      </div>
+    </div>
+
+    <div class="insight-grid" style="margin-top:16px">
+      <div class="insight-card purple">
+        <h4>Pourquoi la double mecanique ?</h4>
+        <p><strong>Online :</strong> la chasse gamifiee genere du trafic sur le site + du temps passe (3 pages minimum). Le code est la recompense.<br><strong>Boutique :</strong> l'oeuf cache cree un jeu pour les enfants et un pretexte de visite pour les parents. C'est du drive-to-store deguise en jeu.</p>
+      </div>
+      <div class="insight-card choco">
+        <h4>L'oeuf en boutique = biais de reciprocite</h4>
+        <p>Le client "trouve" l'oeuf → il se sent recompense → il achete avec -20% → il part satisfait. La mecanique de decouverte active le circuit de recompense (dopamine) bien plus qu'un simple code envoye par email.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUITS A POUSSER -->
+  <div class="section">
+    <div class="section-title">Produits a Pousser — Paques 2026</div>
+    <div class="section-subtitle">Base sur les top sellers Paques 2025 + les stars actuelles mars 2026</div>
+
+    <div class="prod-grid">
+      <div class="prod-card hero">
+        <div class="prod-label choco">Angle Paques</div>
+        <div class="prod-name">Douceur Cacaotee (oolong)</div>
+        <div class="prod-stats">699 EUR en avril 2025 Liege (#2)<br>The + chocolat = accord Paques parfait</div>
+        <div class="prod-price">12.75 &euro;</div>
+      </div>
+      <div class="prod-card hero">
+        <div class="prod-label star">Star saisonniere</div>
+        <div class="prod-name">Infusion du Printemps 2026</div>
+        <div class="prod-stats">830 EUR en mars 2026 Liege (#1)<br>N'existait pas en 2025</div>
+        <div class="prod-price">9.50 &euro;</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-label star">Star permanente</div>
+        <div class="prod-name">Matcha Japonais 50g</div>
+        <div class="prod-stats">1 224 EUR en avril 2025 Liege (#1)<br>794 EUR semaine Paques 2025</div>
+        <div class="prod-price">20.00 &euro;</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-label choco">Angle Paques</div>
+        <div class="prod-name">Gourmandise</div>
+        <div class="prod-stats">484 EUR avril 2025 Namur<br>Fruits rouges + amande = gourmand</div>
+        <div class="prod-price">9.50 &euro;</div>
+      </div>
+      <div class="prod-card hero">
+        <div class="prod-label cadeau">Coffret cadeau</div>
+        <div class="prod-name">Coffret Taste the World</div>
+        <div class="prod-stats">340 EUR semaine post-Paques 2025<br>48 thes = cadeau ideal</div>
+        <div class="prod-price">33.26 &euro;</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-label cadeau">Coffret cadeau</div>
+        <div class="prod-name">Assortiment Decouverte</div>
+        <div class="prod-stats">307 EUR avril 2025 Liege<br>Entree de gamme, nouveau client</div>
+        <div class="prod-price">14.25 &euro;</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-label star">Bestseller</div>
+        <div class="prod-name">La Nana de Wepion</div>
+        <div class="prod-stats">813 EUR semaine Paques 2025 (#1 toutes boutiques)</div>
+        <div class="prod-price">10.50 &euro;</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-label star">Bestseller</div>
+        <div class="prod-name">Le panier de grand maman</div>
+        <div class="prod-stats">617 EUR semaine Paques 2025 (#3)</div>
+        <div class="prod-price">10.50 &euro;</div>
+      </div>
+    </div>
+
+    <div class="insight-card choco">
+      <h4>L'angle "the & chocolat" pour Paques</h4>
+      <p>La Douceur Cacaotee (oolong chocolat) est le produit #2 de Liege en avril 2025. En avril, le chocolat domine (oeufs, lapins, cloches). Positionner la Douceur Cacaotee comme "le the de Paques" dans tous les emails et en vitrine. Cross-sell avec des oeufs en chocolat si disponibles.</p>
+    </div>
+  </div>
+
+  <!-- SEQUENCE EMAIL -->
+  <div class="section">
+    <div class="section-title">Sequence Email — 5 envois en 6 jours</div>
+    <div class="section-subtitle">Du 31 mars au 5 avril. From "Audrey de Teatower". Segmente par magasin.</div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <div class="email-date">Mardi 31 mars — 18h</div>
+        <div class="email-segment">Segment: TOUS (Waterloo + Namur + Liege + Autres)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">La chasse aux oeufs Teatower commence — trouvez le code, gagnez -20%</div>
+        <div class="email-preview">3 oeufs caches sur teatower.com. Trouvez-les, assemblez le code, profitez de -20% sur tout. Valable jusqu'au 6 avril.</div>
+        <div class="email-tags">
+          <span class="tag tag-gold">Engagement (jeu)</span>
+          <span class="tag tag-purple">Curiosite (code cache)</span>
+          <span class="tag tag-green">Reciprocite (-20%)</span>
+          <span class="tag tag-red">Rarete (jusqu'au 6 avril)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Explication de la mecanique (3 oeufs, 3 lettres, 1 code). Visuels des pages ou chercher (indices, pas reponses). Lien vers teatower.com. Mention "OU trouvez l'oeuf cache en boutique ce week-end".</p>
+      </div>
+    </div>
+
+    <div class="email-card liege">
+      <div class="email-header">
+        <div class="email-date">Jeudi 2 avril — 18h</div>
+        <div class="email-segment">Segment: LIEGE uniquement (6 500+)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject red">Liege : dimanche de Paques, on vous ouvre nos portes (et on a cache un oeuf dore)</div>
+        <div class="email-preview">Teatower Liege ouvert dimanche 5 avril 11h-18h. Trouvez l'oeuf dore en boutique = -20% immediat.</div>
+        <div class="email-tags">
+          <span class="tag tag-red">Drive-to-store Liege</span>
+          <span class="tag tag-gold">Reciprocite (oeuf = cadeau)</span>
+          <span class="tag tag-purple">Curiosite (oeuf cache)</span>
+          <span class="tag tag-blue">Unite (Paques + Coteaux)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Annonce ouverture exceptionnelle dimanche de Paques + Week-end des Coteaux. L'oeuf dore cache en boutique. Photo de la vitrine Paques. Horaire 11h-18h. "Venez avec les enfants — on a aussi un petit cadeau pour eux."</p>
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header" style="background:var(--green)">
+        <div class="email-date">Jeudi 2 avril — 18h</div>
+        <div class="email-segment">Segments: WATERLOO + NAMUR (separement)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject" style="color:var(--green)">[Waterloo/Namur] : un oeuf dore cache en boutique ce samedi — trouvez-le, gagnez -20%</div>
+        <div class="email-preview">La chasse aux oeufs Teatower est aussi en boutique ! Samedi 4 avril, un oeuf dore cache dans votre magasin.</div>
+        <div class="email-tags">
+          <span class="tag tag-green">Drive-to-store local</span>
+          <span class="tag tag-gold">Reciprocite</span>
+          <span class="tag tag-purple">Jeu (enfants)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Meme mecanique que Liege mais pour le samedi 4 avril (Waterloo et Namur ne sont pas ouverts le dimanche). Adapter le sujet avec le nom de la ville.</p>
+      </div>
+    </div>
+
+    <div class="email-card">
+      <div class="email-header">
+        <div class="email-date">Samedi 4 avril — 10h</div>
+        <div class="email-segment">Segment: TOUS (non-ouvrants des emails precedents)</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">Dernier indice : l'oeuf se cache pres du chocolat...</div>
+        <div class="email-preview">La chasse aux oeufs se termine dimanche. Vous n'avez pas encore trouve les 3 oeufs ? Voici un indice.</div>
+        <div class="email-tags">
+          <span class="tag tag-red">Urgence (dernier jour)</span>
+          <span class="tag tag-purple">Curiosite (indice)</span>
+          <span class="tag tag-gold">Engagement (jeu en cours)</span>
+          <span class="tag tag-choco">Angle chocolat</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Contenu :</strong> Rappel de la mecanique + un indice supplementaire pour ceux qui n'ont pas trouve les 3 oeufs. Push sur la Douceur Cacaotee (l'oeuf est peut-etre sur sa page...). Dernier CTA "le code expire dimanche soir".</p>
+      </div>
+    </div>
+
+    <div class="email-card liege">
+      <div class="email-header">
+        <div class="email-date">Dimanche 5 avril — 9h</div>
+        <div class="email-segment">Segment: LIEGE</div>
+      </div>
+      <div class="email-body">
+        <div class="email-subject red">Joyeuses Paques — Teatower Liege est ouvert, l'oeuf dore vous attend</div>
+        <div class="email-preview">De 11h a 18h, votre boutique est ouverte. L'oeuf dore n'a pas encore ete trouve...</div>
+        <div class="email-tags">
+          <span class="tag tag-red">Drive-to-store jour J</span>
+          <span class="tag tag-red">Urgence (aujourd'hui)</span>
+          <span class="tag tag-gold">Rarete (pas encore trouve)</span>
+        </div>
+        <p style="font-size:12px; color:#555; margin-top:10px"><strong>Format prouve :</strong> Email court et factuel comme le "Cet apres-midi ouvert" du 1er mars (32.6% open). "On est ouvert, l'oeuf est la, venez."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP PRODUITS PAQUES 2025 -->
+  <div class="section">
+    <div class="section-title">Reference : Top Produits Semaine de Paques 2025</div>
+    <div class="section-subtitle">S15 (7-13 avril 2025) = meilleure semaine du mois (21 007 EUR, toutes boutiques)</div>
+
+    <table>
+      <tr><th>#</th><th>Produit</th><th>Cmd</th><th>CA</th><th>Action 2026</th></tr>
+      <tr class="highlight"><td>1</td><td><strong>La Nana de Wepion</strong></td><td class="num">61</td><td class="num"><strong>813 &euro;</strong></td><td>Facing principal, star saisonniere</td></tr>
+      <tr class="highlight"><td>2</td><td><strong>Matcha Japonais</strong></td><td class="num">40</td><td class="num"><strong>794 &euro;</strong></td><td>Hero permanent, coffret cadeau</td></tr>
+      <tr><td>3</td><td>Le panier de grand maman</td><td class="num">45</td><td class="num">617 &euro;</td><td>Bestseller regulier</td></tr>
+      <tr><td>4</td><td>Citron Meringue</td><td class="num">33</td><td class="num">449 &euro;</td><td>Bon pour le printemps</td></tr>
+      <tr class="highlight"><td>5</td><td><strong>Etoiles Filantes (rooibos)</strong></td><td class="num">34</td><td class="num"><strong>383 &euro;</strong></td><td>Push -10% en 2025 → confirme la demande</td></tr>
+      <tr class="highlight"><td>6</td><td><strong>Douceur Cacaotee</strong></td><td class="num">30</td><td class="num"><strong>372 &euro;</strong></td><td>Angle Paques/chocolat — a pousser fort</td></tr>
+      <tr><td>7</td><td>Peche de Vigne BIO</td><td class="num">36</td><td class="num">353 &euro;</td><td>Rooibos populaire</td></tr>
+      <tr><td>8</td><td>Namaste BIO</td><td class="num">23</td><td class="num">347 &euro;</td><td>Infusion du soir</td></tr>
+      <tr><td>9</td><td>The des Amoureux</td><td class="num">29</td><td class="num">338 &euro;</td><td>Toujours present</td></tr>
+      <tr><td>10</td><td>Coffret Taste the World</td><td class="num">—</td><td class="num">~340 &euro;</td><td>Cadeau Paques ideal</td></tr>
+    </table>
+
+    <div class="insight-card info">
+      <h4>Produit absent en 2025 et star en 2026 : Infusion du Printemps</h4>
+      <p>L'Infusion du Printemps 2026 n'existait pas en avril 2025. En mars 2026, c'est le #1 produit de Liege (830 EUR). Elle sera probablement le top seller de Paques 2026 aussi. La mettre en hero vitrine et dans tous les emails.</p>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <div class="section-title">Checklist — A Preparer Avant le 1er Avril</div>
+
+    <ul class="checklist">
+      <li><div class="check-icon" style="background:var(--easter)">1</div><div><strong>Cacher les 3 oeufs sur teatower.com :</strong> Choisir 3 pages produit (suggestion : Douceur Cacaotee, Infusion Printemps, Matcha). Ajouter une petite image d'oeuf cliquable sur chaque page. Le clic revele une lettre. Les 3 lettres = code promo (ex: "OEF" → code PAQUES-OEF).</div></li>
+      <li><div class="check-icon" style="background:var(--easter)">2</div><div><strong>Creer le code promo :</strong> "PAQUES26" ou le code assemble (ex: "OEF") dans Shopify (-20%, usage unique par client, valable 1-6 avril). Creer aussi dans Odoo POS pour les achats en boutique.</div></li>
+      <li><div class="check-icon" style="background:var(--choco)">3</div><div><strong>Oeufs dores en boutique :</strong> Acheter/fabriquer 1 oeuf dore par magasin. Le cacher dans le rayon (pas trop difficile pour les enfants). Le trouver = -20% immediat en caisse.</div></li>
+      <li><div class="check-icon" style="background:var(--blue)">4</div><div><strong>Programmer les 5 emails</strong> dans Mailchimp. From "Audrey de Teatower". 4 segments. Verifier les sujets et previews ci-dessus.</div></li>
+      <li><div class="check-icon" style="background:var(--green)">5</div><div><strong>Vitrine Paques :</strong> Theme chocolat + printemps. Douceur Cacaotee en hero. Oeufs decoratifs. Panneau "Chasse aux oeufs — trouvez l'oeuf dore dans la boutique".</div></li>
+      <li><div class="check-icon" style="background:var(--red)">6</div><div><strong>Liege dimanche 5 avril :</strong> Confirmer staffing 11h-18h. Preparer la vitrine Paques + Coteaux. Coordonner avec le plan "Ouvertures Dimanches Liege".</div></li>
+      <li><div class="check-icon" style="background:var(--purple)">7</div><div><strong>Social media :</strong> Post lancement lundi 31 mars (teaser oeufs). Story quotidienne avec indices. Post "l'oeuf n'a pas encore ete trouve" pour creer l'urgence.</div></li>
+      <li><div class="check-icon" style="background:var(--gold)">8</div><div><strong>Dree (e-commerce) :</strong> Verifier que les pages produit sont pretes pour le trafic (temps de chargement, CTA visible, code promo applique correctement). Les 3 oeufs doivent etre trouves sur mobile aussi.</div></li>
+    </ul>
+  </div>
+
+  <!-- CALENDRIER -->
+  <div class="section">
+    <div class="section-title">Calendrier de la Campagne</div>
+    <table>
+      <tr><th>Date</th><th>Action</th><th>Canal</th><th>Cible</th></tr>
+      <tr style="background:var(--easter-light)"><td><strong>Mar 31 mars</strong></td><td>Lancement chasse aux oeufs online</td><td>Email + Social</td><td>Tous segments</td></tr>
+      <tr><td>Mer 1 avril</td><td>Story indice #1</td><td>Instagram</td><td>Followers</td></tr>
+      <tr style="background:var(--easter-light)"><td><strong>Jeu 2 avril</strong></td><td>Email drive-to-store Liege + Waterloo + Namur</td><td>Email</td><td>3 segments locaux</td></tr>
+      <tr><td>Ven 3 avril</td><td>Story indice #2 + Vendredi Saint</td><td>Instagram</td><td>Followers</td></tr>
+      <tr style="background:var(--easter-light)"><td><strong>Sam 4 avril</strong></td><td>Email rappel (non-ouvrants) + Oeufs en boutique W/N</td><td>Email + Boutique</td><td>Non-ouvrants + clients POS</td></tr>
+      <tr style="background:var(--choco-light)"><td><strong>Dim 5 avril</strong></td><td>PAQUES — Email jour J Liege + Boutique Liege ouverte</td><td>Email + Boutique + Social live</td><td>Segment Liege</td></tr>
+      <tr><td>Lun 6 avril</td><td>Dernier jour code — email "derniere chance"</td><td>Email</td><td>Tous (optionnel)</td></tr>
+    </table>
+  </div>
+
+  <!-- SYNTHESE -->
+  <div class="synthesis">
+    <h3>Resume Executif</h3>
+    <p><strong>En 2025 :</strong> 2 campagnes chasse aux oeufs = 1 192 EUR, 49 commandes. Pas de segmentation, pas de drive-to-store, Liege ferme le dimanche de Paques.</p>
+    <p><strong>En 2026 :</strong> 5 emails segmentes (Liege + Waterloo + Namur + Autres), mecanique double (online + boutique), Liege ouvert dimanche de Paques + Week-end des Coteaux, from "Audrey". Objectif : <strong>2 500 EUR et 80+ commandes</strong>.</p>
+    <p><strong>Les 3 produits hero :</strong> Douceur Cacaotee (angle chocolat/Paques), Infusion du Printemps 2026 (star saisonniere, n'existait pas en 2025), Matcha Japonais (hero permanent, #1 Liege avril 2025 avec 1 224 EUR).</p>
+    <p><strong>Timing :</strong> La campagne doit etre prete pour demain 31 mars (lancement). Les oeufs doivent etre caches sur le site avant l'envoi du premier email.</p>
+  </div>
+
+  <div class="footer">
+    Campagne Paques 2026 — Chasse aux Oeufs Teatower<br>
+    Base sur : Shopify POS avril 2025 + Mailchimp avril 2025 + Odoo POS mars 2026<br>
+    Genere le 31 mars 2026
+  </div>
+
+</div>
+</body>
+</html>
