@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Paques 2026 — Calendrier & Contenu</title>
+<style>
+  :root {
+    --green: #2d6a4f; --green-bg: #f0f7f4;
+    --red: #c1121f; --red-light: #fde8e8;
+    --gold: #b5851b; --gold-light: #f5e6c8;
+    --blue: #1d3557; --blue-light: #e8f0fe;
+    --orange: #e76f51; --orange-light: #fef0ec;
+    --purple: #6c3d91; --purple-light: #f3eaf8;
+    --gray: #6c757d; --gray-light: #f8f9fa;
+    --border: #dee2e6; --text: #212529; --white: #fff;
+    --choco: #5c3317; --choco-light: #f5ede6;
+    --easter: #a855f7; --easter-light: #faf5ff;
+    --pink: #ec4899; --pink-light: #fdf2f8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); background: var(--gray-light); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+  .header { background: linear-gradient(135deg, var(--easter) 0%, var(--pink) 50%, var(--choco) 100%); color: var(--white); padding: 44px 40px; border-radius: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 28px; margin-bottom: 6px; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; }
+  .header .date { font-size: 12px; opacity: 0.5; margin-top: 12px; }
+
+  .section { background: var(--white); border-radius: 12px; padding: 28px; margin-bottom: 20px; border: 1px solid var(--border); }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .section-subtitle { color: var(--gray); font-size: 13px; margin-bottom: 20px; }
+
+  /* Post cards */
+  .post-card { border: 2px solid var(--border); border-radius: 14px; margin-bottom: 20px; overflow: hidden; }
+  .post-header { padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .post-header.ig { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); color: white; }
+  .post-header.story { background: linear-gradient(135deg, #833ab4, #c13584); color: white; }
+  .post-header.fb { background: #1877f2; color: white; }
+  .post-header.reel { background: linear-gradient(135deg, #000, #333); color: white; }
+  .post-day { font-size: 15px; font-weight: 700; }
+  .post-format { background: rgba(255,255,255,0.25); padding: 3px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .post-time { font-size: 11px; opacity: 0.8; }
+
+  .post-body { padding: 20px; }
+  .post-pillar { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .post-pillar.produit { color: var(--gold); }
+  .post-pillar.engagement { color: var(--easter); }
+  .post-pillar.education { color: var(--blue); }
+  .post-pillar.coulisses { color: var(--green); }
+  .post-pillar.communaute { color: var(--pink); }
+
+  .post-hook { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+  .post-caption { font-size: 13px; color: #444; line-height: 1.7; margin-bottom: 14px; white-space: pre-line; }
+  .post-visual { font-size: 12px; color: var(--gray); background: var(--gray-light); padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+  .post-visual strong { color: var(--text); }
+  .post-hashtags { font-size: 11px; color: var(--blue); margin-bottom: 10px; }
+  .post-cta { font-size: 12px; font-weight: 600; color: var(--easter); }
+  .post-notes { font-size: 11px; color: var(--gray); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 10px; }
+
+  /* Story script */
+  .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 12px; }
+  .story-frame { border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; font-size: 11px; background: var(--gray-light); }
+  .story-frame .frame-num { font-size: 16px; font-weight: 800; color: var(--easter); margin-bottom: 4px; }
+
+  /* Calendar overview */
+  .cal-overview { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 20px; }
+  .cal-day { border-radius: 8px; padding: 10px 8px; text-align: center; font-size: 11px; border: 1px solid var(--border); }
+  .cal-day .day-name { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--gray); letter-spacing: 0.5px; }
+  .cal-day .day-num { font-size: 20px; font-weight: 800; margin: 4px 0; }
+  .cal-day .day-posts { font-size: 10px; color: var(--gray); }
+  .cal-day.launch { background: var(--easter-light); border-color: var(--easter); }
+  .cal-day.launch .day-num { color: var(--easter); }
+  .cal-day.drive { background: var(--red-light); border-color: var(--red); }
+  .cal-day.drive .day-num { color: var(--red); }
+  .cal-day.peak { background: var(--choco-light); border-color: var(--choco); }
+  .cal-day.peak .day-num { color: var(--choco); }
+
+  .insight-card { border-left: 4px solid var(--green); background: var(--green-bg); padding: 14px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+  .insight-card h4 { font-size: 13px; margin-bottom: 3px; }
+  .insight-card p { font-size: 12px; color: #444; line-height: 1.5; }
+
+  .footer { text-align: center; padding: 20px; color: var(--gray); font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    .cal-overview { grid-template-columns: repeat(3, 1fr); }
+    .story-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Calendrier Social Media — Paques 2026</h1>
+    <div class="subtitle">Par Gary | 12 contenus en 6 jours | Instagram + Facebook + Stories</div>
+    <div class="date">Coordonne avec la campagne email "Chasse aux Oeufs" + ouverture dimanche Liege | 31 mars 2026</div>
+  </div>
+
+  <!-- CALENDAR OVERVIEW -->
+  <div class="section">
+    <div class="section-title">Vue d'ensemble — 1er au 6 avril</div>
+    <div class="section-subtitle">12 contenus : 4 posts feed, 5 stories, 2 reels, 1 live</div>
+
+    <div class="cal-overview">
+      <div class="cal-day launch">
+        <div class="day-name">Mercredi</div>
+        <div class="day-num">1</div>
+        <div class="day-posts">1 Post + 1 Story<br>LANCEMENT</div>
+      </div>
+      <div class="cal-day">
+        <div class="day-name">Jeudi</div>
+        <div class="day-num">2</div>
+        <div class="day-posts">1 Reel + 1 Story<br>Indice #1</div>
+      </div>
+      <div class="cal-day">
+        <div class="day-name">Vendredi</div>
+        <div class="day-num">3</div>
+        <div class="day-posts">1 Story<br>Indice #2</div>
+      </div>
+      <div class="cal-day drive">
+        <div class="day-name">Samedi</div>
+        <div class="day-num">4</div>
+        <div class="day-posts">1 Post + 1 Reel<br>Oeufs en boutique</div>
+      </div>
+      <div class="cal-day peak">
+        <div class="day-name">Dimanche</div>
+        <div class="day-num">5</div>
+        <div class="day-posts">1 Post + 1 Live<br>PAQUES + Liege</div>
+      </div>
+      <div class="cal-day">
+        <div class="day-name">Lundi</div>
+        <div class="day-num">6</div>
+        <div class="day-posts">1 Story<br>Recap + last chance</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 1 : MERCREDI 1er AVRIL ======== -->
+  <div class="post-card">
+    <div class="post-header ig">
+      <div class="post-day">Mercredi 1er avril</div>
+      <div class="post-format">Post Feed Instagram + Facebook</div>
+      <div class="post-time">18h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar engagement">Engagement / Gamification</div>
+      <div class="post-hook">La chasse aux oeufs Teatower est ouverte.</div>
+
+      <div class="post-visual">
+        <strong>Visuel :</strong> Photo d'une boite Teatower entrouverte avec 3 oeufs en chocolat qui depassent. Un cache "?" sur chaque oeuf. Fond printanier, lumiere chaude. Texte overlay : "3 oeufs. 1 code. -20%."
+      </div>
+
+      <div class="post-caption">La chasse aux oeufs Teatower est ouverte.
+
+3 oeufs sont caches sur teatower.com.
+Trouvez-les, assemblez les 3 lettres, et debloquez -20% sur tout le site.
+
+Indices ? On en donne un par jour en story.
+Premier indice : demain.
+
+Le code est valable jusqu'au 6 avril.
+En boutique aussi, un oeuf dore est cache ce week-end.
+Celui ou celle qui le trouve repart avec -20% direct en caisse.
+
+Bonne chasse.</div>
+
+      <div class="post-hashtags">#Paques #ChassaAuxOeufs #Teatower #The #Infusion #PromoThePaques #BelgianTea #TheBelge #Liege #Namur #Waterloo #PaquesEnBelgique #ChocolatEtThe</div>
+
+      <div class="post-cta">Enregistrez ce post pour ne pas oublier de chercher.</div>
+
+      <div class="post-notes"><strong>Gary :</strong> Ton factuel, pas de surexcitation. Le mystere fait le travail. Le "Bonne chasse." final est volontairement sec — ca donne un ton complice, pas marketing. Le CTA "enregistrez" booste le signal algorithmique (saves = top signal IG 2026).</div>
+    </div>
+  </div>
+
+  <!-- Story J1 -->
+  <div class="post-card">
+    <div class="post-header story">
+      <div class="post-day">Mercredi 1er avril</div>
+      <div class="post-format">Story Instagram (3 frames)</div>
+      <div class="post-time">18h30 (juste apres le post)</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar engagement">Engagement / Teaser</div>
+
+      <div class="story-grid">
+        <div class="story-frame">
+          <div class="frame-num">1</div>
+          Photo des 3 oeufs avec "?"<br>"La chasse est ouverte"
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">2</div>
+          Texte : "3 oeufs caches sur le site. 1 indice par jour en story."<br>+ lien swipe vers teatower.com
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">3</div>
+          Sondage : "Vous allez chercher les oeufs... Maintenant / Ce week-end / Jamais je triche"
+        </div>
+      </div>
+
+      <div class="post-notes"><strong>Gary :</strong> Le sondage en frame 3 est cle — il genere de l'engagement story (reponse = signal fort pour l'algo) et donne une idee du taux de participation. L'option "Jamais je triche" ajoute de l'humour.</div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 2 : JEUDI 2 AVRIL ======== -->
+  <div class="post-card">
+    <div class="post-header reel">
+      <div class="post-day">Jeudi 2 avril</div>
+      <div class="post-format">Reel Instagram + TikTok (15-20s)</div>
+      <div class="post-time">12h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar produit">Produit / Indice #1</div>
+      <div class="post-hook">Indice #1 : L'oeuf se cache la ou le chocolat rencontre le the.</div>
+
+      <div class="post-visual">
+        <strong>Script video :</strong><br>
+        [0-3s] Gros plan main qui ouvre une boite Teatower. Texte : "INDICE #1"<br>
+        [3-8s] On sort le sachet de Douceur Cacaotee. Feuilles d'oolong + eclats de chocolat visibles.<br>
+        [8-13s] Zoom sur la tasse, infusion qui coule, couleur ambre-chocolat. Texte : "Le chocolat rencontre le the..."<br>
+        [13-18s] Plan sur l'ecran du site, page Douceur Cacaotee. Un petit oeuf clignote dans le coin.<br>
+        [18-20s] Texte final : "Trouvez les 3 oeufs = -20% | teatower.com"
+      </div>
+
+      <div class="post-caption">Indice #1 pour la chasse aux oeufs.
+
+L'oeuf se cache la ou le chocolat rencontre le the.
+
+La Douceur Cacaotee — notre oolong aux eclats de chocolat — est peut-etre le meilleur accord de Paques que vous n'avez jamais goute.
+
+Allez voir sa page sur teatower.com. Regardez bien.
+
+Indice #2 demain.</div>
+
+      <div class="post-hashtags">#ChassaAuxOeufs #Teatower #Paques2026 #OolongChocolat #TheEtChocolat #DouceurCacaotee #ReelsTea</div>
+
+      <div class="post-notes"><strong>Gary :</strong> Le reel fait double emploi : indice pour la chasse + mise en avant de la Douceur Cacaotee (produit #2 Liege en avril 2025, 699 EUR). Le dernier plan avec l'oeuf qui clignote sur le site donne envie d'aller chercher. Trending audio : choisir un son "mysterious" ou "reveal".</div>
+    </div>
+  </div>
+
+  <!-- Story J2 -->
+  <div class="post-card">
+    <div class="post-header story">
+      <div class="post-day">Jeudi 2 avril</div>
+      <div class="post-format">Story Instagram (2 frames)</div>
+      <div class="post-time">18h00 (apres envoi email drive-to-store)</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar coulisses">Drive-to-Store / Coulisses</div>
+
+      <div class="story-grid">
+        <div class="story-frame">
+          <div class="frame-num">1</div>
+          Photo/video de l'equipe qui cache l'oeuf dore en boutique<br>"On prepare la chasse en boutique..."<br>+ texte "Samedi a Waterloo & Namur / Dimanche a Liege"
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">2</div>
+          Countdown sticker vers dimanche 5 avril<br>"Paques chez Teatower Liege — ouvert de 11h a 18h"
+        </div>
+      </div>
+
+      <div class="post-notes"><strong>Gary :</strong> Les coulisses de la preparation sont du contenu en or. "Document, don't create" — montrer l'equipe qui cache l'oeuf cree de l'authenticite et de l'anticipation. Le countdown sticker genere des rappels automatiques chez les viewers.</div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 3 : VENDREDI 3 AVRIL ======== -->
+  <div class="post-card">
+    <div class="post-header story">
+      <div class="post-day">Vendredi 3 avril — Vendredi Saint</div>
+      <div class="post-format">Story Instagram (3 frames)</div>
+      <div class="post-time">12h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar engagement">Engagement / Indice #2</div>
+
+      <div class="story-grid">
+        <div class="story-frame">
+          <div class="frame-num">1</div>
+          Texte : "INDICE #2"<br>Image de feuilles de the vert avec des fleurs<br>"L'oeuf se cache dans un jardin japonais..."
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">2</div>
+          Gros plan matcha en poudre + fouet bambou<br>"...ou plutot dans sa version en poudre."<br>= Page Matcha Japonais
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">3</div>
+          Quiz sticker : "Avez-vous deja trouve un oeuf ?"<br>Options : "Oui, 1 !" / "Oui, 2 !" / "Je cherche encore" / "Quel oeuf ?"
+        </div>
+      </div>
+
+      <div class="post-notes"><strong>Gary :</strong> Vendredi Saint = debut du week-end pascal. Pas de post feed (on laisse respirer), juste une story avec l'indice. Le quiz sticker mesure la participation en temps reel. L'indice pointe vers le Matcha (produit #1 Liege avril 2025, 1 224 EUR).</div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 4 : SAMEDI 4 AVRIL ======== -->
+  <div class="post-card">
+    <div class="post-header ig">
+      <div class="post-day">Samedi 4 avril — Oeufs en boutique</div>
+      <div class="post-format">Post Feed Instagram + Facebook</div>
+      <div class="post-time">10h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar communaute">Communaute / Drive-to-Store</div>
+      <div class="post-hook">L'oeuf dore est en boutique. Premier arrive, premier servi.</div>
+
+      <div class="post-visual">
+        <strong>Visuel :</strong> Photo de l'interieur de la boutique avec un gros plan flou sur un endroit ou l'oeuf est cache (on le devine a peine). Texte overlay : "Il est la, quelque part."
+      </div>
+
+      <div class="post-caption">L'oeuf dore est cache dans nos boutiques.
+
+Aujourd'hui a Waterloo et Namur.
+Demain a Liege (oui, on ouvre pour Paques).
+
+Le ou la premiere qui le trouve repart avec -20% sur tout son panier.
+Pas de code, pas de condition. Juste un oeuf a trouver.
+
+Indice : il n'est pas en vitrine.
+
+Et si vous n'etes pas pres d'une boutique, les 3 oeufs en ligne sont toujours la.
+teatower.com — le code expire dimanche soir.</div>
+
+      <div class="post-hashtags">#Teatower #ChassaAuxOeufs #OeufDore #PaquesBelgique #Waterloo #Namur #Liege #TheBoutique #WeekEndPascal</div>
+
+      <div class="post-notes"><strong>Gary :</strong> "Premier arrive, premier servi" active la rarete et l'urgence. Le visuel avec l'oeuf flou cree du mystere — les gens vont zoomer (= temps passe sur le post = signal algo). "Il n'est pas en vitrine" est un anti-indice qui fait sourire et donne envie de venir verifier.</div>
+    </div>
+  </div>
+
+  <!-- Reel J4 -->
+  <div class="post-card">
+    <div class="post-header reel">
+      <div class="post-day">Samedi 4 avril</div>
+      <div class="post-format">Reel Instagram (20-30s)</div>
+      <div class="post-time">14h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar produit">Produit / Indice #3 (dernier)</div>
+      <div class="post-hook">Dernier indice. L'oeuf se cache dans les fleurs du printemps.</div>
+
+      <div class="post-visual">
+        <strong>Script video :</strong><br>
+        [0-3s] Texte "DERNIER INDICE" sur fond noir. Suspense.<br>
+        [3-10s] Mains qui ouvrent un sachet d'Infusion du Printemps 2026. Fleurs sechees, petales, couleurs vives. ASMR du the qui tombe dans la tasse.<br>
+        [10-18s] Infusion : eau chaude sur les fleurs. Les petales se deployent. Gros plan beaute.<br>
+        [18-22s] Ecran du site, page Infusion du Printemps. L'oeuf apparait brievement dans le coin.<br>
+        [22-25s] Texte : "3 oeufs trouves = code -20%. Le code expire demain soir."<br>
+        [25-30s] Packshot boite Infusion du Printemps. "teatower.com"
+      </div>
+
+      <div class="post-caption">Dernier indice pour la chasse aux oeufs.
+
+L'oeuf se cache dans les fleurs du printemps.
+
+Notre Infusion du Printemps 2026 — la star de cette saison — cache peut-etre quelque chose sur sa page...
+
+3 oeufs. 3 lettres. 1 code. -20%.
+Le code expire demain dimanche soir.
+teatower.com</div>
+
+      <div class="post-notes"><strong>Gary :</strong> L'Infusion du Printemps est le #1 produit actuel (830 EUR/mois a Liege). Le reel en fait un hero visuel. Le format ASMR (son du the qui coule) est un des plus performants sur Instagram the/food en 2026. "Le code expire demain soir" cree l'urgence finale.</div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 5 : DIMANCHE 5 AVRIL — PAQUES ======== -->
+  <div class="post-card" style="border-color: var(--choco)">
+    <div class="post-header" style="background: linear-gradient(135deg, var(--choco), var(--easter))">
+      <div class="post-day">Dimanche 5 avril — PAQUES</div>
+      <div class="post-format">Post Feed Instagram + Facebook</div>
+      <div class="post-time">9h30</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar communaute">Communaute / Drive-to-Store Liege</div>
+      <div class="post-hook">Joyeuses Paques. Teatower Liege est ouvert aujourd'hui.</div>
+
+      <div class="post-visual">
+        <strong>Visuel :</strong> Photo chaleureuse de la devanture de la boutique Liege decoree pour Paques. Panneau "Ouvert" visible. Oeufs decoratifs. Lumiere du matin. Texte overlay : "11h — 18h | Liege"
+      </div>
+
+      <div class="post-caption">Joyeuses Paques de toute l'equipe.
+
+Aujourd'hui, notre boutique de Liege vous accueille de 11h a 18h.
+Week-end des Coteaux oblige, le centre de Liege est en fete — et nous aussi.
+
+L'oeuf dore n'a toujours pas ete trouve en boutique.
+Le code en ligne expire ce soir.
+
+Passez boire un the, chercher un oeuf, ou juste nous dire bonjour.
+On est la.
+
+Waterloo et Namur : on se retrouve mardi.</div>
+
+      <div class="post-hashtags">#JoyeusesPaques #Paques2026 #Teatower #LiegeCentre #WeekEndDesCoteaux #BoutiqueDeThe #OuvertDimanche #OeufDore</div>
+
+      <div class="post-notes"><strong>Gary :</strong> Le ton est doux, pas commercial. Paques est un moment de famille — le post doit respirer la chaleur, pas l'urgence marketing. "Passez boire un the, chercher un oeuf, ou juste nous dire bonjour" est volontairement humble. "On est la." — deux mots qui disent tout.</div>
+    </div>
+  </div>
+
+  <!-- Live J5 -->
+  <div class="post-card" style="border-color: var(--red)">
+    <div class="post-header" style="background: var(--red)">
+      <div class="post-day">Dimanche 5 avril — LIVE</div>
+      <div class="post-format">Stories Live Instagram (2-3 interventions de 30s-1min)</div>
+      <div class="post-time">11h30 + 14h + 16h30</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar coulisses">Coulisses / Authenticite</div>
+
+      <div class="story-grid">
+        <div class="story-frame">
+          <div class="frame-num">11h30</div>
+          "On vient d'ouvrir, les premiers clients arrivent"<br>Tour rapide de la boutique decoree<br>L'oeuf est toujours cache
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">14h</div>
+          Ambiance Coteaux dans la rue<br>Clients en boutique<br>"Toujours personne n'a trouve l'oeuf..."<br>OU "L'oeuf a ete trouve !" + reaction
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">16h30</div>
+          "Derniere heure. Le code en ligne expire ce soir."<br>Recap de la journee<br>Remerciement Paques
+        </div>
+      </div>
+
+      <div class="post-notes"><strong>Gary :</strong> Pas de live long et penible. 3 interventions flash de 30s-1min en story. Brut, telephone a la main, pas de script. C'est du "document, don't create" pur. Si l'oeuf est trouve, filmer la reaction du client (avec permission) = contenu en or. Si personne ne le trouve, ca cree encore plus de suspense pour les stories.</div>
+    </div>
+  </div>
+
+  <!-- ======== JOUR 6 : LUNDI 6 AVRIL ======== -->
+  <div class="post-card">
+    <div class="post-header story">
+      <div class="post-day">Lundi 6 avril — Lundi de Paques</div>
+      <div class="post-format">Story Instagram (2 frames)</div>
+      <div class="post-time">10h00</div>
+    </div>
+    <div class="post-body">
+      <div class="post-pillar communaute">Communaute / Recap</div>
+
+      <div class="story-grid">
+        <div class="story-frame">
+          <div class="frame-num">1</div>
+          Photo equipe / devanture post-Paques<br>"Merci pour ce week-end de Paques. X oeufs trouves, X thes bus, X sourires."<br>Chiffres reels de la journee
+        </div>
+        <div class="story-frame">
+          <div class="frame-num">2</div>
+          "Le code expire ce soir a minuit. Derniere chance."<br>Lien swipe teatower.com<br>+ sticker question : "C'etait quoi votre decouverte Teatower de ce week-end ?"
+        </div>
+      </div>
+
+      <div class="post-notes"><strong>Gary :</strong> Le recap avec des vrais chiffres (meme modestes) cree de la preuve sociale. "X oeufs trouves" montre que des gens ont participe. Le sticker question genere du UGC qu'on peut repost le lendemain. Le "derniere chance" du code est le dernier push — soft, pas agressif.</div>
+    </div>
+  </div>
+
+  <!-- RESUME CONTENU -->
+  <div class="section">
+    <div class="section-title">Resume — 12 Contenus en 6 Jours</div>
+
+    <table>
+      <tr><th>Jour</th><th>Format</th><th>Heure</th><th>Pilier</th><th>Objectif principal</th></tr>
+      <tr style="background:var(--easter-light)"><td><strong>Mer 1</strong></td><td>Post Feed</td><td>18h</td><td>Engagement</td><td>Lancer la chasse — saves + reach</td></tr>
+      <tr style="background:var(--easter-light)"><td></td><td>Story (3 frames)</td><td>18h30</td><td>Engagement</td><td>Sondage + lien site</td></tr>
+      <tr><td><strong>Jeu 2</strong></td><td>Reel (20s)</td><td>12h</td><td>Produit</td><td>Indice #1 (Douceur Cacaotee) + trafic site</td></tr>
+      <tr><td></td><td>Story (2 frames)</td><td>18h</td><td>Coulisses</td><td>Preparation oeufs boutique + countdown</td></tr>
+      <tr><td><strong>Ven 3</strong></td><td>Story (3 frames)</td><td>12h</td><td>Engagement</td><td>Indice #2 (Matcha) + quiz participation</td></tr>
+      <tr style="background:var(--red-light)"><td><strong>Sam 4</strong></td><td>Post Feed</td><td>10h</td><td>Communaute</td><td>Drive-to-store W/N + suspense oeuf dore</td></tr>
+      <tr style="background:var(--red-light)"><td></td><td>Reel (30s)</td><td>14h</td><td>Produit</td><td>Indice #3 (Infusion Printemps) + urgence</td></tr>
+      <tr style="background:var(--choco-light)"><td><strong>Dim 5</strong></td><td>Post Feed</td><td>9h30</td><td>Communaute</td><td>Paques + Liege ouvert + chaleur</td></tr>
+      <tr style="background:var(--choco-light)"><td></td><td>Stories Live x3</td><td>11h30/14h/16h30</td><td>Coulisses</td><td>Authenticite + suspense oeuf + Coteaux</td></tr>
+      <tr><td><strong>Lun 6</strong></td><td>Story (2 frames)</td><td>10h</td><td>Communaute</td><td>Recap + derniere chance code + UGC</td></tr>
+    </table>
+  </div>
+
+  <!-- NOTES GARY -->
+  <div class="section">
+    <div class="section-title">Notes de Gary</div>
+
+    <div class="insight-card" style="border-left-color:var(--easter); background:var(--easter-light); margin-bottom:12px">
+      <h4>Principe #1 : La chasse EST le contenu</h4>
+      <p>Ne "creez" pas du contenu autour de la chasse. Documentez la chasse elle-meme. Filmez la preparation, les clients qui cherchent, la reaction quand l'oeuf est trouve. Le jeu cree le contenu tout seul — vous n'avez qu'a appuyer sur record.</p>
+    </div>
+
+    <div class="insight-card" style="border-left-color:var(--choco); background:var(--choco-light); margin-bottom:12px">
+      <h4>Principe #2 : Les indices vendent sans vendre</h4>
+      <p>Chaque indice pointe vers un produit (Douceur Cacaotee, Matcha, Infusion Printemps) sans jamais dire "achetez". Le viewer va sur la page pour chercher l'oeuf, mais il decouvre le produit en passant. C'est du product placement deguise en jeu.</p>
+    </div>
+
+    <div class="insight-card" style="border-left-color:var(--pink); background:var(--pink-light); margin-bottom:12px">
+      <h4>Principe #3 : Le ton de Paques = doux, pas agressif</h4>
+      <p>Paques est un moment de famille et de douceur. Le ton doit etre chaleureux, complice, jamais "DERNIERE CHANCE ACHETEZ MAINTENANT". Meme l'urgence du code qui expire doit etre dite avec le sourire : "Le code expire ce soir. On se dit a mardi ?"</p>
+    </div>
+
+    <div class="insight-card" style="margin-bottom:12px">
+      <h4>Principe #4 : Coordonner avec les emails d'Audrey</h4>
+      <p>L'email part a 18h le mercredi et jeudi. Le post feed sort a 18h aussi le mercredi. Les stories sortent apres. Le meme message arrive par 2 canaux — ca amplifie sans spammer. Le dimanche, l'email part a 9h, le post a 9h30.</p>
+    </div>
+
+    <div class="insight-card" style="border-left-color:var(--gold); background:var(--gold-light)">
+      <h4>KPIs a suivre</h4>
+      <p><strong>Saves</strong> sur le post de lancement (objectif: 50+). <strong>Reponses sondage/quiz</strong> en stories (objectif: 100+). <strong>Vues reels</strong> (objectif: 2K+ chacun). <strong>Trafic teatower.com depuis Instagram</strong> (GA4, lien en bio). <strong>Story views</strong> pour mesurer la retention jour apres jour.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    Calendrier Social Media Paques 2026 | Par Gary, Stratege Social Media<br>
+    Coordonne avec : Campagne email Chasse aux Oeufs + Ouverture dimanche Liege<br>
+    Genere le 31 mars 2026 | Teatower
+  </div>
+
+</div>
+</body>
+</html>
