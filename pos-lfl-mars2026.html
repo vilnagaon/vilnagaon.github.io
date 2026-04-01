@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POS Performance Mars 2026 — Teatower Retail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',Helvetica,Arial,sans-serif; background:#f4f3f0; color:#1a1a1a; }
+
+    .header { background:#16393E; color:#fff; padding:30px 40px; }
+    .header .brand { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#d4a843; margin-bottom:4px; }
+    .header h1 { font-size:24px; font-weight:700; margin-bottom:4px; }
+    .header .sub { font-size:13px; color:rgba(255,255,255,0.55); }
+    .header .meta { margin-top:12px; font-size:11px; color:rgba(255,255,255,0.4); }
+
+    .container { max-width:1100px; margin:0 auto; padding:24px; }
+
+    /* KPI cards */
+    .kpis { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:28px; }
+    .kpi { background:#fff; border-radius:12px; padding:20px 24px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .kpi .label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
+    .kpi .value { font-size:28px; font-weight:700; color:#16393E; }
+    .kpi .detail { font-size:12px; color:#999; margin-top:4px; }
+    .kpi.up .value { color:#27ae60; }
+    .kpi.down .value { color:#c0392b; }
+    .kpi.gold .value { color:#d4a843; }
+
+    /* Sections */
+    .section { background:#fff; border-radius:12px; padding:28px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .section h2 { font-size:16px; font-weight:600; color:#16393E; margin-bottom:16px; padding-bottom:10px; border-bottom:2px solid #f0ede8; }
+    .section h3 { font-size:13px; font-weight:600; color:#16393E; margin:20px 0 10px; }
+
+    /* Tables */
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th { text-align:left; padding:10px 12px; background:#f8f6f2; color:#555; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e8e5df; }
+    td { padding:10px 12px; border-bottom:1px solid #f0ede8; }
+    tr:last-child td { border-bottom:none; }
+    .num { text-align:right; font-variant-numeric:tabular-nums; }
+    .up { color:#27ae60; font-weight:600; }
+    .down { color:#c0392b; font-weight:600; }
+    .flat { color:#888; }
+    .bold { font-weight:600; color:#16393E; }
+    tr.total { background:#f8f6f2; font-weight:600; }
+    tr.total td { border-top:2px solid #16393E; }
+
+    /* Chart containers */
+    .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+    .chart-box { background:#fff; border-radius:12px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .chart-box h2 { font-size:14px; font-weight:600; color:#16393E; margin-bottom:14px; }
+    .chart-wrap { position:relative; height:280px; }
+
+    /* Callout */
+    .callout { background:#fef9e7; border-left:4px solid #d4a843; padding:16px 20px; border-radius:0 8px 8px 0; margin:16px 0; font-size:13px; line-height:1.6; }
+    .callout strong { color:#16393E; }
+    .callout-red { background:#fdecea; border-left-color:#c0392b; }
+    .callout-green { background:#eafaf1; border-left-color:#27ae60; }
+
+    /* Store cards */
+    .store-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+    .store-card { border:1.5px solid #e8e5df; border-radius:12px; padding:20px; }
+    .store-card .name { font-size:15px; font-weight:600; color:#16393E; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
+    .store-card .tag { font-size:10px; padding:3px 10px; border-radius:20px; font-weight:600; }
+    .tag-up { background:#eafaf1; color:#27ae60; }
+    .tag-down { background:#fdecea; color:#c0392b; }
+    .tag-new { background:#ebf5fb; color:#2980b9; }
+    .store-card .row { display:flex; justify-content:space-between; font-size:12px; padding:4px 0; border-bottom:1px solid #f5f3ef; }
+    .store-card .row:last-child { border:none; }
+    .store-card .row .label { color:#888; }
+
+    .footer { text-align:center; padding:30px; font-size:11px; color:#aaa; }
+
+    @media print {
+      body { background:#fff; }
+      .container { max-width:none; padding:0; }
+      .section, .chart-box, .kpi, .store-card { box-shadow:none; break-inside:avoid; }
+    }
+    @media (max-width:768px) {
+      .chart-grid, .store-grid { grid-template-columns:1fr; }
+      .header { padding:20px; }
+      .container { padding:16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">Teatower Retail</div>
+  <h1>Analyse POS — Mars 2026</h1>
+  <div class="sub">Like-for-Like, tendances et performance par magasin</div>
+  <div class="meta">Préparé pour Christophe Gérard, Administrateur Retail &middot; Données Odoo POS au 31/03/2026 &middot; Confidentiel</div>
+</div>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi gold">
+      <div class="label">CA POS Mars 2026</div>
+      <div class="value">57 569€</div>
+      <div class="detail">2 488 commandes</div>
+    </div>
+    <div class="kpi up">
+      <div class="label">LFL vs Février</div>
+      <div class="value">+0,5%</div>
+      <div class="detail">57 265€ → 57 569€</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Panier moyen</div>
+      <div class="value">23,14€</div>
+      <div class="detail">vs 22,77€ en fév (+0,37€)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">CA/jour moyen</div>
+      <div class="value">1 857€</div>
+      <div class="detail">vs 2 045€ en fév (-9,2%)</div>
+    </div>
+  </div>
+
+  <!-- Store cards -->
+  <div class="store-grid" style="margin-bottom:20px;">
+    <div class="store-card">
+      <div class="name">Namur <span class="tag tag-up">+10,8%</span></div>
+      <div class="row"><span class="label">CA mars</span><span class="bold">30 454€</span></div>
+      <div class="row"><span class="label">CA février</span><span>27 474€</span></div>
+      <div class="row"><span class="label">Commandes</span><span>1 287 (+45)</span></div>
+      <div class="row"><span class="label">Panier moyen</span><span>23,75€ (+1,54€)</span></div>
+      <div class="row"><span class="label">CA/jour</span><span>982€ <span class="flat">(+0,1%)</span></span></div>
+      <div class="row"><span class="label">Part du total</span><span class="bold">53%</span></div>
+    </div>
+    <div class="store-card">
+      <div class="name">Liège <span class="tag tag-down">-8,7%</span></div>
+      <div class="row"><span class="label">CA mars</span><span class="bold">20 655€</span></div>
+      <div class="row"><span class="label">CA février</span><span>22 623€</span></div>
+      <div class="row"><span class="label">Commandes</span><span>854 (-83)</span></div>
+      <div class="row"><span class="label">Panier moyen</span><span>24,19€ (+0,04€)</span></div>
+      <div class="row"><span class="label">CA/jour</span><span>666€ <span class="down">(-17,5%)</span></span></div>
+      <div class="row"><span class="label">Part du total</span><span class="bold">36%</span></div>
+    </div>
+    <div class="store-card">
+      <div class="name">Waterloo <span class="tag tag-down">-9,9%</span></div>
+      <div class="row"><span class="label">CA mars</span><span class="bold">6 460€</span></div>
+      <div class="row"><span class="label">CA février</span><span>7 167€</span></div>
+      <div class="row"><span class="label">Commandes</span><span>289 (-28)</span></div>
+      <div class="row"><span class="label">Panier moyen</span><span>22,35€ (-0,26€)</span></div>
+      <div class="row"><span class="label">CA/jour</span><span>208€ <span class="down">(-18,6%)</span></span></div>
+      <div class="row"><span class="label">Part du total</span><span class="bold">11%</span></div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="chart-grid">
+    <div class="chart-box">
+      <h2>Evolution mensuelle par magasin</h2>
+      <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h2>Mars 2026 — CA par semaine</h2>
+      <div class="chart-wrap"><canvas id="weeklyChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-box">
+      <h2>Répartition CA Mars 2026</h2>
+      <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h2>Panier moyen — évolution</h2>
+      <div class="chart-wrap"><canvas id="basketChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Monthly table -->
+  <div class="section">
+    <h2>Evolution mensuelle — Octobre 2025 à Mars 2026</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Mois</th>
+          <th class="num">Namur</th>
+          <th class="num">Liège</th>
+          <th class="num">Waterloo</th>
+          <th class="num">Total POS</th>
+          <th class="num">Var. M/M</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Oct 2025</td>
+          <td class="num">18 805€</td>
+          <td class="num">17 831€</td>
+          <td class="num">9 768€</td>
+          <td class="num bold">46 405€</td>
+          <td class="num flat">—</td>
+        </tr>
+        <tr>
+          <td>Nov 2025</td>
+          <td class="num">39 129€</td>
+          <td class="num">31 575€</td>
+          <td class="num">9 955€</td>
+          <td class="num bold">80 659€</td>
+          <td class="num up">+73,8%</td>
+        </tr>
+        <tr>
+          <td>Déc 2025</td>
+          <td class="num">72 403€</td>
+          <td class="num">54 334€</td>
+          <td class="num">22 009€</td>
+          <td class="num bold">148 745€</td>
+          <td class="num up">+84,4%</td>
+        </tr>
+        <tr>
+          <td>Jan 2026</td>
+          <td class="num">31 258€</td>
+          <td class="num">25 402€</td>
+          <td class="num">7 355€</td>
+          <td class="num bold">64 014€</td>
+          <td class="num down">-57,0%</td>
+        </tr>
+        <tr>
+          <td>Fév 2026</td>
+          <td class="num">27 474€</td>
+          <td class="num">22 623€</td>
+          <td class="num">7 167€</td>
+          <td class="num bold">57 265€</td>
+          <td class="num down">-10,5%</td>
+        </tr>
+        <tr class="total">
+          <td>Mars 2026</td>
+          <td class="num">30 454€</td>
+          <td class="num">20 655€</td>
+          <td class="num">6 460€</td>
+          <td class="num bold">57 569€</td>
+          <td class="num up">+0,5%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Weekly detail -->
+  <div class="section">
+    <h2>Mars 2026 — Détail par semaine</h2>
+    <table>
+      <thead>
+        <tr><th>Semaine</th><th class="num">Namur</th><th class="num">Liège</th><th class="num">Waterloo</th><th class="num">Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>S1 (1-7 mars)</td><td class="num">8 022€</td><td class="num">6 014€</td><td class="num">1 725€</td><td class="num bold">15 760€</td></tr>
+        <tr><td>S2 (8-14 mars)</td><td class="num">6 098€</td><td class="num">4 159€</td><td class="num">1 227€</td><td class="num bold">11 484€</td></tr>
+        <tr><td>S3 (15-21 mars)</td><td class="num">7 250€</td><td class="num">6 010€</td><td class="num">1 615€</td><td class="num bold">14 875€</td></tr>
+        <tr><td>S4 (22-28 mars)</td><td class="num">7 230€</td><td class="num">3 374€</td><td class="num">1 565€</td><td class="num bold">12 169€</td></tr>
+        <tr><td>S5 (29-31 mars)</td><td class="num">1 854€</td><td class="num">1 099€</td><td class="num">328€</td><td class="num bold">3 281€</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout-red callout" style="margin-top:16px;">
+      <strong>Alerte Liège S4 :</strong> chute de 44% du CA par rapport à S1 (3 374€ vs 6 014€). Namur et Waterloo restent stables sur la période. Vérifier si absence personnel, travaux, ou problème de flux client.
+    </div>
+  </div>
+
+  <!-- LFL analysis -->
+  <div class="section">
+    <h2>Analyse Like-for-Like — Février vs Mars 2026</h2>
+    <table>
+      <thead>
+        <tr><th>Indicateur</th><th class="num">Namur</th><th class="num">Liège</th><th class="num">Waterloo</th><th class="num">Total POS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CA février 2026</td><td class="num">27 474€</td><td class="num">22 623€</td><td class="num">7 167€</td><td class="num bold">57 265€</td></tr>
+        <tr><td>CA mars 2026</td><td class="num">30 454€</td><td class="num">20 655€</td><td class="num">6 460€</td><td class="num bold">57 569€</td></tr>
+        <tr><td>Variation CA</td><td class="num up">+10,8%</td><td class="num down">-8,7%</td><td class="num down">-9,9%</td><td class="num up">+0,5%</td></tr>
+        <tr><td>CA/jour février</td><td class="num">981€</td><td class="num">808€</td><td class="num">256€</td><td class="num">2 045€</td></tr>
+        <tr><td>CA/jour mars</td><td class="num">982€</td><td class="num">666€</td><td class="num">208€</td><td class="num">1 857€</td></tr>
+        <tr><td>Variation CA/jour</td><td class="num flat">+0,1%</td><td class="num down">-17,5%</td><td class="num down">-18,6%</td><td class="num down">-9,2%</td></tr>
+        <tr><td>Panier moyen fév.</td><td class="num">22,21€</td><td class="num">24,14€</td><td class="num">22,61€</td><td class="num">22,77€</td></tr>
+        <tr><td>Panier moyen mars</td><td class="num">23,75€</td><td class="num">24,19€</td><td class="num">22,35€</td><td class="num">23,14€</td></tr>
+        <tr><td>Variation panier</td><td class="num up">+1,54€</td><td class="num flat">+0,04€</td><td class="num down">-0,26€</td><td class="num up">+0,37€</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Diagnostic -->
+  <div class="section">
+    <h2>Diagnostic & recommandations</h2>
+
+    <h3>Namur — Locomotive du réseau</h3>
+    <div class="callout-green callout">
+      <strong>Performance solide.</strong> Seul magasin en croissance (+10,8%). Le panier moyen progresse de 1,54€, signe d'un bon upselling. Mais attention : le CA/jour est flat (+0,1%) — la hausse brute vient des 3 jours de plus en mars (31 vs 28). Le trafic et la conversion sont stables, pas en croissance réelle.
+    </div>
+    <p style="font-size:13px; margin-top:10px; line-height:1.7;">
+      <strong>Actions :</strong> Maintenir le cap. Capitaliser sur le samedis (meilleurs jours : 7/03 = 1 456€, 28/03 = 1 522€). Tester des animations weekend pour amplifier le pic naturel.
+    </p>
+
+    <h3>Liège — Signal d'alerte</h3>
+    <div class="callout-red callout">
+      <strong>Décrochage confirmé.</strong> 3ème mois consécutif de baisse (déc → jan -53%, jan → fév -11%, fév → mars -8,7%). Le CA/jour chute de 17,5%. La S4 (22-28 mars) est catastrophique à 3 374€. Le panier moyen tient (24,19€, le plus élevé du réseau), mais le trafic s'effrite : 83 commandes en moins vs février.
+    </div>
+    <p style="font-size:13px; margin-top:10px; line-height:1.7;">
+      <strong>Actions prioritaires :</strong><br>
+      — Investiguer la S4 : absence personnel ? événement local ? travaux rue ?<br>
+      — Analyser le flux piéton (comptage) vs taux de conversion en boutique<br>
+      — Activer du drive-to-store local (Google Business, posts réseaux sociaux géolocalisés)<br>
+      — Envisager un événement en boutique (Tea Tuesday, dégustation) pour relancer le trafic
+    </p>
+
+    <h3>Waterloo — Sous l'objectif</h3>
+    <div class="callout callout-red">
+      <strong>6 460€ vs objectif 9 000€/mois</strong> (-28%). 4ème mois consécutif de baisse depuis le pic de décembre. Le trafic est le problème : seulement 289 commandes (9,3/jour), le panier moyen est correct (22,35€). Le magasin ne génère pas assez de passages.
+    </div>
+    <p style="font-size:13px; margin-top:10px; line-height:1.7;">
+      <strong>Plan drive-to-store en cours :</strong> Tea Tuesday, Mercredi Malin, Tea Club, Meta Ads 300€/mois. Objectif : doubler le trafic pour atteindre 9K€. Les résultats d'avril seront déterminants pour valider ou ajuster le plan.
+    </p>
+
+    <h3>Vue réseau</h3>
+    <div class="callout">
+      <strong>Le total POS est flat (+0,5%).</strong> Namur masque la contre-performance de Liège et Waterloo. En CA/jour normalisé, le réseau est en baisse de 9,2%. Le panier moyen progresse légèrement (+0,37€), ce qui est positif — le levier est clairement le trafic, pas la valeur par client. Priorité avril : <strong>générer du passage en Liège et Waterloo</strong>.
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower SA &middot; Rapport généré le 1<sup>er</sup> avril 2026 &middot; Source : Odoo POS &middot; Confidentiel
+</div>
+
+<script>
+Chart.defaults.font.family = "'Poppins', sans-serif";
+Chart.defaults.font.size = 11;
+
+// Monthly evolution
+new Chart(document.getElementById('monthlyChart'), {
+  type: 'line',
+  data: {
+    labels: ['Oct 25','Nov 25','Déc 25','Jan 26','Fév 26','Mars 26'],
+    datasets: [
+      { label:'Namur', data:[18805,39129,72403,31258,27474,30454], borderColor:'#1a5276', backgroundColor:'rgba(26,82,118,0.08)', fill:false, tension:0.3, borderWidth:2.5, pointRadius:4 },
+      { label:'Liège', data:[17831,31575,54334,25402,22623,20655], borderColor:'#c0392b', backgroundColor:'rgba(192,57,43,0.08)', fill:false, tension:0.3, borderWidth:2.5, pointRadius:4 },
+      { label:'Waterloo', data:[9768,9955,22009,7355,7167,6460], borderColor:'#27ae60', backgroundColor:'rgba(39,174,96,0.08)', fill:false, tension:0.3, borderWidth:2.5, pointRadius:4 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{ position:'bottom', labels:{ padding:16 } },
+      tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+c.raw.toLocaleString('fr-BE')+'€'; } } }
+    },
+    scales: {
+      y:{ beginAtZero:true, ticks:{ callback:function(v){ return (v/1000)+'K'; } } },
+      x:{ grid:{ display:false } }
+    }
+  }
+});
+
+// Weekly chart
+new Chart(document.getElementById('weeklyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['S1 (1-7)','S2 (8-14)','S3 (15-21)','S4 (22-28)','S5 (29-31)'],
+    datasets: [
+      { label:'Namur', data:[8022,6098,7250,7230,1854], backgroundColor:'#1a5276', borderRadius:3 },
+      { label:'Liège', data:[6014,4159,6010,3374,1099], backgroundColor:'#c0392b', borderRadius:3 },
+      { label:'Waterloo', data:[1725,1227,1615,1565,328], backgroundColor:'#27ae60', borderRadius:3 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{ position:'bottom', labels:{ padding:16 } },
+      tooltip:{ callbacks:{
+        label:function(c){ return c.dataset.label+': '+c.raw.toLocaleString('fr-BE')+'€'; },
+        footer:function(items){ return 'Total: '+items.reduce(function(a,b){return a+b.raw;},0).toLocaleString('fr-BE')+'€'; }
+      } }
+    },
+    scales: {
+      x:{ stacked:true, grid:{display:false} },
+      y:{ stacked:true, beginAtZero:true, ticks:{ callback:function(v){ return (v/1000)+'K'; } } }
+    }
+  }
+});
+
+// Pie chart
+new Chart(document.getElementById('pieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Namur — 30 454€ (53%)','Liège — 20 655€ (36%)','Waterloo — 6 460€ (11%)'],
+    datasets: [{ data:[30454,20655,6460], backgroundColor:['#1a5276','#c0392b','#27ae60'], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, cutout:'55%',
+    plugins: { legend:{ position:'bottom', labels:{ padding:14 } } }
+  }
+});
+
+// Basket chart
+new Chart(document.getElementById('basketChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Oct 25','Nov 25','Déc 25','Jan 26','Fév 26','Mars 26'],
+    datasets: [
+      { label:'Namur', data:[24.00,24.52,25.08,22.68,22.21,23.75], backgroundColor:'#1a5276', borderRadius:3 },
+      { label:'Liège', data:[25.22,27.08,25.72,24.29,24.14,24.19], backgroundColor:'#c0392b', borderRadius:3 },
+      { label:'Waterloo', data:[24.00,25.92,27.69,22.56,22.61,22.35], backgroundColor:'#27ae60', borderRadius:3 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{ position:'bottom', labels:{ padding:16 } },
+      tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+c.raw.toFixed(2)+'€'; } } }
+    },
+    scales: {
+      x:{ grid:{display:false} },
+      y:{ beginAtZero:false, min:18, ticks:{ callback:function(v){ return v+'€'; } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
