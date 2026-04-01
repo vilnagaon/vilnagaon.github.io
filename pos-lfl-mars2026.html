@@ -282,6 +282,116 @@
     </table>
   </div>
 
+  <!-- Product chart -->
+  <div class="chart-box" style="margin-bottom:20px;">
+    <h2>Top 10 produits — CA par magasin</h2>
+    <div style="position:relative;height:380px;"><canvas id="productChart"></canvas></div>
+  </div>
+
+  <!-- Product Analysis -->
+  <div class="section">
+    <h2>Top 20 produits POS — Mars 2026 (tous magasins)</h2>
+    <p style="font-size:12px;color:#888;margin-bottom:14px;">377 produits distincts vendus &middot; 5 533 lignes de commande</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Produit</th><th class="num">Namur</th><th class="num">Liège</th><th class="num">Waterloo</th><th class="num">Total qty</th><th class="num">Total CA</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Infusion du Printemps 2026</strong> <span style="color:#888;font-size:10px;">V0914</span></td><td class="num">140</td><td class="num">90</td><td class="num">16</td><td class="num bold">246</td><td class="num bold">2 357€</td></tr>
+        <tr><td>2</td><td><strong>Matcha japonais</strong> <span style="color:#888;font-size:10px;">V0895</span></td><td class="num">41</td><td class="num">22</td><td class="num">7</td><td class="num bold">70</td><td class="num bold">1 330€</td></tr>
+        <tr><td>3</td><td>Le panier de grand maman (80g) <span style="color:#888;font-size:10px;">V0279</span></td><td class="num">51</td><td class="num">52</td><td class="num">15</td><td class="num bold">118</td><td class="num bold">1 120€</td></tr>
+        <tr><td>4</td><td>Liberté (100g) <span style="color:#888;font-size:10px;">V0617</span></td><td class="num">54</td><td class="num">46</td><td class="num">17</td><td class="num bold">117</td><td class="num bold">1 112€</td></tr>
+        <tr><td>5</td><td>Le thé des amoureux (80g) <span style="color:#888;font-size:10px;">V0631</span></td><td class="num">45</td><td class="num">48</td><td class="num">16</td><td class="num bold">109</td><td class="num bold">1 041€</td></tr>
+        <tr><td>6</td><td>La Nana de Wépion (100g) <span style="color:#888;font-size:10px;">V0832</span></td><td class="num">68</td><td class="num">27</td><td class="num">9</td><td class="num bold">104</td><td class="num bold">997€</td></tr>
+        <tr><td>7</td><td>Coffret Matcha Traditionnel <span style="color:#888;font-size:10px;">A1135</span></td><td class="num">9</td><td class="num">11</td><td class="num">4</td><td class="num bold">24</td><td class="num bold">928€</td></tr>
+        <tr><td>8</td><td>Sérénité BIO (100g) <span style="color:#888;font-size:10px;">V0638</span></td><td class="num">53</td><td class="num">23</td><td class="num">19</td><td class="num bold">95</td><td class="num bold">882€</td></tr>
+        <tr><td>9</td><td>Assortiment découverte <span style="color:#888;font-size:10px;">C0102</span></td><td class="num">27</td><td class="num">21</td><td class="num">6</td><td class="num bold">54</td><td class="num bold">777€</td></tr>
+        <tr><td>10</td><td>Le panier de grand maman (20 inf.) <span style="color:#888;font-size:10px;">I0279</span></td><td class="num">35</td><td class="num">33</td><td class="num">6</td><td class="num bold">74</td><td class="num bold">769€</td></tr>
+        <tr><td>11</td><td>Pêche de vigne BIO (100g) <span style="color:#888;font-size:10px;">V0735</span></td><td class="num">43</td><td class="num">25</td><td class="num">8</td><td class="num bold">76</td><td class="num bold">728€</td></tr>
+        <tr><td>12</td><td>Liberté (20 inf.) <span style="color:#888;font-size:10px;">I0617</span></td><td class="num">31</td><td class="num">25</td><td class="num">7</td><td class="num bold">63</td><td class="num bold">667€</td></tr>
+        <tr><td>13</td><td>Ginger Hot (100g) <span style="color:#888;font-size:10px;">V0825</span></td><td class="num">44</td><td class="num">19</td><td class="num">3</td><td class="num bold">66</td><td class="num bold">637€</td></tr>
+        <tr><td>14</td><td>La Nana de Wépion (20 inf.) <span style="color:#888;font-size:10px;">I0832</span></td><td class="num">40</td><td class="num">16</td><td class="num">2</td><td class="num bold">58</td><td class="num bold">609€</td></tr>
+        <tr><td>15</td><td>Blue Earl Grey BIO (100g) <span style="color:#888;font-size:10px;">V0880</span></td><td class="num">30</td><td class="num">13</td><td class="num">15</td><td class="num bold">58</td><td class="num bold">591€</td></tr>
+        <tr><td>16</td><td>Le thé des amoureux (20 inf.) <span style="color:#888;font-size:10px;">I0631</span></td><td class="num">34</td><td class="num">18</td><td class="num">1</td><td class="num bold">53</td><td class="num bold">560€</td></tr>
+        <tr><td>17</td><td>Namasté BIO (80g) <span style="color:#888;font-size:10px;">V0723</span></td><td class="num">28</td><td class="num">21</td><td class="num">6</td><td class="num bold">55</td><td class="num bold">528€</td></tr>
+        <tr><td>18</td><td>Citron meringué (100g) <span style="color:#888;font-size:10px;">V0868</span></td><td class="num">29</td><td class="num">19</td><td class="num">4</td><td class="num bold">52</td><td class="num bold">500€</td></tr>
+        <tr><td>19</td><td>Vert Jasmin (80g) <span style="color:#888;font-size:10px;">V0669</span></td><td class="num">31</td><td class="num">9</td><td class="num">11</td><td class="num bold">51</td><td class="num bold">490€</td></tr>
+        <tr><td>20</td><td>Gourmandise (80g) <span style="color:#888;font-size:10px;">V0634</span></td><td class="num">27</td><td class="num">13</td><td class="num">7</td><td class="num bold">47</td><td class="num bold">452€</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Top per store -->
+  <div class="section">
+    <h2>Top 10 par magasin — profils comparés</h2>
+    <div class="store-grid">
+      <div class="store-card" style="border-color:#1a5276;">
+        <div class="name" style="color:#1a5276;">Namur <span style="font-size:11px;color:#888;">311 produits</span></div>
+        <div class="row"><span class="label">1.</span><span>Infusion Printemps <strong>1 346€</strong></span></div>
+        <div class="row"><span class="label">2.</span><span>Matcha japonais <strong>793€</strong></span></div>
+        <div class="row"><span class="label">3.</span><span>Nana de Wépion <strong>654€</strong></span></div>
+        <div class="row"><span class="label">4.</span><span>Liberté <strong>519€</strong></span></div>
+        <div class="row"><span class="label">5.</span><span>Sérénité BIO <strong>510€</strong></span></div>
+        <div class="row"><span class="label">6.</span><span>Panier grand maman <strong>490€</strong></span></div>
+        <div class="row"><span class="label">7.</span><span>Thé des amoureux <strong>436€</strong></span></div>
+        <div class="row"><span class="label">8.</span><span>Ginger Hot <strong>423€</strong></span></div>
+        <div class="row"><span class="label">9.</span><span>Nana Wépion inf. <strong>420€</strong></span></div>
+        <div class="row"><span class="label">10.</span><span>Pêche de vigne <strong>410€</strong></span></div>
+      </div>
+      <div class="store-card" style="border-color:#c0392b;">
+        <div class="name" style="color:#c0392b;">Liège <span style="font-size:11px;color:#888;">290 produits</span></div>
+        <div class="row"><span class="label">1.</span><span>Infusion Printemps <strong>859€</strong></span></div>
+        <div class="row"><span class="label">2.</span><span>Panier grand maman <strong>492€</strong></span></div>
+        <div class="row"><span class="label">3.</span><span>Thé des amoureux <strong>462€</strong></span></div>
+        <div class="row"><span class="label">4.</span><span>Liberté <strong>441€</strong></span></div>
+        <div class="row"><span class="label">5.</span><span>Coffret Matcha <strong>422€</strong></span></div>
+        <div class="row"><span class="label">6.</span><span>Matcha japonais <strong>420€</strong></span></div>
+        <div class="row"><span class="label">7.</span><span>Panier grand maman inf. <strong>347€</strong></span></div>
+        <div class="row"><span class="label">8.</span><span>Assortiment découverte <strong>302€</strong></span></div>
+        <div class="row"><span class="label">9.</span><span>Liberté inf. <strong>263€</strong></span></div>
+        <div class="row"><span class="label">10.</span><span>Nana de Wépion <strong>259€</strong></span></div>
+      </div>
+      <div class="store-card" style="border-color:#27ae60;">
+        <div class="name" style="color:#27ae60;">Waterloo <span style="font-size:11px;color:#888;">216 produits</span></div>
+        <div class="row"><span class="label">1.</span><span>Sérénité BIO <strong>166€</strong></span></div>
+        <div class="row"><span class="label">2.</span><span>Coffret Matcha <strong>158€</strong></span></div>
+        <div class="row"><span class="label">3.</span><span>Infusion Printemps <strong>152€</strong></span></div>
+        <div class="row"><span class="label">4.</span><span>Liberté <strong>152€</strong></span></div>
+        <div class="row"><span class="label">5.</span><span>Blue Earl Grey <strong>149€</strong></span></div>
+        <div class="row"><span class="label">6.</span><span>Thé des amoureux <strong>144€</strong></span></div>
+        <div class="row"><span class="label">7.</span><span>Panier grand maman <strong>137€</strong></span></div>
+        <div class="row"><span class="label">8.</span><span>Matcha japonais <strong>117€</strong></span></div>
+        <div class="row"><span class="label">9.</span><span>Vert Jasmin <strong>106€</strong></span></div>
+        <div class="row"><span class="label">10.</span><span>Sencha BIO <strong>98€</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product insights -->
+  <div class="section">
+    <h2>Insights produits</h2>
+
+    <div class="callout-green callout">
+      <strong>Infusion du Printemps (V0914) — star du mois.</strong> 246 unités, 2 357€ — numéro 1 dans les 3 magasins. Namur concentre 57% des ventes. Lancement réussi pour cette édition limitée.
+    </div>
+
+    <div class="callout">
+      <strong>Le Matcha domine la valeur.</strong> Matcha japonais (V0895, 1 330€) + Coffret Matcha (A1135, 928€) + Matcha Biscuit (V0910, 381€) = <strong>2 639€</strong> cumulés. Segment premium à pousser, surtout à Waterloo où le coffret est déjà #2.
+    </div>
+
+    <div class="callout">
+      <strong>Waterloo a un profil différent.</strong> Sérénité BIO est #1 (pas #8 comme ailleurs), Blue Earl Grey est #5 (marginal dans les autres). Le client Waterloo est plus orienté bien-être/classiques que découverte. Adapter le merchandising en conséquence.
+    </div>
+
+    <div class="callout">
+      <strong>Les infusettes pèsent lourd.</strong> Quand un vrac + ses infusettes sont combinés : Panier grand maman = 1 889€, Liberté = 1 779€, Nana de Wépion = 1 606€, Thé des amoureux = 1 601€. Ce sont les vraies locomotives de l'assortiment permanent.
+    </div>
+
+    <div class="callout-red callout">
+      <strong>Profondeur d'assortiment Waterloo.</strong> Seulement 216 produits vendus (vs 311 à Namur, 290 à Liège). 95 références n'ont pas trouvé preneur en mars. Un assortiment plus ciblé et un facing repensé pourraient améliorer la lisibilité et le taux de conversion.
+    </div>
+  </div>
+
   <!-- Diagnostic -->
   <div class="section">
     <h2>Diagnostic & recommandations</h2>
@@ -389,6 +499,29 @@ new Chart(document.getElementById('pieChart'), {
   options: {
     responsive:true, maintainAspectRatio:false, cutout:'55%',
     plugins: { legend:{ position:'bottom', labels:{ padding:14 } } }
+  }
+});
+
+// Top 10 products horizontal bar
+new Chart(document.getElementById('productChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Infusion Printemps','Matcha japonais','Panier grand maman','Liberté','Thé amoureux','Nana Wépion','Coffret Matcha','Sérénité BIO','Assortiment découv.','Panier g.m. inf.'],
+    datasets: [
+      { label:'Namur', data:[1346,793,490,519,436,654,348,510,392,370], backgroundColor:'#1a5276' },
+      { label:'Liège', data:[859,420,492,441,462,259,422,207,302,347], backgroundColor:'#c0392b' },
+      { label:'Waterloo', data:[152,117,137,152,144,85,158,166,83,53], backgroundColor:'#27ae60' }
+    ]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins: { legend:{ position:'bottom', labels:{ padding:16 } },
+      tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+c.raw+'€'; } } }
+    },
+    scales: {
+      x:{ stacked:true, ticks:{ callback:function(v){ return v+'€'; } } },
+      y:{ stacked:true, grid:{display:false} }
+    }
   }
 });
 
