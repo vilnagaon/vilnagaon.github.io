@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teatower — Data Flow Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; padding: 32px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 24px; color: #16393E; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 40px; }
+
+  /* Flow diagram */
+  .flow { position: relative; }
+
+  /* Source boxes */
+  .sources { display: flex; justify-content: center; gap: 32px; margin-bottom: 0; }
+  .source { width: 220px; background: #fff; border-radius: 14px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid; position: relative; }
+  .source.shopify { border-top-color: #96bf48; }
+  .source.odoo { border-top-color: #8B4513; }
+  .source.mailchimp { border-top-color: #FFE01B; }
+  .source .icon { font-size: 32px; margin-bottom: 8px; }
+  .source h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .source .count { font-size: 24px; font-weight: 800; color: #16393E; }
+  .source .detail { font-size: 11px; color: #888; margin-top: 4px; line-height: 1.5; }
+  .source .data-list { text-align: left; margin-top: 12px; font-size: 11px; color: #666; line-height: 1.8; }
+  .source .data-list span { display: inline-block; background: #f0f0f0; padding: 1px 6px; border-radius: 4px; margin: 1px 0; font-family: monospace; font-size: 10px; }
+
+  /* Arrows */
+  .arrows { display: flex; justify-content: center; gap: 32px; padding: 0; height: 60px; position: relative; }
+  .arrow-col { width: 220px; display: flex; flex-direction: column; align-items: center; }
+  .arrow-line { width: 2px; height: 30px; background: #ccc; }
+  .arrow-head { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #ccc; }
+  .arrow-label { font-size: 10px; color: #999; margin-top: 2px; }
+
+  /* Sync engine */
+  .sync-engine { background: linear-gradient(135deg, #16393E, #1e4d54); border-radius: 14px; padding: 24px 32px; margin: 0 auto 0; max-width: 740px; color: #fff; position: relative; }
+  .sync-engine h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; text-align: center; }
+  .sync-steps { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .sync-step { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 14px; font-size: 11px; text-align: center; flex: 1; min-width: 120px; }
+  .sync-step .step-num { font-size: 18px; font-weight: 800; color: #6D3A05; margin-bottom: 4px; display: block; background: #fff; width: 28px; height: 28px; line-height: 28px; border-radius: 50%; margin: 0 auto 6px; }
+  .sync-step strong { color: #fff; }
+
+  /* Center arrow down */
+  .center-arrow { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+  .center-arrow .arrow-line { height: 24px; background: #6D3A05; width: 3px; }
+  .center-arrow .arrow-head { border-top-color: #6D3A05; border-left-width: 10px; border-right-width: 10px; border-top-width: 14px; }
+
+  /* Database */
+  .database { background: #fff; border: 3px solid #16393E; border-radius: 16px; padding: 28px 32px; max-width: 740px; margin: 0 auto; position: relative; }
+  .database h3 { font-size: 18px; font-weight: 700; color: #16393E; text-align: center; margin-bottom: 4px; }
+  .database .db-sub { font-size: 12px; color: #888; text-align: center; margin-bottom: 16px; }
+  .db-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .db-table { background: #f8f5f0; border-radius: 10px; padding: 14px 16px; }
+  .db-table h4 { font-size: 13px; font-weight: 700; color: #16393E; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .db-table h4 .pk { font-size: 9px; background: #6D3A05; color: #fff; padding: 1px 6px; border-radius: 4px; }
+  .db-table .cols { font-size: 10px; color: #666; line-height: 1.6; font-family: monospace; }
+  .db-table.main { grid-column: 1 / -1; background: #16393E; color: #fff; }
+  .db-table.main h4 { color: #fff; }
+  .db-table.main .cols { color: rgba(255,255,255,0.7); }
+  .db-table.main .pk { background: #fff; color: #6D3A05; }
+
+  /* Bottom arrow to app */
+  .bottom-section { display: flex; justify-content: center; gap: 80px; align-items: flex-start; max-width: 740px; margin: 0 auto; }
+
+  /* App */
+  .app { background: #fff; border-radius: 14px; padding: 20px 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #16393E; width: 260px; }
+  .app .icon { font-size: 36px; margin-bottom: 8px; }
+  .app h3 { font-size: 15px; font-weight: 700; color: #16393E; margin-bottom: 8px; }
+  .app .features { font-size: 11px; color: #666; text-align: left; line-height: 1.8; }
+
+  /* Bidirectional arrow to MC */
+  .bidir { display: flex; flex-direction: column; align-items: center; width: 260px; }
+  .bidir-box { background: #fff; border: 2px dashed #FFE01B; border-radius: 10px; padding: 14px 18px; text-align: center; }
+  .bidir-box h4 { font-size: 12px; font-weight: 700; color: #c5a000; margin-bottom: 6px; }
+  .bidir-box .detail { font-size: 10px; color: #888; line-height: 1.6; }
+
+  /* Legend */
+  .legend { margin-top: 32px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #888; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .footer { text-align: center; color: #aaa; font-size: 11px; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Teatower — Data Flow Architecture</h1>
+  <p class="subtitle">Sources de donn&eacute;es &rarr; Sync Engine &rarr; Base unifi&eacute;e &rarr; iOS App &middot; Avril 2026</p>
+
+  <div class="flow">
+
+    <!-- ═══ SOURCES ═══ -->
+    <div class="sources">
+      <div class="source shopify">
+        <div class="icon">🛒</div>
+        <h3>Shopify</h3>
+        <div class="count">20,081</div>
+        <div class="detail">clients e-commerce</div>
+        <div class="data-list">
+          <span>email</span> <span>name</span> <span>phone</span><br>
+          <span>address</span> <span>orders</span> <span>total_spent</span><br>
+          <span>accepts_marketing</span>
+        </div>
+      </div>
+
+      <div class="source odoo">
+        <div class="icon">🏪</div>
+        <h3>Odoo POS</h3>
+        <div class="count">14,749</div>
+        <div class="detail">clients boutiques (WAT/NAM/LGE)</div>
+        <div class="data-list">
+          <span>email</span> <span>name</span> <span>phone</span><br>
+          <span>address</span> <span>pos.order</span> <span>config_id</span><br>
+          <span>partner_id</span> <span>amount_total</span>
+        </div>
+      </div>
+
+      <div class="source mailchimp">
+        <div class="icon">📧</div>
+        <h3>Mailchimp</h3>
+        <div class="count">38,517</div>
+        <div class="detail">abonn&eacute;s newsletter</div>
+        <div class="data-list">
+          <span>email</span> <span>FNAME</span> <span>LNAME</span><br>
+          <span>status</span> <span>tags</span> <span>rating</span><br>
+          <span>open_rate</span> <span>click_rate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ARROWS DOWN ═══ -->
+    <div class="arrows">
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+        <div class="arrow-label">GraphQL &middot; 4h</div>
+      </div>
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+        <div class="arrow-label">JSON-RPC &middot; 4h</div>
+      </div>
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+        <div class="arrow-label">REST API &middot; 12h</div>
+      </div>
+    </div>
+
+    <!-- ═══ SYNC ENGINE ═══ -->
+    <div class="sync-engine">
+      <h3>Sync Engine (Supabase Edge Functions)</h3>
+      <div class="sync-steps">
+        <div class="sync-step">
+          <span class="step-num">1</span>
+          <strong>Pull</strong><br>Fetch new/updated records from each source
+        </div>
+        <div class="sync-step">
+          <span class="step-num">2</span>
+          <strong>Normalize</strong><br>email = lower(trim(email))<br>Deduplicate
+        </div>
+        <div class="sync-step">
+          <span class="step-num">3</span>
+          <strong>UPSERT</strong><br>Insert or merge into audience<br>email = PK
+        </div>
+        <div class="sync-step">
+          <span class="step-num">4</span>
+          <strong>Enrich</strong><br>Recompute LTV, tags,<br>preferred store, profile
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ARROW TO DB ═══ -->
+    <div class="center-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+    </div>
+
+    <!-- ═══ DATABASE ═══ -->
+    <div class="database">
+      <h3>PostgreSQL (Supabase)</h3>
+      <div class="db-sub">Base unifi&eacute;e &mdash; 1 record par email &mdash; mod&egrave;le Mailchimp</div>
+
+      <div class="db-tables">
+        <div class="db-table main">
+          <h4>audience <span class="pk">PK = email</span></h4>
+          <div class="cols">
+            email &middot; first_name &middot; last_name &middot; phone &middot; birth_date &middot; address<br>
+            status &middot; mailchimp_status &middot; shopify_status &middot; shopify_accepts_marketing<br>
+            source_shopify &middot; source_odoo &middot; source_mailchimp &middot; source_app<br>
+            shopify_customer_id &middot; odoo_partner_id &middot; mailchimp_member_id<br>
+            preferred_store &middot; lifetime_value &middot; total_orders &middot; avg_basket<br>
+            <strong style="color:#6D3A05;">tea_profile (JSONB)</strong> &middot; custom_fields (JSONB)
+          </div>
+        </div>
+        <div class="db-table">
+          <h4>purchases</h4>
+          <div class="cols">
+            email (FK) &middot; source<br>
+            order_date &middot; total<br>
+            items (JSONB)
+          </div>
+        </div>
+        <div class="db-table">
+          <h4>tags</h4>
+          <div class="cols">
+            email (FK) &middot; tag<br>
+            vip &middot; dormant &middot; multi_canal<br>
+            client_namur &middot; acheteur_matcha...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ARROW TO APP + MC ═══ -->
+    <div class="center-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+    </div>
+
+    <!-- ═══ APP + MAILCHIMP PUSH ═══ -->
+    <div class="bottom-section">
+      <div class="app">
+        <div class="icon">📱</div>
+        <h3>iOS App (SwiftUI)</h3>
+        <div class="features">
+          ✦ Mon Tea Profile<br>
+          ✦ Historique achats unifi&eacute;<br>
+          ✦ Stats (LTV, panier, favori)<br>
+          ✦ Recommandations (Claude)<br>
+          ✦ Boutiques &amp; horaires<br>
+          ✦ Magic Link auth (no password)
+        </div>
+      </div>
+
+      <div class="bidir">
+        <div class="bidir-box">
+          <h4>&harr; Sync Bidirectionnel Mailchimp</h4>
+          <div class="detail">
+            <strong>DB &rarr; MC :</strong> Push tags enrichis<br>
+            (vip, client_namur, acheteur_matcha...)<br>
+            + merge fields STORE, LTV, LASTBUY<br><br>
+            <strong>MC &rarr; DB :</strong> Pull unsubscribes,<br>
+            nouveaux subscribers, engagement
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LEGEND ═══ -->
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#96bf48"></div> Shopify (e-commerce)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#8B4513"></div> Odoo POS (boutiques)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFE01B"></div> Mailchimp (newsletters)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#16393E"></div> Base unifi&eacute;e (Supabase)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6D3A05"></div> Sync engine</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Teatower Data Flow Architecture &middot; Sprint 1 &middot; Avril 2026
+  </div>
+</div>
+
+</body>
+</html>
