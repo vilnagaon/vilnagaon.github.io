@@ -33,6 +33,10 @@
   .hour-bar .hour-label { width: 30px; text-align: right; color: #888; }
   .hour-bar .bar { height: 18px; border-radius: 3px; min-width: 2px; display: flex; align-items: center; padding-left: 6px; font-size: 11px; color: white; font-weight: 500; }
   .hour-bar .hour-meta { font-size: 11px; color: #aaa; margin-left: 4px; }
+  .store-header .badge { font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-up { background: #e8f5e9; color: #2e7d32; }
+  .badge-down { background: #fce4ec; color: #c62828; }
+  .badge-flat { background: #f5f5f5; color: #666; }
   .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 24px; padding: 16px; }
   @media (max-width: 768px) {
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
@@ -58,7 +62,7 @@
   <div class="kpi">
     <div class="value">5,709&euro;</div>
     <div class="label">POS Magasins</div>
-    <div class="sub">248 cmd &middot; panier 23&euro;</div>
+    <div class="sub">248 cmd &middot; panier 23&euro; &middot; <span style="color:#2e7d32; font-weight:600;">&uarr;23% vs S-1</span></div>
   </div>
   <div class="kpi">
     <div class="value">481&euro;</div>
@@ -79,6 +83,7 @@
   <div class="card">
     <div class="store-header">
       <h3><span class="dot" style="background:#2D5016"></span> Waterloo</h3>
+      <span class="badge badge-flat">&rarr; 0% vs S-1</span>
     </div>
     <div class="store-header">
       <span class="store-ca" style="color:#2D5016">497.35&euro;</span>
@@ -108,6 +113,7 @@
   <div class="card">
     <div class="store-header">
       <h3><span class="dot" style="background:#8B4513"></span> Namur</h3>
+      <span class="badge badge-up">&uarr; 13% vs S-1</span>
     </div>
     <div class="store-header">
       <span class="store-ca" style="color:#8B4513">3,312.94&euro;</span>
@@ -138,6 +144,7 @@
   <div class="card">
     <div class="store-header">
       <h3><span class="dot" style="background:#1a5276"></span> Li&egrave;ge</h3>
+      <span class="badge badge-up">&uarr; 54% vs S-1</span>
     </div>
     <div class="store-header">
       <span class="store-ca" style="color:#1a5276">1,898.26&euro;</span>
