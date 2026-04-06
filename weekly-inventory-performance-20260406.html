@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Inventory Performance — Teatower — 6 Avril 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; padding: 20px; max-width: 1100px; margin: 0 auto; font-size: 14px; }
+  .header { background: linear-gradient(135deg, #1a3a5c 0%, #2c5f8a 100%); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .header .date { font-size: 17px; font-weight: 500; margin-top: 8px; }
+  .header .authors { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: white; border-radius: 12px; padding: 18px 14px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .kpi .value { font-size: 24px; font-weight: 700; }
+  .kpi .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .kpi .sub { font-size: 12px; color: #666; margin-top: 2px; }
+  .kpi.red .value { color: #c62828; }
+  .kpi.green .value { color: #2e7d32; }
+  .kpi.blue .value { color: #1a3a5c; }
+  .kpi.orange .value { color: #e65100; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .card h3 { font-size: 14px; font-weight: 600; color: #1a3a5c; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .bar-container { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+  .bar-label { width: 80px; font-size: 12px; color: #666; text-align: right; }
+  .bar-track { flex: 1; height: 24px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; color: white; font-weight: 600; }
+  .bar-value { font-size: 12px; color: #666; width: 100px; text-align: right; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px; background: #f8f5f0; font-size: 11px; text-transform: uppercase; color: #888; border-bottom: 2px solid #e8e5df; }
+  td { padding: 8px; border-bottom: 1px solid #f0f0f0; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-green { background: #e8f5e9; color: #2e7d32; }
+  .badge-red { background: #fce4ec; color: #c62828; }
+  .badge-orange { background: #fff3e0; color: #e65100; }
+  .section-title { font-size: 18px; font-weight: 700; color: #1a3a5c; margin: 28px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #1a3a5c; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 32px; padding: 16px; }
+  @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Weekly Inventory Performance</h1>
+  <div class="date">Lundi 6 Avril 2026 &mdash; Semaine 15</div>
+  <div class="authors">Nick (Supply Chain) + Fabian (Odoo)</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi blue">
+    <div class="value">294,678&euro;</div>
+    <div class="label">Valorisation Stock</div>
+    <div class="sub">vs 295,987&euro; S-1 <span class="badge badge-green">&darr;0.4%</span></div>
+  </div>
+  <div class="kpi red">
+    <div class="value">145</div>
+    <div class="label">Stock N&eacute;gatif (vendable)</div>
+    <div class="sub">Hors &eacute;chantillons/vrac/packaging</div>
+  </div>
+  <div class="kpi orange">
+    <div class="value">60</div>
+    <div class="label">Ajustements Semaine</div>
+    <div class="sub">vs 8 sem. pr&eacute;c. (&uarr;)</div>
+  </div>
+  <div class="kpi green">
+    <div class="value">2.09M</div>
+    <div class="label">Unit&eacute;s en stock</div>
+    <div class="sub">1,994 lignes quant</div>
+  </div>
+  <div class="kpi blue">
+    <div class="value">3</div>
+    <div class="label">Magasins actifs</div>
+    <div class="sub">+ entrep&ocirc;t central</div>
+  </div>
+</div>
+
+<div class="section-title">Valorisation par Location</div>
+
+<div class="card">
+  <div class="bar-container">
+    <span class="bar-label">Entrep&ocirc;t</span>
+    <div class="bar-track"><div class="bar-fill" style="width:89%;background:#1a3a5c;">262,086&euro;</div></div>
+    <span class="bar-value">2.05M u &middot; 781 SKUs</span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Namur</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3.9%;background:#8B4513;">11,502&euro;</div></div>
+    <span class="bar-value">4,589 u &middot; 350 SKUs</span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Li&egrave;ge</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3.9%;background:#1a5276;">11,459&euro;</div></div>
+    <span class="bar-value">13,433 u &middot; 400 SKUs</span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Waterloo</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3.3%;background:#2D5016;">9,626&euro;</div></div>
+    <span class="bar-value">25,602 u &middot; 457 SKUs</span>
+  </div>
+
+  <table style="margin-top:20px;">
+    <tr><th>Location</th><th style="text-align:right">Valeur</th><th style="text-align:right">S-1</th><th style="text-align:right">&Delta;</th><th style="text-align:right">SKUs</th></tr>
+    <tr><td><strong>Entrep&ocirc;t</strong></td><td style="text-align:right">262,086&euro;</td><td style="text-align:right">~262K&euro;</td><td style="text-align:right"><span class="badge badge-green">&cong;</span></td><td style="text-align:right">781</td></tr>
+    <tr><td>Namur</td><td style="text-align:right">11,502&euro;</td><td style="text-align:right">12,216&euro;</td><td style="text-align:right"><span class="badge badge-orange">&darr;6%</span></td><td style="text-align:right">350</td></tr>
+    <tr><td>Li&egrave;ge</td><td style="text-align:right">11,459&euro;</td><td style="text-align:right">11,931&euro;</td><td style="text-align:right"><span class="badge badge-orange">&darr;4%</span></td><td style="text-align:right">400</td></tr>
+    <tr><td>Waterloo</td><td style="text-align:right">9,626&euro;</td><td style="text-align:right">9,749&euro;</td><td style="text-align:right"><span class="badge badge-green">&darr;1%</span></td><td style="text-align:right">457</td></tr>
+    <tr style="border-top:2px solid #1a3a5c;"><td><strong>TOTAL</strong></td><td style="text-align:right"><strong>294,678&euro;</strong></td><td style="text-align:right"><strong>295,987&euro;</strong></td><td style="text-align:right"><span class="badge badge-green">&darr;0.4%</span></td><td style="text-align:right">1,994</td></tr>
+  </table>
+</div>
+
+<div class="section-title">Ajustements d'Inventaire &mdash; WoW</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h3>Volume d'ajustements</h3>
+    <div class="bar-container">
+      <span class="bar-label">Sem. 15</span>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:#1a3a5c;">60</div></div>
+      <span class="bar-value">1 &ndash; 5 avr</span>
+    </div>
+    <div class="bar-container">
+      <span class="bar-label">Sem. 14</span>
+      <div class="bar-track"><div class="bar-fill" style="width:13%;background:#7ca3c7;">8</div></div>
+      <span class="bar-value">30 &ndash; 31 mars</span>
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:#666;">
+      <span class="badge badge-orange">&uarr;</span> Hausse des ajustements &mdash; probablement li&eacute;e aux comptages de P&acirc;ques et au r&eacute;assort.
+    </p>
+  </div>
+  <div class="card">
+    <h3>Stock n&eacute;gatif (vendable)</h3>
+    <p style="font-size:36px; font-weight:700; color:#c62828; margin-bottom:8px;">145</p>
+    <p style="font-size:13px; color:#666;">lignes n&eacute;gatives sur produits vendables</p>
+    <p style="font-size:12px; color:#999; margin-top:8px;">55 lignes exclues (&eacute;chantillons, vrac, packaging)</p>
+    <p style="font-size:12px; color:#999;">Baseline S-1 : 100 lignes (total incl. exclus)</p>
+    <p style="margin-top:12px; font-size:13px; color:#c62828; font-weight:600;">
+      Action : nettoyage des stock n&eacute;gatifs vendables &agrave; planifier cette semaine.
+    </p>
+  </div>
+</div>
+
+<div class="section-title">Valorisation WoW</div>
+
+<div class="card">
+  <table>
+    <tr><th>M&eacute;trique</th><th style="text-align:right">Sem. 15 (6 avr)</th><th style="text-align:right">Baseline (4 avr)</th><th style="text-align:right">&Delta;</th></tr>
+    <tr><td>Valorisation totale</td><td style="text-align:right">294,678&euro;</td><td style="text-align:right">295,987&euro;</td><td style="text-align:right"><span class="badge badge-green">&darr;0.4%</span></td></tr>
+    <tr><td>Unit&eacute;s totales</td><td style="text-align:right">2,094,182</td><td style="text-align:right">2,094,725</td><td style="text-align:right"><span class="badge badge-green">&cong;</span></td></tr>
+    <tr><td>Stock Namur (&euro;/SKU)</td><td style="text-align:right">33&euro;</td><td style="text-align:right">35&euro;</td><td style="text-align:right"><span class="badge badge-orange">&darr;6%</span></td></tr>
+    <tr><td>Stock Li&egrave;ge (&euro;/SKU)</td><td style="text-align:right">29&euro;</td><td style="text-align:right">30&euro;</td><td style="text-align:right"><span class="badge badge-green">&darr;3%</span></td></tr>
+    <tr><td>Stock Waterloo (&euro;/SKU)</td><td style="text-align:right">21&euro;</td><td style="text-align:right">21&euro;</td><td style="text-align:right"><span class="badge badge-green">&cong;</span></td></tr>
+  </table>
+  <p style="margin-top:16px; font-size:13px; color:#666;">
+    Stock stable (&darr;0.4%) &mdash; normal apr&egrave;s un weekend de P&acirc;ques fort (6,190&euro; samedi + 571&euro; dimanche).
+    Namur a le plus baiss&eacute; (&darr;6%) suite aux 145 tickets du samedi.
+  </p>
+</div>
+
+<div class="footer">
+  Weekly Inventory Performance &middot; Semaine 15 &middot; Nick (Supply Chain) + Fabian (Odoo) &middot; 6 avril 2026
+</div>
+
+</body>
+</html>
