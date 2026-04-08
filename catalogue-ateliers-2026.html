@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalogue Ateliers Teatower 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; max-width: 1000px; margin: 0 auto; padding: 24px; font-size: 14px; line-height: 1.6; }
+  .header { background: linear-gradient(135deg, #16393E, #1e4d54); color: white; padding: 32px; border-radius: 16px; margin-bottom: 28px; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 15px; opacity: 0.85; margin-top: 4px; }
+  .header .meta { font-size: 12px; opacity: 0.6; margin-top: 12px; }
+  h2 { font-size: 18px; color: #16393E; margin: 32px 0 16px; padding-bottom: 6px; border-bottom: 2px solid #16393E; }
+  .atelier { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 20px; border-left: 5px solid #16393E; }
+  .atelier .top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+  .atelier .emoji { font-size: 32px; margin-right: 12px; }
+  .atelier .name { font-size: 20px; font-weight: 700; color: #16393E; }
+  .atelier .tagline { font-size: 13px; color: #888; font-style: italic; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .pill-price { background: #6D3A05; color: white; }
+  .pill-time { background: #e3f2fd; color: #1565c0; }
+  .pill-people { background: #f3e5f5; color: #7b1fa2; }
+  .pill-season { background: #e8f5e9; color: #2e7d32; }
+  .pill-public { background: #fff3e0; color: #e65100; }
+  .section-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 14px 0 6px; }
+  .steps { counter-reset: step; }
+  .steps li { list-style: none; padding: 6px 0 6px 32px; position: relative; font-size: 13px; border-left: 2px solid #e0e0e0; margin-left: 8px; }
+  .steps li:last-child { border-left: 2px solid transparent; }
+  .steps li::before { counter-increment: step; content: counter(step); position: absolute; left: -10px; top: 6px; width: 20px; height: 20px; background: #16393E; color: white; border-radius: 50%; font-size: 10px; font-weight: 700; text-align: center; line-height: 20px; }
+  .teas { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tea-tag { font-size: 11px; padding: 3px 10px; background: #f8f5f0; border-radius: 20px; color: #16393E; border: 1px solid #e0dbd4; }
+  .takeaway { font-size: 13px; color: #2e7d32; font-weight: 600; }
+  .upsell { font-size: 12px; color: #6D3A05; }
+  .grid-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+  .summary-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-align: center; }
+  .summary-card .val { font-size: 24px; font-weight: 800; color: #16393E; }
+  .summary-card .lbl { font-size: 11px; color: #888; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 8px; background: #f8f5f0; font-size: 11px; text-transform: uppercase; color: #888; }
+  td { padding: 8px; border-bottom: 1px solid #f0f0f0; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 32px; }
+  @media (max-width: 768px) { .grid-summary { grid-template-columns: 1fr 1fr; } .atelier .top { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Catalogue Ateliers Teatower 2026</h1>
+  <div class="sub">10 formats &middot; 3 boutiques &middot; Objectif 500 participants</div>
+  <div class="meta">Trevor (Sommelier) &middot; Diffusion interne &middot; Avril 2026</div>
+</div>
+
+<div class="grid-summary">
+  <div class="summary-card"><div class="val">10</div><div class="lbl">Formats d'ateliers</div></div>
+  <div class="summary-card"><div class="val">20-45&euro;</div><div class="lbl">Gamme de prix individuels</div></div>
+  <div class="summary-card"><div class="val">500</div><div class="lbl">Objectif participants 2026</div></div>
+  <div class="summary-card"><div class="val">3</div><div class="lbl">Boutiques (WAT/NAM/LGE)</div></div>
+</div>
+
+<!-- ═══════════ ATELIERS RÉGULIERS ═══════════ -->
+<h2>Ateliers r&eacute;guliers</h2>
+
+<!-- 1. Découverte -->
+<div class="atelier">
+  <div class="top">
+    <div>
+      <span class="emoji">🍵</span>
+      <span class="name">Voyage autour du Th&eacute;</span>
+      <div class="tagline">L'atelier d&eacute;couverte — l'entr&eacute;e en mati&egrave;re pour tous</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">30&euro;</span>
+      <span class="pill pill-time">1h</span>
+      <span class="pill pill-people">4-10 pers.</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Bienvenue</strong> (5 min) &mdash; Tour de table "quel est votre th&eacute; du quotidien ?"</li>
+    <li><strong>La carte du monde du th&eacute;</strong> (10 min) &mdash; Chine, Japon, Inde, Afrique du Sud. D'o&ugrave; vient le th&eacute; ?</li>
+    <li><strong>D&eacute;gustation guid&eacute;e &mdash; 6 th&eacute;s</strong> (30 min) &mdash; Un th&eacute; de chaque famille, m&eacute;thode pro</li>
+    <li><strong>Les secrets de l'infusion parfaite</strong> (10 min) &mdash; La r&egrave;gle des 3T</li>
+    <li><strong>Cr&eacute;ation de votre m&eacute;lange</strong> (5 min) &mdash; Sachet personnalis&eacute; &agrave; emporter</li>
+  </ol>
+  <div class="section-label">Th&eacute;s d&eacute;gust&eacute;s</div>
+  <div class="teas">
+    <span class="tea-tag">Sencha BIO</span><span class="tea-tag">Darjeeling FTGFOP1 BIO</span><span class="tea-tag">Blue Earl Grey BIO</span>
+    <span class="tea-tag">S&eacute;r&eacute;nit&eacute; BIO</span><span class="tea-tag">Le panier de grand maman</span><span class="tea-tag">Matcha Japonais</span>
+  </div>
+  <div class="section-label">Le participant repart avec</div>
+  <div class="takeaway">Son m&eacute;lange personnalis&eacute; (10g) + fiche "R&egrave;gle des 3T"</div>
+  <div class="section-label">Upsell</div>
+  <div class="upsell">Coffret Assortiment D&eacute;couverte (24 env.), infuseur individuel, bo&icirc;te &agrave; th&eacute;</div>
+</div>
+
+<!-- 2. Matcha -->
+<div class="atelier">
+  <div class="top">
+    <div>
+      <span class="emoji">🍃</span>
+      <span class="name">Matcha Master</span>
+      <div class="tagline">Fouet en bambou, mousse parfaite, latte art &mdash; le plus instagrammable</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">30&euro;</span>
+      <span class="pill pill-time">1h</span>
+      <span class="pill pill-people">4-8 pers.</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>L'histoire du matcha</strong> (10 min) &mdash; De la c&eacute;r&eacute;monie japonaise &agrave; votre cuisine</li>
+    <li><strong>Les grades</strong> (10 min) &mdash; D&eacute;gustation compar&eacute;e : C&eacute;r&eacute;monie vs Cuisine</li>
+    <li><strong>Votre premier matcha au fouet</strong> (15 min) &mdash; Technique du W, mousse parfaite</li>
+    <li><strong>Matcha Latte Art</strong> (15 min) &mdash; Pr&eacute;parer un latte, verser le lait, photos</li>
+    <li><strong>Matchas aromatis&eacute;s</strong> (10 min) &mdash; Biscuit + Passion, voter son pr&eacute;f&eacute;r&eacute;</li>
+  </ol>
+  <div class="section-label">Th&eacute;s d&eacute;gust&eacute;s</div>
+  <div class="teas">
+    <span class="tea-tag">Matcha Japonais</span><span class="tea-tag">Matcha Cuisine BIO</span>
+    <span class="tea-tag">Matcha Biscuit</span><span class="tea-tag">Matcha Passion</span>
+  </div>
+  <div class="section-label">Le participant repart avec</div>
+  <div class="takeaway">10g de matcha + recette latte art imprim&eacute;e</div>
+  <div class="section-label">Upsell</div>
+  <div class="upsell">Coffret Matcha Traditionnel (33&euro;), fouet bambou (14&euro;), bol &agrave; matcha</div>
+</div>
+
+<!-- 5. Tea & Zen -->
+<div class="atelier">
+  <div class="top">
+    <div>
+      <span class="emoji">🌸</span>
+      <span class="name">Tea &amp; Zen</span>
+      <div class="tagline">Le rituel bien-&ecirc;tre &mdash; pour celles qui font du yoga, de la m&eacute;ditation</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">35&euro;</span>
+      <span class="pill pill-time">1h15</span>
+      <span class="pill pill-people">4-8 pers.</span>
+      <span class="pill pill-public">Femmes 30-45 ans</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Respiration &amp; pr&eacute;sence</strong> (5 min) &mdash; Pleine conscience avec une tasse chaude</li>
+    <li><strong>Le th&eacute; comme m&eacute;ditation</strong> (10 min) &mdash; Philosophie Ichigo Ichie</li>
+    <li><strong>D&eacute;gustation en silence</strong> (15 min) &mdash; 3 th&eacute;s, sans parler. Observer, sentir, go&ucirc;ter.</li>
+    <li><strong>Les th&eacute;s du bien-&ecirc;tre</strong> (20 min) &mdash; Relaxation, digestion, &eacute;nergie, sommeil</li>
+    <li><strong>Votre rituel du soir</strong> (15 min) &mdash; Composer son m&eacute;lange "bonne nuit"</li>
+    <li><strong>Cercle de partage</strong> (10 min) &mdash; Moment th&eacute; pr&eacute;f&eacute;r&eacute; de la journ&eacute;e</li>
+  </ol>
+  <div class="section-label">Th&eacute;s d&eacute;gust&eacute;s</div>
+  <div class="teas">
+    <span class="tea-tag">S&eacute;r&eacute;nit&eacute; BIO</span><span class="tea-tag">Namast&eacute; BIO</span><span class="tea-tag">Ayurveda BIO</span>
+    <span class="tea-tag">Camomille BIO</span><span class="tea-tag">Lady Dodo</span>
+  </div>
+  <div class="section-label">La participante repart avec</div>
+  <div class="takeaway">M&eacute;lange "rituel du soir" (15g) + carte "Mon rituel Teatower"</div>
+  <div class="section-label">Upsell</div>
+  <div class="upsell">S&eacute;r&eacute;nit&eacute; BIO, Lady Dodo, tisani&egrave;re, coffret bien-&ecirc;tre</div>
+</div>
+
+<!-- 10. Blending Lab -->
+<div class="atelier">
+  <div class="top">
+    <div>
+      <span class="emoji">🌿</span>
+      <span class="name">Blending Lab</span>
+      <div class="tagline">Cr&eacute;ez votre th&eacute; signature &mdash; l'atelier cr&eacute;atif pour passionn&eacute;s</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">45&euro;</span>
+      <span class="pill pill-time">1h30</span>
+      <span class="pill pill-people">4-8 pers.</span>
+      <span class="pill pill-public">Passionn&eacute;s, foodies</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Les bases du blending</strong> (15 min) &mdash; Base, c&oelig;ur, notes de t&ecirc;te. La roue des ar&ocirc;mes.</li>
+    <li><strong>Exploration des ingr&eacute;dients</strong> (15 min) &mdash; 20+ ingr&eacute;dients &agrave; sentir et go&ucirc;ter</li>
+    <li><strong>Cr&eacute;ation</strong> (25 min) &mdash; 2 m&eacute;langes : un th&eacute; + une infusion. Pes&eacute;e, dosage, test.</li>
+    <li><strong>D&eacute;gustation crois&eacute;e</strong> (15 min) &mdash; Faire go&ucirc;ter aux autres. Feedback du sommelier.</li>
+    <li><strong>Packaging</strong> (10 min) &mdash; &Eacute;tiquetage, nom, mise en bo&icirc;te</li>
+    <li><strong>Conseils de Trevor</strong> (10 min) &mdash; Conservation, reproduction &agrave; la maison</li>
+  </ol>
+  <div class="section-label">Le participant repart avec</div>
+  <div class="takeaway">2 m&eacute;langes personnalis&eacute;s (2 &times; 30g) en bo&icirc;tes &eacute;tiquet&eacute;es + fiche recette</div>
+  <div class="section-label">Upsell</div>
+  <div class="upsell">Bo&icirc;tes &agrave; th&eacute;, th&eacute;s de base en vrac, accessoires d'infusion</div>
+</div>
+
+<!-- ═══════════ ATELIERS SAISONNIERS ═══════════ -->
+<h2>Ateliers saisonniers</h2>
+
+<!-- 3. Summer Sips -->
+<div class="atelier" style="border-left-color:#1565c0;">
+  <div class="top">
+    <div>
+      <span class="emoji">🧊</span>
+      <span class="name">Summer Sips</span>
+      <div class="tagline">Th&eacute;s glac&eacute;s &amp; cold brew &mdash; l'atelier d'&eacute;t&eacute;</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">30&euro;</span>
+      <span class="pill pill-time">1h</span>
+      <span class="pill pill-people">4-10 pers.</span>
+      <span class="pill pill-season">Mai &rarr; Sept</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Cold brew vs infusion refroidie</strong> (10 min) &mdash; Pourquoi le cold brew est plus doux</li>
+    <li><strong>3 cold brews</strong> (15 min) &mdash; Chacun pr&eacute;pare un cold brew dans une bouteille &agrave; emporter</li>
+    <li><strong>D&eacute;gustation glac&eacute;e</strong> (15 min) &mdash; 4 recettes pr&ecirc;tes &agrave; d&eacute;guster</li>
+    <li><strong>Mocktails au th&eacute;</strong> (15 min) &mdash; Le Spritz Teatower + Le Mojito Menthe</li>
+    <li><strong>Vote &amp; emporter</strong> (5 min) &mdash; Chacun repart avec sa bouteille</li>
+  </ol>
+  <div class="section-label">Th&eacute;s d&eacute;gust&eacute;s</div>
+  <div class="teas">
+    <span class="tea-tag">Marrakech Sunset BIO</span><span class="tea-tag">P&ecirc;che de Vigne BIO</span>
+    <span class="tea-tag">Le panier de grand maman</span><span class="tea-tag">Paradise Punch</span>
+  </div>
+  <div class="section-label">Le participant repart avec</div>
+  <div class="takeaway">1 bouteille de cold brew maison + fiches recettes mocktails</div>
+</div>
+
+<!-- 4. Chaï & Épices -->
+<div class="atelier" style="border-left-color:#e65100;">
+  <div class="top">
+    <div>
+      <span class="emoji">🌶️</span>
+      <span class="name">Cha&iuml; &amp; &Eacute;pices</span>
+      <div class="tagline">L'atelier r&eacute;confort &mdash; cannelle, gingembre, cardamome</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">35&euro;</span>
+      <span class="pill pill-time">1h15</span>
+      <span class="pill pill-people">4-8 pers.</span>
+      <span class="pill pill-season">Oct &rarr; Mars</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>La route des &eacute;pices</strong> (10 min) &mdash; Sentir et identifier cannelle, gingembre, cardamome</li>
+    <li><strong>D&eacute;gustation guid&eacute;e</strong> (15 min) &mdash; 4 th&eacute;s &eacute;pic&eacute;s, du plus doux au plus intense</li>
+    <li><strong>Cr&eacute;ez votre cha&iuml;</strong> (20 min) &mdash; Doser ses &eacute;pices, infuser dans du lait</li>
+    <li><strong>Cha&iuml; Latte parfait</strong> (15 min) &mdash; Mousser le lait, doser le miel, layering</li>
+    <li><strong>Accords &eacute;pic&eacute;s</strong> (15 min) &mdash; Sp&eacute;culoos, chocolat noir, biscuits gingembre</li>
+  </ol>
+  <div class="section-label">Th&eacute;s d&eacute;gust&eacute;s</div>
+  <div class="teas">
+    <span class="tea-tag">Masala Chai</span><span class="tea-tag">Ginger Hot</span>
+    <span class="tea-tag">Indian Chai</span><span class="tea-tag">Douceur &Eacute;pic&eacute;e</span>
+  </div>
+  <div class="section-label">Le participant repart avec</div>
+  <div class="takeaway">M&eacute;lange cha&iuml; personnalis&eacute; (20g) + recette cha&iuml; latte</div>
+</div>
+
+<!-- ═══════════ ATELIERS FAMILLE ═══════════ -->
+<h2>Famille</h2>
+
+<!-- 6. Parent-Enfant -->
+<div class="atelier" style="border-left-color:#2D5016;">
+  <div class="top">
+    <div>
+      <span class="emoji">👨‍👩‍👧</span>
+      <span class="name">Tea Time en Famille</span>
+      <div class="tagline">Le dimanche matin en famille &mdash; &eacute;ducatif, ludique, z&eacute;ro th&eacute;ine</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">20&euro;/duo (+10&euro;/enfant)</span>
+      <span class="pill pill-time">45 min</span>
+      <span class="pill pill-people">3-6 duos</span>
+      <span class="pill pill-season">Dimanches matin</span>
+      <span class="pill pill-public">Familles, 6-12 ans</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Le tour du monde en tasse</strong> (10 min) &mdash; Carte interactive, d'o&ugrave; viennent les plantes ?</li>
+    <li><strong>D&eacute;gustation &agrave; l'aveugle</strong> (10 min) &mdash; 4 infusions sans th&eacute;ine, deviner les ingr&eacute;dients</li>
+    <li><strong>Apprenti sommelier</strong> (10 min) &mdash; L'enfant pr&eacute;pare un matcha au fouet (la star !)</li>
+    <li><strong>Mon m&eacute;lange secret</strong> (10 min) &mdash; Cr&eacute;er son m&eacute;lange dans une bo&icirc;te &agrave; d&eacute;corer</li>
+    <li><strong>Go&ucirc;ter !</strong> (5 min) &mdash; D&eacute;gustation avec biscuits</li>
+  </ol>
+  <div class="section-label">Infusions d&eacute;gust&eacute;es (0% th&eacute;ine)</div>
+  <div class="teas">
+    <span class="tea-tag">Le panier de grand maman</span><span class="tea-tag">Citron Meringu&eacute;</span>
+    <span class="tea-tag">Rooibos nature</span><span class="tea-tag">Matcha Japonais</span>
+  </div>
+  <div class="section-label">L'enfant repart avec</div>
+  <div class="takeaway">Bo&icirc;te d&eacute;cor&eacute;e avec son m&eacute;lange + dipl&ocirc;me "Apprenti Sommelier Teatower"</div>
+</div>
+
+<!-- ═══════════ ATELIERS PRIVÉS / EVENTS ═══════════ -->
+<h2>Priv&eacute;s &amp; &Eacute;v&eacute;nements</h2>
+
+<!-- 7. Tea Party -->
+<div class="atelier" style="border-left-color:#c62828;">
+  <div class="top">
+    <div>
+      <span class="emoji">🥂</span>
+      <span class="name">Tea Party Priv&eacute;e</span>
+      <div class="tagline">EVJF, anniversaires, entre amies &mdash; on privatise la boutique</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">250&euro; forfait (8 pers.)</span>
+      <span class="pill pill-time">1h30</span>
+      <span class="pill pill-people">6-12 pers.</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Accueil privatis&eacute;</strong> (10 min) &mdash; D&eacute;co, playlist, ambiance personnalis&eacute;e</li>
+    <li><strong>D&eacute;gustation personnalis&eacute;e</strong> (20 min) &mdash; 5 th&eacute;s choisis selon les go&ucirc;ts du groupe</li>
+    <li><strong>Cr&eacute;ation de m&eacute;lange</strong> (20 min) &mdash; M&eacute;lange sign&eacute;, &eacute;tiquet&eacute; au pr&eacute;nom</li>
+    <li><strong>Matcha Latte Bar</strong> (15 min) &mdash; Chacune pr&eacute;pare son latte</li>
+    <li><strong>Accords gourmands</strong> (15 min) &mdash; Macarons, chocolats (option p&acirc;tissier local)</li>
+    <li><strong>Cadeau</strong> (10 min) &mdash; L'invit&eacute;e d'honneur re&ccedil;oit un coffret Teatower</li>
+  </ol>
+  <div class="section-label">Chaque invit&eacute;e repart avec</div>
+  <div class="takeaway">M&eacute;lange personnalis&eacute; (15g) &eacute;tiquet&eacute; &agrave; son nom + -10% achat boutique</div>
+  <div class="upsell" style="margin-top:6px;">Panier moyen post-atelier estim&eacute; : 20-30&euro;/invit&eacute;e</div>
+</div>
+
+<!-- 8. Tea Building -->
+<div class="atelier" style="border-left-color:#1565c0;">
+  <div class="top">
+    <div>
+      <span class="emoji">💼</span>
+      <span class="name">Tea Building</span>
+      <div class="tagline">Team building autour du th&eacute; &mdash; original, calme, f&eacute;d&eacute;rateur</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">300&euro; forfait (12 pers.)</span>
+      <span class="pill pill-time">1h30</span>
+      <span class="pill pill-people">8-20 pers.</span>
+      <span class="pill pill-season">Toute l'ann&eacute;e</span>
+    </div>
+  </div>
+  <div class="section-label">D&eacute;roul&eacute;</div>
+  <ol class="steps">
+    <li><strong>Ice breaker th&eacute;</strong> (10 min) &mdash; "Si vous &eacute;tiez un th&eacute;, lequel seriez-vous ?"</li>
+    <li><strong>D&eacute;gustation en &eacute;quipe</strong> (20 min) &mdash; 2 &eacute;quipes, d&eacute;gustation &agrave; l'aveugle comp&eacute;titive</li>
+    <li><strong>Challenge blending</strong> (25 min) &mdash; Cr&eacute;er un m&eacute;lange qui repr&eacute;sente son &eacute;quipe. Nom, packaging, pitch.</li>
+    <li><strong>Matcha challenge</strong> (15 min) &mdash; Qui fait la meilleure mousse ? Chrono + jury</li>
+    <li><strong>Pr&eacute;sentation &amp; vote</strong> (15 min) &mdash; Le gagnant repart avec un coffret</li>
+    <li><strong>Networking</strong> (5 min) &mdash; Moment libre, achats</li>
+  </ol>
+  <div class="section-label">Options</div>
+  <div class="upsell">Facturation soci&eacute;t&eacute;, devis sur mesure, bo&icirc;tes brand&eacute;es au logo (MOQ 20 pi&egrave;ces)</div>
+</div>
+
+<!-- 9. Tea School -->
+<div class="atelier" style="border-left-color:#7b1fa2;">
+  <div class="top">
+    <div>
+      <span class="emoji">🎓</span>
+      <span class="name">Tea School</span>
+      <div class="tagline">Atelier scolaire &mdash; gratuit pour l'&eacute;cole (mod&egrave;le collab)</div>
+    </div>
+    <div class="pills">
+      <span class="pill pill-price">Gratuit (&eacute;change)</span>
+      <span class="pill pill-time">45 min</span>
+      <span class="pill pill-people">15-30 &eacute;l&egrave;ves</span>
+      <span class="pill pill-season">Ann&eacute;e scolaire</span>
+    </div>
+  </div>
+  <div class="section-label">Mod&egrave;le</div>
+  <p style="font-size:13px; color:#555;">Teatower offre l'atelier. L'&eacute;cole envoie un email aux parents avec un code promo -15% personnalis&eacute; + autorise le contenu photo/vid&eacute;o. D&eacute;tail complet dans le <a href="collab-scolaire.html" style="color:#16393E; font-weight:600;">Kit Collab Scolaire</a>.</p>
+  <div class="section-label">3 formats disponibles</div>
+  <div class="teas">
+    <span class="tea-tag">Voyage autour du th&eacute; (8-12 ans)</span>
+    <span class="tea-tag">Atelier Matcha (12-18 ans)</span>
+    <span class="tea-tag">Mon infusion bien-&ecirc;tre (8-14 ans)</span>
+  </div>
+</div>
+
+<!-- ═══════════ PROJECTION ═══════════ -->
+<h2>Projection 500 participants</h2>
+
+<div class="atelier" style="border-left-color:#6D3A05;">
+  <table>
+    <tr><th>Format</th><th>Fr&eacute;quence</th><th>Pers./session</th><th>Sessions/mois</th><th>Total annuel</th></tr>
+    <tr><td>D&eacute;couverte + Matcha</td><td>2x/mois par boutique</td><td>7</td><td>6</td><td>504</td></tr>
+    <tr><td>Tea &amp; Zen / Blending Lab</td><td>1x/mois</td><td>6</td><td>1</td><td>72</td></tr>
+    <tr><td>Summer Sips / Cha&iuml;</td><td>1x/mois (saison)</td><td>7</td><td>1</td><td>42</td></tr>
+    <tr><td>Tea Time Famille</td><td>2 dimanches/mois</td><td>10 (5 duos)</td><td>2</td><td>240</td></tr>
+    <tr><td>Tea Party Priv&eacute;e</td><td>2x/mois</td><td>8</td><td>2</td><td>192</td></tr>
+    <tr><td>Tea Building</td><td>1x/mois</td><td>12</td><td>1</td><td>144</td></tr>
+    <tr><td>Tea School</td><td>1x/mois</td><td>25</td><td>1</td><td>300</td></tr>
+    <tr style="background:#f8f5f0; font-weight:700;"><td>TOTAL</td><td></td><td></td><td>14/mois</td><td>~1 494</td></tr>
+  </table>
+  <p style="margin-top:12px; font-size:13px; color:#888;">500 est tr&egrave;s atteignable avec 3-4 ateliers/semaine entre les 3 boutiques. CA estim&eacute; : 15-20K&euro;/an (hors upsell post-atelier).</p>
+</div>
+
+<!-- ═══════════ CALENDRIER TYPE ═══════════ -->
+<h2>Calendrier type mensuel</h2>
+
+<div class="atelier" style="border-left-color:#2D5016;">
+  <table>
+    <tr><th>Semaine</th><th>Samedi matin</th><th>Samedi apr&egrave;s-midi</th><th>Dimanche matin</th></tr>
+    <tr><td><strong>Sem. 1</strong></td><td>🍵 D&eacute;couverte (WAT)</td><td>🍃 Matcha (NAM)</td><td>👨‍👩‍👧 Famille (WAT)</td></tr>
+    <tr><td><strong>Sem. 2</strong></td><td>🌸 Tea &amp; Zen (LGE)</td><td>🍵 D&eacute;couverte (NAM)</td><td>👨‍👩‍👧 Famille (NAM)</td></tr>
+    <tr><td><strong>Sem. 3</strong></td><td>🍃 Matcha (WAT)</td><td>🌿 Blending Lab (LGE)</td><td>👨‍👩‍👧 Famille (LGE)</td></tr>
+    <tr><td><strong>Sem. 4</strong></td><td>🧊/🌶️ Saisonnier (NAM)</td><td>🍵 D&eacute;couverte (LGE)</td><td>👨‍👩‍👧 Famille (WAT)</td></tr>
+  </table>
+  <p style="margin-top:10px; font-size:12px; color:#888;">Priv&eacute;s (EVJF/entreprises) : sur demande, en semaine ou samedi soir. &Eacute;coles : en semaine pendant les heures de cours.</p>
+</div>
+
+<div class="footer">
+  Catalogue Ateliers Teatower 2026 &middot; Trevor (Sommelier) &middot; Diffusion interne &middot; Avril 2026
+</div>
+
+</body>
+</html>
