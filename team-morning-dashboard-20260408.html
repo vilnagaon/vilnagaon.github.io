@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teatower Team Morning Dashboard — 8 Avril 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; padding: 20px; max-width: 1200px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #2D5016 0%, #4a7c28 100%); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .header .subtitle { font-size: 14px; opacity: 0.85; }
+  .header .date { font-size: 18px; font-weight: 500; margin-top: 8px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .kpi .value { font-size: 28px; font-weight: 700; color: #2D5016; }
+  .kpi .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .kpi .sub { font-size: 13px; color: #666; margin-top: 2px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .store-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .store-header .store-ca { font-size: 22px; font-weight: 700; }
+  .store-header .store-detail { font-size: 13px; color: #888; }
+  .store-header .badge { font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-up { background: #e8f5e9; color: #2e7d32; }
+  .badge-down { background: #fce4ec; color: #c62828; }
+  .badge-flat { background: #f5f5f5; color: #666; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table th { text-align: left; font-weight: 600; color: #888; font-size: 11px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid #eee; }
+  table td { padding: 6px 8px; border-bottom: 1px solid #f5f5f5; }
+  table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .hour-bar { display: flex; align-items: center; gap: 6px; margin: 3px 0; font-size: 12px; }
+  .hour-bar .hour-label { width: 30px; text-align: right; color: #888; }
+  .hour-bar .bar { height: 18px; border-radius: 3px; min-width: 2px; display: flex; align-items: center; padding-left: 6px; font-size: 11px; color: white; font-weight: 500; }
+  .hour-bar .hour-meta { font-size: 11px; color: #aaa; margin-left: 4px; }
+  .mc-campaign { padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .mc-campaign:last-child { border-bottom: none; }
+  .mc-subject { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .mc-stats { display: flex; gap: 12px; font-size: 12px; color: #666; flex-wrap: wrap; }
+  .mc-stats .highlight { color: #2D5016; font-weight: 600; }
+  .promo-banner { background: linear-gradient(135deg, #c62828, #e53935); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; text-align: center; color: white; }
+  .promo-banner .emoji { font-size: 24px; }
+  .promo-banner .text { font-size: 15px; font-weight: 600; margin-top: 4px; }
+  .promo-banner .detail { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 24px; padding: 16px; }
+  @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Teatower Team Morning Dashboard</h1>
+  <div class="date">Mercredi 8 Avril 2026</div>
+  <div class="subtitle">Donn&eacute;es du mardi 7 avril &mdash; Journ&eacute;e Mondiale de la Sant&eacute; (-20%)</div>
+</div>
+
+<div class="promo-banner">
+  <div class="emoji">🍃 SANTE20</div>
+  <div class="text">Journ&eacute;e de la Sant&eacute; : 23 commandes Shopify avec le code SANTE20 = 1,213&euro;</div>
+  <div class="detail">64% du CA Shopify du jour g&eacute;n&eacute;r&eacute; par la promo &middot; 42,654 emails envoy&eacute;s &middot; 9,839 ouvertures &middot; 178 clicks</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="value">4,830&euro;</div>
+    <div class="label">CA Total</div>
+    <div class="sub">140 commandes</div>
+  </div>
+  <div class="kpi">
+    <div class="value">2,929&euro;</div>
+    <div class="label">POS Magasins</div>
+    <div class="sub">103 cmd &middot; <span style="color:#2e7d32; font-weight:600;">&uarr;34% vs S-1</span></div>
+  </div>
+  <div class="kpi">
+    <div class="value">1,900&euro;</div>
+    <div class="label">Shopify Online</div>
+    <div class="sub">37 cmd &middot; panier 51&euro; &middot; <span style="color:#2e7d32; font-weight:700;">&gt;800&euro; ✅</span></div>
+  </div>
+  <div class="kpi">
+    <div class="value">9,839</div>
+    <div class="label">Opens Newsletter</div>
+    <div class="sub">42,654 envois &middot; 178 clicks</div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#2D5016"></span> Waterloo</h3>
+      <span class="badge badge-up">&uarr; 86% vs S-1</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#2D5016">445.84&euro;</span>
+      <span class="store-detail">16 cmd &middot; 28&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:50%;background:#2D5016">2</div><span class="hour-meta">70&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:100%;background:#2D5016">4</div><span class="hour-meta">131&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:25%;background:#2D5016">1</div><span class="hour-meta">8&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:50%;background:#2D5016">2</div><span class="hour-meta">38&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:25%;background:#2D5016">1</div><span class="hour-meta">9&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:75%;background:#2D5016">3</div><span class="hour-meta">87&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:50%;background:#2D5016">2</div><span class="hour-meta">70&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:25%;background:#2D5016">1</div><span class="hour-meta">33&euro;</span></div>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#8B4513"></span> Namur</h3>
+      <span class="badge badge-flat">&darr; 7% vs S-1</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#8B4513">1,184.45&euro;</span>
+      <span class="store-detail">44 cmd &middot; 27&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:27%;background:#8B4513">3</div><span class="hour-meta">43&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:18%;background:#8B4513">2</div><span class="hour-meta">42&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:100%;background:#8B4513">11</div><span class="hour-meta">272&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:64%;background:#8B4513">7</div><span class="hour-meta">164&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:45%;background:#8B4513">5</div><span class="hour-meta">206&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:45%;background:#8B4513">5</div><span class="hour-meta">164&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:45%;background:#8B4513">5</div><span class="hour-meta">108&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:55%;background:#8B4513">6</div><span class="hour-meta">185&euro;</span></div>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#1a5276"></span> Li&egrave;ge</h3>
+      <span class="badge badge-up">&uarr; 96% vs S-1</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#1a5276">1,299.12&euro;</span>
+      <span class="store-detail">43 cmd &middot; 30&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:45%;background:#1a5276">5</div><span class="hour-meta">180&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:55%;background:#1a5276">6</div><span class="hour-meta">134&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:100%;background:#1a5276">11</div><span class="hour-meta">379&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:55%;background:#1a5276">6</div><span class="hour-meta">181&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:64%;background:#1a5276">7</div><span class="hour-meta">210&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:18%;background:#1a5276">2</div><span class="hour-meta">39&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:45%;background:#1a5276">5</div><span class="hour-meta">177&euro;</span></div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#96bf48"></span> Shopify Online</h3>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#96bf48">1,900.20&euro;</span>
+      <span class="store-detail">37 cmd &middot; 51&euro;/cmd &middot; 205 articles</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">SANTE20 : 23 CMD / 1,213&euro; (64%)</h3>
+    <h3 style="margin-top:12px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>P&ecirc;che de vigne BIO (Rooibos)</td><td class="num">12</td><td class="num">130&euro;</td></tr>
+      <tr><td>P&ecirc;ch&eacute; Mignon</td><td class="num">10</td><td class="num">108&euro;</td></tr>
+      <tr><td>Lady Dodo</td><td class="num">10</td><td class="num">107&euro;</td></tr>
+      <tr><td>Darjeeling SF FTGFOP1 BIO</td><td class="num">2</td><td class="num">90&euro;</td></tr>
+      <tr><td>Eden's Garden (th&eacute; blanc)</td><td class="num">7</td><td class="num">73&euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#FFE01B"></span> Newsletters AVRNL2 — Sant&eacute;</h3>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#c5a000">9,839 opens</span>
+      <span class="store-detail">42,654 envois &middot; 178 clicks</span>
+    </div>
+    <div class="mc-campaign">
+      <div class="mc-subject">PLUS QUE 3 HEURES! : -20% sur tous nos th&eacute;s 🍃</div>
+      <div class="mc-stats"><span>17:26</span><span>5,632 envois</span><span class="highlight">56.5% opens</span><span>24 clicks</span></div>
+    </div>
+    <div class="mc-campaign">
+      <div class="mc-subject">Teatower Waterloo: -20% aujourd'hui</div>
+      <div class="mc-stats"><span>04:15</span><span>3,727</span><span class="highlight">29.0% opens</span><span>23 clicks (0.62%)</span></div>
+    </div>
+    <div class="mc-campaign">
+      <div class="mc-subject">Teatower Namur: -20% aujourd'hui</div>
+      <div class="mc-stats"><span>04:15</span><span>2,230</span><span class="highlight">22.6% opens</span><span>17 clicks (0.76%)</span></div>
+    </div>
+    <div class="mc-campaign">
+      <div class="mc-subject">Teatower Li&egrave;ge: -20% aujourd'hui</div>
+      <div class="mc-stats"><span>04:15</span><span>6,120</span><span class="highlight">21.5% opens</span><span>41 clicks (0.67%)</span></div>
+    </div>
+    <div class="mc-campaign">
+      <div class="mc-subject">Teatower: -20% aujourd'hui (Autres)</div>
+      <div class="mc-stats"><span>04:15</span><span>24,945</span><span class="highlight">15.1% opens</span><span>73 clicks (0.29%)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Teatower Team Morning Dashboard &middot; Donn&eacute;es du mardi 7 avril 2026 &middot; G&eacute;n&eacute;r&eacute; le 08/04/2026
+</div>
+
+</body>
+</html>
