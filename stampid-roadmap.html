@@ -348,6 +348,123 @@
     );
   }
 
+  /* Proposals section */
+  .proposals {
+    margin-top: 3rem;
+  }
+
+  .proposals > h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--accent-light);
+  }
+
+  .proposals > p.section-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .proposal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .proposal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    border-left: 3px solid var(--accent);
+    transition: border-color 0.2s;
+  }
+
+  .proposal-card:hover {
+    border-color: var(--accent-light);
+  }
+
+  .proposal-card .q-number {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-light);
+    margin-bottom: 0.35rem;
+  }
+
+  .proposal-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .proposal-card .recommendation {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--phase0);
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0,184,148,0.08);
+    border-radius: 6px;
+  }
+
+  .proposal-card .rationale {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .proposal-card .rationale ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0;
+  }
+
+  .proposal-card .rationale li {
+    padding: 0.2rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .proposal-card .rationale li::before {
+    content: '\25B8';
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+  }
+
+  .proposal-card .decision-by {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .proposal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0;
+    font-size: 0.78rem;
+  }
+
+  .proposal-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proposal-table td {
+    padding: 0.3rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .proposal-table tr:last-child td { border-bottom: none; }
+
   .footer {
     text-align: center;
     padding: 2rem;
@@ -828,6 +945,163 @@
       </ul>
     </div>
   </div>
+
+  <!-- ====== PROPOSALS ====== -->
+  <div class="proposals">
+    <h2>&#128161; Proposed Answers to Open Questions</h2>
+    <p class="section-desc">Board-ready recommendations for the 8 unresolved items &mdash; prepared for discussion on 2026-04-10</p>
+
+    <div class="proposal-grid">
+
+      <!-- Q1 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 1</div>
+        <h3>Crypto Platform Choice</h3>
+        <div class="recommendation">Start on Scroll (L2), plan migration path to Europeum</div>
+        <div class="rationale">
+          <ul>
+            <li>Scroll is production-ready today &mdash; EVM-compatible, low gas costs</li>
+            <li>Europeum (EBSI) is strategically aligned but not production-ready yet</li>
+            <li>Multi-chain support (Scroll / Europeum) is already planned in P3</li>
+            <li>SDK should abstract the anchoring layer from day 1 so switching chains is a config change, not a rewrite</li>
+          </ul>
+          <div class="decision-by">Decision: Mathieu &amp; Leila (EBSI implications)</div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 2</div>
+        <h3>GitLab Setup Timeline</h3>
+        <div class="recommendation">1&ndash;2 days &mdash; use GitLab SaaS (EU data residency), don't block P1</div>
+        <div class="rationale">
+          <ul>
+            <li>GitLab SaaS setup is a few hours: create group, CI/CD templates, branch protection</li>
+            <li>Self-hosted on Hosteur is overkill at this stage (2&ndash;3d)</li>
+            <li>GitLab offers EU-only data residency on SaaS plan</li>
+            <li>Guillaume&rsquo;s availability is a bottleneck &mdash; St&eacute;phane could handle setup alone if needed</li>
+          </ul>
+          <div class="decision-by">Decision: Guillaume / St&eacute;phane</div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 3</div>
+        <h3>Europeum Compatibility</h3>
+        <div class="recommendation">Design chain-agnostic anchoring now, evaluate Europeum in H2 2026</div>
+        <div class="rationale">
+          <ul>
+            <li>Europeum is still emerging &mdash; source docs position it as future alignment, not immediate dependency</li>
+            <li>Architecture already describes proof layer as independent from anchoring infra</li>
+            <li>Define an <code>AnchoringProvider</code> interface, implement Scroll first, add Europeum when its API stabilizes</li>
+            <li>Keeps the European sovereignty narrative credible without blocking delivery</li>
+          </ul>
+          <div class="decision-by">Decision: Mathieu (EBSI lead)</div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 4</div>
+        <h3>Key Ledger Service Estimates</h3>
+        <div class="recommendation">~15&ndash;20 days total &mdash; the most critical unestimated block</div>
+        <div class="rationale">
+          <table class="proposal-table">
+            <tr><th>Component</th><th>Est.</th></tr>
+            <tr><td>PostgreSQL schema (key_ledger, anchors, stamps)</td><td>2&ndash;3d</td></tr>
+            <tr><td>YubiHSM 2 integration (PMK, wrap/unwrap KEK)</td><td>5&ndash;7d</td></tr>
+            <tr><td>Cryptographic chaining algorithm</td><td>3&ndash;4d</td></tr>
+            <tr><td>Crypto Engine (signing service)</td><td>3&ndash;4d</td></tr>
+            <tr><td>Crypto test suite</td><td>2&ndash;3d</td></tr>
+          </table>
+          <div class="decision-by">Must be estimated before P2/P3 boundary is finalized</div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 5</div>
+        <h3>API Pentest Scope &amp; Timing</h3>
+        <div class="recommendation">Two pentests &mdash; lightweight in P2, full external in P3</div>
+        <div class="rationale">
+          <ul>
+            <li><strong>P2:</strong> Internal / freelance consultant (~2&ndash;3d). Focus on auth flows, API validation, key management boundaries</li>
+            <li><strong>P3:</strong> Full external pentest (~5d + remediation). Complete surface: API, smart contracts, wallets, front-end. Specialized firm (web3 + API)</li>
+            <li>Budget estimate: 5&ndash;10k&euro; for the full pentest</li>
+            <li>Non-custodial architecture limits the attack surface &mdash; scope is manageable</li>
+          </ul>
+          <div class="decision-by">Decision: Leila (budget) &amp; St&eacute;phane (scope)</div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 6</div>
+        <h3>CDN / WAF &mdash; EU Alternative</h3>
+        <div class="recommendation">OVHcloud (pragmatic) or Gcore (performance)</div>
+        <div class="rationale">
+          <table class="proposal-table">
+            <tr><th>Provider</th><th>HQ</th><th>WAF</th><th>From</th></tr>
+            <tr><td><strong>OVHcloud</strong></td><td>FR</td><td>Yes</td><td>~20 &euro;/mo</td></tr>
+            <tr><td><strong>Gcore</strong></td><td>LU</td><td>Yes</td><td>~50 &euro;/mo</td></tr>
+            <tr><td>Myra Security</td><td>DE</td><td>Yes</td><td>Enterprise</td></tr>
+          </table>
+          <ul>
+            <li>Check with Hosteur first &mdash; a CDN/WAF bundle simplifies the stack</li>
+            <li>Cloudflare EU Data Localization exists but enterprise pricing, less sovereignty-aligned</li>
+          </ul>
+          <div class="decision-by">Decision: St&eacute;phane (Hosteur meeting)</div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 7</div>
+        <h3>Server Cost</h3>
+        <div class="recommendation">Budget 400&ndash;800 &euro;/mo for production at Hosteur</div>
+        <div class="rationale">
+          <table class="proposal-table">
+            <tr><th>Component</th><th>Spec</th></tr>
+            <tr><td>KeyCloak (auth)</td><td>2 vCPU / 4 GB RAM</td></tr>
+            <tr><td>API + Crypto Engine</td><td>2&ndash;4 vCPU / 8 GB RAM</td></tr>
+            <tr><td>PostgreSQL</td><td>2 vCPU / 4 GB RAM + SSD</td></tr>
+            <tr><td>GitLab runner (CI/CD)</td><td>2 vCPU / 4 GB (burst)</td></tr>
+          </table>
+          <ul>
+            <li>Dedicated server at Hosteur: ~300&ndash;500 &euro;/mo</li>
+            <li>Managed PostgreSQL / backup: +100&ndash;200 &euro;/mo</li>
+            <li>YubiHSM 2 (1,300 &euro; one-time) needs USB &mdash; requires physical or dedicated hosting</li>
+            <li>Current VPS at 240 &euro;/yr is MVP-only &mdash; production needs significantly more</li>
+          </ul>
+          <div class="decision-by">Hosteur architecture meeting (P1, 0.5d) should produce firm quote</div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="proposal-card">
+        <div class="q-number">Question 8</div>
+        <h3>Crypto Account Policies</h3>
+        <div class="recommendation">Three-tier wallet architecture with clear governance</div>
+        <div class="rationale">
+          <table class="proposal-table">
+            <tr><th>Wallet</th><th>Max Balance</th><th>Access</th></tr>
+            <tr><td><strong>Hot wallet</strong> (API txns)</td><td>&le; 500 &euro; ETH</td><td>Automated, API</td></tr>
+            <tr><td><strong>Refiller Vault</strong></td><td>&le; 5,000 &euro; ETH</td><td>Chainlink + 1-of-2 multisig</td></tr>
+            <tr><td><strong>Cold / Treasury</strong></td><td>No cap</td><td>2-of-3 multisig</td></tr>
+          </table>
+          <ul>
+            <li>Only treasury signers (2-of-3: Leila, Mathieu, St&eacute;phane) can purchase crypto via regulated EU exchange</li>
+            <li>Auto-refill hot wallet when below 100 &euro;; alert when Refiller Vault below 1,000 &euro;</li>
+            <li>Re-price service fees in ETH weekly or when EUR/ETH moves &gt;10% (Chainlink Automation)</li>
+            <li>Max loss on hot wallet compromise = hot wallet balance (keep it small by design)</li>
+          </ul>
+          <div class="decision-by">To be formalized via SafeWallet governance + playbooks (4.5d) &amp; threat modeling (2d)</div>
+        </div>
+      </div>
+
+    </div><!-- /proposal-grid -->
+  </div><!-- /proposals -->
 
 </div>
 
