@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teatower Team Morning Dashboard &mdash; 14 Avril 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; padding: 20px; max-width: 1200px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #2D5016 0%, #4a7c28 100%); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .header .subtitle { font-size: 14px; opacity: 0.85; }
+  .header .date { font-size: 18px; font-weight: 500; margin-top: 8px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .kpi .value { font-size: 28px; font-weight: 700; color: #2D5016; }
+  .kpi .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .kpi .sub { font-size: 13px; color: #666; margin-top: 2px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .store-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .store-header .store-ca { font-size: 22px; font-weight: 700; }
+  .store-header .store-detail { font-size: 13px; color: #888; }
+  .store-header .badge { font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-up { background: #e8f5e9; color: #2e7d32; }
+  .badge-down { background: #fce4ec; color: #c62828; }
+  .badge-flat { background: #f5f5f5; color: #666; }
+  .badge-new { background: #e3f2fd; color: #1565c0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table th { text-align: left; font-weight: 600; color: #888; font-size: 11px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid #eee; }
+  table td { padding: 6px 8px; border-bottom: 1px solid #f5f5f5; }
+  table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .hour-bar { display: flex; align-items: center; gap: 6px; margin: 3px 0; font-size: 12px; }
+  .hour-bar .hour-label { width: 30px; text-align: right; color: #888; }
+  .hour-bar .bar { height: 18px; border-radius: 3px; min-width: 2px; display: flex; align-items: center; padding-left: 6px; font-size: 11px; color: white; font-weight: 500; }
+  .hour-bar .hour-meta { font-size: 11px; color: #aaa; margin-left: 4px; }
+  .mc-campaign { padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .mc-campaign:last-child { border-bottom: none; }
+  .mc-subject { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .mc-stats { display: flex; gap: 12px; font-size: 12px; color: #666; flex-wrap: wrap; }
+  .mc-stats .highlight { color: #2D5016; font-weight: 600; }
+  .closed-notice { text-align: center; padding: 30px 16px; color: #999; font-size: 14px; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 24px; padding: 16px; }
+  @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Teatower Team Morning Dashboard</h1>
+  <div class="date">Mardi 14 Avril 2026</div>
+  <div class="subtitle">Donn&eacute;es du dimanche 13 avril</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="value">2,200&euro;</div>
+    <div class="label">CA Total</div>
+    <div class="sub">75 commandes</div>
+  </div>
+  <div class="kpi">
+    <div class="value">1,572&euro;</div>
+    <div class="label">POS Magasins</div>
+    <div class="sub">67 cmd &middot; <span class="badge badge-new">S-1 ferm&eacute;</span></div>
+  </div>
+  <div class="kpi">
+    <div class="value">628&euro;</div>
+    <div class="label">Shopify Online</div>
+    <div class="sub">8 cmd &middot; panier 79&euro;</div>
+  </div>
+  <div class="kpi">
+    <div class="value">&mdash;</div>
+    <div class="label">Newsletter</div>
+    <div class="sub">Aucune campagne</div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#2D5016"></span> Waterloo</h3>
+      <span class="badge badge-new">S-1 ferm&eacute;</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#2D5016">251.51&euro;</span>
+      <span class="store-detail">8 cmd &middot; 31&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:100%;background:#2D5016">5</div><span class="hour-meta">142&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:7%;background:#2D5016">1</div><span class="hour-meta">10&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:22%;background:#2D5016">1</div><span class="hour-meta">32&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:49%;background:#2D5016">1</div><span class="hour-meta">69&euro;</span></div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>Plaisir caramel (20 infusettes)</td><td class="num">2</td><td class="num">22&euro;</td></tr>
+      <tr><td>Lady Dodo (20 infusettes)</td><td class="num">2</td><td class="num">22&euro;</td></tr>
+      <tr><td>Matcha japonais</td><td class="num">1</td><td class="num">20&euro;</td></tr>
+      <tr><td>Tisani&egrave;re MANDALA 350ml rose</td><td class="num">1</td><td class="num">20&euro;</td></tr>
+      <tr><td>Milky Oolong BIO (80 g vrac)</td><td class="num">1</td><td class="num">18&euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#8B4513"></span> Namur</h3>
+      <span class="badge badge-new">S-1 ferm&eacute;</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#8B4513">823.41&euro;</span>
+      <span class="store-detail">38 cmd &middot; 22&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:32%;background:#8B4513">4</div><span class="hour-meta">78&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:51%;background:#8B4513">4</div><span class="hour-meta">125&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:44%;background:#8B4513">5</div><span class="hour-meta">108&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:32%;background:#8B4513">4</div><span class="hour-meta">79&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:100%;background:#8B4513">7</div><span class="hour-meta">247&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:60%;background:#8B4513">8</div><span class="hour-meta">148&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:15%;background:#8B4513">6</div><span class="hour-meta">38&euro;</span></div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>Vrac 1kg Masala Chai</td><td class="num">1</td><td class="num">43&euro;</td></tr>
+      <tr><td>Ginger Hot (20 infusettes)</td><td class="num">4</td><td class="num">42&euro;</td></tr>
+      <tr><td>Le panier de grand maman (80 g vrac)</td><td class="num">4</td><td class="num">39&euro;</td></tr>
+      <tr><td>La Nana de W&eacute;pion (20 infusettes)</td><td class="num">3</td><td class="num">31&euro;</td></tr>
+      <tr><td>Namast&eacute; BIO (80 g vrac)</td><td class="num">3</td><td class="num">29&euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#1a5276"></span> Li&egrave;ge</h3>
+      <span class="badge badge-new">S-1 ferm&eacute;</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#1a5276">496.64&euro;</span>
+      <span class="store-detail">21 cmd &middot; 24&euro;/cmd</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:85%;background:#1a5276">5</div><span class="hour-meta">92&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:46%;background:#1a5276">2</div><span class="hour-meta">50&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:47%;background:#1a5276">2</div><span class="hour-meta">51&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:100%;background:#1a5276">2</div><span class="hour-meta">108&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:28%;background:#1a5276">1</div><span class="hour-meta">30&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:100%;background:#1a5276">1</div><span class="hour-meta">108&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:27%;background:#1a5276">1</div><span class="hour-meta">29&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:26%;background:#1a5276">1</div><span class="hour-meta">28&euro;</span></div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>400G Panier Grand Maman</td><td class="num">1</td><td class="num">43&euro;</td></tr>
+      <tr><td>Libert&eacute; (500 g vrac)</td><td class="num">1</td><td class="num">43&euro;</td></tr>
+      <tr><td>Matcha japonais</td><td class="num">2</td><td class="num">39&euro;</td></tr>
+      <tr><td>Granada (100 g vrac)</td><td class="num">4</td><td class="num">38&euro;</td></tr>
+      <tr><td>Le panier de grand maman (20 infusettes)</td><td class="num">3</td><td class="num">33&euro;</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#96bf48"></span> Shopify Online</h3>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#96bf48">628.05&euro;</span>
+      <span class="store-detail">8 cmd &middot; 79&euro;/cmd &middot; 34 articles</span>
+    </div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:100%;background:#96bf48">4</div><span class="hour-meta">378&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:11%;background:#96bf48">1</div><span class="hour-meta">40&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:6%;background:#96bf48">1</div><span class="hour-meta">22&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:10%;background:#96bf48">1</div><span class="hour-meta">37&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:12%;background:#96bf48">1</div><span class="hour-meta">46&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:17%;background:#96bf48">1</div><span class="hour-meta">63&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">19h</span><div class="bar" style="width:12%;background:#96bf48">1</div><span class="hour-meta">44&euro;</span></div>
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>Th&eacute; du d&eacute;sert (menthe)</td><td class="num">3</td><td class="num">135&euro;</td></tr>
+      <tr><td>P&ecirc;che de vigne BIO (rooibos)</td><td class="num">2</td><td class="num">90&euro;</td></tr>
+      <tr><td>Matcha Japonais 50 gr</td><td class="num">3</td><td class="num">60&euro;</td></tr>
+      <tr><td>Earl Grey (th&eacute; noir bergamote)</td><td class="num">2</td><td class="num">56&euro;</td></tr>
+      <tr><td>Caramel beurre sal&eacute; (th&eacute; noir)</td><td class="num">1</td><td class="num">45&euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#FFE01B"></span> Newsletters</h3>
+    </div>
+    <div class="closed-notice">Aucune campagne envoy&eacute;e le dimanche 13 avril</div>
+  </div>
+</div>
+
+<div class="footer">
+  Teatower Team Morning Dashboard &middot; Donn&eacute;es du dimanche 13 avril 2026 &middot; G&eacute;n&eacute;r&eacute; le 14/04/2026
+</div>
+
+</body>
+</html>
