@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse Contenu Meta — Teatower · Mars-Avril 2026</title>
+<style>
+  :root { --green:#2D5016; --green-bg:#e8efde; --brown:#8B6331; --bg:#FAF8F4; --border:#e5e0d6; --red:#c0392b; --orange:#d97706; --gold:#FFB300; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif; background:var(--bg); color:#1a1a1a; line-height:1.6; }
+  .wrap { max-width:900px; margin:0 auto; padding:40px 24px 80px; }
+
+  header { background:var(--green); color:#fff; padding:48px 24px; text-align:center; margin-bottom:40px; border-radius:16px; }
+  header h1 { font-size:32px; font-weight:800; margin-bottom:8px; }
+  header p { opacity:0.8; font-size:15px; }
+  .period { display:inline-block; background:rgba(255,255,255,0.15); padding:6px 16px; border-radius:20px; font-size:13px; margin-top:12px; }
+
+  .card { background:#fff; border-radius:16px; padding:32px; margin-bottom:28px; box-shadow:0 2px 12px rgba(0,0,0,0.04); border:1px solid var(--border); }
+  .card h2 { font-size:22px; color:var(--green); font-weight:700; margin-bottom:16px; padding-bottom:10px; border-bottom:2px solid var(--green-bg); }
+  .card h3 { font-size:16px; color:var(--brown); font-weight:700; margin:20px 0 8px; text-transform:uppercase; letter-spacing:0.5px; }
+
+  /* KPI grid */
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:16px; margin:20px 0; }
+  .kpi { background:var(--green-bg); border-radius:12px; padding:18px; text-align:center; }
+  .kpi .val { font-size:28px; font-weight:800; color:var(--green); }
+  .kpi .label { font-size:12px; color:var(--brown); text-transform:uppercase; margin-top:4px; }
+  .kpi .sub { font-size:11px; color:#999; margin-top:2px; }
+  .kpi.bad { background:#fef2f2; }
+  .kpi.bad .val { color:var(--red); }
+  .kpi.warn { background:#fef9c3; }
+  .kpi.warn .val { color:var(--orange); }
+
+  /* Tables */
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; }
+  th { background:var(--green); color:#fff; padding:10px 14px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  td { padding:10px 14px; border-top:1px solid var(--border); vertical-align:top; }
+  tr:nth-child(even) td { background:#faf6ef; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+
+  /* Callouts */
+  .callout { padding:16px 20px; border-radius:10px; margin:16px 0; font-size:14px; }
+  .callout.danger { background:#fef2f2; border-left:4px solid var(--red); }
+  .callout.success { background:#dcfce7; border-left:4px solid var(--green); }
+  .callout.warning { background:#fef9c3; border-left:4px solid var(--orange); }
+  .callout strong { color:#1a1a1a; }
+
+  /* Badge */
+  .badge { display:inline-block; font-size:11px; padding:3px 10px; border-radius:12px; font-weight:600; }
+  .badge-red { background:#fef2f2; color:var(--red); }
+  .badge-green { background:#dcfce7; color:var(--green); }
+  .badge-yellow { background:#fef9c3; color:var(--orange); }
+  .badge-gray { background:#f0f0f0; color:#666; }
+
+  /* Bar chart */
+  .bar-row { display:flex; align-items:center; gap:12px; margin:8px 0; }
+  .bar-label { font-size:13px; width:180px; flex-shrink:0; }
+  .bar-container { flex:1; height:24px; background:#f0ede6; border-radius:6px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:8px; }
+  .bar-fill span { font-size:11px; font-weight:700; color:#fff; }
+
+  /* Reco cards */
+  .reco { display:flex; gap:14px; background:var(--green-bg); border-radius:12px; padding:16px 20px; margin-bottom:12px; }
+  .reco .num { flex-shrink:0; width:32px; height:32px; background:var(--green); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+  .reco .content { flex:1; }
+  .reco h4 { font-size:15px; font-weight:700; color:var(--green); margin-bottom:4px; }
+  .reco p { font-size:13px; color:#555; margin:0; }
+
+  footer { text-align:center; margin-top:40px; color:#999; font-size:13px; }
+
+  @media (max-width:640px) {
+    .wrap { padding:20px 16px 60px; }
+    .card { padding:20px; }
+    .kpi-grid { grid-template-columns:repeat(2, 1fr); }
+    table { font-size:12px; }
+    th, td { padding:8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <h1>Analyse Contenu Meta</h1>
+  <p>Performance des publications Facebook & Instagram — Teatower</p>
+  <span class="period">19 mars → 15 avril 2026 · 15 publications</span>
+</header>
+
+<!-- VERDICT -->
+<div class="card">
+  <h2>Verdict</h2>
+  <div class="callout danger">
+    <strong>Le contenu tourne mais ne convertit pas.</strong> 16,058 de reach pour seulement 20 link clicks = 0.12% CTR. Les gens voient les posts, réagissent un peu (1.6% engagement), mais personne ne clique vers le site. C'est du "jab" sans "right hook".
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="val">15</div>
+      <div class="label">Publications</div>
+      <div class="sub">~1 tous les 2 jours</div>
+    </div>
+    <div class="kpi">
+      <div class="val">16,058</div>
+      <div class="label">Reach total</div>
+      <div class="sub">1,071 / post</div>
+    </div>
+    <div class="kpi warn">
+      <div class="val">1.61%</div>
+      <div class="label">Engagement rate</div>
+      <div class="sub">Benchmark: 1-3%</div>
+    </div>
+    <div class="kpi bad">
+      <div class="val">20</div>
+      <div class="label">Link clicks</div>
+      <div class="sub">Sur 16K reach = 0.12%</div>
+    </div>
+    <div class="kpi bad">
+      <div class="val">2</div>
+      <div class="label">Vidéos / Reels</div>
+      <div class="sub">Sur 15 posts = 13%</div>
+    </div>
+    <div class="kpi">
+      <div class="val">258</div>
+      <div class="label">Engagements</div>
+      <div class="sub">212 réactions · 21 comments · 25 shares</div>
+    </div>
+  </div>
+</div>
+
+<!-- BY POST TYPE -->
+<div class="card">
+  <h2>Performance par type de contenu</h2>
+
+  <table>
+    <thead>
+      <tr><th>Type</th><th>Posts</th><th>Reach</th><th>Moy/post</th><th>Engagement</th><th>Eng %</th><th>Link clicks</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Photos</strong></td>
+        <td class="num">13 <span class="badge badge-yellow">87%</span></td>
+        <td class="num">14,998</td>
+        <td class="num">1,154</td>
+        <td class="num">239</td>
+        <td class="num">1.59%</td>
+        <td class="num">20</td>
+      </tr>
+      <tr>
+        <td><strong>Vidéos</strong></td>
+        <td class="num">2 <span class="badge badge-red">13%</span></td>
+        <td class="num">1,060</td>
+        <td class="num">530</td>
+        <td class="num">19</td>
+        <td class="num">1.79%</td>
+        <td class="num">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warning">
+    <strong>Ratio inversé.</strong> 87% photos / 13% vidéos. Instagram et Facebook poussent les Reels/vidéos 3-5× plus que les photos. Le ratio devrait être <strong>60% vidéo / 40% photo</strong>.
+  </div>
+</div>
+
+<!-- TOP POSTS -->
+<div class="card">
+  <h2>Top 10 publications par reach</h2>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Publication</th><th>Type</th><th>Reach</th><th>Eng</th><th>Eng%</th><th>Link clicks</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Ice tea maison</strong> — recette, tips</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">2,863</td>
+        <td class="num">41</td>
+        <td class="num">1.4%</td>
+        <td class="num"><strong>15</strong> 🔥</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Passez au vrac</strong> — éducation éco</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,386</td>
+        <td class="num">23</td>
+        <td class="num">1.7%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Replay TV</strong> — passage télé</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,318</td>
+        <td class="num">30</td>
+        <td class="num">2.3%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Sélection Printemps 1</strong> — produits saison</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,297</td>
+        <td class="num">20</td>
+        <td class="num">1.5%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Sélection Pâques</strong> — produits saison</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,262</td>
+        <td class="num">21</td>
+        <td class="num">1.7%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Retour du soleil</strong> — saisonnier</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,203</td>
+        <td class="num">17</td>
+        <td class="num">1.4%</td>
+        <td class="num">2</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Livraisons lentes</strong> — info logistique</td>
+        <td><span class="badge badge-gray">Photo</span></td>
+        <td class="num">1,169</td>
+        <td class="num">12</td>
+        <td class="num">1.0%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>3 boutiques</strong> — local pride</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">1,086</td>
+        <td class="num">22</td>
+        <td class="num">2.0%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><strong>Savourer le thé</strong> — branding</td>
+        <td><span class="badge badge-gray">Photo</span></td>
+        <td class="num">892</td>
+        <td class="num">12</td>
+        <td class="num">1.3%</td>
+        <td class="num">0</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><strong>Sélection Printemps 2</strong> — produits</td>
+        <td><span class="badge badge-green">Photo</span></td>
+        <td class="num">834</td>
+        <td class="num">19</td>
+        <td class="num">2.3%</td>
+        <td class="num">0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <strong>Le post "Ice tea maison" a capté 75% de tous les link clicks</strong> (15 sur 20). Les recettes et tutos = le seul format qui drive du trafic vers le site.
+  </div>
+</div>
+
+<!-- WORST POSTS -->
+<div class="card">
+  <h2>Les flops</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Publication</th><th>Reach</th><th>Eng</th><th>Problème</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Journée mondiale santé</strong></td>
+        <td class="num">272</td>
+        <td class="num">1</td>
+        <td><span class="badge badge-red">Générique, pas lié à un produit</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Lapin de Pâques (vidéo)</strong></td>
+        <td class="num">322</td>
+        <td class="num">6</td>
+        <td><span class="badge badge-red">Easter passé, pas utile</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Thé ou infusion ?</strong></td>
+        <td class="num">657</td>
+        <td class="num">9</td>
+        <td><span class="badge badge-yellow">Question sans valeur ajoutée</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- KEY INSIGHT -->
+<div class="card">
+  <h2>Le problème n°1 : 20 link clicks sur 16,000 reach</h2>
+
+  <div style="text-align:center;margin:24px 0;">
+    <div style="display:inline-block;background:var(--green);color:#fff;padding:24px 40px;border-radius:16px;">
+      <div style="font-size:48px;font-weight:800;">0.12%</div>
+      <div style="font-size:14px;opacity:0.8;">CTR vers le site</div>
+    </div>
+  </div>
+
+  <h3>Répartition des clics</h3>
+  <div class="bar-row">
+    <div class="bar-label">Other clicks (expand, zoom)</div>
+    <div class="bar-container">
+      <div class="bar-fill" style="width:98%;background:var(--orange);">
+        <span>970 (98%)</span>
+      </div>
+    </div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label"><strong>Link clicks (vers le site)</strong></div>
+    <div class="bar-container">
+      <div class="bar-fill" style="width:2%;background:var(--red);min-width:60px;">
+        <span>20 (2%)</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:16px;font-size:14px;color:#555;">
+    Les 970 "other clicks" = personnes qui agrandissent la photo ou développent le texte. Ce n'est pas du trafic. <strong>Seuls 20 clics ont amené quelqu'un sur teatower.com.</strong>
+  </p>
+</div>
+
+<!-- 5 PROBLEMS -->
+<div class="card">
+  <h2>5 problèmes structurels identifiés</h2>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Problème</th><th>Constat</th><th>Impact</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>87% photos, 13% vidéo</strong></td>
+        <td>2 vidéos sur 15 posts. IG/FB poussent les Reels 3-5× plus</td>
+        <td><span class="badge badge-red">Reach plafonné</span></td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>Pas de CTA clair</strong></td>
+        <td>Posts informatifs sans dire quoi FAIRE. Pas de lien, pas d'urgence</td>
+        <td><span class="badge badge-red">0 conversion</span></td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Social proof absent</strong></td>
+        <td>Aucun post ne mentionne les 4577 avis à 4.64/5</td>
+        <td><span class="badge badge-yellow">Trust manquant</span></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Pas de format éducatif</strong></td>
+        <td>Pas de "Quel thé pour...", pas de tutos, pas de face-caméra</td>
+        <td><span class="badge badge-yellow">Saves/shares faibles</span></td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Reach organique ~1,000</strong></td>
+        <td>~7% de la base followers. L'algo ne pousse pas le contenu</td>
+        <td><span class="badge badge-red">Visibilité limitée</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- WHAT WORKS -->
+<div class="card">
+  <h2>Ce qui fonctionne</h2>
+
+  <table>
+    <thead>
+      <tr><th>Format</th><th>Exemple</th><th>Reach</th><th>Pourquoi</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-green">Recette / Tuto</span></td>
+        <td>Ice tea maison</td>
+        <td class="num"><strong>2,863</strong></td>
+        <td>Utilité + saisonnier + <strong>15 link clicks</strong> (75% du total)</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Éducation valeurs</span></td>
+        <td>Passer au vrac</td>
+        <td class="num">1,386</td>
+        <td>Engagement éco + différenciation</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Autorité / PR</span></td>
+        <td>Replay TV</td>
+        <td class="num">1,318</td>
+        <td>Social proof externe + engagement 2.3%</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-green">Local pride</span></td>
+        <td>3 boutiques</td>
+        <td class="num">1,086</td>
+        <td>Identité belge + engagement 2.0%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="card">
+  <h2>7 recommandations</h2>
+
+  <div class="reco">
+    <div class="num">1</div>
+    <div class="content">
+      <h4>60% vidéo/Reels, 40% photos</h4>
+      <p>Actuellement inversé (87% photos). Instagram et FB poussent les Reels 3-5× plus en reach organique. Passer à minimum 3 Reels/semaine.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">2</div>
+    <div class="content">
+      <h4>1 Reel éducatif par semaine</h4>
+      <p>"Quel thé pour mieux dormir ?", "3 erreurs quand on prépare un thé vert", Trevor face-caméra en boutique. Ce format génère des saves et des shares — les deux signaux que l'algorithme adore.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">3</div>
+    <div class="content">
+      <h4>Social proof dans chaque post</h4>
+      <p>Mentionner systématiquement "4577 avis · 4.64/5" ou des verbatims clients. C'est l'arme absolue — personne dans le thé en Belgique n'a ça.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">4</div>
+    <div class="content">
+      <h4>CTA clair dans chaque post</h4>
+      <p>"Lien en bio", "Passez en boutique", "Dites-nous en commentaire". Chaque post doit dire au lecteur quoi faire APRÈS avoir lu. Sans CTA = impressions gaspillées.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">5</div>
+    <div class="content">
+      <h4>Plus de recettes et tutos</h4>
+      <p>Le seul format qui a généré du trafic site. Recettes glacées, guides d'infusion, accords thé & chocolat. Le contenu utile > le contenu joli.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">6</div>
+    <div class="content">
+      <h4>Boost les top performers à 5€/jour</h4>
+      <p>Le post ice tea a fait 2,863 de reach organique. Avec 15€ de boost (3 jours × 5€), il ferait 15-30K. ROI immédiat sur un contenu qui a déjà prouvé.</p>
+    </div>
+  </div>
+
+  <div class="reco">
+    <div class="num">7</div>
+    <div class="content">
+      <h4>Carousel de reviews clients</h4>
+      <p>5 screenshots d'avis 5★ en carousel. Le post le plus facile à créer (5 min) et le plus efficace en conversion. Format : avis → photo produit → avis → photo → CTA.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FORMULA -->
+<div class="card">
+  <h2>La formule qui manque</h2>
+
+  <div style="text-align:center;padding:24px 0;">
+    <div style="display:inline-block;background:var(--green);color:#fff;padding:20px 32px;border-radius:14px;font-size:18px;">
+      <strong>Jab · Jab · Jab · Right Hook</strong>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Type</th><th>Quoi</th><th>Fréquence</th><th>Objectif</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Jab 1</strong></td>
+        <td>Éducation — "Quel thé pour...", tuto, recette</td>
+        <td>2×/semaine</td>
+        <td>Saves + shares + reach</td>
+      </tr>
+      <tr>
+        <td><strong>Jab 2</strong></td>
+        <td>Lifestyle — ambiance boutique, behind the scenes</td>
+        <td>1×/semaine</td>
+        <td>Brand + connexion émotionnelle</td>
+      </tr>
+      <tr>
+        <td><strong>Jab 3</strong></td>
+        <td>Social proof — reviews clients, note 4.64/5</td>
+        <td>1×/semaine</td>
+        <td>Trust + conversion</td>
+      </tr>
+      <tr>
+        <td><strong>Right Hook</strong></td>
+        <td>Offre — produit du mois, coffret, collection</td>
+        <td>1×/semaine</td>
+        <td>Link clicks + ventes</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:16px;font-size:14px;color:#555;text-align:center;font-style:italic;">
+    Actuellement : 100% jab, 0% right hook. Le contenu informe mais ne vend pas.
+  </p>
+</div>
+
+<footer>
+  <p>Analyse préparée par <strong>Gary</strong> · Content Strategist · 16 avril 2026</p>
+  <p style="margin-top:4px;font-style:italic;color:var(--brown);">"Attention is the asset. Give value 3× before you ask for anything."</p>
+</footer>
+
+</div>
+</body>
+</html>
