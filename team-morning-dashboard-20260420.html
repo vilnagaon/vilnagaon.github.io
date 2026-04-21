@@ -17,12 +17,17 @@
   .kpi .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
   .kpi .sub { font-size: 13px; color: #666; margin-top: 2px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
   .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
   .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
   .card h3 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .store-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
   .store-header .store-ca { font-size: 22px; font-weight: 700; }
   .store-header .store-detail { font-size: 13px; color: #888; }
+  .badge { font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .badge-up { background: #e8f5e9; color: #2e7d32; }
+  .badge-down { background: #fce4ec; color: #c62828; }
+  .badge-flat { background: #f5f5f5; color: #666; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   table th { text-align: left; font-weight: 600; color: #888; font-size: 11px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid #eee; }
   table td { padding: 6px 8px; border-bottom: 1px solid #f5f5f5; }
@@ -32,44 +37,136 @@
   .hour-bar .hour-label { width: 30px; text-align: right; color: #888; }
   .hour-bar .bar { height: 18px; border-radius: 3px; min-width: 2px; display: flex; align-items: center; padding-left: 6px; font-size: 11px; color: white; font-weight: 500; }
   .hour-bar .hour-meta { font-size: 11px; color: #aaa; margin-left: 4px; }
-  .closed-banner { background: #f5f5f5; border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; text-align: center; color: #888; font-size: 14px; }
   .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 24px; padding: 16px; }
-  @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .grid-2 { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .grid-2, .grid-3 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Teatower Team Morning Dashboard</h1>
-  <div class="date">Lundi 20 Avril 2026</div>
-  <div class="subtitle">Donn&eacute;es du dimanche 19 avril &mdash; Boutiques ferm&eacute;es</div>
-</div>
-
-<div class="closed-banner">
-  Dimanche &mdash; Boutiques ferm&eacute;es. Uniquement Shopify Online.
+  <div class="date">Mardi 21 Avril 2026</div>
+  <div class="subtitle">POS Stores + Shopify Online &middot; Donn&eacute;es du lundi 20 avril</div>
 </div>
 
 <!-- KPIs -->
 <div class="kpi-row">
   <div class="kpi">
-    <div class="value">283&euro;</div>
+    <div class="value">1,463€</div>
     <div class="label">CA Total</div>
-    <div class="sub">5 commandes</div>
+    <div class="sub">64 commandes</div>
   </div>
   <div class="kpi">
-    <div class="value">0&euro;</div>
+    <div class="value">1,357€</div>
     <div class="label">POS Magasins</div>
-    <div class="sub">Ferm&eacute;</div>
+    <div class="sub">62 cmd &middot; panier 22&euro;</div>
   </div>
   <div class="kpi">
-    <div class="value">283&euro;</div>
+    <div class="value">106€</div>
     <div class="label">Shopify Online</div>
-    <div class="sub">5 cmd &middot; panier 57&euro;</div>
+    <div class="sub">2 cmd &middot; panier 53&euro;</div>
   </div>
   <div class="kpi">
-    <div class="value">&mdash;</div>
-    <div class="label">Newsletter</div>
-    <div class="sub">Pas de campagne</div>
+    <div class="value" style="color:#666">&asymp; 1%</div>
+    <div class="label">vs moy. lundi</div>
+    <div class="sub">Moy. 1,337€ (12 lundis)</div>
+  </div>
+</div>
+
+<!-- 3 Stores -->
+<div class="grid-3">
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#2D5016"></span> Waterloo</h3>
+      <span class="badge badge-down">&darr; -44% vs moy. lundi</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#2D5016">82.90€</span>
+      <span class="store-detail">5 cmd &middot; 17&euro;/cmd</span>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:12px">Moy. lundi (12 sem.) : 147€ &middot; 7 cmd &middot; 20&euro;/cmd</div>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>[V0895] Matcha japonais</td><td class="num">1</td><td class="num">20.00€</td></tr>
+      <tr><td>[I0839] Caramel Beurre salé (20 infusettes)</td><td class="num">1</td><td class="num">11.00€</td></tr>
+      <tr><td>[I0610] Earl Grey Supérieur (20 infusettes)</td><td class="num">1</td><td class="num">11.00€</td></tr>
+      <tr><td>[I0279] Le panier de grand maman (20 infusettes)</td><td class="num">1</td><td class="num">10.45€</td></tr>
+      <tr><td>[I0121] Lady Dodo (20 infusettes)</td><td class="num">1</td><td class="num">10.45€</td></tr>
+    </table>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:50%;background:#2D5016">1</div><span class="hour-meta">10€</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:100%;background:#2D5016">2</div><span class="hour-meta">30€</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:50%;background:#2D5016">1</div><span class="hour-meta">20€</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:50%;background:#2D5016">1</div><span class="hour-meta">22€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#8B4513"></span> Namur</h3>
+      <span class="badge badge-up">&uarr; +22% vs moy. lundi</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#8B4513">875.12€</span>
+      <span class="store-detail">36 cmd &middot; 24&euro;/cmd</span>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:12px">Moy. lundi (12 sem.) : 720€ &middot; 31 cmd &middot; 23&euro;/cmd</div>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>[A1135] Coffret Cadeau Ensemble Matcha Traditionnel</td><td class="num">1</td><td class="num">38.01€</td></tr>
+      <tr><td>[A0557] Carafe thé glacé avec filtre 1,5 L</td><td class="num">1</td><td class="num">38.01€</td></tr>
+      <tr><td>[A0378] Théière en verre Wide Globe Maxi</td><td class="num">1</td><td class="num">34.90€</td></tr>
+      <tr><td>[V0914] Infusion du Printemps 2026</td><td class="num">3</td><td class="num">29.50€</td></tr>
+      <tr><td>[V0773] New York (100 g vrac)</td><td class="num">3</td><td class="num">28.50€</td></tr>
+    </table>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:12%;background:#8B4513">1</div><span class="hour-meta">20€</span></div>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:50%;background:#8B4513">4</div><span class="hour-meta">76€</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:50%;background:#8B4513">4</div><span class="hour-meta">156€</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:50%;background:#8B4513">4</div><span class="hour-meta">100€</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:50%;background:#8B4513">4</div><span class="hour-meta">77€</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:100%;background:#8B4513">8</div><span class="hour-meta">246€</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:75%;background:#8B4513">6</div><span class="hour-meta">131€</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:62%;background:#8B4513">5</div><span class="hour-meta">69€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="store-header">
+      <h3><span class="dot" style="background:#1a5276"></span> Liège</h3>
+      <span class="badge badge-down">&darr; -15% vs moy. lundi</span>
+    </div>
+    <div class="store-header">
+      <span class="store-ca" style="color:#1a5276">398.69€</span>
+      <span class="store-detail">21 cmd &middot; 19&euro;/cmd</span>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:12px">Moy. lundi (12 sem.) : 470€ &middot; 21 cmd &middot; 23&euro;/cmd</div>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
+    <table>
+      <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
+      <tr><td>[C0102] Assortiment découverte</td><td class="num">2</td><td class="num">29.25€</td></tr>
+      <tr><td>[V0907] Matcha Fruit de la passion</td><td class="num">1</td><td class="num">24.99€</td></tr>
+      <tr><td>[A1105] Travel mug isotherme inox - Pastel - Rose - 350ml Qwetch</td><td class="num">1</td><td class="num">23.75€</td></tr>
+      <tr><td>[I0121] Lady Dodo (20 infusettes)</td><td class="num">2</td><td class="num">20.90€</td></tr>
+      <tr><td>[V0895] Matcha japonais</td><td class="num">1</td><td class="num">20.00€</td></tr>
+    </table>
+
+    <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:40%;background:#1a5276">2</div><span class="hour-meta">53€</span></div>
+    <div class="hour-bar"><span class="hour-label">11h</span><div class="bar" style="width:40%;background:#1a5276">2</div><span class="hour-meta">19€</span></div>
+    <div class="hour-bar"><span class="hour-label">12h</span><div class="bar" style="width:20%;background:#1a5276">1</div><span class="hour-meta">31€</span></div>
+    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:40%;background:#1a5276">2</div><span class="hour-meta">31€</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:100%;background:#1a5276">5</div><span class="hour-meta">123€</span></div>
+    <div class="hour-bar"><span class="hour-label">15h</span><div class="bar" style="width:60%;background:#1a5276">3</div><span class="hour-meta">60€</span></div>
+    <div class="hour-bar"><span class="hour-label">16h</span><div class="bar" style="width:60%;background:#1a5276">3</div><span class="hour-meta">30€</span></div>
+    <div class="hour-bar"><span class="hour-label">17h</span><div class="bar" style="width:40%;background:#1a5276">2</div><span class="hour-meta">38€</span></div>
+    <div class="hour-bar"><span class="hour-label">18h</span><div class="bar" style="width:20%;background:#1a5276">1</div><span class="hour-meta">14€</span></div>
   </div>
 </div>
 
@@ -80,26 +177,23 @@
       <h3><span class="dot" style="background:#96bf48"></span> Shopify Online</h3>
     </div>
     <div class="store-header">
-      <span class="store-ca" style="color:#96bf48">283.25&euro;</span>
-      <span class="store-detail">5 cmd &middot; 57&euro;/cmd &middot; 27 articles</span>
+      <span class="store-ca" style="color:#96bf48">106.20€</span>
+      <span class="store-detail">2 cmd &middot; 53&euro;/cmd &middot; 11 articles</span>
     </div>
 
     <h3 style="margin-top:16px; font-size:12px; color:#888;">TOP 5 PRODUITS</h3>
     <table>
       <tr><th>Produit</th><th style="text-align:right">Qt&eacute;</th><th style="text-align:right">CA</th></tr>
-      <tr><td>Le th&eacute; des amoureux</td><td class="num">4</td><td class="num">43.00&euro;</td></tr>
-      <tr><td>Tisane tropicale</td><td class="num">3</td><td class="num">30.00&euro;</td></tr>
-      <tr><td>Ayurveda BIO</td><td class="num">2</td><td class="num">22.00&euro;</td></tr>
-      <tr><td>Sensualit&eacute;</td><td class="num">2</td><td class="num">20.00&euro;</td></tr>
-      <tr><td>Le panier de grand maman</td><td class="num">2</td><td class="num">20.00&euro;</td></tr>
+      <tr><td>Infusion de fruits chocolat noisette - Trésor des lutins - Teatower</td><td class="num">2</td><td class="num">12.00€</td></tr>
+      <tr><td>Infusion chocolat amande - Plaisir chocolaté - Teatower</td><td class="num">1</td><td class="num">10.00€</td></tr>
+      <tr><td>Infusion épicée - Masala Chai - Teatower</td><td class="num">1</td><td class="num">10.00€</td></tr>
+      <tr><td>Thé vert parfumé gingembre citron - Ginger Cool BIO - Teatower BE-BIO-01</td><td class="num">1</td><td class="num">10.00€</td></tr>
+      <tr><td>Maté mangue clémentine banane - Amazônia - Teatower</td><td class="num">1</td><td class="num">10.00€</td></tr>
     </table>
 
     <h3 style="margin-top:16px; font-size:12px; color:#888;">HEURES</h3>
-    <div class="hour-bar"><span class="hour-label">9h</span><div class="bar" style="width:95%;background:#96bf48">1</div><span class="hour-meta">63&euro;</span></div>
-    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:57%;background:#96bf48">1</div><span class="hour-meta">38&euro;</span></div>
-    <div class="hour-bar"><span class="hour-label">13h</span><div class="bar" style="width:89%;background:#96bf48">1</div><span class="hour-meta">59&euro;</span></div>
-    <div class="hour-bar"><span class="hour-label">20h</span><div class="bar" style="width:85%;background:#96bf48">1</div><span class="hour-meta">57&euro;</span></div>
-    <div class="hour-bar"><span class="hour-label">21h</span><div class="bar" style="width:100%;background:#96bf48">1</div><span class="hour-meta">67&euro;</span></div>
+    <div class="hour-bar"><span class="hour-label">10h</span><div class="bar" style="width:100%;background:#96bf48">1</div><span class="hour-meta">59€</span></div>
+    <div class="hour-bar"><span class="hour-label">14h</span><div class="bar" style="width:100%;background:#96bf48">1</div><span class="hour-meta">48€</span></div>
   </div>
 
   <div class="card">
@@ -108,13 +202,13 @@
     </div>
     <div class="store-header">
       <span class="store-ca" style="color:#c5a000">&mdash;</span>
-      <span class="store-detail">Pas de campagne dimanche 19/04</span>
+      <span class="store-detail">Pas de campagne lundi 20/04</span>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  Teatower Team Morning Dashboard &middot; Donn&eacute;es du dimanche 19 avril 2026 &middot; Boutiques ferm&eacute;es &middot; G&eacute;n&eacute;r&eacute; le 20/04/2026
+  Teatower Team Morning Dashboard &middot; Donn&eacute;es du lundi 20 avril 2026 &middot; Comparaison vs moy. lundi (12 sem.) &middot; G&eacute;n&eacute;r&eacute; le 21/04/2026
 </div>
 
 </body>
