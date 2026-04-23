@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La collection glacee est arrivee</title>
+<!--
+  NEWSLETTER TEATOWER — Lancement Collection Glacee
+
+  OBJET : Vos thes preferes... en version glacee
+  PREVIEW TEXT : 5 sachets prets a infuser a froid des 8,50eur. La Nana de Wepion, Pasteque Fraicheur, Passion Exotique...
+
+  SEGMENTS MAILCHIMP (4 envois) :
+  1. Waterloo (CP: 1410, 1400, 1420, 1380, 1330-1370, 1428, 1440-1500, 1310, 1320, 1300)
+  2. Namur (CP: 5000-5101)
+  3. Liege (CP: 4000-4160)
+  4. Autres (tous les contacts hors des 3 segments)
+
+  CONTENU IDENTIQUE pour les 4 segments.
+
+  A/B TEST SUGGERE :
+  - Objet A : "Vos thes preferes... en version glacee"
+  - Objet B : "5 nouveaux thes glaces a 8,50eur — prets en 10 min"
+
+  ANALYSE CELINE (psychologie) :
+  - Reciprocite : recette offerte dans l'email
+  - Social proof : badges bestseller, "deja adoptes par nos clients"
+  - Rarete temporelle : "Collection ete — disponible jusqu'a epuisement"
+  - Ancrage prix : "moins d'1eur la tasse"
+  - Sensoriel : langage evocateur (fraicheur, fruits, soleil)
+  - Unity : "Rejoignez les amateurs de the glace Teatower"
+-->
+<style>
+  body { margin: 0; padding: 0; background: #f5f5f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  .wrapper { max-width: 600px; margin: 0 auto; background: #ffffff; }
+  .header { background: linear-gradient(135deg, #16393E 0%, #2D5016 50%, #4a7c28 100%); padding: 40px 32px; text-align: center; }
+  .header img { max-width: 180px; }
+  .header h1 { color: #ffffff; font-size: 28px; font-weight: 700; margin: 20px 0 8px; line-height: 1.2; }
+  .header p { color: rgba(255,255,255,0.85); font-size: 15px; margin: 0; }
+  .hero { position: relative; background: linear-gradient(180deg, #e8f5e9 0%, #ffffff 100%); padding: 32px; text-align: center; }
+  .hero h2 { color: #16393E; font-size: 22px; font-weight: 700; margin: 0 0 12px; }
+  .hero p { color: #555; font-size: 15px; line-height: 1.6; margin: 0 0 20px; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin: 4px; }
+  .badge-new { background: #ff6b35; color: white; }
+  .badge-bio { background: #2D5016; color: white; }
+  .badge-best { background: #8B4513; color: white; }
+  .price-hero { font-size: 36px; font-weight: 800; color: #2D5016; margin: 16px 0 4px; }
+  .price-sub { font-size: 14px; color: #888; }
+  .cta-btn { display: inline-block; padding: 16px 40px; background: #2D5016; color: #ffffff !important; text-decoration: none; border-radius: 30px; font-size: 16px; font-weight: 700; margin: 20px 0; }
+  .cta-btn:hover { background: #16393E; }
+  .section { padding: 32px; }
+  .section-title { font-size: 20px; font-weight: 700; color: #16393E; margin: 0 0 8px; }
+  .section-sub { font-size: 14px; color: #888; margin: 0 0 20px; }
+  .product-grid { width: 100%; }
+  .product-card { display: inline-block; width: 48%; vertical-align: top; margin-bottom: 20px; text-align: center; }
+  .product-card img { width: 100%; border-radius: 12px; }
+  .product-name { font-size: 14px; font-weight: 600; color: #16393E; margin: 8px 0 4px; }
+  .product-flavor { font-size: 12px; color: #888; }
+  .product-price { font-size: 16px; font-weight: 700; color: #2D5016; }
+  .divider { border: none; border-top: 1px solid #e8e5df; margin: 0; }
+  .recipe { background: #faf8f5; padding: 32px; }
+  .recipe h3 { color: #8B4513; font-size: 18px; margin: 0 0 16px; }
+  .recipe ol { padding-left: 20px; color: #555; font-size: 14px; line-height: 1.8; }
+  .recipe .tip { background: #fff3e0; padding: 12px 16px; border-radius: 8px; font-size: 13px; color: #8B4513; margin-top: 16px; }
+  .social-proof { background: #e8f5e9; padding: 24px 32px; text-align: center; }
+  .social-proof p { font-size: 15px; color: #2D5016; font-weight: 500; margin: 0; }
+  .bestsellers { padding: 32px; }
+  .bestseller-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .bestseller-item:last-child { border-bottom: none; }
+  .bs-rank { font-size: 24px; font-weight: 800; color: #e8e5df; width: 30px; }
+  .bs-info { flex: 1; }
+  .bs-name { font-size: 14px; font-weight: 600; color: #16393E; }
+  .bs-desc { font-size: 12px; color: #888; }
+  .bs-price { font-size: 15px; font-weight: 700; color: #2D5016; }
+  .urgency { background: #fff8e1; padding: 20px 32px; text-align: center; border-left: 4px solid #ff6b35; }
+  .urgency p { font-size: 14px; color: #555; margin: 0; }
+  .urgency strong { color: #ff6b35; }
+  .footer { background: #16393E; padding: 32px; text-align: center; color: rgba(255,255,255,0.7); font-size: 12px; }
+  .footer a { color: rgba(255,255,255,0.9); text-decoration: none; }
+  .stores { display: flex; justify-content: center; gap: 24px; margin: 16px 0; flex-wrap: wrap; }
+  .store { text-align: center; }
+  .store-name { font-weight: 600; color: white; font-size: 13px; }
+  .store-hours { font-size: 11px; color: rgba(255,255,255,0.6); }
+  @media (max-width: 480px) {
+    .product-card { width: 100%; }
+    .header h1 { font-size: 24px; }
+    .price-hero { font-size: 28px; }
+    .stores { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png" alt="Teatower Belgian Tea House" />
+    <h1>Vos th&eacute;s pr&eacute;f&eacute;r&eacute;s...<br>en version glac&eacute;e</h1>
+    <p>La collection &eacute;t&eacute; 2026 est arriv&eacute;e</p>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="badge badge-new">NOUVEAU</span>
+    <h2>5 sachets pr&ecirc;ts &agrave; infuser &agrave; froid</h2>
+    <p>Versez dans 1L d'eau froide. Attendez 10 minutes.<br>C'est pr&ecirc;t. Z&eacute;ro sucre ajout&eacute;, 100% naturel.</p>
+    <div class="price-hero">8,50&euro;</div>
+    <div class="price-sub">le sachet de 10 portions &mdash; moins de 0,85&euro; la tasse</div>
+    <a href="https://teatower.com/collections/offre-glacee" class="cta-btn">D&eacute;couvrir la collection</a>
+  </div>
+
+  <!-- 5 THES GLACES -->
+  <div class="section">
+    <div class="section-title">Les 5 saveurs</div>
+    <div class="section-sub">Chacune s&eacute;lectionn&eacute;e pour sa fra&icirc;cheur en version glac&eacute;e</div>
+
+    <table class="product-grid" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+        <td class="product-card" valign="top">
+          <a href="https://teatower.com/collections/offre-glacee"><img src="https://teatower.com/cdn/shop/files/5413393003735-Passion-Exotique-The-Glace-Infusion-de-Fruits-Mangue-Passion-Teatower.jpg?width=400" alt="Passion Exotique" /></a>
+          <div class="product-name">Passion Exotique</div>
+          <div class="product-flavor">Mangue &amp; Fruit de la passion</div>
+          <div class="product-price">8,50&euro;</div>
+        </td>
+        <td width="4%">&nbsp;</td>
+        <td class="product-card" valign="top">
+          <a href="https://teatower.com/collections/offre-glacee"><img src="https://teatower.com/cdn/shop/files/5413393003728-Paradise-Punch-The-glace-Infusion-de-fruits-Litchi-Ananas-Teatower.jpg?width=400" alt="Paradise Punch" /></a>
+          <div class="product-name">Paradise Punch</div>
+          <div class="product-flavor">Litchi &amp; Ananas</div>
+          <div class="product-price">8,50&euro;</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="product-card" valign="top">
+          <a href="https://teatower.com/collections/offre-glacee"><img src="https://teatower.com/cdn/shop/files/5413393815871-The-glace-The-vert-parfume-Fleur-d-oranger-Menthe-Marrakech-Sunset-BIO-Teatower-BE-BIO-01.jpg?width=400" alt="Marrakech Sunset BIO" /></a>
+          <div class="product-name">Marrakech Sunset <span class="badge badge-bio">BIO</span></div>
+          <div class="product-flavor">Fleur d'oranger &amp; Menthe</div>
+          <div class="product-price">8,50&euro;</div>
+        </td>
+        <td width="4%">&nbsp;</td>
+        <td class="product-card" valign="top">
+          <a href="https://teatower.com/collections/offre-glacee"><img src="https://teatower.com/cdn/shop/files/5413393814126-The-glace-Rooibos-peche-Peche-de-vigne-BIO-Teatower-BE-BIO-01.jpg?width=400" alt="Peche de vigne BIO" /></a>
+          <div class="product-name">P&ecirc;che de vigne <span class="badge badge-bio">BIO</span></div>
+          <div class="product-flavor">Rooibos &amp; P&ecirc;che</div>
+          <div class="product-price">8,50&euro;</div>
+        </td>
+      </tr>
+      <tr>
+        <td class="product-card" valign="top">
+          <a href="https://teatower.com/collections/offre-glacee"><img src="https://teatower.com/cdn/shop/files/5413393808736-The-glace-Infusion-de-Fruits-Fruits-Rouges-Amande-Gourmandise-Teatower.jpg?width=400" alt="Gourmandise" /></a>
+          <div class="product-name">Gourmandise</div>
+          <div class="product-flavor">Fruits rouges &amp; Amande</div>
+          <div class="product-price">8,50&euro;</div>
+        </td>
+        <td width="4%">&nbsp;</td>
+        <td class="product-card" valign="top">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <p>&laquo; D&eacute;j&agrave; adopt&eacute;s par nos clients l'&eacute;t&eacute; dernier &mdash; ils reviennent chaque ann&eacute;e &raquo;</p>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- RECETTE OFFERTE (RECIPROCITE) -->
+  <div class="recipe">
+    <h3>Recette : Votre Iced Tea maison en 3 &eacute;tapes</h3>
+    <ol>
+      <li><strong>Versez</strong> 1 sachet dans 1 litre d'eau froide ou temp&eacute;r&eacute;e</li>
+      <li><strong>Patientez</strong> 10 minutes (ou toute la nuit au frigo pour plus d'intensit&eacute;)</li>
+      <li><strong>Servez</strong> avec des gla&ccedil;ons, une rondelle de citron ou des feuilles de menthe</li>
+    </ol>
+    <div class="tip">Astuce de Trevor (notre sommelier) : pour un go&ucirc;t plus intense, laissez infuser une nuit enti&egrave;re au frigo. Le r&eacute;sultat est spectaculaire avec le Paradise Punch.</div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- BESTSELLERS A GLACER -->
+  <div class="bestsellers">
+    <div class="section-title">Aussi parfaits en version glac&eacute;e</div>
+    <div class="section-sub">Vos bestsellers pr&eacute;f&eacute;r&eacute;s se boivent aussi froids</div>
+
+    <div class="bestseller-item">
+      <div class="bs-rank">1</div>
+      <div class="bs-info">
+        <div class="bs-name">La Nana de W&eacute;pion <span class="badge badge-best">BESTSELLER</span></div>
+        <div class="bs-desc">Fraise &bull; Ananas &bull; Cerise &bull; Papaye</div>
+      </div>
+      <div class="bs-price">10&euro;</div>
+    </div>
+
+    <div class="bestseller-item">
+      <div class="bs-rank">2</div>
+      <div class="bs-info">
+        <div class="bs-name">Past&egrave;que Fra&icirc;cheur <span class="badge badge-best">BESTSELLER</span></div>
+        <div class="bs-desc">Past&egrave;que &bull; Menthe &bull; Sureau</div>
+      </div>
+      <div class="bs-price">10&euro;</div>
+    </div>
+
+    <div class="bestseller-item">
+      <div class="bs-rank">3</div>
+      <div class="bs-info">
+        <div class="bs-name">Tisane Tropicale <span class="badge badge-best">BESTSELLER</span></div>
+        <div class="bs-desc">Ananas &bull; P&ecirc;che &bull; Mangue</div>
+      </div>
+      <div class="bs-price">10&euro;</div>
+    </div>
+
+    <div class="bestseller-item">
+      <div class="bs-rank">4</div>
+      <div class="bs-info">
+        <div class="bs-name">Duo Tropical <span class="badge badge-bio">BIO</span></div>
+        <div class="bs-desc">Coco &bull; Ananas</div>
+      </div>
+      <div class="bs-price">10&euro;</div>
+    </div>
+
+    <div class="bestseller-item">
+      <div class="bs-rank">5</div>
+      <div class="bs-info">
+        <div class="bs-name">Tarte &agrave; la Rhubarbe</div>
+        <div class="bs-desc">Rhubarbe &bull; Pomme &bull; Vanille</div>
+      </div>
+      <div class="bs-price">10&euro;</div>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://teatower.com/collections/offre-glacee" class="cta-btn" style="background:#8B4513;">Voir toute la collection</a>
+    </div>
+  </div>
+
+  <!-- URGENCE / RARETE -->
+  <div class="urgency">
+    <p><strong>Collection &eacute;t&eacute; 2026</strong> &mdash; Disponible en boutique et en ligne jusqu'&agrave; &eacute;puisement des stocks. Les sachets glac&eacute;s partent vite d&egrave;s les premi&egrave;res chaleurs.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png" alt="Teatower" style="max-width:120px; margin-bottom:16px;" />
+
+    <div class="stores">
+      <div class="store">
+        <div class="store-name">Waterloo</div>
+        <div class="store-hours">Lun-Sam 10h-18h</div>
+      </div>
+      <div class="store">
+        <div class="store-name">Namur</div>
+        <div class="store-hours">Lun-Sam 10h-18h</div>
+      </div>
+      <div class="store">
+        <div class="store-name">Li&egrave;ge</div>
+        <div class="store-hours">Lun-Sam 10h-18h</div>
+      </div>
+      <div class="store">
+        <div class="store-name">teatower.com</div>
+        <div class="store-hours">24h/24</div>
+      </div>
+    </div>
+
+    <p style="margin-top:16px;">
+      <a href="https://teatower.com">Boutique en ligne</a> &nbsp;|&nbsp;
+      <a href="https://www.instagram.com/teatower_be/">Instagram</a> &nbsp;|&nbsp;
+      <a href="https://www.facebook.com/teatower.be">Facebook</a>
+    </p>
+    <p style="margin-top:12px; font-size:11px; color:rgba(255,255,255,0.4);">
+      Vous recevez cet email car vous &ecirc;tes inscrit(e) &agrave; la newsletter Teatower.<br>
+      <a href="*|UNSUB|*" style="color:rgba(255,255,255,0.5);">Se d&eacute;sinscrire</a>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
