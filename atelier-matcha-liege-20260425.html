@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Matcha &mdash; Li&egrave;ge 25 Avril 2026</title>
+<style>
+  @media print { body { font-size: 11pt; } .no-print { display: none; } .page-break { page-break-before: always; } }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f0; color: #2c2c2c; padding: 20px; max-width: 900px; margin: 0 auto; line-height: 1.5; }
+  .header { background: linear-gradient(135deg, #16393E 0%, #2D5016 100%); color: white; padding: 32px; border-radius: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 28px; font-weight: 700; }
+  .header .sub { font-size: 15px; opacity: 0.85; margin-top: 8px; }
+  .header .meta { display: flex; gap: 24px; margin-top: 16px; font-size: 14px; flex-wrap: wrap; }
+  .header .meta span { background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 8px; }
+  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; }
+  .card h2 { font-size: 18px; font-weight: 700; color: #16393E; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card h3 { font-size: 15px; font-weight: 600; color: #2D5016; margin: 16px 0 8px; }
+  .timeline { font-size: 11px; color: white; background: #8B4513; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+  .checklist { list-style: none; }
+  .checklist li { padding: 6px 0; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .box { width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; }
+  .script { background: #f8f5f0; border-left: 3px solid #2D5016; padding: 12px 16px; margin: 8px 0; font-style: italic; color: #555; border-radius: 0 8px 8px 0; }
+  .matcha-card { border: 1px solid #e8e5df; border-radius: 12px; padding: 16px; margin: 12px 0; }
+  .matcha-card .name { font-size: 17px; font-weight: 700; color: #2D5016; }
+  .matcha-card .sku { font-size: 12px; color: #999; }
+  .matcha-card .price { font-size: 20px; font-weight: 700; color: #16393E; float: right; }
+  .matcha-card .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 13px; margin-top: 8px; }
+  .matcha-card .notes span { color: #888; }
+  .steps { counter-reset: step; }
+  .steps .step { padding: 12px 0 12px 48px; border-bottom: 1px solid #f0f0f0; position: relative; }
+  .steps .step:last-child { border-bottom: none; }
+  .steps .step::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 12px; width: 32px; height: 32px; background: #2D5016; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; }
+  .steps .step h4 { font-size: 15px; font-weight: 600; color: #16393E; }
+  .steps .step p { font-size: 13px; color: #666; margin-top: 4px; }
+  .tip { background: #fffde6; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin: 6px 0; }
+  .tip::before { content: "💡 "; }
+  .alert { background: #fff3e0; border-left: 3px solid #e65100; padding: 10px 14px; font-size: 13px; margin: 8px 0; border-radius: 0 8px 8px 0; }
+  .offer { background: #d4edda; border-radius: 12px; padding: 16px; margin: 12px 0; text-align: center; }
+  .offer .pct { font-size: 32px; font-weight: 800; color: #155724; }
+  .offer .detail { font-size: 13px; color: #555; margin-top: 4px; }
+  .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .product-mini { border: 1px solid #e8e5df; border-radius: 8px; padding: 12px; text-align: center; }
+  .product-mini .pname { font-weight: 600; font-size: 13px; }
+  .product-mini .pprice { font-size: 16px; font-weight: 700; color: #2D5016; margin-top: 4px; }
+  .notes-hugues { background: #f0f4f8; border-radius: 12px; padding: 20px; }
+  .notes-hugues li { margin: 8px 0; font-size: 14px; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 24px; padding: 16px; }
+  .badge-role { display: inline-block; padding: 2px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+  .badge-hugues { background: #e8f5e9; color: #2D5016; }
+  .badge-aurelie { background: #e3f2fd; color: #1565c0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Atelier Matcha</h1>
+  <div class="sub">D&eacute;couverte, D&eacute;gustation &amp; Pr&eacute;paration</div>
+  <div class="meta">
+    <span>Vendredi 25 Avril 2026</span>
+    <span>Boutique Li&egrave;ge</span>
+    <span>1h15</span>
+    <span><span class="badge-role badge-hugues">Hugues</span> animateur</span>
+    <span><span class="badge-role badge-aurelie">Aur&eacute;lie</span> support magasin</span>
+  </div>
+</div>
+
+<!-- MATERIEL -->
+<div class="card">
+  <h2>Checklist Mat&eacute;riel <span class="badge-role badge-aurelie">Aur&eacute;lie &mdash; avant 17h</span></h2>
+
+  <h3>Par participant</h3>
+  <ul class="checklist">
+    <li><span class="box"></span> 1 bol &agrave; matcha (Taiki A1080 ou MEI A0998)</li>
+    <li><span class="box"></span> 1 fouet en bambou chasen (A0297)</li>
+    <li><span class="box"></span> 1 cuill&egrave;re &agrave; matcha chashaku (A0298)</li>
+    <li><span class="box"></span> 3 petits gobelets d&eacute;gustation</li>
+    <li><span class="box"></span> 1 serviette / tissu</li>
+  </ul>
+
+  <h3>Pour l'atelier</h3>
+  <ul class="checklist">
+    <li><span class="box"></span> Bouilloire avec contr&ocirc;le de temp&eacute;rature (80&deg;C)</li>
+    <li><span class="box"></span> 3 bo&icirc;tes de matcha : <strong>V0895</strong> (Japonais), <strong>V0910</strong> (Biscuit), <strong>V0907</strong> (Passion)</li>
+    <li><span class="box"></span> Lait (vache + av&eacute;ine) pour le latte</li>
+    <li><span class="box"></span> Fouet &eacute;lectrique (A1074) pour demo latte</li>
+    <li><span class="box"></span> Canette Iced Matcha (A1134)</li>
+    <li><span class="box"></span> Verseuse d'eau chaude &agrave; 80&deg;C</li>
+    <li><span class="box"></span> Papier essuie-tout</li>
+    <li><span class="box"></span> Fiches r&eacute;cap imprim&eacute;es</li>
+    <li><span class="box"></span> Tamis fin pour tamiser le matcha</li>
+  </ul>
+</div>
+
+<!-- PARTIE 1 -->
+<div class="card">
+  <h2><span class="timeline">0:00 &rarr; 0:15</span> &nbsp; Partie 1 &mdash; Bienvenue &amp; Introduction</h2>
+
+  <h3>Accueil (5 min)</h3>
+  <div class="script">&laquo; Bonsoir et bienvenue chez Teatower ! Je suis Hugues. Merci d'&ecirc;tre venus ce soir pour notre atelier matcha. On va passer 1h15 ensemble &agrave; d&eacute;couvrir, go&ucirc;ter, et surtout pr&eacute;parer votre propre matcha. &raquo;</div>
+  <ul>
+    <li>Tour de table rapide : pr&eacute;nom + &laquo; vous buvez d&eacute;j&agrave; du matcha ? &raquo;</li>
+    <li>Rep&eacute;rer les d&eacute;butants vs initi&eacute;s</li>
+  </ul>
+
+  <h3>Teatower en 3 minutes (10 min)</h3>
+  <div class="script">&laquo; Teatower, c'est une maison de th&eacute; belge. On est sp&eacute;cialistes du th&eacute; en vrac et des infusions &mdash; plus de 200 r&eacute;f&eacute;rences. 3 boutiques : Li&egrave;ge, Namur, Waterloo. Notre obsession : la qualit&eacute; des feuilles et l'exp&eacute;rience de d&eacute;gustation. &raquo;</div>
+  <ul>
+    <li>Belgian Tea House &mdash; s&eacute;lection rigoureuse des fournisseurs</li>
+    <li>Vrac, infusettes, accessoires</li>
+    <li>&laquo; On ne vend pas du th&eacute; de supermarch&eacute; &mdash; on vous aide &agrave; trouver VOTRE th&eacute; &raquo;</li>
+  </ul>
+
+  <h3>Transition</h3>
+  <div class="script">&laquo; Et parmi tous nos th&eacute;s, il y en a un qui a compl&egrave;tement explos&eacute; ces derni&egrave;res ann&eacute;es : le matcha. Mais attention &mdash; tout ce qui s'appelle matcha n'est pas du vrai matcha... &raquo;</div>
+</div>
+
+<!-- PARTIE 2 -->
+<div class="card">
+  <h2><span class="timeline">0:15 &rarr; 0:40</span> &nbsp; Partie 2 &mdash; D&eacute;gustation des 3 Matchas</h2>
+
+  <h3>Le matcha, c'est quoi ? (5 min)</h3>
+  <div class="script">&laquo; Le matcha, c'est du th&eacute; vert japonais r&eacute;duit en poudre ultra-fine. La diff&eacute;rence fondamentale ? Avec un th&eacute; normal, vous infusez les feuilles et vous les jetez. Avec le matcha, vous BUVEZ la feuille enti&egrave;re. C'est pour &ccedil;a qu'il est aussi concentr&eacute; en bienfaits. &raquo;</div>
+  <ul>
+    <li>Origine : Japon (Uji, Nishio, Kagoshima)</li>
+    <li>Culture &agrave; l'ombre 20-30 jours &rarr; + chlorophylle, + umami</li>
+    <li>Pierre meuli&egrave;re &rarr; poudre 5-10 microns</li>
+    <li>Diff&eacute;rence c&eacute;r&eacute;monial vs culinaire</li>
+  </ul>
+
+  <h3>D&eacute;gustation guid&eacute;e (20 min)</h3>
+  <p style="font-size:13px;color:#888;margin-bottom:12px;">Servir les 3 matchas dans les gobelets, un par un. Pour chaque matcha, Hugues guide la d&eacute;gustation.</p>
+
+  <!-- Matcha 1 -->
+  <div class="matcha-card">
+    <span class="price">18,87&euro;</span>
+    <div class="name">1. Matcha Japonais</div>
+    <div class="sku">V0895 &mdash; 50g</div>
+    <div class="script" style="margin-top:12px;">&laquo; On commence par le classique. Notre matcha c&eacute;r&eacute;monial pur &mdash; rien d'ajout&eacute;, que du th&eacute; vert japonais. &raquo;</div>
+    <div class="notes">
+      <div><span>Couleur :</span> Vert vif, profond</div>
+      <div><span>Nez :</span> V&eacute;g&eacute;tal, marin, herbe fra&icirc;che</div>
+      <div><span>Bouche :</span> Umami prononc&eacute;, l&eacute;g&egrave;rement amer, finale douce</div>
+      <div><span>Usage :</span> C&eacute;r&eacute;monie, matcha pur, latte</div>
+    </div>
+    <div class="tip">Si vous ne devez en acheter qu'un, c'est celui-l&agrave;. C'est la base.</div>
+  </div>
+
+  <!-- Matcha 2 -->
+  <div class="matcha-card">
+    <span class="price">23,58&euro;</span>
+    <div class="name">2. Matcha Biscuit</div>
+    <div class="sku">V0910 &mdash; 50g</div>
+    <div class="script" style="margin-top:12px;">&laquo; Maintenant, quelque chose de plus gourmand. Notre matcha aromatis&eacute; signature. &raquo;</div>
+    <div class="notes">
+      <div><span>Couleur :</span> Vert doux, nuance caramel</div>
+      <div><span>Nez :</span> Biscuit, vanille, p&acirc;tissier</div>
+      <div><span>Bouche :</span> Doux, rond, z&eacute;ro amertume</div>
+      <div><span>Usage :</span> Latte gourmand, cuisine, d&eacute;butants</div>
+    </div>
+    <div class="tip">LE matcha pour convaincre quelqu'un qui dit &laquo; le matcha c'est trop amer &raquo;. En latte avec du lait d'avoine.</div>
+  </div>
+
+  <!-- Matcha 3 -->
+  <div class="matcha-card">
+    <span class="price">23,58&euro;</span>
+    <div class="name">3. Matcha Fruit de la Passion</div>
+    <div class="sku">V0907 &mdash; 50g</div>
+    <div class="script" style="margin-top:12px;">&laquo; Et pour finir, notre cr&eacute;ation la plus originale. Matcha + fruit exotique. &raquo;</div>
+    <div class="notes">
+      <div><span>Couleur :</span> Vert, reflets dor&eacute;s</div>
+      <div><span>Nez :</span> Exotique, acidul&eacute;, fruit de la passion</div>
+      <div><span>Bouche :</span> Fruit&eacute;, frais, acidit&eacute; qui &eacute;quilibre l'umami</div>
+      <div><span>Usage :</span> Iced matcha latte, smoothie</div>
+    </div>
+    <div class="tip">Versez-le sur des gla&ccedil;ons avec du lait froid &mdash; c'est une bombe.</div>
+  </div>
+
+  <p style="margin-top:12px;font-size:14px;color:#888;">Demander aux participants leur pr&eacute;f&eacute;r&eacute;. Laisser 2-3 min d'&eacute;change.</p>
+</div>
+
+<!-- PARTIE 3 -->
+<div class="card">
+  <h2><span class="timeline">0:40 &rarr; 1:10</span> &nbsp; Partie 3 &mdash; Pr&eacute;parez Votre Propre Matcha !</h2>
+
+  <h3>Demo par Hugues (10 min)</h3>
+  <div class="script">&laquo; Maintenant, c'est &agrave; vous ! Mais d'abord, je vous montre la technique. &raquo;</div>
+
+  <div class="steps">
+    <div class="step">
+      <h4>Tamiser</h4>
+      <p>1 &agrave; 2 cuill&egrave;res chashaku (1,5-2g) dans le bol &agrave; travers un tamis fin.</p>
+      <div class="script">&laquo; Le tamisage, c'est l'&eacute;tape que tout le monde saute &mdash; et c'est celle qui fait toute la diff&eacute;rence. Sans &ccedil;a, vous avez des grumeaux. &raquo;</div>
+    </div>
+    <div class="step">
+      <h4>Verser l'eau &agrave; 80&deg;C</h4>
+      <p>70-80 ml d'eau &agrave; <strong>80&deg;C</strong> &mdash; PAS bouillante !</p>
+      <div class="script">&laquo; 80 degr&eacute;s, c'est crucial. Si vous versez de l'eau bouillante, vous br&ucirc;lez le matcha et il devient amer. Astuce : faites bouillir, attendez 3-4 minutes. &raquo;</div>
+    </div>
+    <div class="step">
+      <h4>Fouetter en W</h4>
+      <p>Mouvement en W rapide avec le chasen, 15-20 secondes.</p>
+      <div class="script">&laquo; Pas en rond &mdash; en W ou en M. Rapide, du poignet, pas du bras. On cherche une mousse fine et cr&eacute;meuse sur le dessus. &raquo;</div>
+    </div>
+    <div class="step">
+      <h4>R&eacute;sultat</h4>
+      <p>Mousse onctueuse vert jade. Montrer le r&eacute;sultat &agrave; tous.</p>
+    </div>
+  </div>
+
+  <div class="alert"><strong>Rappel temp&eacute;rature :</strong> 80&deg;C maximum. Eau bouillante = matcha amer et br&ucirc;l&eacute;. Bouilloire r&eacute;gl&eacute;e sur 80&deg;C ou laisser refroidir 3-4 min apr&egrave;s &eacute;bullition.</div>
+
+  <h3>&Agrave; vous ! (15 min)</h3>
+  <ul>
+    <li>Chaque participant pr&eacute;pare son matcha dans son bol avec son fouet</li>
+    <li><span class="badge-role badge-hugues">Hugues</span> + <span class="badge-role badge-aurelie">Aur&eacute;lie</span> circulent pour aider</li>
+    <li>Laisser choisir parmi les 3 matchas</li>
+    <li>Encourager &agrave; refaire une 2&egrave;me pr&eacute;paration avec un autre matcha</li>
+  </ul>
+
+  <div class="tip">&laquo; Plus vite le poignet, plus fine la mousse &raquo;</div>
+  <div class="tip">&laquo; Si c'est amer, c'est que l'eau &eacute;tait trop chaude &raquo;</div>
+  <div class="tip">&laquo; Ajoutez un peu de lait froid pour un mini-latte &raquo;</div>
+
+  <h3>Bonus : Demo Matcha Latte (5 min)</h3>
+  <ol style="font-size:14px; padding-left:20px;">
+    <li>Matcha Biscuit (V0910) fouett&eacute; avec 50ml d'eau &agrave; 80&deg;C</li>
+    <li>Lait d'avoine chauff&eacute; et mouss&eacute; au fouet &eacute;lectrique (A1074)</li>
+    <li>Verser le lait mouss&eacute; sur le matcha</li>
+    <li>Montrer la version iced avec la canette A1134</li>
+  </ol>
+  <div class="script">&laquo; Voil&agrave; votre latte du matin &agrave; la maison &mdash; 30 secondes, z&eacute;ro d&eacute;chet, moins de 1&euro; la tasse. &raquo;</div>
+</div>
+
+<!-- CLOTURE -->
+<div class="card">
+  <h2><span class="timeline">1:10 &rarr; 1:15</span> &nbsp; Cl&ocirc;ture</h2>
+
+  <div class="script">&laquo; Vous repartez ce soir avec votre fouet en bambou et votre bol &mdash; c'est &agrave; vous ! Il ne vous manque plus que le matcha. &raquo;</div>
+
+  <div class="offer">
+    <div class="pct">-10%</div>
+    <div class="detail">sur tout achat de matcha ce soir<br><strong>Exclusivement pour les participants de l'atelier</strong><br>Remise directe POS par Aur&eacute;lie &mdash; pas de code</div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-mini">
+      <div class="pname">Coffret Matcha Traditionnel</div>
+      <div class="sku" style="font-size:11px;color:#999;">A1135 &mdash; Bol + fouet + matcha</div>
+      <div class="pprice">33,06&euro;</div>
+    </div>
+    <div class="product-mini">
+      <div class="pname">Coffret Duo de Matcha</div>
+      <div class="sku" style="font-size:11px;color:#999;">C0138 &mdash; 2 matchas + accessoires</div>
+      <div class="pprice">46,65&euro;</div>
+    </div>
+  </div>
+
+  <p style="margin-top:16px;font-size:14px;"><span class="badge-role badge-aurelie">Aur&eacute;lie</span> prend le relais pour le passage en caisse. <span class="badge-role badge-hugues">Hugues</span> reste dispo pour les questions.</p>
+
+  <div class="script" style="margin-top:12px;">&laquo; Merci &agrave; tous ! N'h&eacute;sitez pas &agrave; poster votre matcha maison sur Insta et &agrave; nous taguer @teatower_be. &Agrave; tr&egrave;s vite en boutique ! &raquo;</div>
+
+  <div class="alert" style="margin-top:12px;"><strong>Photo de groupe</strong> &agrave; la fin avec les bols &mdash; pour le feed Insta @teatower_be</div>
+</div>
+
+<!-- NOTES HUGUES -->
+<div class="card notes-hugues">
+  <h2>Notes pour Hugues</h2>
+  <ul>
+    <li><strong>Ton :</strong> D&eacute;contract&eacute;, passionn&eacute;, pas professoral. Tu partages une passion, tu ne donnes pas un cours.</li>
+    <li><strong>Timing :</strong> Ne pas laisser la Partie 1 d&eacute;border &mdash; les gens viennent pour go&ucirc;ter et faire, pas pour &eacute;couter.</li>
+    <li><strong>Vente :</strong> Ne jamais forcer. Les prix sont sur la fiche. Aur&eacute;lie g&egrave;re le shopping. Toi tu restes dispo pour les questions.</li>
+    <li><strong>&laquo; Lequel acheter ? &raquo;</strong> &rarr; &laquo; Si c'est votre premier, le Japonais classique. Si vous aimez les lattes, le Biscuit est imbattable. &raquo;</li>
+  </ul>
+</div>
+
+<!-- FICHE RECAP -->
+<div class="card page-break">
+  <h2>Fiche R&eacute;cap Participants <span style="font-size:12px;color:#888;font-weight:400;">&mdash; &agrave; imprimer en A5 recto-verso</span></h2>
+
+  <div style="border:2px dashed #ccc; border-radius:12px; padding:20px; margin-top:12px;">
+    <h3 style="text-align:center; margin-bottom:12px;">VOTRE MATCHA MAISON &mdash; En 3 &eacute;tapes</h3>
+    <div class="steps">
+      <div class="step"><h4>Tamiser</h4><p>1,5 &agrave; 2g de matcha dans votre bol</p></div>
+      <div class="step"><h4>Verser</h4><p>70-80ml d'eau &agrave; 80&deg;C (pas bouillante !)</p></div>
+      <div class="step"><h4>Fouetter</h4><p>Mouvement en W, 15-20 sec &rarr; mousse fine</p></div>
+    </div>
+
+    <h3 style="margin-top:20px;">Matcha Latte</h3>
+    <ol style="font-size:14px; padding-left:20px;">
+      <li>Fouetter le matcha avec 50ml d'eau &agrave; 80&deg;C</li>
+      <li>Chauffer 150ml de lait (avoine = top)</li>
+      <li>Mousser le lait, verser sur le matcha</li>
+    </ol>
+    <p style="font-size:12px;color:#888;margin-top:8px;">Conservation : au frigo, bo&icirc;te herm&eacute;tique, max 4-6 semaines</p>
+  </div>
+
+  <div style="border:2px dashed #ccc; border-radius:12px; padding:20px; margin-top:16px;">
+    <h3 style="text-align:center; margin-bottom:12px;">NOS 3 MATCHAS TEATOWER</h3>
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">Matcha Japonais</td><td style="padding:8px;text-align:right;">18,87&euro;</td><td style="padding:8px;color:#888;">Pur, umami, c&eacute;r&eacute;monial</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">Matcha Biscuit</td><td style="padding:8px;text-align:right;">23,58&euro;</td><td style="padding:8px;color:#888;">Gourmand, z&eacute;ro amertume</td></tr>
+      <tr><td style="padding:8px;font-weight:600;">Matcha Passion</td><td style="padding:8px;text-align:right;">23,58&euro;</td><td style="padding:8px;color:#888;">Fruit&eacute;, parfait en iced</td></tr>
+    </table>
+
+    <h3 style="margin-top:16px; text-align:center;">ACCESSOIRES</h3>
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">Fouet bambou</td><td style="padding:6px;text-align:right;">14,05&euro;</td><td style="padding:6px;color:#888;">Celui que vous avez !</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">Bol &agrave; matcha</td><td style="padding:6px;text-align:right;">9,09&euro;</td><td style="padding:6px;color:#888;">Celui que vous avez !</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">Fouet &eacute;lectrique</td><td style="padding:6px;text-align:right;">12,36&euro;</td><td style="padding:6px;color:#888;">Pour le latte express</td></tr>
+      <tr><td style="padding:6px;">Coffret Traditionnel</td><td style="padding:6px;text-align:right;">33,06&euro;</td><td style="padding:6px;color:#888;">Bol + fouet + matcha</td></tr>
+    </table>
+
+    <p style="text-align:center; margin-top:16px; font-size:13px; color:#888;">teatower.com &nbsp;|&nbsp; @teatower_be</p>
+  </div>
+</div>
+
+<div class="footer">
+  Atelier Matcha &mdash; Teatower Li&egrave;ge &mdash; 25 avril 2026 &mdash; Programme interne
+</div>
+
+</body>
+</html>
