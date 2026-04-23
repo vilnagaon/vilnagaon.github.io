@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Vendeuse Waterloo — Mission Visibilite</title>
+<style>
+  :root {
+    --tt-green: #16393E;
+    --tt-green-light: #1e4d54;
+    --green: #2D7A3A;
+    --green-bg: #e8f5e9;
+    --orange: #E67E22;
+    --orange-bg: #fef3e2;
+    --red: #C0392B;
+    --red-bg: #fdecea;
+    --gray-bg: #f5f5f5;
+    --border: #ddd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #333;
+    background: #fff;
+    line-height: 1.5;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  header {
+    background: var(--tt-green);
+    color: #fff;
+    padding: 24px 20px 20px;
+    text-align: center;
+  }
+  header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  header p { font-size: 14px; opacity: 0.85; }
+  .container { max-width: 600px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* Section */
+  .section { margin-top: 28px; }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tt-green);
+    border-bottom: 3px solid var(--tt-green);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+  }
+  .section-subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    margin: 16px 0 8px;
+  }
+
+  /* Urgency banner */
+  .urgency {
+    background: var(--orange-bg);
+    border-left: 4px solid var(--orange);
+    padding: 14px 16px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+  .urgency strong { color: var(--orange); }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 10px 12px 10px 40px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #aaa;
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  /* Color-coded items */
+  .do { background: var(--green-bg); border-left: 3px solid var(--green); }
+  .do::before { border-color: var(--green) !important; }
+  .attention { background: var(--orange-bg); border-left: 3px solid var(--orange); }
+  .attention::before { border-color: var(--orange) !important; }
+  .never { background: var(--red-bg); border-left: 3px solid var(--red); }
+  .never::before { border-color: var(--red) !important; }
+
+  /* Ardoise table */
+  .ardoise-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .ardoise-table th {
+    background: var(--tt-green);
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .ardoise-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .ardoise-table tr:nth-child(even) td { background: var(--gray-bg); }
+  .ardoise-msg {
+    font-style: italic;
+    color: var(--tt-green);
+    font-weight: 600;
+  }
+
+  /* Objectifs */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .kpi-card {
+    background: var(--gray-bg);
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .kpi-card .value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--tt-green);
+  }
+  .kpi-card .label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+  }
+  .kpi-card .sub {
+    font-size: 11px;
+    color: #999;
+  }
+
+  /* Saturday highlight */
+  .saturday {
+    background: linear-gradient(135deg, var(--tt-green), var(--tt-green-light));
+    color: #fff;
+    padding: 18px 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  .saturday h3 { font-size: 17px; margin-bottom: 8px; }
+  .saturday ul { padding-left: 20px; font-size: 14px; }
+  .saturday li { margin-bottom: 6px; }
+
+  /* Tip */
+  .tip {
+    background: var(--green-bg);
+    border-left: 4px solid var(--green);
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .tip strong { color: var(--green); }
+
+  /* Red rule */
+  .rule-red {
+    background: var(--red-bg);
+    border-left: 4px solid var(--red);
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .rule-red strong { color: var(--red); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid #eee;
+    margin-top: 30px;
+  }
+
+  /* Print */
+  @media print {
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .checklist li::before {
+      border: 2px solid #333 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body { font-size: 13px; }
+    .container { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mission Visibilite</h1>
+  <p>Guide Vendeuse — Waterloo</p>
+</header>
+
+<div class="container">
+
+  <!-- URGENCY -->
+  <div class="urgency">
+    <strong>Chaque client supplementaire compte.</strong><br>
+    Notre objectif : passer de <strong>12 a 18 clients par jour</strong>. C'est a nous de les faire entrer. Ils passent devant — il faut qu'ils nous voient, qu'ils sentent la vie, et qu'ils aient envie de pousser la porte.
+  </div>
+
+  <!-- CHECKLIST MATIN -->
+  <div class="section">
+    <div class="section-title">Checklist Matin — 9h55, avant ouverture</div>
+    <ul class="checklist">
+      <li class="do">Ouvrir la porte <strong>EN GRAND</strong> (pas entrouverte, OUVERTE)</li>
+      <li class="do">Installer le beach flag sur le trottoir</li>
+      <li class="do">Installer l'ardoise avec le message du jour (voir rotation ci-dessous)</li>
+      <li class="do">Sortir le presentoir exterieur (caisse en bois avec coffrets + bestsellers)</li>
+      <li class="do">Allumer <strong>TOUS</strong> les eclairages + guirlandes vitrine</li>
+      <li class="do">Mettre a jour le compteur clients : "X clients hier — merci !"</li>
+      <li class="do">Ouvrir un sachet de the parfume pres de la porte (infusion fruits)</li>
+      <li class="do">Changer un element de la vitrine (avis client, produit, ardoise du jour)</li>
+      <li class="attention">Verifier la meteo : si pluie forte, ne pas sortir les produits (ardoise + flag OK)</li>
+    </ul>
+  </div>
+
+  <!-- ACTIONS CONTINUES -->
+  <div class="section">
+    <div class="section-title">Pendant la journee — Actions continues</div>
+    <ul class="checklist">
+      <li class="do">Station degustation visible depuis la rue : <strong>11h-12h</strong> et <strong>14h-16h</strong></li>
+      <li class="do">Etre <strong>DEBOUT et VISIBLE</strong> — pas assise derriere le comptoir</li>
+      <li class="do">Pas de client ? Sortir sur le trottoir avec un plateau de degustation</li>
+      <li class="do">Proposer activement aux passants (sourire, contact visuel, invitation)</li>
+      <li class="do">Chaque client : proposer un 2eme the ou un accessoire (objectif AOV 26 euros)</li>
+    </ul>
+
+    <div class="rule-red">
+      <strong>JAMAIS :</strong> Rester assise derriere le comptoir en attendant. Regarder son telephone. Laisser la porte fermee. Laisser l'ardoise avec le message de la veille.
+    </div>
+
+    <div class="tip">
+      <strong>Reflexe :</strong> Si personne en boutique depuis 15 minutes, prendre le plateau de degustation et sortir. Les clients ne viendront pas seuls — c'est a nous d'aller les chercher.
+    </div>
+  </div>
+
+  <!-- MESSAGES ARDOISE -->
+  <div class="section">
+    <div class="section-title">Messages Ardoise — Rotation Semaine</div>
+    <p style="font-size:14px; color:#666; margin-bottom:8px;">Recopier le message du jour sur l'ardoise chaque matin. Changer CHAQUE JOUR — un message identique 2 jours = invisible.</p>
+    <table class="ardoise-table">
+      <thead>
+        <tr><th>Jour</th><th>Message a ecrire</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lundi</strong></td>
+          <td><span class="ardoise-msg">Degustation gratuite aujourd'hui — Entrez !</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mardi</strong></td>
+          <td><span class="ardoise-msg">The du mois : Vert Jasmin -10% — Gouter c'est adopter</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mercredi</strong></td>
+          <td><span class="ardoise-msg">Nouveau ! Infusion Rouge Printanier — Cassis Sureau Hibiscus</span></td>
+        </tr>
+        <tr>
+          <td><strong>Jeudi</strong></td>
+          <td><span class="ardoise-msg">Notre bestseller : Panier de Grand-Maman — Le plus vendu ici !</span></td>
+        </tr>
+        <tr>
+          <td><strong>Vendredi</strong></td>
+          <td><span class="ardoise-msg">Offrez du the ce weekend — Coffrets des 15 euros</span></td>
+        </tr>
+        <tr>
+          <td><strong>Samedi</strong></td>
+          <td><span class="ardoise-msg">+85 clients cette semaine — Quel sera le votre aujourd'hui ?</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip">
+      <strong>Astuce :</strong> Le samedi, remplacer "85" par le vrai total de tickets de la semaine. Plus le chiffre est eleve, plus ca motive les hesitants a entrer.
+    </div>
+  </div>
+
+  <!-- CHECKLIST FERMETURE -->
+  <div class="section">
+    <div class="section-title">Checklist Fermeture — 17h55</div>
+    <ul class="checklist">
+      <li class="do">Rentrer le beach flag, l'ardoise, le presentoir exterieur</li>
+      <li class="do">Noter le nombre de tickets du jour (pour le compteur de demain)</li>
+      <li class="attention">Guirlandes vitrine : <strong>LAISSER ALLUMEES</strong> — elles vendent meme quand c'est ferme</li>
+      <li class="do">Fermer la caisse et noter le CA du jour</li>
+    </ul>
+  </div>
+
+  <!-- SAMEDI -->
+  <div class="section">
+    <div class="section-title">Le Samedi — Jour Capital</div>
+    <div class="saturday">
+      <h3>Le samedi = 2 a 3x un jour normal. Tout doit etre au maximum.</h3>
+      <ul>
+        <li><strong>11h-11h30 :</strong> Sampling guerilla — sortir avec le plateau a 10-20m de la boutique</li>
+        <li><strong>Les 2 vendeuses actives sur le floor</strong> — personne derriere le comptoir sauf encaissement</li>
+        <li><strong>Upsell coffrets :</strong> "C'est un cadeau ? On a des coffrets prets a offrir des 15 euros"</li>
+        <li><strong>Objectif :</strong> 25 tickets minimum</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OBJECTIFS -->
+  <div class="section">
+    <div class="section-title">Objectifs Quotidiens</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="value">14</div>
+        <div class="label">Tickets/jour</div>
+        <div class="sub">minimum semaine</div>
+      </div>
+      <div class="kpi-card">
+        <div class="value">25</div>
+        <div class="label">Tickets samedi</div>
+        <div class="sub">jour capital</div>
+      </div>
+      <div class="kpi-card">
+        <div class="value">26&euro;</div>
+        <div class="label">Panier moyen</div>
+        <div class="sub">vs 22&euro; actuel</div>
+      </div>
+    </div>
+    <div class="tip" style="margin-top:14px;">
+      <strong>Pour monter le panier :</strong> Toujours proposer un accessoire (infuseur, tasse, boite) ou un 2eme the. "Vous aimez le Vert Jasmin ? Notre Panier de Grand-Maman est parfait en complement."
+    </div>
+  </div>
+
+  <!-- RAPPEL FINAL -->
+  <div class="section">
+    <div class="section-title">Le Principe</div>
+    <div style="text-align:center; padding:20px 10px; font-size:16px; color:var(--tt-green); font-weight:600; line-height:1.6;">
+      Un magasin qui a l'air vivant attire la vie.<br>
+      Un magasin qui a l'air mort repousse.<br><br>
+      <span style="font-size:14px; font-weight:400; color:#666;">Chaque action de ce guide envoie le signal "il se passe quelque chose ici" — et c'est ce signal qui transforme un passant en client.</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Teatower Waterloo — Guide Visibilite — Avril 2026<br>
+  Estelle &middot; Sybille &middot; Violette
+</footer>
+
+</body>
+</html>
