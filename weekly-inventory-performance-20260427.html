@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Inventory Performance &mdash; Teatower &mdash; 27 Avril 2026</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f0;color:#2c2c2c;padding:20px;max-width:1100px;margin:0 auto;font-size:14px}
+  .header{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);color:white;padding:28px 32px;border-radius:16px;margin-bottom:24px}
+  .header h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .header .date{font-size:17px;font-weight:500;margin-top:8px}
+  .header .authors{font-size:13px;opacity:0.7;margin-top:4px}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px}
+  .kpi{background:white;border-radius:12px;padding:18px 14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+  .kpi .value{font-size:24px;font-weight:700}
+  .kpi .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+  .kpi .sub{font-size:12px;color:#666;margin-top:2px}
+  .kpi.red .value{color:#c62828}
+  .kpi.green .value{color:#2e7d32}
+  .kpi.blue .value{color:#1a3a5c}
+  .kpi.orange .value{color:#e65100}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+  .card{background:white;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);margin-bottom:20px}
+  .card h3{font-size:14px;font-weight:600;color:#1a3a5c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
+  .bar-container{display:flex;align-items:center;gap:8px;margin:8px 0}
+  .bar-label{width:90px;font-size:12px;color:#666;text-align:right}
+  .bar-track{flex:1;height:24px;background:#f0f0f0;border-radius:4px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:11px;color:white;font-weight:600}
+  .bar-value{font-size:12px;color:#666;width:120px;text-align:right}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:8px;background:#f8f5f0;font-size:11px;text-transform:uppercase;color:#888;border-bottom:2px solid #e8e5df}
+  td{padding:8px;border-bottom:1px solid #f0f0f0}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+  .badge-green{background:#e8f5e9;color:#2e7d32}
+  .badge-red{background:#fce4ec;color:#c62828}
+  .badge-orange{background:#fff3e0;color:#e65100}
+  .badge-blue{background:#e3f2fd;color:#1565c0}
+  .badge-flat{background:#e2e3e5;color:#383d41}
+  .section-title{font-size:18px;font-weight:700;color:#1a3a5c;margin:28px 0 16px;padding-bottom:8px;border-bottom:2px solid #1a3a5c}
+  .alert-box{background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:16px}
+  .alert-box.red{background:#fce4ec;border-left-color:#c62828}
+  .alert-box.blue{background:#e3f2fd;border-left-color:#1565c0}
+  .alert-box.green{background:#e8f5e9;border-left-color:#2e7d32}
+  .footer{text-align:center;color:#aaa;font-size:12px;margin-top:32px;padding:16px}
+  @media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Weekly Inventory Performance</h1>
+  <div class="date">Lundi 27 Avril 2026 &mdash; Semaine 18</div>
+  <div class="authors">Nick (Supply Chain) + Fabian (Odoo)</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi blue">
+    <div class="value">318 245&euro;</div>
+    <div class="label">Valorisation Stock</div>
+    <div class="sub">vs 295 987&euro; baseline <span class="badge badge-red">+7.5%</span></div>
+  </div>
+  <div class="kpi red">
+    <div class="value">245</div>
+    <div class="label">Stock N&eacute;gatif (vendable)</div>
+    <div class="sub">Cible: 0 &middot; vs 246 S-1</div>
+  </div>
+  <div class="kpi green">
+    <div class="value">2.8%</div>
+    <div class="label">Rupture Produits A</div>
+    <div class="sub">3 / 106 &middot; Cible &lt; 5%</div>
+  </div>
+  <div class="kpi green">
+    <div class="value">72</div>
+    <div class="label">Ajustements Sem.17</div>
+    <div class="sub">vs 134 sem. 16 <span class="badge badge-green">↓46%</span></div>
+  </div>
+  <div class="kpi blue">
+    <div class="value">904</div>
+    <div class="label">Produits Vendables</div>
+    <div class="sub">106A / 137B / 661C</div>
+  </div>
+</div>
+
+<div class="section-title">Classification ABC &mdash; Produits A</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h3>R&eacute;partition ABC (904 produits vendables)</h3>
+    <div class="bar-container">
+      <span class="bar-label">A (80%)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:12%;background:#c62828;">106 produits</div></div>
+    </div>
+    <div class="bar-container">
+      <span class="bar-label">B (15%)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:15%;background:#e65100;">137 produits</div></div>
+    </div>
+    <div class="bar-container">
+      <span class="bar-label">C (5%)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:73%;background:#888;">661 produits</div></div>
+    </div>
+    <div style="margin-top:16px;padding-top:14px;border-top:1px solid #eee;">
+      <div style="font-size:12px;color:#888;">Exclusions: E0xxx (échantillons), VRxxxx (vrac), C0xxx/D0xxx/EM0xxx (packaging)</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Stock A par magasin (en rupture / à risque)</h3>
+    <table>
+      <tr><th>Magasin</th><th>Rupture (=0)</th><th>À risque (≤5)</th><th>% à risque</th></tr>
+      <tr><td>Waterloo</td><td class="num"><span class="badge badge-red">23</span></td><td class="num"><span class="badge badge-orange">40</span></td><td class="num">38%</td></tr>
+      <tr><td>Namur</td><td class="num"><span class="badge badge-red">18</span></td><td class="num"><span class="badge badge-orange">34</span></td><td class="num">32%</td></tr>
+      <tr><td>Li&egrave;ge</td><td class="num"><span class="badge badge-red">16</span></td><td class="num"><span class="badge badge-orange">34</span></td><td class="num">32%</td></tr>
+    </table>
+    <div style="margin-top:12px;font-size:12px;color:#888;">Cible: &lt; 10% A à risque par magasin</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h3>Top stockout produits A</h3>
+    <table>
+      <tr><th>SKU</th><th>Produit</th><th class="num">Stock</th></tr>
+      <tr><td>shopifydiscountproduct</td><td>Shopify Discount Product</td><td class="num" style="color:#c62828">0</td></tr>
+<tr><td>TRANSPORT</td><td>TRANSPORT</td><td class="num" style="color:#c62828">0</td></tr>
+<tr><td>DISC</td><td>Discount</td><td class="num" style="color:#c62828">0</td></tr>
+
+    </table>
+  </div>
+  <div class="card">
+    <h3>Top à risque produits A (≤5)</h3>
+    <table>
+      <tr><th>SKU</th><th>Produit</th><th class="num">Stock</th></tr>
+      <tr><td>V0880</td><td>Blue Earl Grey BIO (100 g vrac)</td><td class="num" style="color:#e65100">4</td></tr>
+<tr><td>V0913</td><td>Féérie d&#x27;Hivers</td><td class="num" style="color:#e65100">1</td></tr>
+<tr><td>V0638</td><td>Sérénité - BIO (100 g vrac)</td><td class="num" style="color:#e65100">3</td></tr>
+
+    </table>
+  </div>
+</div>
+
+<div class="section-title">Stock N&eacute;gatif (Top 8 plus n&eacute;gatifs)</div>
+
+<div class="card">
+  <table>
+    <tr><th>SKU</th><th>Produit</th><th class="num">Qt&eacute; n&eacute;g.</th><th>Localisation</th></tr>
+    <tr><td>A0905</td><td>Boite Teatower Vert clair 100 g</td><td class="num" style="color:#c62828">-46</td><td>TT/Stock</td></tr>
+<tr><td>A0298</td><td>Cuillère à matcha Bambou</td><td class="num" style="color:#c62828">-44</td><td>TT/Stock/PICK/C-02-0</td></tr>
+<tr><td>A0844</td><td>Sablier &quot;Tasty brew&quot;</td><td class="num" style="color:#c62828">-43</td><td>TT/Stock</td></tr>
+<tr><td>A0260</td><td>Filtres à thé jetables L</td><td class="num" style="color:#c62828">-20</td><td>TT/Stock/PICK/C-01-0</td></tr>
+<tr><td>A1057</td><td>Tisanière porcelaine Saara pétrole - Teatower</td><td class="num" style="color:#c62828">-20</td><td>TT/Stock</td></tr>
+<tr><td>MP_1V0913</td><td>Féérie d&#x27;Hivers</td><td class="num" style="color:#c62828">-20</td><td>TT/Stock</td></tr>
+<tr><td>A0905</td><td>Boite Teatower Vert clair 100 g</td><td class="num" style="color:#c62828">-19</td><td>WAT/Stock</td></tr>
+<tr><td>A1094</td><td>Mug &quot;Mick&quot; en céramique 0,5l</td><td class="num" style="color:#c62828">-18</td><td>TT/Stock</td></tr>
+
+  </table>
+  <div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;font-size:12px;color:#888;">
+    Total: 245 produits vendables avec stock négatif. Action: équipe logistique à lancer un cycle d'inventaire physique sur les top 20.
+  </div>
+</div>
+
+<div class="section-title">Ajustements WoW</div>
+
+<div class="card">
+  <h3>Volume d'ajustements de stock</h3>
+  <div class="bar-container">
+    <span class="bar-label">Sem. 17</span>
+    <div class="bar-track"><div class="bar-fill" style="width:53%;background:#2e7d32;">72</div></div>
+    <span class="bar-value">20-26 avril</span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Sem. 16</span>
+    <div class="bar-track"><div class="bar-fill" style="width:100%;background:#888;">134</div></div>
+    <span class="bar-value">13-19 avril</span>
+  </div>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid #eee;font-size:13px;">
+    <strong>Tendance :</strong> 46% moins d'ajustements semaine 17 vs sem. 16. ✅ Tendance positive (données plus fiables).
+  </div>
+</div>
+
+<div class="section-title">Valorisation par localisation</div>
+
+<div class="card">
+  <h3>Valorisation actuelle vs baseline 4 avril 2026</h3>
+  <div class="bar-container">
+    <span class="bar-label">Entrep&ocirc;t</span>
+    <div class="bar-track"><div class="bar-fill" style="width:89%;background:#1a3a5c;">285 415&euro;</div></div>
+    <span class="bar-value">vs 262 091&euro; <span class="badge badge-red">+9%</span></span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Li&egrave;ge</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3%;background:#1a5276;">11 526&euro;</div></div>
+    <span class="bar-value">vs 11 931&euro; <span class="badge badge-green">-3%</span></span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Namur</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3%;background:#8B4513;">10 891&euro;</div></div>
+    <span class="bar-value">vs 12 216&euro; <span class="badge badge-orange">-11%</span></span>
+  </div>
+  <div class="bar-container">
+    <span class="bar-label">Waterloo</span>
+    <div class="bar-track"><div class="bar-fill" style="width:3%;background:#2D5016;">10 414&euro;</div></div>
+    <span class="bar-value">vs 9 749&euro; <span class="badge badge-red">+7%</span></span>
+  </div>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid #eee;font-size:13px;">
+    <strong>Total : 318 245&euro;</strong> &middot; vs baseline 295 987&euro; &middot; <strong style="color:#c62828">+7.5%</strong>
+  </div>
+</div>
+
+<div class="section-title">Observations &amp; actions</div>
+
+<div class="alert-box blue">
+  <strong>Valorisation entrepôt :</strong> +9% vs baseline (€285415 vs €262091). Forte augmentation — réception fournisseurs récente (Kirchner, D&amp;B). À surveiller : ratio rotation, risque d'immobilisation de trésorerie.
+</div>
+
+<div class="alert-box red">
+  <strong>Stock négatif persistant :</strong> 245 produits vendables. Même ordre de grandeur que la semaine précédente (246). Action : Nick à lancer un cycle d'inventaire ciblant les 8 plus négatifs (cf. tableau).
+</div>
+
+<div class="alert-box green">
+  <strong>Rupture A : 2.8%</strong> (3 / 106 produits A en rupture) &mdash; sous la cible de 5%. À maintenir.
+</div>
+
+<div class="alert-box green">
+  <strong>Ajustements WoW : 46% en baisse</strong> (72 vs 134). Tendance favorable — fiabilité des données en amélioration.
+</div>
+
+<div class="alert-box blue">
+  <strong>Stock A par magasin :</strong> Waterloo a 40 produits A à risque (38%) &mdash; Namur 34 (32%) et Liège 34 (32%). Lancer le réassort entrepôt → boutiques cette semaine.
+</div>
+
+<div class="footer">
+  Weekly Inventory Performance &middot; Teatower &middot; Nick (Supply Chain) + Fabian (Odoo) &middot; Généré le 27/04/2026
+</div>
+
+</body>
+</html>
