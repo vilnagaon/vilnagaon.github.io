@@ -23,8 +23,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <body>
 
 <div class="header">
-  <h1>������ Zones de staffing par magasin</h1>
-  <p>Quand mettre 1 ou 2 vendeuses · basé sur le trafic POS réel des 90 derniers jours · seuils ajustés par magasin</p>
+  <h1>������ Staffing par magasin</h1>
+  <p>Règles de planification · trafic POS réel 90 derniers jours · mis à jour 28 Apr 2026</p>
+</div>
+
+<div style="background:white;padding:24px 28px;border-radius:12px;margin-bottom:32px;border-left:6px solid #1a3a5c;">
+  <h2 style="margin:0 0 12px;font-family:Georgia,serif;font-size:22px;color:#1a3a5c;font-weight:normal;">Règles générales de staffing</h2>
+  <ul style="margin:0;padding-left:22px;font-size:14px;line-height:1.8;color:#3c3c3c;">
+    <li><strong>Journée d'ouverture &gt; 6h → toujours 2 vendeuses</strong> sur la journée (1 le matin, 1 l'après-midi).</li>
+    <li><strong>Overlap d'1h en milieu de journée</strong> entre les deux — pour la cohésion d'équipe et la passation.</li>
+    <li><strong>Heures ≥ 10 tx/h → les 2 vendeuses simultanément</strong> (ajuster les shifts si le pic tombe en dehors de l'overlap par défaut).</li>
+    <li>Aucune vendeuse seule plus de 6h consécutives.</li>
+  </ul>
 </div>
 
 <div class="legend">
@@ -35,7 +45,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 <div style="background:white;border-radius:12px;padding:24px;margin-bottom:32px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
   <h2 style="color:#2D5016;font-family:Georgia,serif;font-size:24px;margin:0 0 4px;font-weight:normal;">Waterloo</h2>
-  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours · seuil 2 vendeuses : ≥ 10 tx/h</p>
+  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours</p>
+  <div style="background:#fff8e7;padding:18px 22px;border-radius:10px;margin-bottom:14px;border-left:4px solid #2D5016;">
+  <div style="font-size:14px;font-weight:600;color:#2c2c2c;margin-bottom:14px;">������ Shift template recommandé</div>
+  <div style="position:relative;height:90px;margin:0 0 8px;font-family:Georgia,serif;">
+    <div style="position:relative;height:14px;margin-top:8px;"><div style="position:absolute;left:0.0%;font-size:10px;color:#888;top:-14px;">10h</div><div style="position:absolute;left:11.1%;font-size:10px;color:#888;top:-14px;">11h</div><div style="position:absolute;left:22.2%;font-size:10px;color:#888;top:-14px;">12h</div><div style="position:absolute;left:33.3%;font-size:10px;color:#888;top:-14px;">13h</div><div style="position:absolute;left:44.4%;font-size:10px;color:#888;top:-14px;">14h</div><div style="position:absolute;left:55.6%;font-size:10px;color:#888;top:-14px;">15h</div><div style="position:absolute;left:66.7%;font-size:10px;color:#888;top:-14px;">16h</div><div style="position:absolute;left:77.8%;font-size:10px;color:#888;top:-14px;">17h</div><div style="position:absolute;left:88.9%;font-size:10px;color:#888;top:-14px;">18h</div><div style="position:absolute;left:100.0%;font-size:10px;color:#888;top:-14px;">19h</div></div>
+    <div style="position:relative;height:24px;margin-top:18px;"><div style="position:absolute;left:0.0%;width:66.7%;height:24px;background:#c5e1a5;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse A — 6h</div></div>
+    <div style="position:relative;height:24px;margin-top:6px;"><div style="position:absolute;left:55.6%;width:44.4%;height:24px;background:#9fa8da;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse B — 4h</div></div>
+  </div>
+  <div style="font-size:13px;color:#666;line-height:1.6;">
+    <strong>Pic de trafic identifié :</strong> 16h–17h (1.7 tx/h en moy.).<br>
+    <strong>Overlap conseillé :</strong> 15h–16h (les 2 vendeuses présentes pendant le pic).
+  </div>
+</div>
+  <h3 style="font-size:14px;margin:22px 0 8px;color:#2c2c2c;">������ Trafic détaillé (90 derniers jours)</h3>
   <table style="border-collapse:collapse;width:100%;font-family:Georgia,serif;">
     <tr><th></th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Lun</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mar</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mer</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Jeu</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Ven</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Sam</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Dim</th></tr>
     <tr><td style="font-size:11px;color:#888;text-align:right;padding-right:8px;border-right:2px solid #eee;">9h–10h</td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td></tr>
@@ -61,7 +84,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
 </div><div style="background:white;border-radius:12px;padding:24px;margin-bottom:32px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
   <h2 style="color:#8B4513;font-family:Georgia,serif;font-size:24px;margin:0 0 4px;font-weight:normal;">Namur</h2>
-  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours · seuil 2 vendeuses : ≥ 10 tx/h</p>
+  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours</p>
+  <div style="background:#fff8e7;padding:18px 22px;border-radius:10px;margin-bottom:14px;border-left:4px solid #8B4513;">
+  <div style="font-size:14px;font-weight:600;color:#2c2c2c;margin-bottom:14px;">������ Shift template recommandé</div>
+  <div style="position:relative;height:90px;margin:0 0 8px;font-family:Georgia,serif;">
+    <div style="position:relative;height:14px;margin-top:8px;"><div style="position:absolute;left:0.0%;font-size:10px;color:#888;top:-14px;">10h</div><div style="position:absolute;left:11.1%;font-size:10px;color:#888;top:-14px;">11h</div><div style="position:absolute;left:22.2%;font-size:10px;color:#888;top:-14px;">12h</div><div style="position:absolute;left:33.3%;font-size:10px;color:#888;top:-14px;">13h</div><div style="position:absolute;left:44.4%;font-size:10px;color:#888;top:-14px;">14h</div><div style="position:absolute;left:55.6%;font-size:10px;color:#888;top:-14px;">15h</div><div style="position:absolute;left:66.7%;font-size:10px;color:#888;top:-14px;">16h</div><div style="position:absolute;left:77.8%;font-size:10px;color:#888;top:-14px;">17h</div><div style="position:absolute;left:88.9%;font-size:10px;color:#888;top:-14px;">18h</div><div style="position:absolute;left:100.0%;font-size:10px;color:#888;top:-14px;">19h</div></div>
+    <div style="position:relative;height:24px;margin-top:18px;"><div style="position:absolute;left:0.0%;width:66.7%;height:24px;background:#c5e1a5;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse A — 6h</div></div>
+    <div style="position:relative;height:24px;margin-top:6px;"><div style="position:absolute;left:55.6%;width:44.4%;height:24px;background:#9fa8da;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse B — 4h</div></div>
+  </div>
+  <div style="font-size:13px;color:#666;line-height:1.6;">
+    <strong>Pic de trafic identifié :</strong> 16h–17h (6.9 tx/h en moy.).<br>
+    <strong>Overlap conseillé :</strong> 15h–16h (les 2 vendeuses présentes pendant le pic).
+  </div>
+</div>
+  <h3 style="font-size:14px;margin:22px 0 8px;color:#2c2c2c;">������ Trafic détaillé (90 derniers jours)</h3>
   <table style="border-collapse:collapse;width:100%;font-family:Georgia,serif;">
     <tr><th></th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Lun</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mar</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mer</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Jeu</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Ven</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Sam</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Dim</th></tr>
     <tr><td style="font-size:11px;color:#888;text-align:right;padding-right:8px;border-right:2px solid #eee;">9h–10h</td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td></tr>
@@ -87,7 +123,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
 </div><div style="background:white;border-radius:12px;padding:24px;margin-bottom:32px;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
   <h2 style="color:#1a5276;font-family:Georgia,serif;font-size:24px;margin:0 0 4px;font-weight:normal;">Liège</h2>
-  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours · seuil 2 vendeuses : ≥ 10 tx/h</p>
+  <p style="color:#888;font-size:13px;margin:0 0 16px;">Trafic moyen / heure — basé sur 90 derniers jours</p>
+  <div style="background:#fff8e7;padding:18px 22px;border-radius:10px;margin-bottom:14px;border-left:4px solid #1a5276;">
+  <div style="font-size:14px;font-weight:600;color:#2c2c2c;margin-bottom:14px;">������ Shift template recommandé</div>
+  <div style="position:relative;height:90px;margin:0 0 8px;font-family:Georgia,serif;">
+    <div style="position:relative;height:14px;margin-top:8px;"><div style="position:absolute;left:0.0%;font-size:10px;color:#888;top:-14px;">10h</div><div style="position:absolute;left:11.1%;font-size:10px;color:#888;top:-14px;">11h</div><div style="position:absolute;left:22.2%;font-size:10px;color:#888;top:-14px;">12h</div><div style="position:absolute;left:33.3%;font-size:10px;color:#888;top:-14px;">13h</div><div style="position:absolute;left:44.4%;font-size:10px;color:#888;top:-14px;">14h</div><div style="position:absolute;left:55.6%;font-size:10px;color:#888;top:-14px;">15h</div><div style="position:absolute;left:66.7%;font-size:10px;color:#888;top:-14px;">16h</div><div style="position:absolute;left:77.8%;font-size:10px;color:#888;top:-14px;">17h</div><div style="position:absolute;left:88.9%;font-size:10px;color:#888;top:-14px;">18h</div><div style="position:absolute;left:100.0%;font-size:10px;color:#888;top:-14px;">19h</div></div>
+    <div style="position:relative;height:24px;margin-top:18px;"><div style="position:absolute;left:0.0%;width:66.7%;height:24px;background:#c5e1a5;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse A — 6h</div></div>
+    <div style="position:relative;height:24px;margin-top:6px;"><div style="position:absolute;left:55.6%;width:44.4%;height:24px;background:#9fa8da;border-radius:4px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:600;">Vendeuse B — 4h</div></div>
+  </div>
+  <div style="font-size:13px;color:#666;line-height:1.6;">
+    <strong>Pic de trafic identifié :</strong> 15h–16h (5.1 tx/h en moy.).<br>
+    <strong>Overlap conseillé :</strong> 14h–15h (les 2 vendeuses présentes pendant le pic).
+  </div>
+</div>
+  <h3 style="font-size:14px;margin:22px 0 8px;color:#2c2c2c;">������ Trafic détaillé (90 derniers jours)</h3>
   <table style="border-collapse:collapse;width:100%;font-family:Georgia,serif;">
     <tr><th></th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Lun</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mar</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Mer</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Jeu</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Ven</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Sam</th><th style="padding:8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;background:#f8f5f0;color:#666;">Dim</th></tr>
     <tr><td style="font-size:11px;color:#888;text-align:right;padding-right:8px;border-right:2px solid #eee;">9h–10h</td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td><td style="background:#cfe2f3;color:#1a5276;text-align:center;padding:8px 4px;font-weight:600;font-size:13px;border:1px solid #fff;"></td></tr>
@@ -114,9 +163,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 
 <div style="margin-top:32px;padding:18px 22px;background:white;border-radius:8px;font-size:13px;color:#666;">
-  <strong>Comment lire :</strong> Le chiffre dans chaque case = nombre moyen de tickets par heure observé sur les 90 derniers jours. Le seuil unique pour passer à 2 vendeuses est <strong>10 tickets/heure</strong> — même seuil dans tous les magasins pour assurer une qualité d'accueil constante.
+  <strong>Comment lire :</strong> Le chiffre dans chaque case = nombre moyen de tickets par heure observé sur les 90 derniers jours. Le seuil pour exiger les 2 vendeuses simultanément est <strong>10 tickets/heure</strong>.
   <br><br>
-  <strong>Action concrète :</strong> Aux heures rouges (≥ 10 tx/h), planifier 2 vendeuses systématiquement. Aux heures bleues (&lt; 10 tx/h), 1 vendeuse suffit. À surcharger ponctuellement si jour de promo / atelier / météo exceptionnelle.
+  <strong>Comment planifier :</strong> 1) Toujours 2 vendeuses par journée &gt; 6h, en shifts séparés avec 1h d'overlap. 2) Caler l'overlap sur l'heure de pic identifiée par store (panneau jaune ci-dessus). 3) Si une heure rouge tombe en dehors de l'overlap, décaler les shifts pour qu'elle soit couverte par les 2.
 </div>
 
 </body>
