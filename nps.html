@@ -8,9 +8,10 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f1eb;color:#2c2c2c;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-  .container{background:white;border-radius:16px;max-width:520px;width:100%;padding:40px 32px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
-  .logo-wrap{text-align:center;margin-bottom:32px}
-  .logo-wrap img{max-width:200px;height:auto;display:inline-block}
+  .container{background:white;border-radius:16px;max-width:520px;width:100%;padding:0 0 40px 0;box-shadow:0 4px 20px rgba(0,0,0,0.06);overflow:hidden}
+  .logo-wrap{text-align:center;background:#0a0a0a;padding:32px 24px;margin-bottom:32px;border-radius:16px 16px 0 0}
+  .logo-wrap img{max-width:220px;height:auto;display:inline-block}
+  .body-pad{padding:0 32px}
   h1{font-family:Georgia,serif;font-size:26px;line-height:1.3;text-align:center;margin-bottom:8px;font-weight:normal}
   .lead{text-align:center;color:#666;font-size:15px;line-height:1.5;margin-bottom:32px}
   .score-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-bottom:8px}
@@ -28,7 +29,7 @@
   .submit-btn:disabled{opacity:0.4;cursor:not-allowed}
   .meta{text-align:center;font-size:11px;color:#aaa;margin-top:24px;line-height:1.5}
   /* Thank you screens */
-  .thank-you{display:none;text-align:center;padding:20px 0}
+  .thank-you{display:none;text-align:center;padding:20px 32px}
   .thank-you.active{display:block}
   .thank-you h2{font-family:Georgia,serif;font-size:24px;margin-bottom:12px;font-weight:normal}
   .thank-you p{color:#666;font-size:15px;line-height:1.6;margin-bottom:20px}
@@ -36,7 +37,7 @@
   .cta-link:hover{background:#f5edc7}
   .cta-link.dark{background:#2c2c2c;border-color:#2c2c2c;color:white}
   .cta-link.dark:hover{background:#3c3c3c}
-  .form-section{display:block}
+  .form-section{display:block;padding:0 32px}
   .form-section.hidden{display:none}
   .err{color:#c62828;text-align:center;font-size:13px;margin-top:12px;display:none}
   .err.show{display:block}
