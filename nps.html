@@ -116,13 +116,12 @@
 const SUPABASE_URL = "https://lmqzufwcoyojsyrvkegh.supabase.co";
 const ANON_KEY = "sb_publishable_DMLluj2Kcrk9mBAwkuurFw_O0_VVx5Q";
 
-// Google review URLs — opens Maps profile, user clicks "Write a review"
-// (CID-based URL works without place_id; for direct review prompt, would need ChIJ place_id)
+// Google review URLs — direct "Write a review" prompt via place_id
 const GOOGLE_REVIEW_URLS = {
-  waterloo: "https://maps.google.com/?cid=9262092261868016768",  // Teatower Waterloo
-  namur:    "https://maps.google.com/?q=Teatower+Namur",          // TODO: replace with CID once available
-  liege:    "https://maps.google.com/?q=Teatower+Liège",          // TODO: replace with CID once available
-  online:   "https://teatower.com/products"                       // online customers → Judge.me product reviews
+  waterloo: "https://search.google.com/local/writereview?placeid=ChIJnz0g_KLRw0cRJnHde7S6I8s",
+  namur:    "https://maps.google.com/?q=Teatower+Namur",   // TODO: replace with place_id when available
+  liege:    "https://maps.google.com/?q=Teatower+Liège",   // TODO: replace with place_id when available
+  online:   "https://teatower.com/products"                // online → Judge.me product reviews
 };
 
 const STORE_LABEL = {
