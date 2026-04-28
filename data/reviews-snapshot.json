@@ -1,0 +1,134 @@
+{
+  "generated_at": "2026-04-28T12:04:51.446701+00:00",
+  "stores": {
+    "waterloo": {
+      "name": "Teatower Waterloo",
+      "place_id": "ChIJnz0g_KLRw0cRJnHde7S6I8s",
+      "rating": 4.5,
+      "user_rating_count": 4,
+      "google_maps_uri": "https://maps.google.com/?cid=14637748498219233574&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "reviews": [
+        {
+          "rating": 5,
+          "text": "A lovely shop with a good selection; it's tempting! 😊 I used to order online, but now I come to the shop in Wattrelos. The teas are good, with a wide variety of flavors. The packaging is attractive, especially for the Christmas collections. I buy almost all my tea at Teatower. Th",
+          "author": "Hélène Bonvoisin",
+          "publish_time": "2025-11-29T10:09:28.639996010Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 3,
+          "text": "Pleasant welcome and well-kept shop.\nUnfortunately, the quality of the tea is not up to scratch.\n\nDetails in response:\n- Organic sencha tea purchased: no better than the low-end, industrial Lipton tea. Once in the cup, we gave up drinking it.\n- Jasmine tea: The flavor was so unco",
+          "author": "Mcc",
+          "publish_time": "2025-10-23T13:21:14.022231828Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 5,
+          "text": "A charming and well-maintained boutique, where the atmosphere is as warm as a good cup of tea!\nThe advice is always spot-on and given with a smile!\nA place to discover and recommend without hesitation, especially with the holidays approaching! 🤩",
+          "author": "Magali Leclercq",
+          "publish_time": "2025-10-27T10:09:49.828383346Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 5,
+          "text": "A very pleasant welcome, tastings and a wide variety of tea 🫖",
+          "author": "barbara lefebvre",
+          "publish_time": "2025-10-23T05:59:07.659048109Z",
+          "language": "en-US"
+        }
+      ]
+    },
+    "namur": {
+      "name": "Teatower Namur",
+      "place_id": "ChIJM7cfH_xkwUcR0aiPqXM4akY",
+      "rating": 4.4,
+      "user_rating_count": 143,
+      "google_maps_uri": "https://maps.google.com/?cid=5073929999603443921&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "reviews": [
+        {
+          "rating": 5,
+          "text": "Had a great experience shopping for infusions",
+          "author": "Oswald Maskens",
+          "publish_time": "2025-03-19T13:59:10.772217Z",
+          "language": "en"
+        },
+        {
+          "rating": 5,
+          "text": "The best tea and infusion shop I've ever been to! The team is very warm and welcoming. The staff are knowledgeable about tea, infusions, etc. Their product knowledge is very helpful, especially for discovering new products and getting advice. Furthermore, their new packaging, whi",
+          "author": "Tommaso Absil Dogà",
+          "publish_time": "2026-02-19T09:11:45.923316731Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 1,
+          "text": "Depuis l’arrivée de la nouvelle équipe, j’ai constaté que l’ambiance n’est plus la même. L’accueil chaleureux a disparu et même les thés semblent avoir changé. Je m’y suis rendu il y a une semaine : la vendeuse ne m’a pas remis de ticket de caisse, elle m’a assuré qu’elle me l’en",
+          "author": "emile boris",
+          "publish_time": "2025-11-16T13:01:01.210804869Z",
+          "language": "fr"
+        },
+        {
+          "rating": 5,
+          "text": "Eager to learn more about Matcha tea, I finally dared to step inside Teatower Namur.\n\nMy only regret is that I should have gone much sooner!\nI was greeted by two very friendly saleswomen who answered all my questions, and I even had the chance to taste the Matcha ❤️\nI will defini",
+          "author": "Jessica Maréchal",
+          "publish_time": "2025-08-27T19:42:25.794630069Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 5,
+          "text": "I visited Teatower Namur last week and received a warm welcome from the two saleswomen who were there. They recommended a fantastic peach fruit infusion, which I've been drinking every day ever since. I'll definitely be back!",
+          "author": "Charlie MorningSunny",
+          "publish_time": "2025-08-20T10:25:40.410872968Z",
+          "language": "en-US"
+        }
+      ]
+    },
+    "liege": {
+      "name": "Teatower Liège",
+      "place_id": "ChIJZ6Zxjw_6wEcRyJxnQnh8W5s",
+      "rating": 4.7,
+      "user_rating_count": 196,
+      "google_maps_uri": "https://maps.google.com/?cid=11194678154711506120&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA",
+      "reviews": [
+        {
+          "rating": 5,
+          "text": "Good quality of tea, nice staff they help you with everything, good prices and delicious tea .",
+          "author": "Nour Ramlot",
+          "publish_time": "2025-11-02T14:58:42.264323689Z",
+          "language": "en"
+        },
+        {
+          "rating": 3,
+          "text": "Bio tea from all over the world but mostly from Brazil",
+          "author": "Sébastien Habimana",
+          "publish_time": "2020-07-26T14:03:45.694242Z",
+          "language": "en"
+        },
+        {
+          "rating": 1,
+          "text": "I'm a loyal customer of this store. I went there yesterday and they sold me loose-leaf tea instead of the tea bags I've always used. I went back today and they told me they couldn't do anything because it's a food product. The bags were still sealed. Who are they kidding? Goodbye",
+          "author": "Jean Charles Steenebruggen",
+          "publish_time": "2026-03-06T18:40:53.662030350Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 5,
+          "text": "A big thank you to the young saleswoman who was there on Monday afternoon, helpful, professional, and very pleasant.\n\nQualities that have become rare these days, and which truly deserve to be recognized! Bravo for this warm welcome and wonderful availability. 👏",
+          "author": "Christelle Montereale",
+          "publish_time": "2025-09-30T16:32:29.579793433Z",
+          "language": "en-US"
+        },
+        {
+          "rating": 5,
+          "text": "I would like to highlight the warm welcome, cheerfulness, and helpful advice of the saleswoman who was there on Monday afternoon, December 29th. It was a pleasure to visit the shop. Thank you!",
+          "author": "Amandine Nicotra",
+          "publish_time": "2025-12-30T08:48:15.903521951Z",
+          "language": "en-US"
+        }
+      ]
+    }
+  },
+  "global": {
+    "total_count": 343,
+    "weighted_avg": 4.57
+  }
+}
