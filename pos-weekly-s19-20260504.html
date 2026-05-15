@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyse POS — Teatower Semaine du 4 mai 2026</title>
+<style>
+  :root {
+    --green:#2d6a4f;--green-light:#40916c;--green-bg:#f0f7f4;
+    --gold:#b5851b;--gold-light:#f5e6c8;
+    --red:#c1121f;--red-light:#fde8e8;--red-bg:#fff5f5;
+    --blue:#1d3557;--blue-light:#e8f0fe;
+    --gray:#6c757d;--gray-light:#f8f9fa;
+    --border:#dee2e6;--text:#212529;--white:#fff;
+    --orange:#e76f51;--orange-light:#fef0ec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--gray-light);line-height:1.6}
+  .container{max-width:1100px;margin:0 auto;padding:20px}
+  .header{background:linear-gradient(135deg,var(--blue) 0%,#0d1b2a 100%);color:var(--white);padding:40px;border-radius:16px;margin-bottom:24px;position:relative;overflow:hidden}
+  .header::after{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04)}
+  .header h1{font-size:28px;margin-bottom:6px;position:relative}
+  .header .subtitle{font-size:15px;opacity:0.8;position:relative}
+  .header .date{font-size:12px;opacity:0.5;margin-top:12px;position:relative}
+  .section{background:var(--white);border-radius:12px;padding:28px;margin-bottom:20px;border:1px solid var(--border)}
+  .section-title{font-size:18px;font-weight:700;margin-bottom:4px}
+  .section-subtitle{color:var(--gray);font-size:13px;margin-bottom:20px}
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+  .kpi{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+  .kpi.alert{border-color:var(--red);background:var(--red-bg)}
+  .kpi.good{border-color:var(--green);background:var(--green-bg)}
+  .kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray);margin-bottom:4px}
+  .kpi-value{font-size:26px;font-weight:800}
+  .kpi-value.red{color:var(--red)}
+  .kpi-value.green{color:var(--green)}
+  .kpi-value.blue{color:var(--blue)}
+  .kpi-value.gold{color:var(--gold)}
+  .kpi-change{font-size:12px;font-weight:600;margin-top:2px}
+  .kpi-change.down{color:var(--red)}
+  .kpi-change.up{color:var(--green)}
+  .kpi-change.flat{color:var(--gray)}
+  .store-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+  .store-card{border-radius:12px;padding:20px;color:white;position:relative;overflow:hidden}
+  .store-card::after{content:'';position:absolute;right:-20px;bottom:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.06)}
+  .store-card.namur{background:linear-gradient(135deg,#1d3557,#457b9d)}
+  .store-card.liege{background:linear-gradient(135deg,#c1121f,#e63946)}
+  .store-card.waterloo{background:linear-gradient(135deg,#2d6a4f,#40916c)}
+  .store-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-bottom:10px}
+  .store-revenue{font-size:32px;font-weight:800;margin-bottom:2px}
+  .store-change{font-size:14px;font-weight:600;opacity:0.9;margin-bottom:12px}
+  .store-details{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .store-detail{font-size:12px;opacity:0.85}
+  .store-detail span{display:block;font-size:18px;font-weight:700;opacity:1}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:var(--gray-light);padding:8px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray);border-bottom:2px solid var(--border)}
+  td{padding:8px 12px;border-bottom:1px solid var(--border)}
+  tr:last-child td{border-bottom:none}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.highlight{background:var(--green-bg)}
+  tr.alert-row{background:var(--red-light)}
+  .trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+  .trend-card{border:1px solid var(--border);border-radius:10px;padding:16px}
+  .trend-card h4{font-size:13px;margin-bottom:8px}
+  .trend-bars{display:flex;align-items:flex-end;gap:4px;height:60px;margin-bottom:6px}
+  .trend-bar{flex:1;border-radius:2px 2px 0 0;position:relative}
+  .trend-bar .val{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;white-space:nowrap}
+  .trend-labels{display:flex;gap:4px}
+  .trend-label{flex:1;text-align:center;font-size:9px;color:var(--gray)}
+  .heatmap{display:grid;grid-template-columns:100px repeat(7,1fr);gap:2px;margin-bottom:16px}
+  .heatmap-header{font-size:10px;font-weight:600;color:var(--gray);text-transform:uppercase;text-align:center;padding:6px 4px}
+  .heatmap-label{font-size:12px;font-weight:600;padding:8px;display:flex;align-items:center}
+  .heatmap-cell{border-radius:4px;padding:6px 4px;text-align:center;font-size:11px;font-weight:600;color:white;min-height:40px;display:flex;flex-direction:column;justify-content:center}
+  .heatmap-cell .rev{font-size:13px;font-weight:800}
+  .heatmap-cell .cmd{font-size:9px;opacity:0.8}
+  .heat-0{background:#eee;color:#999!important}
+  .heat-1{background:#b7e4c7;color:#1b4332!important}
+  .heat-2{background:#74c69d}
+  .heat-3{background:#40916c}
+  .heat-4{background:#2d6a4f}
+  .heat-5{background:#1b4332}
+  .insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:12px}
+  .insight-card{border-left:4px solid var(--green);background:var(--green-bg);padding:14px 16px;border-radius:0 8px 8px 0}
+  .insight-card.warning{border-left-color:var(--red);background:var(--red-light)}
+  .insight-card.info{border-left-color:var(--gold);background:var(--gold-light)}
+  .product-change{display:inline-block;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:600}
+  .product-change.up{background:var(--green-bg);color:var(--green)}
+  .product-change.down{background:var(--red-light);color:var(--red)}
+  .product-change.new{background:var(--blue-light);color:var(--blue)}
+  .product-change.flat{background:var(--gray-light);color:var(--gray)}
+  .footer{text-align:center;padding:20px;color:var(--gray);font-size:11px}
+  @media(max-width:768px){.store-grid{grid-template-columns:1fr}.trend-grid{grid-template-columns:1fr}.heatmap{grid-template-columns:70px repeat(7,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Analyse POS — Semaine du 4 mai</h1>
+  <div class="subtitle">S19 (lun 4 → dim 10 mai 2026) vs S18 (lun 27 avr → dim 3 mai)</div>
+  <div class="date">Données Odoo POS | Teatower | Généré le 15/05/2026</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi good">
+<div class="kpi-label">CA Total</div>
+<div class="kpi-value green">16,626 €</div>
+<div class="kpi-change up">+6.4%</div>
+</div>
+  <div class="kpi good">
+<div class="kpi-label">Commandes</div>
+<div class="kpi-value green">652</div>
+<div class="kpi-change up">+7.9%</div><br/><small style='font-size:10px;color:#999'>604 prec.</small>
+</div>
+  <div class="kpi ">
+<div class="kpi-label">Panier moyen</div>
+<div class="kpi-value blue">25.50 €</div>
+<div class="kpi-change flat">-1.5%</div>
+</div>
+  <div class="kpi good">
+<div class="kpi-label">CA / jour</div>
+<div class="kpi-value green">2,375 €</div>
+<div class="kpi-change up">+6.4%</div><br/><small style='font-size:10px;color:#999'>vs 2,233 € prec.</small>
+</div>
+</div>
+
+<div class="store-grid">
+  <div class="store-card namur">
+<div class="store-name">Namur</div>
+<div class="store-revenue">8,856 &euro;</div>
+<div class="store-change">+9.0% &mdash; En hausse</div>
+<div class="store-details">
+<div class="store-detail">Commandes<span>357</span></div>
+<div class="store-detail">Panier moy.<span>24.81 &euro;</span></div>
+<div class="store-detail">Part du CA<span>53%</span></div>
+<div class="store-detail">vs S18<span style="font-size:13px">+9.0%</span></div>
+</div>
+</div>
+  <div class="store-card liege">
+<div class="store-name">Liège</div>
+<div class="store-revenue">5,593 &euro;</div>
+<div class="store-change">+3.7% &mdash; En hausse</div>
+<div class="store-details">
+<div class="store-detail">Commandes<span>215</span></div>
+<div class="store-detail">Panier moy.<span>26.01 &euro;</span></div>
+<div class="store-detail">Part du CA<span>34%</span></div>
+<div class="store-detail">vs S18<span style="font-size:13px">+3.7%</span></div>
+</div>
+</div>
+  <div class="store-card waterloo">
+<div class="store-name">Waterloo</div>
+<div class="store-revenue">2,177 &euro;</div>
+<div class="store-change">+3.3% &mdash; En hausse</div>
+<div class="store-details">
+<div class="store-detail">Commandes<span>80</span></div>
+<div class="store-detail">Panier moy.<span>27.22 &euro;</span></div>
+<div class="store-detail">Part du CA<span>13%</span></div>
+<div class="store-detail">vs S18<span style="font-size:13px">+3.3%</span></div>
+</div>
+</div>
+</div>
+
+<div class="section">
+  <div class="section-title">Tendance 4 Semaines par Magasin</div>
+  <div class="section-subtitle">Évolution hebdomadaire du CA — avril–mai 2026</div>
+  <div class="trend-grid">
+    <div class="trend-card" style="border-color:var(--blue)">
+<h4 style="color:var(--blue)">Namur</h4>
+<div class="trend-bars"><div class="trend-bar" style="height:80%; background:var(--blue); opacity:0.6"><div class="val">7,146</div></div><div class="trend-bar" style="height:80%; background:var(--blue); opacity:0.7"><div class="val">7,171</div></div><div class="trend-bar" style="height:91%; background:var(--blue); opacity:0.9"><div class="val">8,127</div></div><div class="trend-bar" style="height:100%; background:var(--blue); opacity:1"><div class="val">8,856</div></div></div>
+<div class="trend-labels"><div class="trend-label">S16</div><div class="trend-label">S17</div><div class="trend-label">S18</div><div class="trend-label">S19</div></div>
+<p style="font-size:11px; color:var(--green); margin-top:6px">Moy. 4 sem. : 7,825 €/sem. S19 +9.0% vs S18.</p>
+</div>
+    <div class="trend-card" style="border-color:var(--red)">
+<h4 style="color:var(--red)">Liège</h4>
+<div class="trend-bars"><div class="trend-bar" style="height:90%; background:var(--red); opacity:0.6"><div class="val">5,272</div></div><div class="trend-bar" style="height:100%; background:var(--red); opacity:0.7"><div class="val">5,814</div></div><div class="trend-bar" style="height:92%; background:var(--red); opacity:0.9"><div class="val">5,396</div></div><div class="trend-bar" style="height:96%; background:var(--red); opacity:1"><div class="val">5,593</div></div></div>
+<div class="trend-labels"><div class="trend-label">S16</div><div class="trend-label">S17</div><div class="trend-label">S18</div><div class="trend-label">S19</div></div>
+<p style="font-size:11px; color:var(--green); margin-top:6px">Moy. 4 sem. : 5,519 €/sem. S19 +3.7% vs S18.</p>
+</div>
+    <div class="trend-card" style="border-color:var(--green)">
+<h4 style="color:var(--green)">Waterloo</h4>
+<div class="trend-bars"><div class="trend-bar" style="height:82%; background:var(--green); opacity:0.6"><div class="val">1,786</div></div><div class="trend-bar" style="height:81%; background:var(--green); opacity:0.7"><div class="val">1,765</div></div><div class="trend-bar" style="height:96%; background:var(--green); opacity:0.9"><div class="val">2,107</div></div><div class="trend-bar" style="height:100%; background:var(--green); opacity:1"><div class="val">2,177</div></div></div>
+<div class="trend-labels"><div class="trend-label">S16</div><div class="trend-label">S17</div><div class="trend-label">S18</div><div class="trend-label">S19</div></div>
+<p style="font-size:11px; color:var(--green); margin-top:6px">Moy. 4 sem. : 1,959 €/sem. S19 +3.3% vs S18.</p>
+</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Heatmap Journalier — 14 Derniers Jours</div>
+  <div class="section-subtitle">CA par magasin et par jour (intensité = volume relatif)</div>
+  <p style="font-size:12px;color:var(--gray);margin-bottom:12px"><strong>S18</strong> — 27 avr au 3 mai</p>
+  <div class="heatmap"><div class="heatmap-header"></div><div class="heatmap-header">Lun 27</div><div class="heatmap-header">Mar 28</div><div class="heatmap-header">Mer 29</div><div class="heatmap-header">Jeu 30</div><div class="heatmap-header">Ven 1</div><div class="heatmap-header">Sam 2</div><div class="heatmap-header">Dim 3</div><div class="heatmap-label" style="color:var(--blue)">Namur</div><div class="heatmap-cell heat-2"><div class="rev">1,002</div><div class="cmd">43 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,474</div><div class="cmd">55 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,130</div><div class="cmd">50 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,219</div><div class="cmd">46 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div><div class="heatmap-cell heat-5"><div class="rev">2,759</div><div class="cmd">102 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">542</div><div class="cmd">21 cmd</div></div><div class="heatmap-label" style="color:var(--red)">Liège</div><div class="heatmap-cell heat-2"><div class="rev">780</div><div class="cmd">33 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">767</div><div class="cmd">28 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">639</div><div class="cmd">29 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,325</div><div class="cmd">50 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div><div class="heatmap-cell heat-3"><div class="rev">1,737</div><div class="cmd">63 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">148</div><div class="cmd">5 cmd</div></div><div class="heatmap-label" style="color:var(--green)">Waterloo</div><div class="heatmap-cell heat-1"><div class="rev">348</div><div class="cmd">11 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">251</div><div class="cmd">14 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">331</div><div class="cmd">13 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">426</div><div class="cmd">16 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div><div class="heatmap-cell heat-2"><div class="rev">751</div><div class="cmd">25 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div></div>
+  <p style="font-size:12px;color:var(--gray);margin:16px 0 12px"><strong>S19</strong> — 4 mai au 10 mai</p>
+  <div class="heatmap"><div class="heatmap-header"></div><div class="heatmap-header">Lun 4</div><div class="heatmap-header">Mar 5</div><div class="heatmap-header">Mer 6</div><div class="heatmap-header">Jeu 7</div><div class="heatmap-header">Ven 8</div><div class="heatmap-header">Sam 9</div><div class="heatmap-header">Dim 10</div><div class="heatmap-label" style="color:var(--blue)">Namur</div><div class="heatmap-cell heat-2"><div class="rev">986</div><div class="cmd">39 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">702</div><div class="cmd">33 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,281</div><div class="cmd">43 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">1,005</div><div class="cmd">48 cmd</div></div><div class="heatmap-cell heat-3"><div class="rev">1,796</div><div class="cmd">74 cmd</div></div><div class="heatmap-cell heat-5"><div class="rev">3,084</div><div class="cmd">120 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div><div class="heatmap-label" style="color:var(--red)">Liège</div><div class="heatmap-cell heat-2"><div class="rev">517</div><div class="cmd">20 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">714</div><div class="cmd">28 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">502</div><div class="cmd">17 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">1,053</div><div class="cmd">38 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">868</div><div class="cmd">45 cmd</div></div><div class="heatmap-cell heat-4"><div class="rev">1,939</div><div class="cmd">67 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div><div class="heatmap-label" style="color:var(--green)">Waterloo</div><div class="heatmap-cell heat-1"><div class="rev">290</div><div class="cmd">9 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">339</div><div class="cmd">11 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">199</div><div class="cmd">7 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">563</div><div class="cmd">16 cmd</div></div><div class="heatmap-cell heat-1"><div class="rev">209</div><div class="cmd">11 cmd</div></div><div class="heatmap-cell heat-2"><div class="rev">578</div><div class="cmd">26 cmd</div></div><div class="heatmap-cell heat-0"><div class="rev">—</div><div class="cmd">fermé</div></div></div>
+  <div class="insight-grid" style="margin-top:16px">
+    <div class="insight-card "><h4>Namur en hausse (+9.0%)</h4><p>8,856 € cette semaine vs 8,127 € S18.</p></div><div class="insight-card info"><h4>Samedi = 34% du CA hebdo</h4><p>5,601 € ce samedi vs 5,247 € samedi S18. Le samedi reste le jour décisif.</p></div><div class="insight-card "><h4>#1 [GI0912] Passion Exotique - Infusio : +74.6%</h4><p>578 € cette semaine vs 331 € S18.</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Top 15 Produits — S19 (4–10 mai)</div>
+  <div class="section-subtitle">Toutes boutiques confondues, classés par CA</div>
+  <table>
+    <tr><th>#</th><th>Produit</th><th>Quantité</th><th>CA</th><th>vs S18</th></tr>
+    <tr class="highlight">
+<td>1</td><td><strong>[GI0912] Passion Exotique - Infusion de fruits : Mangue</strong></td>
+<td class="num">62 pcs</td>
+<td class="num"><strong>577.99 &euro;</strong></td>
+<td><span class="product-change up">+74.6%</span></td>
+</tr><tr class="highlight">
+<td>2</td><td><strong>[C0102] Assortiment découverte</strong></td>
+<td class="num">24 pcs</td>
+<td class="num"><strong>354.00 &euro;</strong></td>
+<td><span class="product-change down">-5.6%</span></td>
+</tr><tr class="highlight">
+<td>3</td><td><strong>[V0895] Matcha japonais</strong></td>
+<td class="num">18 pcs</td>
+<td class="num"><strong>353.00 &euro;</strong></td>
+<td><span class="product-change down">-21.2%</span></td>
+</tr><tr>
+<td>4</td><td>[GI0832] La Nana de Wépion glacée</td>
+<td class="num">35 pcs</td>
+<td class="num">325.33 &euro;</td>
+<td><span class="product-change up">+21.9%</span></td>
+</tr><tr>
+<td>5</td><td>[GI0735] Pêche de Vigne - BIO glacée</td>
+<td class="num">33 pcs</td>
+<td class="num">310.14 &euro;</td>
+<td><span class="product-change down">-9.5%</span></td>
+</tr><tr>
+<td>6</td><td>[V0279] Le panier de grand maman (80 g vrac)</td>
+<td class="num">31 pcs</td>
+<td class="num">301.50 &euro;</td>
+<td><span class="product-change down">-2.7%</span></td>
+</tr><tr>
+<td>7</td><td>[I0279] Le panier de grand maman (20 infusettes)</td>
+<td class="num">26 pcs</td>
+<td class="num">279.40 &euro;</td>
+<td><span class="product-change down">-4.0%</span></td>
+</tr><tr>
+<td>8</td><td>[V0832] La Nana de Wépion (100 g vrac)</td>
+<td class="num">28 pcs</td>
+<td class="num">272.50 &euro;</td>
+<td><span class="product-change up">+55.3%</span></td>
+</tr><tr>
+<td>9</td><td>[V0735] Pêche de vigne - BIO (100 g vrac)</td>
+<td class="num">27 pcs</td>
+<td class="num">264.00 &euro;</td>
+<td><span class="product-change up">+44.7%</span></td>
+</tr><tr>
+<td>10</td><td>[GI0634] Gourmandise glacée</td>
+<td class="num">27 pcs</td>
+<td class="num">248.36 &euro;</td>
+<td><span class="product-change up">+7.6%</span></td>
+</tr><tr>
+<td>11</td><td>[GI0820] Marrakech Sunset - BIO glacé</td>
+<td class="num">27 pcs</td>
+<td class="num">247.43 &euro;</td>
+<td><span class="product-change up">+23.8%</span></td>
+</tr><tr>
+<td>12</td><td>[A1135] Coffret Cadeau Ensemble Matcha Traditionnel</td>
+<td class="num">6 pcs</td>
+<td class="num">241.99 &euro;</td>
+<td><span class="product-change up">+57.1%</span></td>
+</tr><tr>
+<td>13</td><td>[A0557] Carafe thé glacé avec filtre 1,5 L</td>
+<td class="num">6 pcs</td>
+<td class="num">230.05 &euro;</td>
+<td><span class="product-change up">+94.9%</span></td>
+</tr><tr>
+<td>14</td><td>[V0914] Infusion du Printemps 2026</td>
+<td class="num">22 pcs</td>
+<td class="num">209.25 &euro;</td>
+<td><span class="product-change down">-17.5%</span></td>
+</tr><tr>
+<td>15</td><td>[V0880] Blue Earl Grey BIO (100 g vrac)</td>
+<td class="num">20 pcs</td>
+<td class="num">195.49 &euro;</td>
+<td><span class="product-change up">+43.2%</span></td>
+</tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-title">Top 5 Produits par Magasin</div>
+  <div class="section-subtitle">S19 — ce qui se vend où</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div>
+      <h4 style="color:var(--blue);margin-bottom:8px;font-size:14px;">Namur</h4>
+      <table><tr><td><strong>[C0102] Assortiment découverte</strong></td><td class="num"><strong>206 &euro;</strong></td></tr><tr><td>[GI0832] La Nana de Wépion glacée</td><td class="num">196 &euro;</td></tr><tr><td>[GI0912] Passion Exotique - Infusion de fruit</td><td class="num">193 &euro;</td></tr><tr><td>[I0279] Le panier de grand maman (20 infusett</td><td class="num">183 &euro;</td></tr><tr><td>[GI0735] Pêche de Vigne - BIO glacée</td><td class="num">170 &euro;</td></tr></table>
+    </div>
+    <div>
+      <h4 style="color:var(--red);margin-bottom:8px;font-size:14px;">Liège</h4>
+      <table><tr><td><strong>[GI0912] Passion Exotique - Infusion de fruit</strong></td><td class="num"><strong>281 &euro;</strong></td></tr><tr><td>[V0279] Le panier de grand maman (80 g vrac)</td><td class="num">165 &euro;</td></tr><tr><td>[V0895] Matcha japonais</td><td class="num">158 &euro;</td></tr><tr><td>[C0102] Assortiment découverte</td><td class="num">134 &euro;</td></tr><tr><td>[A1135] Coffret Cadeau Ensemble Matcha Tradit</td><td class="num">122 &euro;</td></tr></table>
+    </div>
+    <div>
+      <h4 style="color:var(--green);margin-bottom:8px;font-size:14px;">Waterloo</h4>
+      <table><tr><td><strong>[GI0912] Passion Exotique - Infusion de fruit</strong></td><td class="num"><strong>104 &euro;</strong></td></tr><tr><td>[A1135] Coffret Cadeau Ensemble Matcha Tradit</td><td class="num">80 &euro;</td></tr><tr><td>[GI0735] Pêche de Vigne - BIO glacée</td><td class="num">76 &euro;</td></tr><tr><td>[V0659] China perles de jade au jasmin - BIO </td><td class="num">70 &euro;</td></tr><tr><td>[V0735] Pêche de vigne - BIO (100 g vrac)</td><td class="num">68 &euro;</td></tr></table>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:linear-gradient(135deg,var(--blue-light) 0%,var(--gray-light) 100%);border:2px solid var(--blue);">
+  <div class="section-title">Résumé Exécutif</div>
+  <table style="font-size:14px;margin-top:12px">
+    <tr><th>Magasin</th><th>Statut</th><th>CA/Semaine</th><th>Tendance</th></tr>
+    <tr>
+<td><strong style="color:var(--blue)">Namur</strong></td>
+<td><span style="color:var(--green);font-weight:700">Hausse</span></td>
+<td class="num">8,856 &euro;</td>
+<td>+9.0% vs S18 (moy. 7,825 €/sem)</td>
+</tr><tr>
+<td><strong style="color:var(--red)">Liège</strong></td>
+<td><span style="color:var(--green);font-weight:700">Hausse</span></td>
+<td class="num">5,593 &euro;</td>
+<td>+3.7% vs S18 (moy. 5,519 €/sem)</td>
+</tr><tr>
+<td><strong style="color:var(--green)">Waterloo</strong></td>
+<td><span style="color:var(--green);font-weight:700">Hausse</span></td>
+<td class="num">2,177 &euro;</td>
+<td>+3.3% vs S18 (moy. 1,959 €/sem)</td>
+</tr>
+  </table>
+  <p style="font-size:13px;color:var(--gray);margin-top:16px">
+    Semaine S19 : CA total 16,626 € (+6.4% vs S18 à 15,630 €).
+    652 tickets, panier moyen 25.50 €.
+    Note : jeudi 14 mai = Ascension (jour férié, boutiques fermées, non inclus dans cette semaine S19).
+  </p>
+</div>
+
+<div class="footer">
+  Données Odoo POS (tea-tree.odoo.com) | Analyse générée le 15/05/2026 | Teatower
+</div>
+
+</div>
+</body>
+</html>
