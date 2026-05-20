@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossiers CAPEX &amp; Restructuration — Teatower SA — Mars 2026</title>
+<style>
+  @media print {
+    .page-break { page-break-before: always; }
+    body { background: white; }
+    .page { box-shadow: none; border: none; margin: 0; padding: 2cm 2.5cm; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', -apple-system, Helvetica, Arial, sans-serif; color: #1a1a1a; background: #e5e7eb; line-height: 1.5; }
+  .page {
+    max-width: 800px; margin: 2rem auto; background: white;
+    padding: 2.5rem 3rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: 1px solid #d1d5db;
+  }
+
+  /* Header */
+  .company-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 3px solid #16393E; padding-bottom: 1rem; margin-bottom: 1.5rem;
+  }
+  .company-name { font-size: 1.6rem; font-weight: 800; color: #16393E; }
+  .company-sub { font-size: 0.8rem; color: #6b7280; margin-top: 2px; }
+  .company-right { text-align: right; }
+  .company-right p { font-size: 0.75rem; color: #6b7280; line-height: 1.6; }
+
+  /* Dossier title */
+  .dossier-tag {
+    display: inline-block; background: #16393E; color: white;
+    padding: 3px 12px; border-radius: 4px; font-size: 0.7rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .dossier-title { font-size: 1.3rem; font-weight: 700; color: #16393E; margin-bottom: 0.3rem; }
+  .dossier-subtitle { font-size: 0.9rem; color: #6b7280; margin-bottom: 1.5rem; }
+
+  /* KPI row */
+  .kpi-row {
+    display: flex; gap: 1rem; margin-bottom: 1.5rem;
+    border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;
+  }
+  .kpi-box {
+    flex: 1; padding: 0.8rem 1rem; text-align: center;
+    border-right: 1px solid #e5e7eb;
+  }
+  .kpi-box:last-child { border-right: none; }
+  .kpi-value { font-size: 1.2rem; font-weight: 800; color: #16393E; }
+  .kpi-label { font-size: 0.65rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* Sections */
+  .section { margin-bottom: 1.2rem; }
+  .section-title {
+    font-size: 0.75rem; font-weight: 700; color: #16393E;
+    text-transform: uppercase; letter-spacing: 1px;
+    border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 0.5rem; }
+  th {
+    text-align: left; font-size: 0.7rem; font-weight: 700; color: #6b7280;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 0.4rem 0.6rem; border-bottom: 2px solid #e5e7eb; background: #f9fafb;
+  }
+  td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #f3f4f6; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bold { font-weight: 700; }
+  .highlight { background: #f0fdf4; }
+  .total-row td { font-weight: 700; border-top: 2px solid #16393E; border-bottom: none; background: #f8fffe; }
+
+  /* Notes */
+  .note {
+    font-size: 0.75rem; color: #6b7280; line-height: 1.5;
+    padding: 0.6rem 0.8rem; background: #f9fafb; border-radius: 6px;
+    border-left: 3px solid #16393E;
+  }
+
+  /* Verdict box */
+  .verdict {
+    background: #16393E; color: white; border-radius: 8px;
+    padding: 1rem 1.2rem; margin-top: 1rem;
+  }
+  .verdict-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 0.3rem; }
+  .verdict-text { font-size: 0.9rem; line-height: 1.5; }
+  .verdict-text strong { color: #fbbf24; }
+
+  /* Two columns */
+  .two-col { display: flex; gap: 1.5rem; }
+  .two-col > div { flex: 1; }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 1.5rem; padding-top: 0.8rem; border-top: 1px solid #e5e7eb;
+    display: flex; justify-content: space-between;
+    font-size: 0.7rem; color: #9ca3af;
+  }
+
+  .green { color: #059669; }
+  .red { color: #dc2626; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- DOSSIER 1 : MAGASIN #4 — SHOPPING CORA ROCOURT              -->
+<!-- ============================================================ -->
+<div class="page">
+  <div class="company-header">
+    <div>
+      <div class="company-name">TEATOWER SA</div>
+      <div class="company-sub">Maison de th&eacute; belge &mdash; 3 boutiques + e-commerce</div>
+    </div>
+    <div class="company-right">
+      <p>BCE : BE0656.763.145<br>
+      Stephan Pire &mdash; +32 496 863 275<br>
+      stephan.pire@teatower.com<br>
+      Mars 2026</p>
+    </div>
+  </div>
+
+  <div class="dossier-tag">Dossier 1 / 4</div>
+  <div class="dossier-title">Ouverture Magasin #4 &mdash; Shopping Cora Rocourt</div>
+  <div class="dossier-subtitle">Cellule 39 m&sup2; GLA face caisse &mdash; Ouverture septembre 2026 &mdash; Bail Galimmo / Shopping Cora Rocourt</div>
+
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="kpi-value">73 000 &euro;</div>
+      <div class="kpi-label">Cr&eacute;dit demand&eacute;</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">48 mois</div>
+      <div class="kpi-label">Dur&eacute;e</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">1 678 &euro;/mois</div>
+      <div class="kpi-label">Mensualit&eacute;</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">6,5</div>
+      <div class="kpi-label">DSCR Groupe</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">18 mois</div>
+      <div class="kpi-label">Payback</div>
+    </div>
+    <div class="kpi-box" style="background:#fff8ed; border-left:3px solid #d97706;">
+      <div class="kpi-value" style="color:#d97706;">17 550 &euro;</div>
+      <div class="kpi-label">Caution locative</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Situation de la soci&eacute;t&eacute;</div>
+    <table>
+      <tr><th></th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">1,48 M&euro;</td><td class="num bold">1,83 M&euro;</td></tr>
+      <tr><td>R&eacute;sultat net</td><td class="num">+7 071 &euro;</td><td class="num red">-80 500 &euro;</td><td class="num">+43 674 &euro;</td><td class="num bold green">+117 733 &euro;</td></tr>
+      <tr><td>Capitaux propres</td><td class="num">132 734 &euro;</td><td class="num">52 234 &euro;</td><td class="num">95 908 &euro;</td><td class="num bold">213 641 &euro;</td></tr>
+      <tr><td>Effectifs (ETP)</td><td class="num">2,5</td><td class="num">2,5</td><td class="num">2,2</td><td class="num bold">10</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Plan d'investissement (105 096 &euro;)</div>
+      <table>
+        <tr><td>Am&eacute;nagement &amp; &eacute;quipement</td><td class="num">19 446 &euro;</td></tr>
+        <tr><td>Stock initial (120 r&eacute;f&eacute;rences)</td><td class="num">12 000 &euro;</td></tr>
+        <tr><td>Tr&eacute;sorerie de d&eacute;marrage</td><td class="num">12 000 &euro;</td></tr>
+        <tr><td>Personnel pr&eacute;-break-even</td><td class="num">12 600 &euro;</td></tr>
+        <tr><td>&Eacute;v&eacute;nements de lancement</td><td class="num">31 500 &euro;</td></tr>
+        <tr style="background:#fff8ed;"><td><strong>Caution bancaire locative</strong> <span style="font-size:0.75rem;color:#6b7280;">(6 mois Prix Annuel &mdash; Art.&nbsp;4 bail Galimmo 12.05.26)</span></td><td class="num" style="color:#d97706;font-weight:700;">17 550 &euro;</td></tr>
+        <tr class="total-row"><td>Total CAPEX</td><td class="num">105 096 &euro;</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">Structure de financement</div>
+      <table>
+        <tr class="highlight"><td class="bold">Cr&eacute;dit bancaire (investissement)</td><td class="num bold">73 000 &euro;</td><td class="num">69,5%</td></tr>
+        <tr style="background:#fff8ed;"><td class="bold" style="color:#d97706;">Garantie bancaire locative <span style="font-weight:400;font-size:0.75rem;color:#6b7280;">(caution s&eacute;par&eacute;e &mdash; non amortissable)</span></td><td class="num bold" style="color:#d97706;">17 550 &euro;</td><td class="num" style="color:#d97706;">16,7%</td></tr>
+        <tr><td>Autofinancement (cash flow)</td><td class="num">14 546 &euro;</td><td class="num">13,8%</td></tr>
+        <tr class="total-row"><td>Total</td><td class="num">105 096 &euro;</td><td class="num">100%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">P&amp;L pr&eacute;visionnel Rocourt &mdash; Ann&eacute;e 1</div>
+    <table>
+      <tr><th></th><th class="num">Pessimiste</th><th class="num">Base</th><th class="num">Optimiste</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="num">47 117 &euro;</td><td class="num bold">67 309 &euro;</td><td class="num">80 771 &euro;</td></tr>
+      <tr><td>Marge brute (70%)</td><td class="num">32 982 &euro;</td><td class="num">47 117 &euro;</td><td class="num">56 540 &euro;</td></tr>
+      <tr><td>Charges d'exploitation</td><td class="num">-35 700 &euro;</td><td class="num">-33 900 &euro;</td><td class="num">-33 300 &euro;</td></tr>
+      <tr class="highlight"><td class="bold">EBITDA</td><td class="num red">-2 718 &euro;</td><td class="num bold green">+13 217 &euro;</td><td class="num green">+23 240 &euro;</td></tr>
+      <tr><td class="bold">R&eacute;sultat net</td><td class="num red">-3 613 &euro;</td><td class="num bold green">+12 322 &euro;</td><td class="num green">+22 345 &euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Preuve de march&eacute;</div>
+      <p style="font-size:0.82rem; color:#374151; line-height:1.6;">
+        Pop-up Cora Rocourt (oct-d&eacute;c 2025) : <strong>17 940 &euro; CA</strong> en 69 jours, 821 transactions, panier moyen 21,85 &euro;. D&eacute;cembre : 575 &euro;/jour. Validation du potentiel commercial de la zone.
+      </p>
+    </div>
+    <div class="section">
+      <div class="section-title">Garanties propos&eacute;es</div>
+      <p style="font-size:0.82rem; color:#374151; line-height:1.6;">
+        Nantissement stock (12 000 &euro;) + mobilier r&eacute;cup&eacute;rable (9 700 &euro;) = <strong>21 700 &euro;</strong>. Service de la dette (1 678 &euro;/mois) : <strong>1,1% du CA mensuel consolid&eacute;</strong> (152 K&euro;).
+      </p>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Synth&egrave;se</div>
+    <div class="verdict-text">
+      Cr&eacute;dit de <strong>73 000 &euro; sur 48 mois</strong> (mensualit&eacute; 1 678 &euro;) pour financer 69,5% du CAPEX d'ouverture du 4&egrave;me magasin. DSCR groupe confortable &agrave; <strong>6,5</strong>. Break-even atteint au mois 3. Preuve de march&eacute; valid&eacute;e par le pop-up (17,9 K&euro; en 69 jours). Service de la dette repr&eacute;sentant 1,1% du CA mensuel consolid&eacute;. <strong style="color:#fbbf24;">Caution bancaire locative de 17 550 &euro;</strong> (6 mois Prix Annuel bail Galimmo) &agrave; constituer s&eacute;par&eacute;ment avant le 1er juin 2026.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>TEATOWER SA &mdash; Dossier CAPEX 1/4</span>
+    <span>Confidentiel &mdash; Mars 2026</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DOSSIER 2 : 13ÈME MOIS — PÉCULE & PRIME FIN D'ANNÉE        -->
+<!-- ============================================================ -->
+<div class="page page-break">
+  <div class="company-header">
+    <div>
+      <div class="company-name">TEATOWER SA</div>
+      <div class="company-sub">Maison de th&eacute; belge &mdash; 3 boutiques + e-commerce</div>
+    </div>
+    <div class="company-right">
+      <p>BCE : BE0656.763.145<br>
+      Stephan Pire &mdash; +32 496 863 275<br>
+      stephan.pire@teatower.com<br>
+      Mars 2026</p>
+    </div>
+  </div>
+
+  <div class="dossier-tag">Dossier 2 / 4</div>
+  <div class="dossier-title">Financement P&eacute;cule de Vacances &amp; Prime de Fin d'Ann&eacute;e</div>
+  <div class="dossier-subtitle">Cr&eacute;dit de tr&eacute;sorerie &mdash; 10 ETP &mdash; Nouveau contrat</div>
+
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="kpi-value">23 708 &euro;</div>
+      <div class="kpi-label">Montant demand&eacute;</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">12 mois</div>
+      <div class="kpi-label">Dur&eacute;e</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">~2 010 &euro;/mois</div>
+      <div class="kpi-label">Mensualit&eacute; est.</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">10 ETP</div>
+      <div class="kpi-label">Effectifs 2025</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">1,83 M&euro;</div>
+      <div class="kpi-label">CA 2025</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Objet du financement</div>
+    <p style="font-size:0.85rem; color:#374151; line-height:1.7; margin-bottom:0.8rem;">
+      Financement du p&eacute;cule de vacances (juin 2026) et de la prime de fin d'ann&eacute;e (d&eacute;cembre 2025) pour les 10 collaborateurs de Teatower SA. La croissance rapide des effectifs (de 2,2 ETP en 2024 &agrave; 10 ETP en 2025, li&eacute;e &agrave; l'ouverture du magasin de Waterloo et au d&eacute;veloppement du r&eacute;seau) cr&eacute;e un besoin de tr&eacute;sorerie ponctuel et pr&eacute;visible.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">D&eacute;tail du montant</div>
+    <table>
+      <tr><th>Poste</th><th class="num">Montant brut employeur</th><th>P&eacute;riode</th></tr>
+      <tr><td>Prime de fin d'ann&eacute;e (13&egrave;me mois)</td><td class="num">&mdash;</td><td>D&eacute;cembre 2025</td></tr>
+      <tr><td>P&eacute;cule de vacances</td><td class="num">&mdash;</td><td>Juin 2026</td></tr>
+      <tr class="total-row"><td>Total charges co&ucirc;t employeur</td><td class="num">23 708,38 &euro;</td><td></td></tr>
+    </table>
+    <div class="note" style="margin-top:0.6rem;">
+      Ce montant repr&eacute;sente <strong>1,3% du CA 2025</strong> (1,83 M&euro;) et <strong>20,1% du r&eacute;sultat net 2025</strong> (117 733 &euro;). La charge est r&eacute;currente, pr&eacute;visible et directement li&eacute;e &agrave; l'activit&eacute; commerciale.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Situation financi&egrave;re de la soci&eacute;t&eacute;</div>
+    <table>
+      <tr><th></th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">1,48 M&euro;</td><td class="num bold">1,83 M&euro;</td></tr>
+      <tr><td>R&eacute;sultat net</td><td class="num">+7 071 &euro;</td><td class="num red">-80 500 &euro;</td><td class="num">+43 674 &euro;</td><td class="num bold green">+117 733 &euro;</td></tr>
+      <tr><td>Capitaux propres</td><td class="num">132 734 &euro;</td><td class="num">52 234 &euro;</td><td class="num">95 908 &euro;</td><td class="num bold">213 641 &euro;</td></tr>
+      <tr><td>Marge brute produit</td><td class="num" colspan="3"></td><td class="num bold">70%</td></tr>
+      <tr><td>Effectifs (ETP)</td><td class="num">2,5</td><td class="num">2,5</td><td class="num">2,2</td><td class="num bold">10</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Capacit&eacute; de remboursement</div>
+    <table>
+      <tr><th>Indicateur</th><th class="num">Valeur</th></tr>
+      <tr><td>CA mensuel moyen 2025</td><td class="num bold">152 500 &euro;</td></tr>
+      <tr><td>CA pr&eacute;visionnel 2026</td><td class="num">2,43 M&euro; (+33%)</td></tr>
+      <tr><td>Mensualit&eacute; estim&eacute;e (23 708 &euro; / 12 mois + int&eacute;r&ecirc;ts)</td><td class="num bold">~2 010 &euro;/mois</td></tr>
+      <tr><td>Poids mensualit&eacute; / CA mensuel</td><td class="num green bold">1,3%</td></tr>
+      <tr><td>R&eacute;sultat net 2025 disponible</td><td class="num">117 733 &euro;</td></tr>
+      <tr><td>Capitaux propres 2025</td><td class="num">213 641 &euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Croissance du r&eacute;seau</div>
+      <p style="font-size:0.82rem; color:#374151; line-height:1.6;">
+        <strong>3 boutiques actives</strong> (Namur, Li&egrave;ge, Waterloo) + e-commerce + GMS + HoReCa + revendeurs. CA retail boutiques 2025 : <strong>757 K&euro;</strong>. Croissance group&eacute;e +23% en 2025. Objectif 2026 : 2,43 M&euro; (+33%).
+      </p>
+    </div>
+    <div class="section">
+      <div class="section-title">Justification du besoin</div>
+      <p style="font-size:0.82rem; color:#374151; line-height:1.6;">
+        La quadruplication des effectifs en 12 mois (2,2 &rarr; 10 ETP) pour accompagner la croissance g&eacute;n&egrave;re un besoin de tr&eacute;sorerie ponctuel. Le lissage sur 12 mois via un cr&eacute;dit de tr&eacute;sorerie prot&egrave;ge le <strong>BFR sans impacter la capacit&eacute; d'investissement</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Synth&egrave;se</div>
+    <div class="verdict-text">
+      Cr&eacute;dit de tr&eacute;sorerie de <strong>23 708 &euro; sur 12 mois</strong> pour financer les obligations sociales (p&eacute;cule + prime) li&eacute;es au passage de 2,2 &agrave; 10 ETP. Charge repr&eacute;sentant <strong>1,3% du CA</strong> et <strong>20% du r&eacute;sultat net</strong>. Capacit&eacute; de remboursement largement d&eacute;montr&eacute;e par un CA mensuel de 152 K&euro; et des capitaux propres de 213 K&euro;.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>TEATOWER SA &mdash; Dossier CAPEX 2/4</span>
+    <span>Confidentiel &mdash; Mars 2026</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DOSSIER 3 : AMÉLIORATION VITRINES — 3 BOUTIQUES              -->
+<!-- ============================================================ -->
+<div class="page page-break">
+  <div class="company-header">
+    <div>
+      <div class="company-name">TEATOWER SA</div>
+      <div class="company-sub">Maison de th&eacute; belge &mdash; 3 boutiques + e-commerce</div>
+    </div>
+    <div class="company-right">
+      <p>BCE : BE0656.763.145<br>
+      Stephan Pire &mdash; +32 496 863 275<br>
+      stephan.pire@teatower.com<br>
+      Mars 2026</p>
+    </div>
+  </div>
+
+  <div class="dossier-tag">Dossier 3 / 4</div>
+  <div class="dossier-title">Am&eacute;lioration des Vitrines &mdash; Banni&egrave;res &amp; Luminaires</div>
+  <div class="dossier-subtitle">3 boutiques (Namur, Li&egrave;ge, Waterloo) &mdash; 2 500 &euro; par vitrine</div>
+
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="kpi-value">7 500 &euro;</div>
+      <div class="kpi-label">Montant demand&eacute;</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">3</div>
+      <div class="kpi-label">Boutiques</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">2 500 &euro;</div>
+      <div class="kpi-label">Par vitrine</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">757 K&euro;</div>
+      <div class="kpi-label">CA retail 2025</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">1,0%</div>
+      <div class="kpi-label">Invest / CA retail</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Objet du financement</div>
+    <p style="font-size:0.85rem; color:#374151; line-height:1.7; margin-bottom:0.8rem;">
+      Remplacement et am&eacute;lioration des banni&egrave;res ext&eacute;rieures et des luminaires de vitrine pour les 3 boutiques existantes. Objectif : renforcer la visibilit&eacute; de l'enseigne, harmoniser l'identit&eacute; visuelle du r&eacute;seau, et augmenter le trafic pi&eacute;tonnier entrant.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">D&eacute;tail de l'investissement</div>
+    <table>
+      <tr><th>Boutique</th><th>Adresse</th><th>Travaux</th><th class="num">Montant</th></tr>
+      <tr><td class="bold">Namur</td><td>Rue du Pont 3</td><td>Banni&egrave;re + luminaires vitrine</td><td class="num">2 500 &euro;</td></tr>
+      <tr><td class="bold">Li&egrave;ge</td><td>Rue Saint Paul 7</td><td>Banni&egrave;re + luminaires vitrine</td><td class="num">2 500 &euro;</td></tr>
+      <tr><td class="bold">Waterloo</td><td>Ch. de Bruxelles 155</td><td>Banni&egrave;re + luminaires vitrine</td><td class="num">2 500 &euro;</td></tr>
+      <tr class="total-row"><td colspan="3">Total</td><td class="num">7 500 &euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Performance du r&eacute;seau 2025</div>
+      <table>
+        <tr><th>Boutique</th><th class="num">CA 2025</th><th class="num">CA/jour</th></tr>
+        <tr><td>Namur</td><td class="num bold">390 K&euro;</td><td class="num">1 689 &euro;</td></tr>
+        <tr><td>Li&egrave;ge</td><td class="num bold">300 K&euro;</td><td class="num">1 243 &euro;</td></tr>
+        <tr><td>Waterloo</td><td class="num">67 K&euro;</td><td class="num">429 &euro;</td></tr>
+        <tr class="total-row"><td>Total retail</td><td class="num">757 K&euro;</td><td class="num"></td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">Impact attendu</div>
+      <table>
+        <tr><th>Indicateur</th><th class="num">Estimation</th></tr>
+        <tr><td>Hausse trafic entrant</td><td class="num">+5 &agrave; 10%</td></tr>
+        <tr><td>CA additionnel estim&eacute;</td><td class="num">+38 &agrave; 76 K&euro;/an</td></tr>
+        <tr><td>ROI estim&eacute;</td><td class="num bold green">5x &agrave; 10x</td></tr>
+        <tr><td>Payback</td><td class="num">&lt; 2 mois</td></tr>
+      </table>
+      <div class="note" style="margin-top:0.5rem; font-size:0.72rem;">
+        Benchmark retail : une vitrine am&eacute;lior&eacute;e augmente le trafic entrant de 5-15% (source : POPAI / Shop! Association).
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Situation financi&egrave;re</div>
+    <table>
+      <tr><th></th><th class="num">2024</th><th class="num">2025</th><th class="num">Forecast 2026</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="num">1,48 M&euro;</td><td class="num bold">1,83 M&euro;</td><td class="num">2,43 M&euro;</td></tr>
+      <tr><td>R&eacute;sultat net</td><td class="num">+43 674 &euro;</td><td class="num bold green">+117 733 &euro;</td><td class="num">&mdash;</td></tr>
+      <tr><td>Capitaux propres</td><td class="num">95 908 &euro;</td><td class="num bold">213 641 &euro;</td><td class="num">&mdash;</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Capacit&eacute; de remboursement</div>
+    <div class="note">
+      Montant de 7 500 &euro; = <strong>0,41% du CA 2025</strong> et <strong>6,4% du r&eacute;sultat net 2025</strong>. Investissement mineur au regard de la surface financi&egrave;re de la soci&eacute;t&eacute; (capitaux propres : 213 641 &euro;). Amortissable sur 24 mois &agrave; ~325 &euro;/mois, soit 0,21% du CA mensuel.
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Synth&egrave;se</div>
+    <div class="verdict-text">
+      Investissement de <strong>7 500 &euro;</strong> (2 500 &euro; &times; 3 boutiques) pour harmoniser et moderniser les vitrines du r&eacute;seau. ROI estim&eacute; <strong>5 &agrave; 10x</strong> via l'augmentation du trafic entrant. Investissement repr&eacute;sentant seulement <strong>0,41% du CA</strong> avec un payback inf&eacute;rieur &agrave; 2 mois. Capacit&eacute; de remboursement d&eacute;montr&eacute;e par un r&eacute;sultat net de 117 K&euro; et des capitaux propres de 213 K&euro;.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>TEATOWER SA &mdash; Dossier CAPEX 3/4</span>
+    <span>Confidentiel &mdash; Mars 2026</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DOSSIER 4 : RESTRUCTURATION — REMPLACEMENT PAR IA           -->
+<!-- ============================================================ -->
+<div class="page page-break">
+  <div class="company-header">
+    <div>
+      <div class="company-name">TEATOWER SA</div>
+      <div class="company-sub">Maison de th&eacute; belge &mdash; 3 boutiques + e-commerce</div>
+    </div>
+    <div class="company-right">
+      <p>BCE : BE0656.763.145<br>
+      Stephan Pire &mdash; +32 496 863 275<br>
+      stephan.pire@teatower.com<br>
+      Mars 2026</p>
+    </div>
+  </div>
+
+  <div class="dossier-tag">Dossier 4 / 4</div>
+  <div class="dossier-title">Restructuration &mdash; Optimisation par Intelligence Artificielle</div>
+  <div class="dossier-subtitle">Financement indemnit&eacute; de sortie &mdash; Dispense de pr&eacute;avis &mdash; Cr&eacute;dit de tr&eacute;sorerie</div>
+
+  <div class="kpi-row">
+    <div class="kpi-box">
+      <div class="kpi-value">25 383 &euro;</div>
+      <div class="kpi-label">Montant demand&eacute;</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">12 mois</div>
+      <div class="kpi-label">Dur&eacute;e</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">~2 150 &euro;/mois</div>
+      <div class="kpi-label">Mensualit&eacute; est.</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">6 mois</div>
+      <div class="kpi-label">Payback</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-value">49 K&euro;/an</div>
+      <div class="kpi-label">&Eacute;conomie nette</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Objet du financement</div>
+    <p style="font-size:0.85rem; color:#374151; line-height:1.7; margin-bottom:0.8rem;">
+      Financement de l'indemnit&eacute; de rupture li&eacute;e &agrave; la sortie d'une employ&eacute;e administrative (8 ans d'anciennet&eacute;), dont les fonctions sont d&eacute;sormais automatis&eacute;es par des outils d'intelligence artificielle. Dispense de pr&eacute;avis de 24 semaines avec paiement de l'indemnit&eacute; compensatoire. Le poste n'est pas remplac&eacute; &mdash; les t&acirc;ches sont absorb&eacute;es par l'IA, g&eacute;n&eacute;rant une &eacute;conomie structurelle permanente.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Co&ucirc;t de la restructuration (simulation SD Worx du 16/01/2026)</div>
+    <table>
+      <tr><th>Poste</th><th class="num">Montant</th></tr>
+      <tr><td>Indemnit&eacute; de pr&eacute;avis brute (24 semaines)</td><td class="num">19 830,72 &euro;</td></tr>
+      <tr><td>Charges patronales ONSS (28%)</td><td class="num">5 552,60 &euro;</td></tr>
+      <tr class="total-row"><td>Co&ucirc;t total employeur</td><td class="num">25 383,32 &euro;</td></tr>
+    </table>
+    <div class="note" style="margin-top:0.6rem;">
+      Source : Simulation SD Worx &mdash; salaire annuel forfaitaire de licenciement : 42 966,44 &euro; (brut mensuel 2 932,18 &euro; &times; 12,92 + ch&egrave;ques-repas + prime fin d'ann&eacute;e + avantages).
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">&Eacute;conomie annuelle g&eacute;n&eacute;r&eacute;e</div>
+      <table>
+        <tr><th>Poste</th><th class="num">Montant/an</th></tr>
+        <tr><td>Salaire brut annuel</td><td class="num">42 966 &euro;</td></tr>
+        <tr><td>Charges patronales (28%)</td><td class="num">11 428 &euro;</td></tr>
+        <tr><td class="bold">&Eacute;conomie brute</td><td class="num bold">54 394 &euro;</td></tr>
+        <tr><td>Outils IA (abonnements annuels)</td><td class="num red">-5 000 &euro;</td></tr>
+        <tr class="total-row"><td>&Eacute;conomie nette annuelle</td><td class="num green">49 394 &euro;</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">Retour sur investissement</div>
+      <table>
+        <tr><th>Indicateur</th><th class="num">Valeur</th></tr>
+        <tr><td>Co&ucirc;t unique (indemnit&eacute;)</td><td class="num">25 383 &euro;</td></tr>
+        <tr><td>&Eacute;conomie nette / an</td><td class="num">49 394 &euro;</td></tr>
+        <tr><td class="bold">Payback</td><td class="num bold green">6,2 mois</td></tr>
+        <tr><td>ROI ann&eacute;e 1</td><td class="num bold green">94%</td></tr>
+        <tr><td>&Eacute;conomie cumul&eacute;e &agrave; 3 ans</td><td class="num">148 K&euro;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Situation financi&egrave;re de la soci&eacute;t&eacute;</div>
+    <table>
+      <tr><th></th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="num">&mdash;</td><td class="num">&mdash;</td><td class="num">1,48 M&euro;</td><td class="num bold">1,83 M&euro;</td></tr>
+      <tr><td>R&eacute;sultat net</td><td class="num">+7 071 &euro;</td><td class="num red">-80 500 &euro;</td><td class="num">+43 674 &euro;</td><td class="num bold green">+117 733 &euro;</td></tr>
+      <tr><td>Capitaux propres</td><td class="num">132 734 &euro;</td><td class="num">52 234 &euro;</td><td class="num">95 908 &euro;</td><td class="num bold">213 641 &euro;</td></tr>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Capacit&eacute; de remboursement</div>
+      <table>
+        <tr><td>Mensualit&eacute; estim&eacute;e</td><td class="num bold">~2 150 &euro;/mois</td></tr>
+        <tr><td>CA mensuel moyen 2025</td><td class="num">152 500 &euro;</td></tr>
+        <tr><td>Poids / CA mensuel</td><td class="num green bold">1,4%</td></tr>
+        <tr><td>R&eacute;sultat net 2025</td><td class="num">117 733 &euro;</td></tr>
+        <tr><td>Capitaux propres</td><td class="num">213 641 &euro;</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">Contexte de la d&eacute;cision</div>
+      <p style="font-size:0.82rem; color:#374151; line-height:1.6;">
+        Teatower int&egrave;gre l'IA dans ses processus (content marketing, traduction multilingue, analyses de donn&eacute;es, gestion commerciale) depuis 2025. Cette transformation permet d'<strong>absorber les t&acirc;ches administratives</strong> sans recrutement additionnel, tout en r&eacute;allouant les ressources vers les fonctions &agrave; forte valeur ajout&eacute;e (vente, conseil client, d&eacute;veloppement r&eacute;seau).
+      </p>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Synth&egrave;se</div>
+    <div class="verdict-text">
+      Cr&eacute;dit de tr&eacute;sorerie de <strong>25 383 &euro; sur 12 mois</strong> (mensualit&eacute; ~2 150 &euro;) pour financer l'indemnit&eacute; de sortie d'un poste automatis&eacute; par l'IA. Investissement unique g&eacute;n&eacute;rant une <strong>&eacute;conomie nette de 49 K&euro;/an</strong>, soit un payback de <strong>6 mois</strong>. Charge de remboursement repr&eacute;sentant 1,4% du CA mensuel. Capacit&eacute; de remboursement largement d&eacute;montr&eacute;e par un r&eacute;sultat net de 117 K&euro; et des capitaux propres de 213 K&euro;.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>TEATOWER SA &mdash; Dossier 4/4</span>
+    <span>Confidentiel &mdash; Mars 2026</span>
+  </div>
+</div>
+
+</body>
+</html>
