@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Inventory Performance &mdash; Teatower &mdash; 25 Mai 2026</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f0;color:#2c2c2c;padding:20px;max-width:1100px;margin:0 auto;font-size:14px}
+  .header{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);color:white;padding:28px 32px;border-radius:16px;margin-bottom:24px}
+  .header h1{font-size:22px;font-weight:700;margin-bottom:4px}
+  .header .date{font-size:17px;font-weight:500;margin-top:8px}
+  .header .authors{font-size:13px;opacity:0.7;margin-top:4px}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px}
+  .kpi{background:white;border-radius:12px;padding:18px 14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+  .kpi .value{font-size:24px;font-weight:700}
+  .kpi .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
+  .kpi .sub{font-size:12px;color:#666;margin-top:2px}
+  .kpi.red .value{color:#c62828}
+  .kpi.green .value{color:#2e7d32}
+  .kpi.blue .value{color:#1a3a5c}
+  .kpi.orange .value{color:#e65100}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+  .card{background:white;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);margin-bottom:20px}
+  .card h3{font-size:14px;font-weight:600;color:#1a3a5c;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
+  .bar-container{display:flex;align-items:center;gap:8px;margin:8px 0}
+  .bar-label{width:90px;font-size:12px;color:#666;text-align:right}
+  .bar-track{flex:1;height:24px;background:#f0f0f0;border-radius:4px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:11px;color:white;font-weight:600}
+  .bar-value{font-size:12px;color:#666;width:120px;text-align:right}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:8px;background:#f8f5f0;font-size:11px;text-transform:uppercase;color:#888;border-bottom:2px solid #e8e5df}
+  td{padding:8px;border-bottom:1px solid #f0f0f0}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+  .badge-green{background:#e8f5e9;color:#2e7d32}
+  .badge-red{background:#fce4ec;color:#c62828}
+  .badge-orange{background:#fff3e0;color:#e65100}
+  .badge-blue{background:#e3f2fd;color:#1565c0}
+  .badge-flat{background:#e2e3e5;color:#383d41}
+  .section-title{font-size:18px;font-weight:700;color:#1a3a5c;margin:28px 0 16px;padding-bottom:8px;border-bottom:2px solid #1a3a5c}
+  .alert-box{background:#fff3e0;border-left:4px solid #e65100;border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:16px}
+  .alert-box.red{background:#fce4ec;border-left-color:#c62828}
+  .alert-box.blue{background:#e3f2fd;border-left-color:#1565c0}
+  .alert-box.green{background:#e8f5e9;border-left-color:#2e7d32}
+  .alert-box.purple{background:#f3e5f5;border-left-color:#7b1fa2}
+  .footer{text-align:center;color:#aaa;font-size:12px;margin-top:32px;padding:16px}
+  @media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Weekly Inventory Performance</h1>
+  <div class="date">Lundi 25 Mai 2026 &mdash; Semaine 22</div>
+  <div class="authors">Nick (Supply Chain) + Fabian (Odoo)</div>
+</div>
+
+<!-- KPI Row -->
+<div class="kpi-row">
+  <div class="kpi blue">
+    <div class="value">330 115€</div>
+    <div class="label">Valorisation Stock</div>
+    <div class="sub">vs 295 987€ baseline <span class="badge badge-orange">+11.5%</span></div>
+  </div>
+  <div class="kpi red">
+    <div class="value">219</div>
+    <div class="label">Stock N&eacute;gatif (vendable)</div>
+    <div class="sub">Cible: 0 &middot; 1 anomalie UOM exclue</div>
+  </div>
+  <div class="kpi green">
+    <div class="value">0.9%</div>
+    <div class="label">Rupture Produits A</div>
+    <div class="sub">1 / 109 &middot; Cible &lt; 5%</div>
+  </div>
+  <div class="kpi orange">
+    <div class="value">408</div>
+    <div class="label">Ajustements Sem.21</div>
+    <div class="sub">vs 99 sem. 20 <span class="badge badge-red">↑312%</span></div>
+  </div>
+  <div class="kpi blue">
+    <div class="value">+3.7%</div>
+    <div class="label">Valorisation WoW</div>
+    <div class="sub">vs 318 245€ sem. pr&eacute;c.</div>
+  </div>
+</div>
+
+<!-- ALERT: Adjustment spike -->
+<div class="alert-box red">
+  <strong>🚨 Pic d&apos;ajustements &mdash; Semaine 21</strong><br>
+  <span style="font-size:13px">408 mouvements d&apos;inventaire cette semaine vs 99 la semaine pr&eacute;c&eacute;dente (+312%). Pic inhabituel. Investiguer : inventaire physique en boutique ? Correction en masse ? Identifier l&apos;utilisateur et la cause dans Odoo &rarr; Stock &rarr; Mouvements.</span>
+</div>
+
+<!-- ALERT: INFUSETTE UOM -->
+<div class="alert-box" style="background:#fff3e0;border-left-color:#e65100">
+  <strong>⚠️ Anomalie UOM &mdash; INFUSETTE THE GLACE</strong><br>
+  <span style="font-size:13px">Stock négatif de −43 336 unités dans TT/Stock. Il s'agit d'un problème d'unité de mesure (grammes vs unités) dans Odoo, pas d'un stock réel négatif. À corriger dans la fiche produit (Unité de mesure).</span>
+</div>
+
+<!-- Section: Stock négatif -->
+<div class="section-title">KPI 1 — Stock N&eacute;gatif Vendable</div>
+<div class="card">
+  <h3>Produits en stock n&eacute;gatif (hors anomalie UOM &gt;1 000)</h3>
+  <table>
+    <tr><th>Produit</th><th>Emplacement</th><th style="text-align:right">Qté</th></tr>
+    <tr><td>[1V0847] Vrac 1kg Couleur Mojito</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-349.4</td></tr>
+    <tr><td>[1V0634] Vrac 1kg Gourmandise</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-298.2</td></tr>
+    <tr><td>[A1065] Tisanière gustave en verre borosilicate 300 ml</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-48.0</td></tr>
+    <tr><td>[A0905] Boite Teatower Vert clair 100 g</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-46.0</td></tr>
+    <tr><td>[MP_1V0717] Pomme d'amour</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-32.0</td></tr>
+    <tr><td>[MP_1V0880] Blue Earl Grey - BIO</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-30.0</td></tr>
+    <tr><td>[MP_1V0913] Féérie d'Hivers</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-19.7</td></tr>
+    <tr><td>[A0905] Boite Teatower Vert clair 100 g</td><td style="color:#888">WAT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-19.0</td></tr>
+    <tr><td>[A1110] Perles Fruitées Pêche - Bubble Tea 240g</td><td style="color:#888">TT/Stock/PICK/C-01-00-00-01</td><td class="num" style="color:#c62828;font-weight:600">-18.0</td></tr>
+    <tr><td>[A1109] Perles Fruitées Passion - Bubble Tea 240g</td><td style="color:#888">TT/Stock/PICK/C-01-00-00-01</td><td class="num" style="color:#c62828;font-weight:600">-18.0</td></tr>
+    <tr><td>[A1107] Perles fruitées Fraise des bois - Bubble Tea 24</td><td style="color:#888">TT/Stock/PICK/C-01-00-00-01</td><td class="num" style="color:#c62828;font-weight:600">-18.0</td></tr>
+    <tr><td>[A1108] Perles fruitées Litchi - Bubble Tea 240g</td><td style="color:#888">TT/Stock/PICK/C-01-00-00-01</td><td class="num" style="color:#c62828;font-weight:600">-18.0</td></tr>
+    <tr><td>[A1114] Tasse casse-noisette verte</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-18.0</td></tr>
+    <tr><td>[MP_1V0634] Gourmandise</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-15.0</td></tr>
+    <tr><td>[V0279] Le panier de grand maman (80 g vrac)</td><td style="color:#888">TT/Stock</td><td class="num" style="color:#c62828;font-weight:600">-14.0</td></tr>
+  </table>
+  <div style="margin-top:12px;font-size:12px;color:#888">Total: 19 références &mdash; Cible: 0. Planifier ajustements ou réceptions.</div>
+</div>
+
+<!-- Section: ABC -->
+<div class="section-title">KPI 2 — Classification ABC &amp; Ruptures</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>R&eacute;partition ABC (1070 produits vendables)</h3>
+    <div class="bar-container">
+      <div class="bar-label" style="font-weight:600">Classe A</div>
+      <div class="bar-track"><div class="bar-fill" style="width:13%;background:#1a3a5c">109</div></div>
+      <div class="bar-value">80% du CA</div>
+    </div>
+    <div class="bar-container">
+      <div class="bar-label" style="font-weight:600">Classe B</div>
+      <div class="bar-track"><div class="bar-fill" style="width:16%;background:#2e7d32">136</div></div>
+      <div class="bar-value">15% du CA</div>
+    </div>
+    <div class="bar-container">
+      <div class="bar-label" style="font-weight:600">Classe C</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:#888">825</div></div>
+      <div class="bar-value">5% du CA</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Produits A &mdash; &Eacute;tat du stock</h3>
+    <div style="margin-bottom:12px">
+      <span class="badge badge-green" style="font-size:14px;padding:4px 12px">0.9% en rupture</span>
+      <span style="font-size:12px;color:#888;margin-left:8px">Cible &lt; 5%</span>
+    </div>
+    <table><tr><th>Produit</th><th style="text-align:right">Ventes</th><th style="text-align:right">Stock</th><th>Statut</th></tr>
+    <tr><td>Féérie d'Hivers</td><td class="num">1085</td><td class="num" style="color:#c62828">0</td><td><span class="badge badge-red">RUPTURE</span></td></tr>
+    </table>
+  </div>
+</div>
+<div class="section-title">KPI 3 — Coverage Produits A par Magasin</div>
+<div class="grid-3">
+  <div class="card">
+    <h3 style="color:#2D5016">Waterloo</h3>
+    <div style="margin-bottom:8px;font-size:22px;font-weight:700;color:#2D5016">17<span style="font-size:13px;font-weight:400;color:#888"> / 109 produits A</span></div>
+    <div><span class="badge badge-red">16% sans stock local</span></div>
+    <div style="margin-top:8px;font-size:12px;color:#888">21 produits à risque (stock 1-5)</div>
+    <div style="margin-top:4px;font-size:11px;color:#aaa">Note: entrepôt central couvre les ruptures boutique</div>
+  </div>
+  <div class="card">
+    <h3 style="color:#8B4513">Namur</h3>
+    <div style="margin-bottom:8px;font-size:22px;font-weight:700;color:#8B4513">12<span style="font-size:13px;font-weight:400;color:#888"> / 109 produits A</span></div>
+    <div><span class="badge badge-orange">11% sans stock local</span></div>
+    <div style="margin-top:8px;font-size:12px;color:#888">14 produits à risque (stock 1-5)</div>
+    <div style="margin-top:4px;font-size:11px;color:#aaa">Note: entrepôt central couvre les ruptures boutique</div>
+  </div>
+  <div class="card">
+    <h3 style="color:#1a5276">Liège</h3>
+    <div style="margin-bottom:8px;font-size:22px;font-weight:700;color:#1a5276">15<span style="font-size:13px;font-weight:400;color:#888"> / 109 produits A</span></div>
+    <div><span class="badge badge-orange">14% sans stock local</span></div>
+    <div style="margin-top:8px;font-size:12px;color:#888">33 produits à risque (stock 1-5)</div>
+    <div style="margin-top:4px;font-size:11px;color:#aaa">Note: entrepôt central couvre les ruptures boutique</div>
+  </div>
+</div>
+<div class="section-title">KPI 4 &mdash; Ajustements d&apos;Inventaire</div>
+<div class="card">
+  <h3>Tendance semaine sur semaine</h3>
+  <div class="bar-container">
+    <div class="bar-label" style="font-size:11px;text-align:right">Sem. 20<br><small>11-17 mai</small></div>
+    <div class="bar-track"><div class="bar-fill" style="width:24%;background:#2e7d32">99</div></div>
+    <div class="bar-value"><span class="badge badge-green">99 ajust.</span></div>
+  </div>
+  <div class="bar-container">
+    <div class="bar-label" style="font-size:11px;text-align:right">Sem. 21<br><small>18-24 mai</small></div>
+    <div class="bar-track"><div class="bar-fill" style="width:100%;background:#c62828">408</div></div>
+    <div class="bar-value"><span class="badge badge-red">408 ajust.</span></div>
+  </div>
+  <div style="margin-top:12px;font-size:12px;color:#888">WoW: <strong style="color:#c62828">↑312%</strong> &mdash; Pic à investiguer (voir alerte ci-dessus)</div>
+</div>
+<div class="section-title">KPI 5 &mdash; Valorisation du Stock</div>
+<div class="card">
+  <h3>Par emplacement &mdash; stock positif uniquement</h3>
+  <div class="bar-container">
+    <div class="bar-label">Entrepôt</div>
+    <div class="bar-track"><div class="bar-fill" style="width:100%;background:#1a3a5c">284 440€</div></div>
+    <div class="bar-value" style="font-weight:600">284 440€</div>
+  </div>
+  <div class="bar-container">
+    <div class="bar-label">Liège</div>
+    <div class="bar-track"><div class="bar-fill" style="width:7%;background:#1a5276">22 554€</div></div>
+    <div class="bar-value" style="font-weight:600">22 554€</div>
+  </div>
+  <div class="bar-container">
+    <div class="bar-label">Namur</div>
+    <div class="bar-track"><div class="bar-fill" style="width:4%;background:#8B4513">13 159€</div></div>
+    <div class="bar-value" style="font-weight:600">13 159€</div>
+  </div>
+  <div class="bar-container">
+    <div class="bar-label">Waterloo</div>
+    <div class="bar-track"><div class="bar-fill" style="width:3%;background:#2D5016">9 962€</div></div>
+    <div class="bar-value" style="font-weight:600">9 962€</div>
+  </div>
+  <div class="bar-container" style="margin-top:12px;border-top:1px solid #eee;padding-top:12px">
+    <div class="bar-label" style="font-weight:700">TOTAL</div>
+    <div class="bar-track"><div class="bar-fill" style="width:100%;background:#1a3a5c">330 115€</div></div>
+    <div class="bar-value" style="font-weight:700">330 115€</div>
+  </div>
+  <div style="margin-top:12px;font-size:12px;color:#888">
+    Sem. pr&eacute;c&eacute;dente: 318 245€ &middot;
+    WoW: <strong style="color:#2e7d32">+3.7%</strong> &middot;
+    Baseline 4 avril: 295 987€ &middot;
+    Vs baseline: <strong style="color:#e65100">+11.5%</strong>
+  </div>
+</div>
+<div class="section-title">Observations &amp; Actions</div>
+<div class="grid-2">
+<div class="card"><h3>Observations cette semaine</h3><ul style="padding-left:16px;line-height:2">
+  <li style="font-size:13px">🔴 1 produit(s) A en rupture réelle : Féérie d'Hivers.</li>
+  <li style="font-size:13px">⚠️ Stock négatif anormal sur INFUSETTE THE GLACE (−43 336 unités) : problème d'unité de mesure à corriger dans Odoo.</li>
+  <li style="font-size:13px">⚠️ 19 références vendables en stock négatif (≤ −1 000 exclus) — ajustements d'inventaire à planifier.</li>
+  <li style="font-size:13px">🚨 408 ajustements cette semaine (+312.1% vs sem. précédente). Pic inhabituel — vérifier si lié à un comptage en boutique ou une correction de masse.</li>
+  <li style="font-size:13px">📦 Valorisation totale : 330,115€ (+3.7% WoW, +11.5% vs baseline avril).</li>
+  <li style="font-size:13px">🏪 Store coverage : 17 produits A sans stock à Waterloo — vérifier la répartition entrepôt→boutiques.</li>
+</ul></div>
+<div class="card"><h3>Actions prioritaires</h3><ol style="padding-left:16px;line-height:2">
+  <li style="font-size:13px">Corriger l'unité de mesure INFUSETTE THE GLACE dans Odoo (stock.quant aberrant).</li>
+  <li style="font-size:13px">Investiguer le pic de 408 ajustements sem. 21 : identifier les utilisateurs / l'origine (inventaire physique ? correction en masse ?).</li>
+  <li style="font-size:13px">Planifier un réassort pour les produits A en rupture réelle.</li>
+  <li style="font-size:13px">Vérifier la couverture magasin pour les 15 ruptures A à Liège (store le plus exposé).</li>
+</ol></div>
+</div>
+<div class="footer">Weekly Inventory Performance &mdash; Teatower &mdash; Nick (Supply Chain) + Fabian (Odoo) &mdash; 25 mai 2026</div>
+</body></html>
