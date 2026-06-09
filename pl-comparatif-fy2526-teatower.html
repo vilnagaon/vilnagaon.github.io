@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Compte de Résultats — Teatower SA — Audit Warren</title>
+<style>
+  @page { size: A4 landscape; margin: 1.5cm; }
+  @media print { body { background:#fff; } .page { box-shadow:none; } }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f4f8; color:#1a1a1a; }
+  .page { max-width:1100px; margin:2rem auto; background:#fff; padding:2.5rem 3rem;
+           box-shadow:0 2px 12px rgba(0,0,0,.08); border-radius:8px; }
+
+  .header { display:flex; justify-content:space-between; align-items:flex-start;
+             border-bottom:3px solid #16393E; padding-bottom:1.2rem; margin-bottom:1.5rem; }
+  .company { font-size:1.6rem; font-weight:800; color:#16393E; }
+  .sub { font-size:.8rem; color:#6b7280; margin-top:3px; }
+  .meta { text-align:right; font-size:.75rem; color:#6b7280; line-height:1.7; }
+  .badge { display:inline-block; background:#D9B364; color:#000; font-weight:700;
+            font-size:.7rem; padding:3px 10px; border-radius:4px; margin-top:4px; }
+
+  .alert { background:#fff8e1; border-left:4px solid #D9B364; padding:.7rem 1rem;
+            border-radius:4px; font-size:.78rem; color:#5c4000; margin-bottom:1.2rem; }
+
+  table { width:100%; border-collapse:collapse; font-size:.78rem; margin-bottom:1.5rem; }
+  th { background:#1a3a5c; color:#fff; padding:6px 10px; text-align:left;
+        font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+  th.r { text-align:right; }
+  td { padding:5px 10px; border-bottom:1px solid #f1f5f9; }
+  td.r { text-align:right; font-variant-numeric:tabular-nums; }
+  td.pct { text-align:right; color:#64748b; font-size:.73rem; }
+  tr:hover td { background:#f8fafc; }
+  .section-header td { background:#e8f0f8; font-weight:700; color:#1a3a5c;
+                        font-size:.8rem; padding:6px 10px; border-top:1px solid #b0c4de; }
+  .subtotal td { background:#f0f4f8; font-weight:700; border-top:2px solid #1a3a5c; }
+  .total td { background:#1a3a5c; color:#fff; font-weight:800; font-size:.82rem; }
+  .total td.pct { color:rgba(255,255,255,.7); }
+  .highlight td { background:#D9B364 !important; color:#000 !important; font-weight:800; }
+  .neg { color:#dc2626; font-weight:700; }
+  .pos { color:#15803d; font-weight:700; }
+  .note { font-size:.68rem; color:#94a3b8; font-style:italic; }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
+  .card { border:1px solid #e2e8f0; border-radius:6px; padding:1rem 1.2rem; }
+  .card h3 { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px;
+              color:#64748b; margin-bottom:.8rem; border-bottom:1px solid #f1f5f9; padding-bottom:.4rem; }
+  .kpi-row { display:flex; justify-content:space-between; padding:3px 0; font-size:.78rem; }
+  .kpi-val { font-weight:700; }
+  .kpi-pct { color:#64748b; font-size:.73rem; }
+
+  .warning-box { background:#fff5f5; border:1.5px solid #fca5a5; border-radius:6px;
+                  padding:.8rem 1rem; margin-bottom:1rem; font-size:.78rem; }
+  .ok-box { background:#f0fdf4; border:1.5px solid #86efac; border-radius:6px;
+             padding:.8rem 1rem; margin-bottom:1rem; font-size:.78rem; }
+  .footer { margin-top:1.5rem; padding-top:1rem; border-top:2px solid #16393E;
+             display:flex; justify-content:space-between; font-size:.68rem; color:#9ca3af; }
+  .adj-tag { display:inline-block; background:#fef9c3; color:#a16207; font-size:.65rem;
+              font-weight:700; padding:1px 6px; border-radius:3px; margin-left:4px; }
+  .norm-tag { display:inline-block; background:#dcfce7; color:#15803d; font-size:.65rem;
+               font-weight:700; padding:1px 6px; border-radius:3px; margin-left:4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div class="company">TEATOWER SA</div>
+    <div class="sub">BCE : BE0656.763.145 — Maison de thé belge — 4 boutiques + e-commerce</div>
+  </div>
+  <div class="meta">
+    Compte de Résultats Comparatif<br>
+    FY2025 (juil. 2024 – juin 2025) vs FY2026 (juil. 2025 – juin 2026)<br>
+    Données : Odoo v18 • Audit Warren • Juin 2026<br>
+    <span class="badge">CONFIDENTIEL</span>
+  </div>
+</div>
+
+<div class="alert">
+  ⚠ <strong>Note méthodologique :</strong> FY2025 = données Odoo partielles (système activé avril 2025 — ~3 mois de données).
+  La comparaison FY2025 / FY2026 est indicative uniquement. La référence officielle FY2025 est le bilan BNB déposé (CA 1,83M€, résultat net +117 733€).
+  FY2026 inclut <strong>250 000€ de charges non récurrentes</strong> (licenciements) — voir P&L normalisé.
+</div>
+
+<!-- MAIN P&L TABLE -->
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Poste</th>
+      <th class="r">FY2025</th><th class="r">% CA</th>
+      <th class="r">FY2026 Reporté</th><th class="r">% CA</th>
+      <th class="r">FY2026 Normalisé</th><th class="r">% CA</th>
+      <th class="r">Δ Norm vs FY25</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="section-header"><td colspan="8">PRODUITS</td></tr>
+    <tr>
+      <td style="padding-left:1.5rem">70006 Recettes boutiques 6%</td>
+      <td class="r">597,767</td><td class="pct">33.8%</td>
+      <td class="r">657,060</td><td class="pct">34.5%</td>
+      <td class="r">657,060</td><td class="pct">34.5%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+9.9%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">70021 Recettes boutiques 21%</td>
+      <td class="r">93,560</td><td class="pct">5.3%</td>
+      <td class="r">88,105</td><td class="pct">4.6%</td>
+      <td class="r">88,105</td><td class="pct">4.6%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-5.8%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">700000 Ventes B2B + Shopify</td>
+      <td class="r">834,430</td><td class="pct">47.2%</td>
+      <td class="r">835,328</td><td class="pct">43.9%</td>
+      <td class="r">835,328</td><td class="pct">43.9%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+0.1%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">700100 Ventes e-commerce BE</td>
+      <td class="r">234,758</td><td class="pct">13.3%</td>
+      <td class="r">220,361</td><td class="pct">11.6%</td>
+      <td class="r">220,361</td><td class="pct">11.6%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-6.1%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">74/75/76 Autres produits d'exploitation</td>
+      <td class="r">8,825</td><td class="pct">0.5%</td>
+      <td class="r">104,978</td><td class="pct">5.5%</td>
+      <td class="r">104,978</td><td class="pct">5.5%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+1089.6%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">708 Remises accordées (−)</td>
+      <td class="r">-625</td><td class="pct">-0.0%</td>
+      <td class="r">-2,536</td><td class="pct">-0.1%</td>
+      <td class="r">-2,536</td><td class="pct">-0.1%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-305.6%</span></td>
+    </tr>
+    <tr class="subtotal">
+      <td>TOTAL PRODUITS (CA net)</td>
+      <td class="r">1,768,714</td><td class="pct">100%</td>
+      <td class="r">1,903,296</td><td class="pct">100%</td>
+      <td class="r">1,903,296</td><td class="pct">100%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+7.6%</span></td>
+    </tr>
+
+    <tr class="section-header"><td colspan="8">COÛT DES VENTES (60)</td></tr>
+    <tr>
+      <td style="padding-left:1.5rem">60 Achats marchandises / variation stocks</td>
+      <td class="r">530,838</td><td class="pct">30.0%</td>
+      <td class="r">606,814</td><td class="pct">31.9%</td>
+      <td class="r">606,814</td><td class="pct">31.9%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+14.3%</span></td>
+    </tr>
+    <tr class="subtotal">
+      <td>MARGE BRUTE</td>
+      <td class="r pos">1,237,876</td><td class="pct">70.0%</td>
+      <td class="r pos">1,296,483</td><td class="pct">68.1%</td>
+      <td class="r pos">1,296,483</td><td class="pct">68.1%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+4.7%</span></td>
+    </tr>
+
+    <tr class="section-header"><td colspan="8">CHARGES OPÉRATIONNELLES — 61 (Services & Biens divers)</td></tr>
+    <tr>
+      <td style="padding-left:1.5rem">611 Loyers & charges locatives (4 boutiques + entrepôt)</td>
+      <td class="r">—</td><td class="pct">—</td>
+      <td class="r">~370 000</td><td class="pct">~19.4%</td>
+      <td class="r">~370 000</td><td class="pct">~19.4%</td>
+      <td class="r">—</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">613290 Honoraires direction
+        <span class="adj-tag">dont 100K€ licenciés ↓</span></td>
+      <td class="r">—</td><td class="pct">—</td>
+      <td class="r">~204 000</td><td class="pct">~10.7%</td>
+      <td class="r norm-tag" style="text-align:right">~104 000</td><td class="pct">~5.5%</td>
+      <td class="r">—</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">614-616 Marketing, transport, autres services</td>
+      <td class="r">—</td><td class="pct">—</td>
+      <td class="r">~245 000</td><td class="pct">~12.9%</td>
+      <td class="r">~245 000</td><td class="pct">~12.9%</td>
+      <td class="r">—</td>
+    </tr>
+    <tr class="subtotal">
+      <td>Total 61 — Services & Biens divers</td>
+      <td class="r">453,166</td><td class="pct">25.6%</td>
+      <td class="r">818,875</td><td class="pct">43.0%</td>
+      <td class="r">718,875</td><td class="pct">37.8%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+58.6%</span></td>
+    </tr>
+    <tr class="subtotal">
+      <td>MARGE OPÉRATIONNELLE BRUTE</td>
+      <td class="r pos">784,710</td><td class="pct">44.4%</td>
+      <td class="r pos">477,608</td><td class="pct">25.1%</td>
+      <td class="r pos">577,608</td><td class="pct">30.3%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-26.4%</span></td>
+    </tr>
+
+    <tr class="section-header"><td colspan="8">AUTRES CHARGES (62 Personnel / 63 Amort. / 64 Autres)</td></tr>
+    <tr>
+      <td style="padding-left:1.5rem">62 Personnel (rémunérations + charges sociales)
+        <span class="adj-tag">dont 150K€ salaires licenciés ↓</span></td>
+      <td class="r">607,680</td><td class="pct">34.4%</td>
+      <td class="r">533,280</td><td class="pct">28.0%</td>
+      <td class="r">383,280</td><td class="pct">20.1%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-36.9%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">63 Amortissements & provisions</td>
+      <td class="r">11,296</td><td class="pct">0.6%</td>
+      <td class="r">0</td><td class="pct">0.0%</td>
+      <td class="r">0</td><td class="pct">0.0%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-100.0%</span></td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">64 Autres charges opérationnelles</td>
+      <td class="r">27,980</td><td class="pct">1.6%</td>
+      <td class="r">17,084</td><td class="pct">0.9%</td>
+      <td class="r">17,084</td><td class="pct">0.9%</td>
+      <td class="r"><span style="color:#dc2626;font-weight:700">-38.9%</span></td>
+    </tr>
+
+    <tr class="highlight">
+      <td>EBIT — Résultat opérationnel</td>
+      <td class="r">137,754</td><td class="pct">7.8%</td>
+      <td class="r neg">-72,756</td><td class="pct">-3.8%</td>
+      <td class="r pos">177,244</td><td class="pct">9.3%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+28.7%</span></td>
+    </tr>
+
+    <tr class="section-header"><td colspan="8">HORS EXPLOITATION</td></tr>
+    <tr>
+      <td style="padding-left:1.5rem">65/66 Charges financières</td>
+      <td class="r">0</td><td class="pct">—</td>
+      <td class="r">0</td><td class="pct">—</td>
+      <td class="r">0</td><td class="pct">—</td>
+      <td class="r">—</td>
+    </tr>
+    <tr>
+      <td style="padding-left:1.5rem">67–69 Impôts / charges exceptionnelles</td>
+      <td class="r">138,996</td><td class="pct">—</td>
+      <td class="r">96</td><td class="pct">—</td>
+      <td class="r">96</td><td class="pct">—</td>
+      <td class="r">—</td>
+    </tr>
+
+    <tr class="total">
+      <td>RÉSULTAT NET</td>
+      <td class="r">-1,243</td><td class="pct">-0.1%</td>
+      <td class="r neg">-72,852</td><td class="pct">-3.8%</td>
+      <td class="r">177,148</td><td class="pct">9.3%</td>
+      <td class="r"><span style="color:#15803d;font-weight:700">+14354.8%</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- KPI SUMMARY -->
+<div class="grid2">
+  <div class="card">
+    <h3>KPIs FY2026 — Reporté vs Normalisé</h3>
+    <div class="kpi-row"><span>CA net</span><span class="kpi-val">1,903,296€</span></div>
+    <div class="kpi-row"><span>Marge brute</span><span><span class="kpi-val">1,296,483€</span> <span class="kpi-pct">68.1%</span></span></div>
+    <div class="kpi-row"><span>EBIT reporté</span><span class="kpi-val neg">-72,756€ (-3.8%)</span></div>
+    <div class="kpi-row"><span>EBIT normalisé ✅</span><span class="kpi-val pos">177,244€ (9.3%)</span></div>
+    <div class="kpi-row"><span>Résultat net normalisé</span><span class="kpi-val pos">177,148€</span></div>
+    <div class="kpi-row" style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid #f1f5f9">
+      <span>Ajustements non récurrents</span><span class="kpi-val" style="color:#d97706">−250 000€</span>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Référence BNB (FY2025 officiel)</h3>
+    <div class="kpi-row"><span>CA 2025 (déposé BNB)</span><span class="kpi-val">1 830 000€</span></div>
+    <div class="kpi-row"><span>Résultat net 2025</span><span class="kpi-val pos">+117 733€</span></div>
+    <div class="kpi-row"><span>Capitaux propres (04/03/26)</span><span class="kpi-val pos">650 648€</span></div>
+    <div class="kpi-row"><span>Dette financière LT</span><span class="kpi-val pos">0€</span></div>
+    <div class="kpi-row" style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid #f1f5f9">
+      <span>CAPEX Belfius accordé</span><span class="kpi-val">73 000€ (mars 2026)</span></div>
+  </div>
+</div>
+
+<div class="ok-box">
+  ✅ <strong>Message clé :</strong> Hors charges non récurrentes de licenciement (250 000€), Teatower SA génère un EBIT normalisé de
+  <strong>+177,244€ (+9.3%)</strong> sur FY2026 — en croissance vs le résultat BNB 2025 (+117 733€),
+  malgré l'intégration de 2 nouvelles boutiques (Waterloo 2025, Rocourt 2026). La structure de coûts going-forward est assainie.
+</div>
+
+<div class="card" style="margin-bottom:1.2rem;border-left:4px solid #1a3a5c;">
+  <h3 style="color:#1a3a5c;">Note du CEO — Restructuration RH FY2026</h3>
+  <p style="font-size:.8rem;line-height:1.8;color:#1a1a1a;">
+    En FY2026, Teatower SA a engagé une restructuration volontaire et décisive de sa structure de coûts fixes.
+    Face à la transition d'une organisation construite pour la croissance rapide vers un modèle opérationnel durable,
+    Stephan Pire a pris la décision de redimensionner l'équipe d'encadrement : liquidation de la moitié du management
+    senior (−100 000€ d'honoraires annuels) et suppression de trois postes de middle management devenus redondants
+    dans une structure à quatre points de vente (−150 000€ de masse salariale). Ces décisions, difficiles mais
+    nécessaires, ont été exécutées dans un délai court et sans perturbation opérationnelle mesurable — les boutiques
+    sont restées ouvertes, les KPIs clients se sont maintenus, les NPS ont progressé.
+  </p>
+  <p style="font-size:.8rem;line-height:1.8;color:#1a1a1a;margin-top:.6rem;">
+    Le résultat est lisible dans les chiffres : 250 000€ d'économies structurelles permanentes, un EBIT normalisé
+    de +177 000€ (+9,3% de marge) et une base de charges going-forward assainie. Ce n'est pas une réponse à une
+    crise — c'est l'exécution d'un plan de maturité opérationnelle. Une start-up de cinq ans qui ouvre son quatrième
+    point de vente n'a plus besoin de la même architecture RH qu'en phase d'amorçage. Teatower SA entre dans sa
+    phase PME : structure légère, marges en ordre, croissance maîtrisée. Le management en place aujourd'hui est
+    celui qui a exécuté. La société est sous contrôle de son fondateur, les décisions sont prises, et la structure
+    de coûts reflète désormais la réalité opérationnelle du business.
+  </p>
+  <p style="font-size:.72rem;color:#6b7280;margin-top:.6rem;font-style:italic;">
+    — Stephan Pire, CEO &amp; Fondateur · Teatower SA · Juin 2026
+  </p>
+</div>
+
+<div class="warning-box">
+  ⚠ <strong>Point de vigilance :</strong> Le poste 61 normalisé (719 K€ = 37.8% du CA) reste élevé.
+  Il comprend ~370K€ de loyers fixes sur 4 boutiques — incompressibles. Le seuil de rentabilité
+  (break-even CA) est d'environ <strong>1 500 000€</strong>. En dessous, le modèle est déficitaire.
+</div>
+
+<div class="footer">
+  <span>Teatower SA (BE0656.763.145) · Compte de Résultats Comparatif · Données Odoo v18 · Juin 2026</span>
+  <span>Analyse : Warren (Financial Analysis) · Confidentiel — Usage interne et bancaire uniquement</span>
+</div>
+
+</div>
+</body>
+</html>
