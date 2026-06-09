@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rapprochement Caisse — Teatower 2026-06-09</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#1a1a1a;}
+  .page{max-width:1200px;margin:0 auto;padding:24px;}
+  .header{background:#1a3a5c;color:#fff;padding:20px 28px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;}
+  .header h1{font-size:20px;font-weight:800;}
+  .header .sub{font-size:11px;opacity:.7;margin-top:4px;}
+  .badge{background:#D9B364;color:#000;font-weight:700;font-size:11px;padding:4px 14px;border-radius:99px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+  .kpi{background:#fff;border-radius:8px;padding:14px 16px;border:1px solid #dde3ea;}
+  .kpi .label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px;}
+  .kpi .value{font-size:22px;font-weight:800;color:#1a3a5c;}
+  .kpi .value.red{color:#dc2626;}
+  .kpi .value.orange{color:#d97706;}
+  .kpi .sub{font-size:11px;color:#94a3b8;margin-top:4px;}
+  .card{background:#fff;border-radius:8px;border:1px solid #dde3ea;padding:16px 18px;margin-bottom:16px;}
+  .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#64748b;margin-bottom:12px;border-bottom:1px solid #f1f5f9;padding-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{background:#f8fafc;color:#64748b;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:7px 10px;text-align:left;border-bottom:2px solid #e2e8f0;}
+  th.r{text-align:right;}
+  td{padding:6px 10px;border-bottom:1px solid #f1f5f9;}
+  td.r{text-align:right;font-weight:600;}
+  td.red{color:#dc2626;font-weight:700;}
+  td.green{color:#15803d;font-weight:700;}
+  .tr-ok td{background:#f0fdf4;}
+  .tr-warn td{background:#fefce8;}
+  .tr-bad td{background:#fff5f5;}
+  .status{text-align:center;font-size:14px;}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;}
+  .badge-warn{background:#fef9c3;color:#a16207;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;}
+  .badge-bad{background:#fee2e2;color:#dc2626;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;}
+  .alert{background:#fff3cd;border-left:4px solid #d97706;padding:10px 16px;border-radius:6px;font-size:12px;color:#5c4000;margin-bottom:16px;}
+  .footnote{font-size:10.5px;color:#94a3b8;text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <h1>Rapprochement Caisse — Dépôts Espèces</h1>
+    <div class="sub">Teatower SA · 2026-03-11 → 2026-06-09 (90 jours) · Compte 550001 vs sorties POS · Compte transit 580000</div>
+  </div>
+  <div class="badge">Fabian + Warren · 2026-06-09</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="label">Sessions POS avec retrait</div>
+    <div class="value">18</div>
+    <div class="sub">cash_real_transaction ≠ 0</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Total espèces retirées POS</div>
+    <div class="value">17,745€</div>
+    <div class="sub">Somme des retraits caisse</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Total dépôts 550001</div>
+    <div class="value">120,364€</div>
+    <div class="sub">Entrées non-électroniques</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Solde 580000 non lettré</div>
+    <div class="value orange">+87,679€</div>
+    <div class="sub">295 lignes · cible = 0€</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Sessions sans dépôt identifié</div>
+    <div class="value red">15</div>
+    <div class="sub">à investiguer</div>
+  </div>
+</div>
+
+
+<div class="alert">
+  ⚠ <strong>15 session(s) POS sans dépôt bancaire identifié</strong> — total 14,955.00€.
+  Vérifier si ces espèces sont en fond de caisse ou si le dépôt a été mal comptabilisé.
+</div>
+
+<!-- RAPPROCHEMENT PRINCIPAL -->
+<div class="card">
+  <div class="card-title">Rapprochement Sessions POS ↔ Dépôts 550001 (3 matchés · 15 non matchés)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Boutique</th><th>Session POS</th><th>Date session</th>
+        <th class="r">Retraits POS</th><th class="r">Diff caisse</th>
+        <th>Date dépôt</th><th class="r">Montant déposé</th>
+        <th class="r">Écart</th><th>Réf. banque</th><th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="tr-ok">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00613</td>
+          <td>2026-04-29</td>
+          <td class="r">1510.00€</td>
+          <td class="r ">+0.01€</td>
+          <td>2026-04-30</td>
+          <td class="r">1510.00€</td>
+          <td class="r">—</td>
+          <td class="r">BNK1/25-26/4928</td>
+          <td class="status">✅</td>
+        </tr>
+        <tr class="tr-ok">
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00607</td>
+          <td>2026-04-27</td>
+          <td class="r">1280.00€</td>
+          <td class="r red">-5.02€</td>
+          <td>2026-04-27</td>
+          <td class="r">1280.00€</td>
+          <td class="r">—</td>
+          <td class="r">BNK1/25-26/4866</td>
+          <td class="status">✅</td>
+        </tr>
+        <tr class="tr-warn">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00604</td>
+          <td>2026-04-25</td>
+          <td class="r">0.40€</td>
+          <td class="r ">+0.00€</td>
+          <td>2026-04-28</td>
+          <td class="r">0.75€</td>
+          <td class="r">+0.35€</td>
+          <td class="r">BNK1/25-26/4869</td>
+          <td class="status">⚠</td>
+        </tr>
+      
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00713</td>
+          <td>2026-06-07</td>
+          <td class="r">850.00€</td>
+          <td class="r red">+5.80€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00712</td>
+          <td>2026-06-07</td>
+          <td class="r">1340.00€</td>
+          <td class="r red">-62.95€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00705</td>
+          <td>2026-06-04</td>
+          <td class="r">1020.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00673</td>
+          <td>2026-05-22</td>
+          <td class="r">1100.00€</td>
+          <td class="r red">+9.26€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00667</td>
+          <td>2026-05-20</td>
+          <td class="r">3000.00€</td>
+          <td class="r red">+500.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00635</td>
+          <td>2026-05-07</td>
+          <td class="r">28.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00620</td>
+          <td>2026-05-02</td>
+          <td class="r">7.00€</td>
+          <td class="r ">+0.01€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00598</td>
+          <td>2026-04-23</td>
+          <td class="r">950.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00580</td>
+          <td>2026-04-16</td>
+          <td class="r">2250.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00569</td>
+          <td>2026-04-12</td>
+          <td class="r">600.00€</td>
+          <td class="r red">+72.08€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00525</td>
+          <td>2026-03-25</td>
+          <td class="r">1125.00€</td>
+          <td class="r red">+15.30€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00515</td>
+          <td>2026-03-21</td>
+          <td class="r">845.00€</td>
+          <td class="r red">-138.07€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00513</td>
+          <td>2026-03-20</td>
+          <td class="r">5.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#2D5016"></span>Waterloo</td>
+          <td>POS/00492</td>
+          <td>2026-03-12</td>
+          <td class="r">500.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+        <tr class="tr-bad">
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00491</td>
+          <td>2026-03-12</td>
+          <td class="r">1335.00€</td>
+          <td class="r ">+0.00€</td>
+          <td colspan="4" style="color:#dc2626;font-style:italic;">Aucun dépôt trouvé en banque</td>
+          <td class="status">❌</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- COMPTE 580000 NON LETTRÉ -->
+<div class="card">
+  <div class="card-title">Compte 580000 — Lignes non lettrées (295 entrées · solde +87,678.57€)</div>
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Pièce</th><th>Libellé</th><th class="r">Montant</th><th>Statut</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>2026-05-26</td>
+          <td>BNK1/25-26/5267</td>
+          <td>Dépôt d'espèces 26/05/26 10:05 Transaction ID: d000402987000</td>
+          <td class="r red">-2500.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-05-26</td>
+          <td>BNK1/25-26/5268</td>
+          <td>Dépôt d'espèces 26/05/26 10:03 Transaction ID: d000402987000</td>
+          <td class="r red">-1045.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-30</td>
+          <td>BNK1/25-26/4928</td>
+          <td>Dépôt d'espèces 30/04/26 09:42 Transaction ID: d000401632000</td>
+          <td class="r red">-1510.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-27</td>
+          <td>BNK1/25-26/4848</td>
+          <td>Dépôt d'espèces 27/04/26 07:58 Transaction ID: d000401632012</td>
+          <td class="r red">-950.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-27</td>
+          <td>BNK1/25-26/4866</td>
+          <td>Dépôt d'espèces 27/04/26 13:48 Transaction ID: d000401672033</td>
+          <td class="r red">-1280.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-20</td>
+          <td>BNK1/25-26/4746</td>
+          <td>Dépôt d'espèces 20/04/26 08:07 Transaction ID: d000401602019</td>
+          <td class="r red">-2270.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-14</td>
+          <td>BNK1/25-26/4661</td>
+          <td>Dépôt d'espèces 14/04/26 09:01 Transaction ID: d000401632057</td>
+          <td class="r red">-600.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-04-03</td>
+          <td>BNK1/25-26/4475</td>
+          <td>Dépôt d'espèces 03/04/26 13:17 Transaction ID: d000401602020</td>
+          <td class="r red">-845.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-26</td>
+          <td>BNK1/25-26/4356</td>
+          <td>Dépôt d'espèces 26/03/26 09:12 Transaction ID: d000401671003</td>
+          <td class="r red">-1125.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-17</td>
+          <td>BNK1/25-26/4158</td>
+          <td>Dépôt d'espèces 17/03/26 09:01 Transaction ID: d000401671015</td>
+          <td class="r red">-655.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-17</td>
+          <td>BNK1/25-26/4159</td>
+          <td>Dépôt d'espèces 17/03/26 08:59 Transaction ID: d000401671015</td>
+          <td class="r red">-595.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-17</td>
+          <td>BNK1/25-26/4160</td>
+          <td>Dépôt d'espèces 17/03/26 08:56 Transaction ID: d000401671015</td>
+          <td class="r red">-500.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-17</td>
+          <td>BNK1/25-26/4161</td>
+          <td>Dépôt d'espèces 17/03/26 08:54 Transaction ID: d000401671015</td>
+          <td class="r red">-1335.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-03-17</td>
+          <td>BNK1/25-26/4163</td>
+          <td>Dépôt d'espèces 17/03/26 08:52 Transaction ID: d000401671015</td>
+          <td class="r red">-940.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-20</td>
+          <td>BNK1/25-26/3729</td>
+          <td>Dépôt d'espèces 20/02/26 14:59 Transaction ID: d000401871006</td>
+          <td class="r red">-1100.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-20</td>
+          <td>BNK1/25-26/3730</td>
+          <td>Dépôt d'espèces 20/02/26 14:57 Transaction ID: d000401871006</td>
+          <td class="r red">-790.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-20</td>
+          <td>BNK1/25-26/3731</td>
+          <td>Dépôt d'espèces 20/02/26 14:55 Transaction ID: d000401871006</td>
+          <td class="r red">-950.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-05</td>
+          <td>BNK1/25-26/3426</td>
+          <td>Dépôt d'espèces 05/02/26 16:53 Transaction ID: d000402801025</td>
+          <td class="r red">-500.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-05</td>
+          <td>BNK1/25-26/3427</td>
+          <td>Dépôt d'espèces 05/02/26 16:51 Transaction ID: d000402801025</td>
+          <td class="r red">-930.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-02-05</td>
+          <td>BNK1/25-26/3438</td>
+          <td>Dépôt d'espèces 05/02/26 16:50 Transaction ID: d000402801025</td>
+          <td class="r red">-1150.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-28</td>
+          <td>BNK1/25-26/3313</td>
+          <td>Dépôt d'espèces 28/01/26 13:26 Transaction ID: d000401972005</td>
+          <td class="r red">-650.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-28</td>
+          <td>BNK1/25-26/3314</td>
+          <td>Dépôt d'espèces 28/01/26 13:24 Transaction ID: d000401972005</td>
+          <td class="r red">-750.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-28</td>
+          <td>BNK1/25-26/3315</td>
+          <td>Dépôt d'espèces 28/01/26 13:22 Transaction ID: d000401972005</td>
+          <td class="r red">-670.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-28</td>
+          <td>BNK1/25-26/3316</td>
+          <td>Dépôt d'espèces 28/01/26 13:20 Transaction ID: d000401972005</td>
+          <td class="r red">-1050.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-14</td>
+          <td>BNK1/25-26/3067</td>
+          <td>Dépôt d'espèces 14/01/26 11:38 Transaction ID: d000401943073</td>
+          <td class="r red">-1040.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-14</td>
+          <td>BNK1/25-26/3088</td>
+          <td>Dépôt d'espèces 14/01/26 11:39 Transaction ID: d000401943073</td>
+          <td class="r red">-750.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-07</td>
+          <td>BNK1/25-26/2919</td>
+          <td>Dépôt d'espèces 07/01/26 08:57 Transaction ID: d000401985004</td>
+          <td class="r red">-1880.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2026-01-07</td>
+          <td>BNK1/25-26/2921</td>
+          <td>Dépôt d'espèces 07/01/26 08:55 Transaction ID: d000401985004</td>
+          <td class="r red">-1200.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2025-12-26</td>
+          <td>BNK1/25-26/2760</td>
+          <td>Dépôt d'espèces 26/12/25 15:58 Transaction ID: d000401972003</td>
+          <td class="r red">-2395.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr>
+        <tr>
+          <td>2025-12-23</td>
+          <td>BNK1/25-26/2710</td>
+          <td>Dépôt d'espèces 23/12/25 16:52 Transaction ID: d000401972011</td>
+          <td class="r red">-1100.00€</td>
+          <td><span class="badge-warn">Non lettré</span></td>
+        </tr></tbody>
+  </table>
+</div>
+
+<!-- ÉCARTS DE CAISSE -->
+
+<div class="card">
+  <div class="card-title">Écarts de comptage caisse (8 sessions avec différence)</div>
+  <table>
+    <thead>
+      <tr><th>Boutique</th><th>Session</th><th>Date</th><th class="r">Retrait</th><th class="r">Différence</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00667</td>
+          <td>2026-05-20</td>
+          <td class="r">3000.00€</td>
+          <td class="r green">+500.00€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00515</td>
+          <td>2026-03-21</td>
+          <td class="r">845.00€</td>
+          <td class="r red">-138.07€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00569</td>
+          <td>2026-04-12</td>
+          <td class="r">600.00€</td>
+          <td class="r green">+72.08€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#8B4513"></span>Namur</td>
+          <td>POS/00712</td>
+          <td>2026-06-07</td>
+          <td class="r">1340.00€</td>
+          <td class="r red">-62.95€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00525</td>
+          <td>2026-03-25</td>
+          <td class="r">1125.00€</td>
+          <td class="r green">+15.30€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00673</td>
+          <td>2026-05-22</td>
+          <td class="r">1100.00€</td>
+          <td class="r green">+9.26€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00713</td>
+          <td>2026-06-07</td>
+          <td class="r">850.00€</td>
+          <td class="r green">+5.80€</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#1a5276"></span>Liege bis</td>
+          <td>POS/00607</td>
+          <td>2026-04-27</td>
+          <td class="r">1280.00€</td>
+          <td class="r red">-5.02€</td>
+        </tr></tbody>
+  </table>
+</div>
+
+<div class="footnote">
+  Teatower SA · Rapprochement caisse · 2026-06-09 · Données Odoo (pos.session + account.move.line 550001/580000)<br>
+  Méthodologie : matching par montant ±1€ et proximité temporelle ±3 jours · Sessions POS numérotées &gt;POS/00491
+</div>
+
+</div>
+</body>
+</html>
