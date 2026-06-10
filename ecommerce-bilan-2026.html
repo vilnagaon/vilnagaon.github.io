@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>E-Commerce Teatower SA — Bilan & Roadmap 2026</title>
+<style>
+  @page { size: A4; margin: 1.5cm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; }
+  .page { max-width: 1100px; margin: 2rem auto; background: #fff; padding: 2.5rem 3rem; box-shadow: 0 2px 12px rgba(0,0,0,.08); border-radius: 8px; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #16393E; padding-bottom: 1.2rem; margin-bottom: 1.8rem; }
+  .company { font-size: 1.6rem; font-weight: 800; color: #16393E; }
+  .sub { font-size: .8rem; color: #6b7280; margin-top: 3px; }
+  .meta { text-align: right; font-size: .75rem; color: #6b7280; line-height: 1.7; }
+  .badge { display: inline-block; background: #D9B364; color: #000; font-weight: 700; font-size: .7rem; padding: 3px 10px; border-radius: 4px; margin-top: 4px; }
+
+  h2 { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #1a3a5c; margin: 2rem 0 .8rem; border-bottom: 2px solid #e2e8f0; padding-bottom: .4rem; }
+  h3 { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #64748b; margin: 1.2rem 0 .5rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .78rem; margin-bottom: 1.2rem; }
+  th { background: #1a3a5c; color: #fff; padding: 6px 10px; text-align: left; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
+  td { padding: 5px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  td:first-child { font-weight: 500; }
+  .date-col { color: #64748b; white-space: nowrap; }
+  .impact-col { color: #374151; font-size: .75rem; }
+
+  .done { color: #15803d; font-weight: 700; }
+  .inprogress { color: #d97706; font-weight: 700; }
+  .todo { color: #6b7280; }
+
+  .p0 { background: #fef2f2; }
+  .p0 td:first-child::before { content: '🔴 '; }
+  .p1 td:first-child::before { content: '🟠 '; }
+  .p2 td:first-child::before { content: '🟡 '; }
+  .p3 td:first-child::before { content: '🟢 '; }
+
+  .kpi-bar { display: flex; gap: 1.5rem; margin: 1rem 0 1.5rem; flex-wrap: wrap; }
+  .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: .8rem 1.2rem; flex: 1; min-width: 140px; }
+  .kpi-val { font-size: 1.4rem; font-weight: 800; color: #16393E; }
+  .kpi-label { font-size: .7rem; color: #64748b; text-transform: uppercase; letter-spacing: .4px; margin-top: 2px; }
+  .kpi-delta { font-size: .75rem; font-weight: 700; color: #15803d; margin-top: 2px; }
+
+  .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  del { color: #94a3b8; text-decoration: line-through; }
+
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #16393E; display: flex; justify-content: space-between; font-size: .68rem; color: #9ca3af; }
+
+  @media (max-width: 700px) { .section-grid { grid-template-columns: 1fr; } .kpi-bar { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div class="company">TEATOWER SA</div>
+    <div class="sub">E-Commerce — Bilan des actions & Roadmap · Usage exécutif</div>
+  </div>
+  <div class="meta">
+    Décembre 2025 → Juin 2026<br>
+    Owner : Dree (Shopify/SEO) · Alain (Email/CRM)<br>
+    Mis à jour : 10 juin 2026<br>
+    <span class="badge">CONFIDENTIEL</span>
+  </div>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-bar">
+  <div class="kpi">
+    <div class="kpi-val">628€</div>
+    <div class="kpi-label">CA/jour (trend avr. 2026)</div>
+    <div class="kpi-delta">↑ vs 175€/jour déc. 2025</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">800€</div>
+    <div class="kpi-label">Objectif CA/jour</div>
+    <div class="kpi-delta">cible H2 2026</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">75/100</div>
+    <div class="kpi-label">Score SEO (juin 2026)</div>
+    <div class="kpi-delta">↑ vs 68/100 avril 2026</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">40 095</div>
+    <div class="kpi-label">Abonnés Mailchimp</div>
+    <div class="kpi-delta">↑ +1 398 vs mai 2026</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-val">4.64★</div>
+    <div class="kpi-label">Judge.me (4 577 avis)</div>
+    <div class="kpi-delta">Rich snippets Google actifs</div>
+  </div>
+</div>
+
+<!-- RÉALISÉ -->
+<h2>✅ Réalisé — Décembre 2025 → Juin 2026</h2>
+
+<h3>Infrastructure & Data</h3>
+<table>
+  <thead><tr><th>Action</th><th>Date</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Migration POS Shopify → Odoo</td><td class="date-col">Mars 2026</td><td class="impact-col">Unified ops, stock temps réel</td></tr>
+    <tr><td>Audience unifiée Supabase (40K+ contacts, email PK)</td><td class="date-col">Avril 2026</td><td class="impact-col">CDP propriétaire — vue client unifiée POS + Shopify + Mailchimp</td></tr>
+    <tr><td>Sync automatique Odoo → Shopify → Mailchimp (2×/jour)</td><td class="date-col">Avril 2026</td><td class="impact-col">Delta continu, zéro saisie manuelle</td></tr>
+    <tr><td>Dashboards exécutif + équipe automatisés (GitHub Pages)</td><td class="date-col">Mars 2026</td><td class="impact-col">Publication quotidienne J+1</td></tr>
+    <tr><td>P&L mensuel automatisé (Odoo + Claude, clôture J+5)</td><td class="date-col">Mars 2026</td><td class="impact-col">Pilotage financier sans comptable</td></tr>
+  </tbody>
+</table>
+
+<h3>SEO & Contenu</h3>
+<table>
+  <thead><tr><th>Action</th><th>Date</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Audit SEO complet Dree — score 68 → 75/100</td><td class="date-col">Avr–Juin 2026</td><td class="impact-col">Roadmap 20 actions priorisées</td></tr>
+    <tr><td>6 articles SEO publiés (blog /blogs/articles)</td><td class="date-col">Avril 2026</td><td class="impact-col">Trafic longue traîne, positionnement thématique</td></tr>
+    <tr><td>30 descriptions best-sellers réécrites (236–472 mots)</td><td class="date-col">Avril 2026</td><td class="impact-col">+CR fiches produit, SEO on-page</td></tr>
+    <tr><td>120 traductions EN/NL/ES/DE poussées Shopify</td><td class="date-col">Avril 2026</td><td class="impact-col">Couverture 4 marchés export</td></tr>
+    <tr><td>64 traductions EN/NL supplémentaires (résorption migration loss)</td><td class="date-col">Mai 2026</td><td class="impact-col">347 pages EN/NL perdues en cours de récupération</td></tr>
+    <tr><td>Judge.me activé — 4 577 avis, 4.64★</td><td class="date-col">Avril 2026</td><td class="impact-col">Social proof + étoiles dans SERP Google (rich snippets)</td></tr>
+    <tr><td>aggregateRating JSON-LD sur toutes les fiches produit</td><td class="date-col">Avril 2026</td><td class="impact-col">Stars visibles dans résultats Google</td></tr>
+    <tr><td>Google Merchant Center Free Listings (GMC: 5406779177)</td><td class="date-col">Avril 2026</td><td class="impact-col">Visibilité Shopping Google gratuite</td></tr>
+    <tr><td>Fix double H1 homepage + /collections/all H1 + title tag</td><td class="date-col">Avr–Juin 2026</td><td class="impact-col">Signaux SEO on-page corrigés</td></tr>
+    <tr><td>29 produits vrac/test dépubliés (retirés de l'index)</td><td class="date-col">Mai 2026</td><td class="impact-col">Nettoyage index Google, qualité crawl</td></tr>
+    <tr><td>Blog 404 résolu + redirect 301</td><td class="date-col">Juin 2026</td><td class="impact-col">Récupération trafic blog existant</td></tr>
+    <tr><td>Skeepers dead block supprimé (toutes les fiches produit)</td><td class="date-col">Juin 2026</td><td class="impact-col">Erreurs de rendu supprimées</td></tr>
+    <tr><td>Hreflang corrigé (6 langues, toutes pages)</td><td class="date-col">Juin 2026</td><td class="impact-col">Indexation multi-pays correcte</td></tr>
+    <tr><td>Translation Parity Monitor — cron mensuel (1er du mois)</td><td class="date-col">Mai 2026</td><td class="impact-col">Détection préventive des régressions traduction</td></tr>
+  </tbody>
+</table>
+
+<h3>E-mail & CRM</h3>
+<table>
+  <thead><tr><th>Action</th><th>Date</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Audit délivrabilité complet + diagnostic over-mailing</td><td class="date-col">Avril 2026</td><td class="impact-col">Identification des causes de baisse engagement</td></tr>
+    <tr><td>DNS SPF + DKIM k1/k2 + DMARC p=quarantine</td><td class="date-col">Avr–Mai 2026</td><td class="impact-col">Délivrabilité technique 100% verte</td></tr>
+    <tr><td>Sender identity unifié : hello@teatower.com</td><td class="date-col">Avril 2026</td><td class="impact-col">Réputation sender consolidée</td></tr>
+    <tr><td>Segmentation 4 boutiques (Waterloo/Namur/Liège/Autres)</td><td class="date-col">Avril 2026</td><td class="impact-col">Ciblage géographique systématique</td></tr>
+    <tr><td>Segments engagement ENG-HOT/WARM/LUKEWARM/COLD créés</td><td class="date-col">Mai 2026</td><td class="impact-col">Base pour sunset liste froide</td></tr>
+    <tr><td>Campagne Click & Collect Waterloo (3 362 destinataires)</td><td class="date-col">Juin 2026</td><td class="impact-col">Conversion clients POS → commande online</td></tr>
+  </tbody>
+</table>
+
+<h3>NPS & Satisfaction Client</h3>
+<table>
+  <thead><tr><th>Action</th><th>Date</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Système NPS cross-canal (script automatisé + Supabase + landing page)</td><td class="date-col">Avril 2026</td><td class="impact-col">Mesure satisfaction temps réel, 3 boutiques</td></tr>
+    <tr><td>NPS live — Waterloo 90, Namur 97, Liège 90</td><td class="date-col">Avr–Juin 2026</td><td class="impact-col">Benchmark exceptionnel (retail belge : ~40–60)</td></tr>
+    <tr><td>NPS intégré au dashboard équipe quotidien</td><td class="date-col">Mai 2026</td><td class="impact-col">KPI visible de toute l'équipe</td></tr>
+    <tr><td>Google Reviews widget sur 3 pages boutiques (4.57★ / 343 avis)</td><td class="date-col">Avril 2026</td><td class="impact-col">Social proof local + SEO local</td></tr>
+  </tbody>
+</table>
+
+<h3>App & Fidélité</h3>
+<table>
+  <thead><tr><th>Action</th><th>Date</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Architecture Supabase v2 (audience + purchases + loyalty + journal)</td><td class="date-col">Avril 2026</td><td class="impact-col">CDP propriétaire, base de l'app mobile</td></tr>
+    <tr><td>TowerFriends iOS v1.2.0 — upload TestFlight</td><td class="date-col">Mai 2026</td><td class="impact-col">App fidélité en phase de test</td></tr>
+    <tr><td>13 ateliers en ligne sur Shopify (calendrier mai–juin)</td><td class="date-col">Mai 2026</td><td class="impact-col">Nouveau canal revenu, engagement client</td></tr>
+  </tbody>
+</table>
+
+<!-- EN COURS -->
+<h2>⏳ En cours</h2>
+<table>
+  <thead><tr><th>Action</th><th>Owner</th><th>Échéance</th></tr></thead>
+  <tbody>
+    <tr class="p0"><td>Sunset ENG-COLD — archivage 12 815 abonnés inactifs</td><td>Alain</td><td class="date-col">12 juin 2026</td></tr>
+    <tr class="p0"><td>Click & Collect Namur + Liège (campagnes email segmentées)</td><td>Alain</td><td class="date-col">16 juin 2026</td></tr>
+    <tr class="p1"><td>Récupération SEO — 347 pages EN/NL (migration mars 2026, 96K impressions/mois)</td><td>Dree</td><td class="date-col">Rolling</td></tr>
+    <tr class="p1"><td>NPS post-achat Shopify online (mirror boutiques)</td><td>Dev</td><td class="date-col">À planifier</td></tr>
+    <tr class="p1"><td>TowerFriends backend API (scan QR + register + codes promos uniques)</td><td>Dev iOS</td><td class="date-col">À planifier</td></tr>
+  </tbody>
+</table>
+
+<!-- ROADMAP -->
+<h2>🗺 Roadmap — Prochains 3 mois</h2>
+<table>
+  <thead><tr><th>Action</th><th>Priorité</th><th>Impact estimé</th><th>Effort</th></tr></thead>
+  <tbody>
+    <tr class="p0"><td>Google Search Console — réindexer pages clés post-corrections</td><td>P0</td><td class="impact-col">Récupération trafic perdu rapidement</td><td>30 min</td></tr>
+    <tr class="p0"><td>Abandon panier — séquence email automatique (Mailchimp)</td><td>P0</td><td class="impact-col">+CA direct estimé (5–15% paniers récupérés)</td><td>2h</td></tr>
+    <tr class="p0"><td>Badge NPS sur fiches produit — "96 clients l'ont recommandé"</td><td>P0</td><td class="impact-col">Social proof in-page, +conversion</td><td>Dree — 1h</td></tr>
+    <tr class="p1"><td>Homepage title → "Teatower | Maison de thé belge"</td><td>P1</td><td class="impact-col">Signal SEO brand, CTR SERP</td><td>5 min</td></tr>
+    <tr class="p1"><td>Cross-sell "Vous aimerez aussi" sur fiches produit</td><td>P1</td><td class="impact-col">AOV ↑</td><td>1h</td></tr>
+    <tr class="p1"><td>Waitlist produits épuisés (Back in Stock)</td><td>P1</td><td class="impact-col">Récupération ventes perdues sur ruptures</td><td>1h</td></tr>
+    <tr class="p1"><td>Shooting photo — 4–5 photos/produit pour le top 50</td><td>P1</td><td class="impact-col">+CR fiches produit (1 photo actuelle = frein majeur)</td><td>2–4 sem</td></tr>
+    <tr class="p2"><td>SEO local — pages dédiées Waterloo / Namur / Liège / Rocourt</td><td>P2</td><td class="impact-col">Ranking local + drive-to-store organique</td><td>1 sem</td></tr>
+    <tr class="p2"><td>Programme parrainage NPS — invitations nominatives promoteurs 10/10</td><td>P2</td><td class="impact-col">Acquisition CAC = 0</td><td>Alain — 2h</td></tr>
+    <tr class="p2"><td>TowerFriends — release publique App Store</td><td>P2</td><td class="impact-col">Fidélisation + data 1st party</td><td>Dev iOS</td></tr>
+    <tr class="p3"><td>Blog — 2 articles SEO/mois (cible +30–50% trafic organique 6 mois)</td><td>P3</td><td class="impact-col">Trafic organique long terme</td><td>Ongoing</td></tr>
+    <tr class="p3"><td>Schema enrichi — Recipe + FAQ sur fiches & guides infusion</td><td>P3</td><td class="impact-col">Rich snippets additionnels dans SERP</td><td>4h</td></tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  <span>Teatower SA (BE0656.763.145) · E-Commerce Bilan & Roadmap · Juin 2026</span>
+  <span>Dree (Shopify/SEO) · Alain (Email/CRM) · Confidentiel — Usage exécutif</span>
+</div>
+
+</div>
+</body>
+</html>
