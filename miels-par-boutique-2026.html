@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ventes Miels par Boutique — Teatower</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f4f8; color:#1a1a1a; padding:2rem; }
+  h1 { color:#16393E; font-size:1.4rem; margin-bottom:.3rem; }
+  .sub { color:#6b7280; font-size:.85rem; margin-bottom:2rem; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  .card { background:#fff; border-radius:8px; padding:1.2rem 1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+  .card h2 { font-size:.9rem; font-weight:700; color:#16393E; margin-bottom:1rem; }
+  .card-full { grid-column:1/-1; }
+  .legend { display:flex; gap:1.2rem; margin-bottom:.8rem; flex-wrap:wrap; }
+  .legend-item { display:flex; align-items:center; gap:.4rem; font-size:.75rem; color:#374151; }
+  .legend-dot { width:12px; height:12px; border-radius:2px; }
+  .insight { margin-top:1.5rem; padding:1rem 1.2rem; background:#f8fffe; border-left:3px solid #16393E; border-radius:4px; font-size:.8rem; color:#374151; line-height:1.7; }
+  .insight strong { color:#16393E; }
+  @media(max-width:700px){ .grid{ grid-template-columns:1fr; } .card-full{ grid-column:1; } }
+</style>
+</head>
+<body>
+
+<h1>Ventes Miels — Par boutique par mois</h1>
+<p class="sub">Teatower SA · Données POS Odoo · Oct 2025 → Juin 2026</p>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2D5016"></div> Waterloo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8B4513"></div> Namur</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1a5276"></div> Liège</div>
+</div>
+
+<div class="grid">
+
+  <!-- TOTAL STACKED -->
+  <div class="card card-full">
+    <h2>Toutes références miels — Unités vendues par boutique par mois</h2>
+    <canvas id="chartTotal" height="80"></canvas>
+  </div>
+
+  <!-- MIEL CREMEUX -->
+  <div class="card">
+    <h2>Miel crémeux 275g</h2>
+    <canvas id="chartCremeux" height="160"></canvas>
+  </div>
+
+  <!-- MIEL FLUIDE -->
+  <div class="card">
+    <h2>Miel fluide 275g</h2>
+    <canvas id="chartFluide" height="160"></canvas>
+  </div>
+
+  <!-- GRANDE CUILLERE -->
+  <div class="card">
+    <h2>Grande cuillère miel</h2>
+    <canvas id="chartGrande" height="160"></canvas>
+  </div>
+
+  <!-- PETITE CUILLERE -->
+  <div class="card">
+    <h2>Petite cuillère miel</h2>
+    <canvas id="chartPetite" height="160"></canvas>
+  </div>
+
+  <!-- MIEL MENTHE -->
+  <div class="card card-full">
+    <h2>Miel Menthe 275g</h2>
+    <canvas id="chartMenthe" height="60"></canvas>
+  </div>
+
+</div>
+
+<div class="insight">
+  <strong>3 constats clés :</strong><br>
+  🟢 <strong>Liège</strong> domine sur les cuillères et le miel crémeux — moteur principal de la gamme miel.<br>
+  🟠 <strong>Namur</strong> régulier et fort en petite cuillère et miel fluide — fidèle acheteur de la gamme.<br>
+  🔴 <strong>Waterloo</strong> sous-performe sur tous les miels (4–6 unités totales par référence) — probable problème de mise en rayon ou d'achalandage.<br>
+  📉 Chute générale en <strong>avril–mai 2026</strong> sur les 3 boutiques — rupture de stock ou saisonnalité à confirmer.
+</div>
+
+<script>
+const MONTHS = ['2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06'];
+const LABELS = ['Oct 25','Nov 25','Déc 25','Jan 26','Fév 26','Mar 26','Avr 26','Mai 26','Jun 26'];
+const WAT = '#2D5016', NAM = '#8B4513', LGE = '#1a5276';
+const WAT_L = 'rgba(45,80,22,.15)', NAM_L = 'rgba(139,69,19,.15)', LGE_L = 'rgba(26,82,118,.15)';
+
+function zeros() { return MONTHS.map(()=>0); }
+
+// Raw data
+const data = {
+  cremeux: {
+    WAT: {'2025-12':4},
+    NAM: {'2025-10':1,'2025-11':7,'2025-12':6,'2026-01':2,'2026-02':2,'2026-03':6,'2026-04':2,'2026-05':1},
+    LGE: {'2025-10':1,'2025-11':1,'2025-12':5,'2026-01':2,'2026-02':2,'2026-03':8,'2026-04':4,'2026-05':1,'2026-06':2}
+  },
+  fluide: {
+    WAT: {'2025-12':3,'2026-01':1},
+    NAM: {'2025-11':1,'2025-12':9,'2026-01':3,'2026-02':2,'2026-03':2,'2026-04':2,'2026-05':3},
+    LGE: {'2025-10':1,'2025-11':5,'2025-12':4,'2026-01':5,'2026-02':5,'2026-03':6,'2026-04':3,'2026-05':1}
+  },
+  grande: {
+    WAT: {'2025-12':2,'2026-01':3,'2026-02':1},
+    NAM: {'2025-11':7,'2025-12':11,'2026-01':3,'2026-02':2,'2026-03':11,'2026-05':4},
+    LGE: {'2025-10':1,'2025-11':3,'2025-12':13,'2026-01':7,'2026-02':10,'2026-03':4,'2026-04':5,'2026-05':2}
+  },
+  petite: {
+    WAT: {'2025-12':1,'2026-02':1,'2026-04':2},
+    NAM: {'2025-11':5,'2025-12':15,'2026-01':1,'2026-02':6,'2026-03':3,'2026-04':3,'2026-05':2},
+    LGE: {'2025-12':5,'2026-01':3,'2026-03':1,'2026-05':2}
+  },
+  menthe: {
+    WAT: {'2025-12':2},
+    NAM: {'2025-11':2,'2025-12':4,'2026-03':1,'2026-04':2},
+    LGE: {'2025-11':3,'2025-12':3,'2026-01':2,'2026-02':4,'2026-04':2}
+  }
+};
+
+function toArr(store_data) {
+  return MONTHS.map(m => store_data[m] || 0);
+}
+
+function makeDatasets(key) {
+  return [
+    { label:'Waterloo', data:toArr(data[key].WAT), backgroundColor:WAT, borderColor:WAT, borderWidth:2, tension:.3 },
+    { label:'Namur',    data:toArr(data[key].NAM), backgroundColor:NAM, borderColor:NAM, borderWidth:2, tension:.3 },
+    { label:'Liège',    data:toArr(data[key].LGE), backgroundColor:LGE, borderColor:LGE, borderWidth:2, tension:.3 },
+  ];
+}
+
+const baseOpts = (stacked=false) => ({
+  responsive:true,
+  plugins:{ legend:{ display:false } },
+  scales:{
+    x:{ grid:{ color:'#f1f5f9' }, ticks:{ font:{ size:10 } } },
+    y:{ stacked, grid:{ color:'#f1f5f9' }, ticks:{ font:{ size:10 }, stepSize:1 }, beginAtZero:true }
+  }
+});
+
+// Total stacked bar
+const totalWAT = zeros(), totalNAM = zeros(), totalLGE = zeros();
+Object.values(data).forEach(d => {
+  MONTHS.forEach((m,i) => {
+    totalWAT[i] += d.WAT[m]||0;
+    totalNAM[i] += d.NAM[m]||0;
+    totalLGE[i] += d.LGE[m]||0;
+  });
+});
+
+new Chart(document.getElementById('chartTotal'), {
+  type:'bar',
+  data:{ labels:LABELS, datasets:[
+    { label:'Waterloo', data:totalWAT, backgroundColor:WAT },
+    { label:'Namur',    data:totalNAM, backgroundColor:NAM },
+    { label:'Liège',    data:totalLGE, backgroundColor:LGE },
+  ]},
+  options:{ ...baseOpts(true), plugins:{ legend:{ display:true, position:'top', labels:{ font:{ size:11 }, boxWidth:12 } } } }
+});
+
+// Individual charts
+[['chartCremeux','cremeux'],['chartFluide','fluide'],['chartGrande','grande'],['chartPetite','petite']].forEach(([id,key]) => {
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels:LABELS, datasets:makeDatasets(key) },
+    options:baseOpts()
+  });
+});
+
+new Chart(document.getElementById('chartMenthe'), {
+  type:'bar',
+  data:{ labels:LABELS, datasets:makeDatasets('menthe') },
+  options:baseOpts()
+});
+</script>
+</body>
+</html>
