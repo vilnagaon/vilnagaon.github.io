@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Dashboard — Teatower — 2026-06-12</title>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e8e5df;
+    --text: #2c2c2c;
+    --muted: #7a7a7a;
+    --accent: #5b7f5e;
+    --accent-light: #e8f0e8;
+    --up: #2e7d32;
+    --up-bg: #e8f5e9;
+    --down: #c62828;
+    --down-bg: #ffebee;
+    --neutral: #666;
+    --neutral-bg: #f5f5f5;
+    --gold: #c6930a;
+    --silver: #757575;
+    --bronze: #a0522d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--accent);
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  header .meta {
+    text-align: right;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .grid.full { grid-template-columns: 1fr; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 16px 0 8px;
+  }
+  .kpi-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kpi-box {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    background: var(--accent-light);
+    border-radius: 8px;
+  }
+  .kpi-box .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .kpi-box .label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+  }
+  th.right, td.right { text-align: right; }
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafaf8; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge.up { background: var(--up-bg); color: var(--up); }
+  .badge.down { background: var(--down-bg); color: var(--down); }
+  .badge.neutral { background: var(--neutral-bg); color: var(--neutral); }
+  .rank { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; font-weight: 700; font-size: 12px; }
+  .rank-1 { background: #fff8e1; color: var(--gold); }
+  .rank-2 { background: #f5f5f5; color: var(--silver); }
+  .rank-3 { background: #fbe9e7; color: var(--bronze); }
+  .page-path { font-family: 'SF Mono', Menlo, monospace; font-size: 12px; color: var(--accent); }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 28px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .empty { color: var(--muted); font-style: italic; padding: 12px 0; }
+  .store-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 20px;
+  }
+  .store-card.rank-first { border-left: 4px solid var(--gold); }
+  .store-card.rank-second { border-left: 4px solid var(--silver); }
+  .store-card.rank-third { border-left: 4px solid var(--bronze); }
+  .store-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .store-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .store-header .store-rank {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .store-header .store-rank.r1 { background: #fff8e1; color: var(--gold); }
+  .store-header .store-rank.r2 { background: #f5f5f5; color: var(--silver); }
+  .store-header .store-rank.r3 { background: #fbe9e7; color: var(--bronze); }
+  .alert {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .alert.warn { background: #fff3e0; color: #e65100; }
+  .alert.good { background: var(--up-bg); color: var(--up); }
+  .mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .mini-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .hour-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .hour-bar .hour-label { width: 80px; color: var(--muted); }
+  .hour-bar .bar {
+    height: 16px;
+    background: var(--accent-light);
+    border-radius: 3px;
+    position: relative;
+    min-width: 2px;
+  }
+  .hour-bar .bar-value {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    min-width: 50px;
+  }
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .grid.three { grid-template-columns: 1fr; }
+    .mini-grid { grid-template-columns: 1fr; }
+    .mini-grid.three { grid-template-columns: 1fr; }
+    .kpi-row { flex-wrap: wrap; }
+    .kpi-box { min-width: 45%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Morning Dashboard &mdash; Teatower</h1>
+  <div class="meta">
+    <div><strong>2026-06-12</strong> &middot; Donn&eacute;es du 2026-06-11</div>
+    <div>G&eacute;n&eacute;r&eacute; le 2026-06-12 06:47</div>
+  </div>
+</header>
+<div class="section-title">Hier vs Semaine derni&egrave;re vs Ann&eacute;e derni&egrave;re</div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">200</div><div class="label">Sessions</div></div>
+  <div class="kpi-box"><div class="value">799.40 €</div><div class="label">Revenu e-shop</div></div>
+  <div class="kpi-box"><div class="value">11</div><div class="label">Commandes</div></div>
+  <div class="kpi-box"><div class="value">72.67 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">2.4%</div><div class="label">Taux conv.</div></div>
+</div>
+<div class="grid">
+<div class="card"><h2>Trafic (GA4)</h2>
+<table>
+<tr><th>M&eacute;trique</th><th class="right">Hier</th><th class="right">vs S-1</th><th class="right">vs N-1</th></tr>
+<tr><td>Sessions</td><td class="right"><strong>200</strong></td><td class="right"><span class="badge down">&darr; 64.3%</span></td><td class="right"><span class="badge up">&uarr; 132.6%</span></td></tr>
+<tr><td>Utilisateurs</td><td class="right"><strong>170</strong></td><td class="right"><span class="badge down">&darr; 64.5%</span></td><td class="right"><span class="badge up">&uarr; 112.5%</span></td></tr>
+<tr><td>Pages vues</td><td class="right"><strong>962</strong></td><td class="right"><span class="badge down">&darr; 62.3%</span></td><td class="right"><span class="badge up">&uarr; 98.8%</span></td></tr>
+<tr><td>Taux de rebond</td><td class="right"><strong>63.0%</strong></td><td class="right"><span class="badge up">&uarr; 28.1%</span></td><td class="right"><span class="badge up">&uarr; 2609.0%</span></td></tr>
+<tr><td>Dur&eacute;e moy.</td><td class="right"><strong>3m 51s</strong></td><td class="right">&mdash;</td><td class="right">&mdash;</td></tr>
+<tr><td>Taux conv.</td><td class="right"><strong>2.4%</strong></td><td class="right"><span class="badge up">&uarr; 10.3%</span></td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+</table></div>
+<div class="card"><h2>Ventes (Shopify)</h2>
+<table>
+<tr><th>M&eacute;trique</th><th class="right">Hier</th><th class="right">vs S-1</th><th class="right">vs N-1</th></tr>
+<tr><td>Commandes</td><td class="right"><strong>11</strong></td><td class="right"><span class="badge neutral">&rarr; 0%</span></td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Revenu</td><td class="right"><strong>799.40 €</strong></td><td class="right"><span class="badge up">&uarr; 3.4%</span></td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Revenu net</td><td class="right"><strong>799.40 €</strong></td><td class="right"><span class="badge up">&uarr; 3.4%</span></td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Panier moyen</td><td class="right"><strong>72.67 €</strong></td><td class="right"><span class="badge up">&uarr; 3.4%</span></td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Nouveaux clients</td><td class="right"><strong>3</strong></td><td class="right">&mdash;</td><td class="right">&mdash;</td></tr>
+<tr><td>Clients r&eacute;currents</td><td class="right"><strong>8</strong></td><td class="right">&mdash;</td><td class="right">&mdash;</td></tr>
+</table></div>
+</div>
+<div class="section-title">7 derniers jours vs N-1</div>
+<div class="grid">
+<div class="card"><h2>Trafic (GA4)</h2>
+<table>
+<tr><th>M&eacute;trique</th><th class="right">7 jours</th><th class="right">N-1</th><th class="right">&Eacute;volution</th></tr>
+<tr><td>Sessions</td><td class="right"><strong>2 893</strong></td><td class="right">472</td><td class="right"><span class="badge up">&uarr; 512.9%</span></td></tr>
+<tr><td>Utilisateurs</td><td class="right"><strong>2 251</strong></td><td class="right">456</td><td class="right"><span class="badge up">&uarr; 393.6%</span></td></tr>
+<tr><td>Pages vues</td><td class="right"><strong>13 248</strong></td><td class="right">1 987</td><td class="right"><span class="badge up">&uarr; 566.7%</span></td></tr>
+<tr><td>Taux conv.</td><td class="right"><strong>2.3%</strong></td><td class="right">0.0%</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Revenu GA4</td><td class="right"><strong>7 877.36 €</strong></td><td class="right">0.00 €</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+</table></div>
+<div class="card"><h2>Ventes (Shopify)</h2>
+<table>
+<tr><th>M&eacute;trique</th><th class="right">7 jours</th><th class="right">N-1</th><th class="right">&Eacute;volution</th></tr>
+<tr><td>Commandes</td><td class="right"><strong>59</strong></td><td class="right">0</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Revenu</td><td class="right"><strong>4 278.60 €</strong></td><td class="right">0.00 €</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Revenu net</td><td class="right"><strong>4 278.60 €</strong></td><td class="right">0.00 €</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+<tr><td>Panier moyen</td><td class="right"><strong>72.52 €</strong></td><td class="right">0.00 €</td><td class="right"><span class="badge up">+&infin;</span></td></tr>
+</table></div>
+</div>
+<div class="section-title">Top 5 produits e-shop (Shopify)</div>
+<div class="grid">
+<div class="card"><h2>Hier</h2>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Unit&eacute;s</th><th class="right">Revenu</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Infusion de fruits pomme fraise - Pomme d'amour - ...</td><td class="right">4</td><td class="right">75.00 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Infusion de fruits coco ananas - Duo Tropical BIO ...</td><td class="right">3</td><td class="right">67.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Maté orange guarana goji - Guarana Boost - Teatowe...</td><td class="right">2</td><td class="right">55.00 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Infusion de fruits ananas pomme citron - Parfums d...</td><td class="right">5</td><td class="right">50.00 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Infusion de plantes douce et citronnée - Verveine ...</td><td class="right">1</td><td class="right">45.00 €</td></tr>
+</table>
+</div>
+<div class="card"><h2>7 derniers jours</h2>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Unit&eacute;s</th><th class="right">Revenu</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Infusion de fruits fraise ananas cerise papaye - L...</td><td class="right">12</td><td class="right">193.00 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Thé Glacé - Infusion de Fruits - Mangue & Passion ...</td><td class="right">16</td><td class="right">152.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Infusion de fruits fraise mûre cassis framboise - ...</td><td class="right">14</td><td class="right">148.00 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Thé vert parfumé menthe - Oasis du désert BIO - Te...</td><td class="right">5</td><td class="right">122.00 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Thé vert parfumé fraise rose lavande - Le thé des ...</td><td class="right">7</td><td class="right">108.00 €</td></tr>
+</table>
+</div>
+</div>
+<div class="section-title">POS Magasins &mdash; Hier</div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">84</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">1 550.63 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">18.46 €</div><div class="label">Panier moyen</div></div>
+  <div class="kpi-box"><div class="value">2.2</div><div class="label">UPT</div></div>
+  <div class="kpi-box"><div class="value">103.16 €</div><div class="label">TVA</div></div>
+</div>
+<div class="store-card rank-first">
+<div class="store-header"><h2>Namur </h2><span class="store-rank r1">#1 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">43</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">797.96 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">18.56 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">1.9</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Service à thé japonais traditionnel...</td><td class="right">1</td><td class="right">50.35 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Vrac 1kg Guarana boost</td><td class="right">0</td><td class="right">50.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Gourmandise de Noël (100 g vrac)</td><td class="right">5</td><td class="right">48.00 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Ginger Cool - BE-BIO-01 (500 g vrac...</td><td class="right">1</td><td class="right">45.00 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Earl grey (100 g vrac)</td><td class="right">4</td><td class="right">38.00 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">10:00</span><span class="bar" style="width:32.700770077007704%"></span><span class="bar-value">4t / 59.45 €</span></div>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:15.126512651265125%"></span><span class="bar-value">3t / 27.50 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">7t / 181.80 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:82.20572057205719%"></span><span class="bar-value">10t / 149.45 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:20.330033003300326%"></span><span class="bar-value">5t / 36.96 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:71.89218921892189%"></span><span class="bar-value">4t / 130.70 €</span></div>
+<div class="hour-bar"><span class="hour-label">16:00</span><span class="bar" style="width:81.32563256325632%"></span><span class="bar-value">5t / 147.85 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:35.34103410341034%"></span><span class="bar-value">5t / 64.25 €</span></div>
+</div>
+</div>
+</div>
+<div class="store-card rank-second">
+<div class="store-header"><h2>Liège <span class="alert good">UPT &ge; 2.5</span></h2><span class="store-rank r2">#2 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">31</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">601.64 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">19.41 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">2.6</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Le thé de la Mère Noël (100 g vrac)</td><td class="right">3</td><td class="right">36.00 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Oasis du désert - BE-BIO-01 (20 inf...</td><td class="right">3</td><td class="right">33.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Earl grey (20 infusettes)</td><td class="right">3</td><td class="right">32.45 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Le thé des amoureux (80 g vrac)</td><td class="right">3</td><td class="right">30.00 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Vergers d’Été: saveurs: Pomme - Poi...</td><td class="right">3</td><td class="right">27.07 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">10:00</span><span class="bar" style="width:29.72348181737352%"></span><span class="bar-value">1t / 33.43 €</span></div>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:73.73521828043035%"></span><span class="bar-value">3t / 82.93 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:47.07922112563351%"></span><span class="bar-value">2t / 52.95 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:86.20076464835067%"></span><span class="bar-value">6t / 96.95 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:62.238819240686404%"></span><span class="bar-value">4t / 70.00 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">7t / 112.47 €</span></div>
+<div class="hour-bar"><span class="hour-label">16:00</span><span class="bar" style="width:48.90192940339646%"></span><span class="bar-value">3t / 55.00 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:87.05432559793722%"></span><span class="bar-value">5t / 97.91 €</span></div>
+</div>
+</div>
+</div>
+<div class="store-card rank-third">
+<div class="store-header"><h2>Waterloo <span class="alert warn">Panier &lt; 18&euro;</span></h2><span class="store-rank r3">#3 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">10</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">151.03 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">15.10 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">2.0</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Verre à Matcha à double bulle motif...</td><td class="right">1</td><td class="right">14.90 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Relax BE-BIO-01 (20 infusettes)</td><td class="right">1</td><td class="right">13.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Pêché Mignon (20 infusettes)</td><td class="right">1</td><td class="right">11.00 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Citron meringué (20 infusettes)</td><td class="right">1</td><td class="right">11.00 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Voyage à Venise (20 infusettes)</td><td class="right">1</td><td class="right">11.00 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:71.11031901621814%"></span><span class="bar-value">2t / 39.90 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">4t / 56.11 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:81.98182142220638%"></span><span class="bar-value">1t / 46.00 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:0.0%"></span><span class="bar-value">1t / 0.00 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:16.075565852789165%"></span><span class="bar-value">1t / 9.02 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:0.0%"></span><span class="bar-value">1t / 0.00 €</span></div>
+</div>
+</div>
+</div>
+<div class="section-title">POS Magasins &mdash; 7 derniers jours</div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">709</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">15 980.73 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">22.54 €</div><div class="label">Panier moyen</div></div>
+  <div class="kpi-box"><div class="value">3.8</div><div class="label">UPT</div></div>
+  <div class="kpi-box"><div class="value">1 182.83 €</div><div class="label">TVA</div></div>
+</div>
+<div class="store-card rank-first">
+<div class="store-header"><h2>Namur </h2><span class="store-rank r1">#1 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">374</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">8 831.29 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">23.61 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">2.3</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Matcha japonais</td><td class="right">14</td><td class="right">279.00 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Gourmandise de Noël (100 g vrac)</td><td class="right">24</td><td class="right">260.40 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Paradise Punch - Infusion de fruits...</td><td class="right">27</td><td class="right">251.26 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Le panier de grand maman (80 g vrac...</td><td class="right">25</td><td class="right">246.50 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>La Nana de Wépion (100 g vrac)</td><td class="right">23</td><td class="right">225.00 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">10:00</span><span class="bar" style="width:64.40451765830727%"></span><span class="bar-value">32t / 969.99 €</span></div>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:37.421402439429244%"></span><span class="bar-value">31t / 563.60 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:82.13851761846902%"></span><span class="bar-value">52t / 1 237.08 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">44t / 1 506.09 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:85.73259234175913%"></span><span class="bar-value">63t / 1 291.21 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:60.688272281204966%"></span><span class="bar-value">47t / 914.02 €</span></div>
+<div class="hour-bar"><span class="hour-label">16:00</span><span class="bar" style="width:82.91735553652171%"></span><span class="bar-value">56t / 1 248.81 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:65.48015058861026%"></span><span class="bar-value">44t / 986.19 €</span></div>
+<div class="hour-bar"><span class="hour-label">18:00</span><span class="bar" style="width:6.729345523839876%"></span><span class="bar-value">4t / 101.35 €</span></div>
+<div class="hour-bar"><span class="hour-label">19:00</span><span class="bar" style="width:0.8598423732977445%"></span><span class="bar-value">1t / 12.95 €</span></div>
+</div>
+</div>
+</div>
+<div class="store-card rank-second">
+<div class="store-header"><h2>Liège <span class="alert good">UPT &ge; 2.5</span></h2><span class="store-rank r2">#2 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">255</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">5 523.69 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">21.66 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">2.6</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Passion Exotique - Infusion de frui...</td><td class="right">31</td><td class="right">284.02 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Matcha japonais</td><td class="right">14</td><td class="right">271.00 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Pêche de Vigne - BE-BIO-01 glacée</td><td class="right">18</td><td class="right">164.81 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Marrakech Sunset - BE-BIO-01 glacé</td><td class="right">17</td><td class="right">155.30 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>Vergers d’Été: saveurs: Pomme - Poi...</td><td class="right">17</td><td class="right">146.29 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">10:00</span><span class="bar" style="width:23.88471710132618%"></span><span class="bar-value">9t / 247.46 €</span></div>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:67.68237360770613%"></span><span class="bar-value">28t / 701.23 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:74.07775611451075%"></span><span class="bar-value">37t / 767.49 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:67.43721406096172%"></span><span class="bar-value">40t / 698.69 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:74.50726791884642%"></span><span class="bar-value">35t / 771.94 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">47t / 1 036.06 €</span></div>
+<div class="hour-bar"><span class="hour-label">16:00</span><span class="bar" style="width:57.61442387506514%"></span><span class="bar-value">27t / 596.92 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:59.10854583711368%"></span><span class="bar-value">30t / 612.40 €</span></div>
+<div class="hour-bar"><span class="hour-label">18:00</span><span class="bar" style="width:8.831534853193832%"></span><span class="bar-value">2t / 91.50 €</span></div>
+</div>
+</div>
+</div>
+<div class="store-card rank-third">
+<div class="store-header"><h2>Waterloo <span class="alert good">UPT &ge; 2.5</span></h2><span class="store-rank r3">#3 CA</span></div>
+<div class="kpi-row">
+  <div class="kpi-box"><div class="value">80</div><div class="label">Tickets</div></div>
+  <div class="kpi-box"><div class="value">1 625.75 €</div><div class="label">CA TTC</div></div>
+  <div class="kpi-box"><div class="value">20.32 €</div><div class="label">Panier moy.</div></div>
+  <div class="kpi-box"><div class="value">14.6</div><div class="label">UPT</div></div>
+</div>
+<div class="mini-grid">
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Top 5 produits</h3>
+<table>
+<tr><th>#</th><th>Produit</th><th class="right">Qt&eacute;</th><th class="right">CA</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td>Coffret Cadeau Ensemble Matcha Trad...</td><td class="right">3</td><td class="right">118.01 €</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td>Le panier de grand maman (80 g vrac...</td><td class="right">5</td><td class="right">49.50 €</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td>Sencha - BE-BIO-01 (100 g vrac)</td><td class="right">5</td><td class="right">49.50 €</td></tr>
+<tr><td><span class="rank">4</span></td><td>Vrac remplissage English Breakfast</td><td class="right">500</td><td class="right">47.49 €</td></tr>
+<tr><td><span class="rank">5</span></td><td>La Nana de Wépion glacée</td><td class="right">5</td><td class="right">45.58 €</td></tr>
+</table>
+</div>
+<div>
+<h3 style="font-size:13px;font-weight:600;margin-bottom:8px;">Ventes par heure</h3>
+<div class="hour-bar"><span class="hour-label">10:00</span><span class="bar" style="width:72.5903725903726%"></span><span class="bar-value">10t / 196.19 €</span></div>
+<div class="hour-bar"><span class="hour-label">11:00</span><span class="bar" style="width:100.0%"></span><span class="bar-value">10t / 270.27 €</span></div>
+<div class="hour-bar"><span class="hour-label">12:00</span><span class="bar" style="width:85.21108521108522%"></span><span class="bar-value">11t / 230.30 €</span></div>
+<div class="hour-bar"><span class="hour-label">13:00</span><span class="bar" style="width:44.58134458134459%"></span><span class="bar-value">4t / 120.49 €</span></div>
+<div class="hour-bar"><span class="hour-label">14:00</span><span class="bar" style="width:98.10559810559812%"></span><span class="bar-value">11t / 265.15 €</span></div>
+<div class="hour-bar"><span class="hour-label">15:00</span><span class="bar" style="width:68.2983682983683%"></span><span class="bar-value">10t / 184.59 €</span></div>
+<div class="hour-bar"><span class="hour-label">16:00</span><span class="bar" style="width:77.27457727457728%"></span><span class="bar-value">12t / 208.85 €</span></div>
+<div class="hour-bar"><span class="hour-label">17:00</span><span class="bar" style="width:49.546749546749545%"></span><span class="bar-value">11t / 133.91 €</span></div>
+<div class="hour-bar"><span class="hour-label">18:00</span><span class="bar" style="width:5.92000592000592%"></span><span class="bar-value">1t / 16.00 €</span></div>
+</div>
+</div>
+</div>
+<div class="section-title">Pages les plus visit&eacute;es (hier)</div>
+<div class="card">
+<table>
+<tr><th>#</th><th>Page</th><th class="right">Vues</th><th class="right">Dur&eacute;e moy.</th><th class="right">Rebond</th></tr>
+<tr><td><span class="rank rank-1">1</span></td><td><span class="page-path">/</span></td><td class="right">113</td><td class="right">0m 31s</td><td class="right">30.4%</td></tr>
+<tr><td><span class="rank rank-2">2</span></td><td><span class="page-path">/collections/infusion-de-fruits</span></td><td class="right">48</td><td class="right">2m 41s</td><td class="right">0.0%</td></tr>
+<tr><td><span class="rank rank-3">3</span></td><td><span class="page-path">/collections/the-vert-aromatise</span></td><td class="right">32</td><td class="right">2m 55s</td><td class="right">0.0%</td></tr>
+<tr><td><span class="rank">4</span></td><td><span class="page-path">/account/login</span></td><td class="right">30</td><td class="right">1m 25s</td><td class="right">14.3%</td></tr>
+<tr><td><span class="rank">5</span></td><td><span class="page-path">/collections/offre-glacee</span></td><td class="right">29</td><td class="right">2m 22s</td><td class="right">15.4%</td></tr>
+<tr><td><span class="rank">6</span></td><td><span class="page-path">/collections/accessoires</span></td><td class="right">28</td><td class="right">7m 43s</td><td class="right">11.1%</td></tr>
+<tr><td><span class="rank">7</span></td><td><span class="page-path">/search</span></td><td class="right">22</td><td class="right">12m 25s</td><td class="right">0.0%</td></tr>
+<tr><td><span class="rank">8</span></td><td><span class="page-path">/collections/the-vert</span></td><td class="right">17</td><td class="right">0m 54s</td><td class="right">0.0%</td></tr>
+<tr><td><span class="rank">9</span></td><td><span class="page-path">/collections/infusion-de-plantes</span></td><td class="right">16</td><td class="right">1m 5s</td><td class="right">0.0%</td></tr>
+<tr><td><span class="rank">10</span></td><td><span class="page-path">/products/infusion-de-plantes-menth-rose-serenite-bio-teatower</span></td><td class="right">14</td><td class="right">12m 25s</td><td class="right">0.0%</td></tr>
+</table>
+</div>
+
+</body>
+</html>
