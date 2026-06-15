@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Inventory Performance — Teatower — Semaine du 9 juin 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  .header { background: #1a3a5c; color: #fff; padding: 22px 28px; border-radius: 10px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
+  .header h1 { font-size: 20px; font-weight: 800; }
+  .header .sub { font-size: 11px; opacity: .7; margin-top: 4px; }
+  .header .badge { background: #D9B364; color: #000; font-weight: 700; font-size: 11px; padding: 4px 14px; border-radius: 99px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: #fff; border-radius: 8px; padding: 14px 16px; border: 1px solid #dde3ea; }
+  .kpi .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: .6px; font-weight: 600; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .kpi .value.green { color: #15803d; }
+  .kpi .value.red { color: #dc2626; }
+  .kpi .value.orange { color: #d97706; }
+  .kpi .value.navy { color: #1a3a5c; }
+  .kpi .sub { font-size: 10.5px; color: #94a3b8; margin-top: 4px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card { background: #fff; border-radius: 8px; border: 1px solid #dde3ea; padding: 16px 18px; }
+  .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #64748b; margin-bottom: 12px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #f8fafc; color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 7px 10px; text-align:left; border-bottom: 2px solid #e2e8f0; }
+  th.r { text-align:right; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; }
+  td.r { text-align:right; font-weight:600; }
+  td.red { color:#dc2626; font-weight:700; }
+  td.green { color:#15803d; font-weight:700; }
+  td.orange { color:#d97706; font-weight:700; }
+  tr:last-child td { border-bottom:none; }
+  .total-row td { font-weight:700; background:#f8fafc; border-top: 2px solid #1a3a5c; }
+
+  .status-ok { display:inline-block; background:#dcfce7; color:#15803d; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .status-warn { display:inline-block; background:#fef9c3; color:#a16207; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .status-bad { display:inline-block; background:#fee2e2; color:#dc2626; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+
+  .bar-wrap { height:8px; background:#f1f5f9; border-radius:4px; margin-top:6px; }
+  .bar-fill { height:8px; border-radius:4px; }
+
+  .obs { background: #1a3a5c; color:#fff; border-radius:8px; padding:18px 22px; margin-bottom:16px; }
+  .obs h3 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#D9B364; margin-bottom:12px; }
+  .obs-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; font-size:12px; line-height:1.7; }
+  .obs-item strong { color:#D9B364; display:block; margin-bottom:3px; }
+
+  .footnote { font-size:10.5px; color:#94a3b8; text-align:center; margin-top:16px; padding-top:12px; border-top:1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div style="font-size:20px;font-weight:800;">Weekly Inventory Performance</div>
+    <div class="sub">Teatower SA · Semaine S24 · 9–15 juin 2026 · Nick (Supply Chain) + Fabian (Odoo)</div>
+  </div>
+  <div class="badge">Lundi 15 juin 2026</div>
+</div>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="label">Stock négatif (vendable)</div>
+    <div class="value orange">3</div>
+    <div class="sub">Accessoires Bubble Tea · Cible : 0</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Ruptures produits A</div>
+    <div class="value green">0 / 48</div>
+    <div class="sub">Thés/infusions · Cible &lt; 5%</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Ajustements S24</div>
+    <div class="value green">71</div>
+    <div class="sub">vs 201 S23 · ↓65% · Cible : ↓</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Valorisation totale</div>
+    <div class="value navy">306,175€</div>
+    <div class="sub">vs baseline 295 987€ · +3.4%</div>
+  </div>
+  <div class="kpi">
+    <div class="label">A à risque (1–5 u.)</div>
+    <div class="value orange">1</div>
+    <div class="sub">Féérie d'Hivers — 1 unité</div>
+  </div>
+</div>
+
+<!-- ROW 1 -->
+<div class="grid2">
+
+  <!-- STOCK NÉGATIF -->
+  <div class="card">
+    <div class="card-title">KPI 1 — Stock négatif vendable</div>
+    <table>
+      <thead><tr><th>Produit</th><th>Emplacement</th><th class="r">Qté</th><th>Statut</th></tr></thead>
+      <tbody>
+        <tr><td>[A0929] Tasse Teatower Travel 300 ml</td><td>TT/PICK</td><td class="r red">−1</td><td><span class="status-warn">Accessoire</span></td></tr>
+        <tr><td>[A1109] Perles Fruitées Passion - Bubble Tea</td><td>TT/PICK</td><td class="r red">−18</td><td><span class="status-warn">Accessoire</span></td></tr>
+        <tr><td>[A1110] Perles Fruitées Pêche - Bubble Tea</td><td>TT/PICK</td><td class="r red">−18</td><td><span class="status-warn">Accessoire</span></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:10px;font-size:11px;color:#64748b;background:#fff8e1;border-radius:6px;padding:8px 12px;">
+      ⚠ <strong>3 accessoires Bubble Tea en négatif.</strong> Aucun thé / infusion vendable affecté. Perles fruitées probablement consommées en atelier sans déstockage manuel. Régularisation à effectuer cette semaine. Les 231 autres entrées négatives (EM0xxx, D0xxx, VRxxxx, ateliers, chèques) sont hors scope vendable.
+    </div>
+  </div>
+
+  <!-- ABC RUPTURES -->
+  <div class="card">
+    <div class="card-title">KPI 2 — ABC Classification & Ruptures</div>
+    <table>
+      <thead><tr><th>Classe</th><th class="r">Produits</th><th class="r">% CA</th><th>Ruptures (qty≤0)</th><th>À risque (1–5u)</th></tr></thead>
+      <tbody>
+        <tr class="total-row" style="background:#dcfce7!important">
+          <td><strong>A — Top vendeurs</strong></td><td class="r green"><strong>48</strong></td><td class="r">80%</td>
+          <td class="green"><strong>0 🟢</strong></td><td class="orange">1</td>
+        </tr>
+        <tr><td>B — Vendeurs secondaires</td><td class="r">87</td><td class="r">15%</td><td>—</td><td>—</td></tr>
+        <tr><td>C — Longue traîne</td><td class="r">649</td><td class="r">5%</td><td>—</td><td>—</td></tr>
+        <tr class="total-row"><td><strong>TOTAL</strong></td><td class="r"><strong>784</strong></td><td class="r">100%</td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:6px;font-size:11px;background:#fef9c3;border-radius:4px;padding:6px 10px;color:#a16207;">⚠ À risque : <strong>Féérie d'Hivers</strong> [V0913] — 1 unité restante (2ème semaine consécutive)</div>
+  </div>
+</div>
+
+<!-- ROW 2 -->
+<div class="grid2">
+
+  <!-- STOCK A PAR MAGASIN -->
+  <div class="card">
+    <div class="card-title">KPI 3 — Stock produits A par boutique</div>
+    <table>
+      <thead><tr><th>Boutique</th><th class="r">Ruptures locales A</th><th class="r">/ Total A</th><th>Taux</th><th>Cible</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D5016;margin-right:6px;"></span>Waterloo</td>
+          <td class="r orange">5</td>
+          <td class="r">48</td>
+          <td class="orange">10.4%</td>
+          <td>&lt; 10%</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8B4513;margin-right:6px;"></span>Namur</td>
+          <td class="r orange">5</td>
+          <td class="r">48</td>
+          <td class="orange">10.4%</td>
+          <td>&lt; 10%</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a5276;margin-right:6px;"></span>Liège</td>
+          <td class="r green">4</td>
+          <td class="r">48</td>
+          <td class="green">8.3%</td>
+          <td>&lt; 10%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:6px;font-size:10.5px;color:#64748b;background:#f8fafc;border-radius:4px;padding:6px 10px;">
+      Ruptures communes aux 3 boutiques : ES8 (étiquette horeca), boîte semi-auto ×25, MENU-FR-2024, V0913 (Féérie d'Hivers). Les 3 premiers sont des articles B2B/horeca — leur présence en classe A mérite une révision de la segmentation ABC.
+    </div>
+  </div>
+
+  <!-- AJUSTEMENTS WoW -->
+  <div class="card">
+    <div class="card-title">KPI 4 — Ajustements d'inventaire WoW</div>
+    <table>
+      <thead><tr><th>Semaine</th><th class="r">Ajustements</th><th class="r">Δ</th><th>Tendance</th></tr></thead>
+      <tbody>
+        <tr><td>S23 (2–8 juin)</td><td class="r">201</td><td class="r">—</td><td>—</td></tr>
+        <tr class="total-row">
+          <td><strong>S24 (9–15 juin)</strong></td>
+          <td class="r green"><strong>71</strong></td>
+          <td class="r green"><strong>−130</strong></td>
+          <td><span class="status-ok">↓ En forte baisse</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;">
+      <div style="font-size:10.5px;color:#64748b;margin-bottom:4px;">S23 vs S24</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:100%;background:#e2e8f0;"></div></div>
+      <div class="bar-wrap" style="margin-top:4px;"><div class="bar-fill" style="width:35%;background:#15803d;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:3px;"><span>S23: 201</span><span>S24: 71 (−65%)</span></div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;background:#dcfce7;border-radius:4px;padding:8px 12px;color:#15803d;">
+      ✅ Forte amélioration des ajustements −65% WoW. La hausse S23 était probablement liée à la préparation du stock Rocourt (ouverture 26 juin). Niveau S24 en ligne avec la cible opérationnelle.
+    </div>
+  </div>
+
+</div>
+
+<!-- VALORISATION -->
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-title">KPI 5 — Valorisation du stock par emplacement</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;">
+    <div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Waterloo</div>
+      <div style="font-size:18px;font-weight:800;color:#2D5016;">11,707€</div>
+      <div style="font-size:10px;color:#94a3b8;">vs 11 647€ S23 · <span style="color:#15803d">+0.5%</span></div>
+    </div>
+    <div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Namur</div>
+      <div style="font-size:18px;font-weight:800;color:#8B4513;">12,385€</div>
+      <div style="font-size:10px;color:#94a3b8;">vs 12 084€ S23 · <span style="color:#15803d">+2.5%</span></div>
+    </div>
+    <div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Liège</div>
+      <div style="font-size:18px;font-weight:800;color:#1a5276;">12,767€</div>
+      <div style="font-size:10px;color:#94a3b8;">vs 17 805€ S23 · <span style="color:#dc2626">−28%</span></div>
+    </div>
+    <div style="background:#1a3a5c;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:10px;color:#EFF0F5;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">TOTAL</div>
+      <div style="font-size:18px;font-weight:800;color:#D9B364;">306,175€</div>
+      <div style="font-size:10px;color:#EFF0F5;opacity:.7;">vs 295 987€ base · <span style="color:#D9B364">+3.4%</span></div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:#64748b;background:#fff8e1;border-radius:6px;padding:8px 12px;">
+    ⚠ Liège −28% WoW (17 805€ → 12 767€) : baisse significative à investiguer — ventes soutenues, transfert vers Rocourt ou correction de valorisation ? Total entrepôt (TT/Stock + PICK) : ~269 316€. Valorisation globale en hausse (+3.4% vs baseline) grâce à l'entrepôt.
+  </div>
+</div>
+
+<!-- OBSERVATIONS -->
+<div class="obs">
+  <h3>Observations & Actions — Semaine S24</h3>
+  <div class="obs-grid">
+    <div>
+      <strong>✅ Points positifs</strong>
+      Ajustements en forte baisse −65% (201→71) : retour à la normale après pic S23. 0 rupture globale sur les 48 produits A. Valorisation totale +3.4% vs baseline. WAT et NAM stocks stables.
+    </div>
+    <div>
+      <strong>⚠ Points d'attention</strong>
+      3 accessoires Bubble Tea en stock négatif (Perles Fruitées ×2, Tasse Travel) — consommation atelier non déstockée. Liège −28% WoW à vérifier. Féérie d'Hivers 2ème semaine à 1 unité. ABC class A contient des articles B2B/horeca à revoir.
+    </div>
+    <div>
+      <strong>🔴 Actions prioritaires</strong>
+      1. Régulariser stock négatif A1109/A1110/A0929 · 2. Investiguer recul Liège stock −28% (transfert Rocourt ?) · 3. Réappro Féérie d'Hivers ou déclassifier si fin de saison · 4. Préparer Rocourt : stock initial depuis entrepôt avant 26 juin · 5. Réviser segmentation ABC pour exclure articles B2B/horeca
+    </div>
+  </div>
+</div>
+
+<div class="footnote">
+  Teatower SA · Weekly Inventory Performance S24 · 15 juin 2026 · Nick (Supply Chain) + Fabian (Odoo v18)<br>
+  Données : Odoo stock.quant + stock.move + product.product · Baseline valuation : 04/04/2026 (295 987€)<br>
+  Cibles : Neg. stock vendable = 0 · Ruptures A &lt; 5% · A risque par store &lt; 10% · Ajustements ↓ · Valorisation ±5%
+</div>
+
+</div>
+</body>
+</html>
