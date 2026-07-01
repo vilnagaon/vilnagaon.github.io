@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QBR Q2 2026 — Teatower</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins','Century Gothic',Arial,sans-serif;background:#F2E5CA;color:#1a1a1a;font-size:14px;line-height:1.6}
+
+.header{background:#0a0a0a;padding:24px 20px;text-align:center;border-bottom:3px solid #8B6F47}
+.header img{height:52px}
+.header h1{color:#EFF0F5;font-size:22px;font-weight:700;margin-top:14px;letter-spacing:-0.02em}
+.header .meta{color:#D9B364;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;margin-top:6px}
+
+.container{max-width:980px;margin:0 auto;padding:28px 16px}
+
+/* Section headers */
+.section{margin-bottom:28px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#D9B364;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #D9B364;display:flex;align-items:center;gap:8px}
+.section-title .num{background:#16393E;color:#D9B364;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+
+.card{background:#fff;border-radius:8px;padding:20px 24px;margin-bottom:16px;border:1px solid #e0d5c0}
+.card h3{font-size:13px;font-weight:700;color:#16393E;margin-bottom:12px}
+
+/* KPI strip */
+.kpi-strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.kpi{flex:1;min-width:130px;background:#16393E;color:#EFF0F5;border-radius:8px;padding:16px 18px}
+.kpi .val{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+.kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#D9B364;margin-top:6px}
+.kpi.red{background:#c0392b}
+.kpi.amber{background:#e67e22}
+.kpi.green{background:#27ae60}
+.kpi.gold{background:#D9B364;color:#000}.kpi.gold .lbl{color:rgba(0,0,0,0.6)}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;padding:7px 10px;text-align:left;border-bottom:2px solid #e0d5c0;white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid #f0ebe0;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fdfaf5}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.muted{color:#888;font-size:12px}
+
+/* Status badges */
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap}
+.badge-ok{background:#e8f5e9;color:#2e7d32}
+.badge-warn{background:#fff3e0;color:#e65100}
+.badge-crit{background:#ffebee;color:#c62828}
+.badge-new{background:#e3f2fd;color:#1565c0}
+.badge-nc{background:#f5f5f5;color:#757575}
+
+/* Truth blocks */
+.truth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:8px}
+@media(max-width:700px){.truth-grid{grid-template-columns:1fr}}
+.truth-block{border-radius:8px;padding:16px 18px}
+.truth-block.green{background:#e8f5e9;border-left:4px solid #2e7d32}
+.truth-block.amber{background:#fff8e1;border-left:4px solid #f9a825}
+.truth-block.red{background:#ffebee;border-left:4px solid #c62828}
+.truth-block .icon{font-size:18px;margin-bottom:8px}
+.truth-block h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;color:#333}
+.truth-block ul{list-style:none;padding:0}
+.truth-block li{font-size:12px;padding:3px 0;color:#444;border-bottom:1px solid rgba(0,0,0,0.06)}
+.truth-block li:last-child{border-bottom:none}
+.truth-block li::before{content:"→ ";color:#888}
+
+/* Action tables */
+.action-table td:first-child{font-weight:600;color:#16393E}
+.owner{background:#16393E;color:#D9B364;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;white-space:nowrap}
+.deadline{color:#c0392b;font-weight:600;font-size:12px}
+
+/* Decision box */
+.decision-box{border:2px solid #c0392b;border-radius:8px;padding:16px 20px;background:#fff}
+.decision-box h4{color:#c0392b;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px}
+.decision-row{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #f0ebe0}
+.decision-row:last-child{border-bottom:none}
+.decision-trigger{font-weight:700;color:#16393E;min-width:160px;font-size:13px}
+.decision-action{color:#555;font-size:12px}
+
+/* Agenda */
+.agenda-row{display:grid;grid-template-columns:80px 1fr 100px 120px;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid #f0ebe0}
+.agenda-row:last-child{border-bottom:none}
+.agenda-time{font-size:11px;color:#888;font-weight:600}
+.agenda-topic{font-weight:600;font-size:13px}
+.agenda-anim{font-size:12px;color:#555}
+.agenda-output{font-size:11px;background:#f8f5ef;border-radius:4px;padding:3px 7px;color:#16393E;font-weight:600}
+
+/* Checklist */
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:start;gap:10px;padding:8px 0;border-bottom:1px solid #f0ebe0;font-size:13px}
+.checklist li:last-child{border-bottom:none}
+.check-box{width:18px;height:18px;border:2px solid #D9B364;border-radius:3px;flex-shrink:0;margin-top:1px}
+.checklist-owner{color:#888;font-size:11px;margin-left:auto;white-space:nowrap}
+
+/* Rule box */
+.rule-box{background:#16393E;color:#EFF0F5;border-radius:8px;padding:16px 20px;margin-top:20px;font-size:13px;line-height:1.7;border-left:4px solid #D9B364}
+.rule-box strong{color:#D9B364}
+
+/* Context banner */
+.context-banner{background:#16393E;color:#EFF0F5;border-radius:8px;padding:14px 20px;margin-bottom:20px;font-size:13px;line-height:1.7}
+
+/* Priority strip */
+.priority-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.priority-pill{background:#D9B364;color:#000;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.06em}
+.priority-pill.p1{background:#c0392b;color:#fff}
+.priority-pill.p2{background:#e67e22;color:#fff}
+.priority-pill.p3{background:#16393E;color:#D9B364}
+
+.footer{text-align:center;color:#888;font-size:11px;padding:28px 0 20px}
+
+/* Divider */
+hr.gold{border:none;border-top:1px solid #D9B364;margin:24px 0;opacity:0.4}
+
+/* Sparkline placeholder */
+.trend{font-size:11px;font-weight:700}
+.trend.up{color:#27ae60}
+.trend.down{color:#c0392b}
+.trend.flat{color:#888}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+  <h1>Quarterly Business Review — Q2 2026</h1>
+  <div class="meta">Réunion du 18 août 2026 &nbsp;·&nbsp; Confidentiel &nbsp;·&nbsp; Zig Beaumont — Commercial</div>
+</div>
+
+<div class="container">
+
+  <!-- Objectif du QBR -->
+  <div class="context-banner">
+    <strong style="color:#D9B364">Ce QBR répond à 3 questions dans cet ordre :</strong><br>
+    1. <strong>Où en sommes-nous vraiment ?</strong> — la version honnête, pas la version rassurante.<br>
+    2. <strong>Pourquoi ?</strong> — causes racines, pas excuses.<br>
+    3. <strong>Qu'est-ce qu'on fait différemment en Q3 ?</strong> — décisions concrètes, noms et dates.
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 1. SCORECARD Q2 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">1</span> Scorecard Q2 — Résultats vs OGSM 2026</div>
+
+    <div class="kpi-strip">
+      <div class="kpi">
+        <div class="val">~176K€</div>
+        <div class="lbl">CA POS Q2 (3 bx)</div>
+      </div>
+      <div class="kpi">
+        <div class="val">~40K€</div>
+        <div class="lbl">E-commerce Q2</div>
+      </div>
+      <div class="kpi amber">
+        <div class="val">-2%</div>
+        <div class="lbl">POS vs Q1 2026</div>
+      </div>
+      <div class="kpi red">
+        <div class="val">-50%</div>
+        <div class="lbl">E-com vs cible OGSM</div>
+      </div>
+      <div class="kpi green">
+        <div class="val">Rocourt</div>
+        <div class="lbl">Ouvert fin juin ✓</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>CA par canal — Q2 2026 vs cibles</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Canal</th>
+            <th class="num">Q2 2026 estimé</th>
+            <th class="num">Q2 cible¹</th>
+            <th class="num">Écart</th>
+            <th>Statut</th>
+            <th>Contexte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Namur POS</strong></td>
+            <td class="num">~87,000€</td>
+            <td class="num">98,000€</td>
+            <td class="num trend down">-11%</td>
+            <td><span class="badge badge-warn">Sous cible</span></td>
+            <td class="muted">Grèves syndicales mai</td>
+          </tr>
+          <tr>
+            <td><strong>Liège POS</strong></td>
+            <td class="num">~62,000€</td>
+            <td class="num">75,000€</td>
+            <td class="num trend down">-17%</td>
+            <td><span class="badge badge-warn">Sous cible</span></td>
+            <td class="muted">Grèves + chaleur juin</td>
+          </tr>
+          <tr>
+            <td><strong>Waterloo POS</strong></td>
+            <td class="num">~23,000€</td>
+            <td class="num">50,000€</td>
+            <td class="num trend down">-54%</td>
+            <td><span class="badge badge-crit">Critique</span></td>
+            <td class="muted">270€/jour vs 635€ BEP</td>
+          </tr>
+          <tr>
+            <td><strong>Rocourt POS</strong></td>
+            <td class="num">~4,500€</td>
+            <td class="num">—</td>
+            <td class="num">—</td>
+            <td><span class="badge badge-new">Nouveau</span></td>
+            <td class="muted">2 semaines seulement</td>
+          </tr>
+          <tr>
+            <td><strong>E-commerce</strong></td>
+            <td class="num">~40,000€</td>
+            <td class="num">80,000€</td>
+            <td class="num trend down">-50%</td>
+            <td><span class="badge badge-crit">Critique</span></td>
+            <td class="muted">Run rate 13K€/mois vs 27K€ cible</td>
+          </tr>
+          <tr style="background:#fafafa">
+            <td><strong>GMS</strong></td>
+            <td class="num muted">À confirmer</td>
+            <td class="num">112,000€</td>
+            <td class="num">—</td>
+            <td><span class="badge badge-nc">NC</span></td>
+            <td class="muted">Nicolas apporte en séance</td>
+          </tr>
+          <tr style="background:#fafafa">
+            <td><strong>HoReCa</strong></td>
+            <td class="num muted">À confirmer</td>
+            <td class="num">68,000€</td>
+            <td class="num">—</td>
+            <td><span class="badge badge-nc">NC</span></td>
+            <td class="muted">Nicolas apporte en séance</td>
+          </tr>
+          <tr style="background:#fafafa">
+            <td><strong>Revendeurs</strong></td>
+            <td class="num muted">À confirmer</td>
+            <td class="num">65,000€</td>
+            <td class="num">—</td>
+            <td><span class="badge badge-nc">NC</span></td>
+            <td class="muted">Nicolas apporte en séance</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:10px;font-size:11px">¹ Cibles Q2 = 25% des objectifs annuels OGSM ajustés saisonnalité. POS estimé sur 66 jours de dashboards extrapolés sur 91 jours.</p>
+    </div>
+
+    <div class="card">
+      <h3>Évolution mensuelle POS Q2 (données dashboards)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Mois</th>
+            <th class="num">Namur</th>
+            <th class="num">Liège</th>
+            <th class="num">Waterloo</th>
+            <th class="num">Rocourt</th>
+            <th class="num">Shopify</th>
+            <th class="num">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Avril 2026</strong></td>
+            <td class="num">~32,000€</td>
+            <td class="num">~24,000€</td>
+            <td class="num">~8,000€</td>
+            <td class="num muted">—</td>
+            <td class="num">~14,000€</td>
+            <td class="num"><strong>~78,000€</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Mai 2026</strong></td>
+            <td class="num">~28,000€ ⚠️</td>
+            <td class="num">~18,000€ ⚠️</td>
+            <td class="num">~7,500€</td>
+            <td class="num muted">—</td>
+            <td class="num">~13,000€</td>
+            <td class="num"><strong>~66,500€</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Juin 2026</strong></td>
+            <td class="num">~27,000€</td>
+            <td class="num">~20,000€</td>
+            <td class="num">~7,500€</td>
+            <td class="num">~4,500€</td>
+            <td class="num">~13,000€</td>
+            <td class="num"><strong>~72,000€</strong></td>
+          </tr>
+          <tr style="font-weight:700;background:#f8f5ef">
+            <td>Q2 Total</td>
+            <td class="num">~87,000€</td>
+            <td class="num">~62,000€</td>
+            <td class="num">~23,000€</td>
+            <td class="num">~4,500€</td>
+            <td class="num">~40,000€</td>
+            <td class="num">~216,500€</td>
+          </tr>
+          <tr style="color:#888;font-size:12px">
+            <td>vs Q1 2026</td>
+            <td class="num">89,186€ <span class="trend down">-2%</span></td>
+            <td class="num">68,681€ <span class="trend down">-10%</span></td>
+            <td class="num">20,982€ <span class="trend up">+10%</span></td>
+            <td class="num">—</td>
+            <td class="num">~35,000€ <span class="trend up">+14%</span></td>
+            <td class="num">—</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:8px;font-size:11px">⚠️ Mai impacté par les grèves syndicales Namur + Liège (centre-ville). Écart non structurel — à isoler dans les tendances.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 2. LES 3 VÉRITÉS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">2</span> Les 3 Vérités de Q2</div>
+
+    <div class="truth-grid">
+      <div class="truth-block green">
+        <div class="icon">✅</div>
+        <h4>Ce qui a marché</h4>
+        <ul>
+          <li><strong>Rocourt ouvert</strong> — fait le plus important du trimestre</li>
+          <li><strong>Waterloo +10%</strong> vs Q1 — DTS Meta Ads produit des effets</li>
+          <li><strong>Collection glacée</strong> = moteur e-com : +14% Shopify Q1→Q2</li>
+          <li><strong>Namur tient</strong> malgré les grèves — base client solide</li>
+          <li><strong>Shopify en hausse</strong> portée par Passion Exotique, Pêche de Vigne, La Nana de Wépion</li>
+        </ul>
+      </div>
+      <div class="truth-block amber">
+        <div class="icon">⚠️</div>
+        <h4>Ce qui a déçu</h4>
+        <ul>
+          <li><strong>Mai = mois perdu</strong> sur Namur et Liège (grèves)</li>
+          <li><strong>Waterloo toujours sous BEP</strong> — 270€/j vs 635€/j nécessaires</li>
+          <li><strong>Liège -17%</strong> vs cible — cumul grèves + chaleur centre-ville</li>
+          <li><strong>AOV stagnant</strong> à 22-24€ — pas de progression panier moyen</li>
+        </ul>
+      </div>
+      <div class="truth-block red">
+        <div class="icon">🔴</div>
+        <h4>Ce qui est critique</h4>
+        <ul>
+          <li><strong>E-com à -50% de cible</strong> — run rate 13K€/mois, cible 27K€/mois</li>
+          <li><strong>Waterloo à -54% de cible</strong> — 90K€ projeté vs 200K€ OGSM</li>
+          <li><strong>B2B non mesuré</strong> — GMS/HoReCa/Revendeurs sans visibilité en temps réel</li>
+          <li><strong>Pas de pipeline B2B documenté</strong> — on gère au feeling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 3. PLAN Q3 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">3</span> Plan Q3 — Juillet / Août / Septembre</div>
+
+    <div class="priority-strip">
+      <span class="priority-pill p1">P1 — Rocourt : réussir Q3</span>
+      <span class="priority-pill p1">P2 — E-com : sortir du pilote auto</span>
+      <span class="priority-pill p2">P3 — Waterloo : décision GO/RESTRUCTURE</span>
+      <span class="priority-pill p3">P4 — B2B : combler les blancs</span>
+    </div>
+
+    <!-- P1 Rocourt -->
+    <div class="card">
+      <h3>🏪 Priorité 1 — Rocourt : réussir le premier trimestre complet</h3>
+      <p style="font-size:12px;color:#555;margin-bottom:14px">Q2 ne compte pas (2 semaines). Q3 = le vrai test. Rocourt doit prouver son modèle avant la rentrée.</p>
+      <table class="action-table">
+        <thead><tr><th>Action</th><th class="num">Cible</th><th>Responsable</th><th>Deadline</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CA mensuel Rocourt juillet</td>
+            <td class="num">7,500€ TTC</td>
+            <td><span class="owner">Store mgr</span></td>
+            <td class="deadline">31/07</td>
+          </tr>
+          <tr>
+            <td>NPS Rocourt activé</td>
+            <td class="num">—</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="deadline">07/07</td>
+          </tr>
+          <tr>
+            <td>Review hebdo CA/jour Rocourt (seuil alerte : 250€/j)</td>
+            <td class="num">300€/j août</td>
+            <td><span class="owner">Stephan</span></td>
+            <td class="deadline">Chaque lundi</td>
+          </tr>
+          <tr>
+            <td>Campagne inauguration MC — segment Liège (667378)</td>
+            <td class="num">~4,991 abonnés</td>
+            <td><span class="owner">Audrey</span></td>
+            <td class="deadline">15/07</td>
+          </tr>
+          <tr>
+            <td>Objectif Rocourt Q3 complet</td>
+            <td class="num">~22,000€ TTC</td>
+            <td><span class="owner">Stephan</span></td>
+            <td class="deadline">30/09</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- P2 E-com -->
+    <div class="card">
+      <h3>🛒 Priorité 2 — E-commerce : sortir du mode pilote automatique</h3>
+      <p style="font-size:12px;color:#555;margin-bottom:14px">L'e-com tourne seul, sans pilote commercial. Personne ne "vend" l'e-com activement. Cible Q3 : <strong>55,000€</strong> (run rate 18K€/mois minimum).</p>
+      <table class="action-table">
+        <thead><tr><th>Action</th><th class="num">Impact estimé</th><th>Responsable</th><th>Deadline</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Push "Glacé de l'été" — 4 emailings ciblés juillet-août</td>
+            <td class="num">+3,000–5,000€</td>
+            <td><span class="owner">Audrey</span></td>
+            <td class="deadline">7, 14, 21, 28/07</td>
+          </tr>
+          <tr>
+            <td>Activation NEWSLETTER10 sur dormants Shopify (9,946 contacts)</td>
+            <td class="num">+2,000–4,000€</td>
+            <td><span class="owner">Audrey + Dree</span></td>
+            <td class="deadline">10/07</td>
+          </tr>
+          <tr>
+            <td>Objectif hebdo Shopify affiché en dashboard (cible : 3,500€/sem)</td>
+            <td class="num">Discipline</td>
+            <td><span class="owner">Stephan</span></td>
+            <td class="deadline">Continu</td>
+          </tr>
+          <tr>
+            <td>Page collection glacée optimisée SEO</td>
+            <td class="num">Trafic organique</td>
+            <td><span class="owner">Dree</span></td>
+            <td class="deadline">15/07</td>
+          </tr>
+          <tr>
+            <td>QR code boutique → fiche produit e-com (cross-sell POS→online)</td>
+            <td class="num">Nouveau canal</td>
+            <td><span class="owner">Dree</span></td>
+            <td class="deadline">31/07</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- P3 Waterloo -->
+    <div class="card">
+      <h3>🚦 Priorité 3 — Waterloo : décision GO / RESTRUCTURE</h3>
+      <p style="font-size:12px;color:#555;margin-bottom:14px">Warren l'avait identifié en avril : juillet est le mois de vérité. Le P&L Q1 donnait -4,662€/mois. La décision ne peut plus attendre.</p>
+
+      <div class="decision-box" style="margin-bottom:16px">
+        <h4>🔴 Triggers de décision — à valider en séance</h4>
+        <div class="decision-row">
+          <span class="decision-trigger">CA juillet > 9,000€</span>
+          <span class="decision-action">→ Maintenir le cap. Accélérer Meta Ads DTS. Revue en octobre.</span>
+        </div>
+        <div class="decision-row">
+          <span class="decision-trigger">CA juillet 7–9,000€</span>
+          <span class="decision-action">→ Renégocier loyer (cible 2,000€) + réduire staff à 36h/sem. Deadline Fortamps : 15/08.</span>
+        </div>
+        <div class="decision-row">
+          <span class="decision-trigger">CA juillet &lt; 7,000€</span>
+          <span class="decision-action">→ Déclencher protocole sortie de bail. Coût d'inaction : 56K€/an.</span>
+        </div>
+      </div>
+
+      <table>
+        <thead><tr><th>Métrique</th><th class="num">Q1 réel</th><th class="num">Q2 réel</th><th class="num">Juillet budget</th><th class="num">Seuil alerte</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CA/jour TTC</td>
+            <td class="num">255€</td>
+            <td class="num">270€ <span class="trend up">+6%</span></td>
+            <td class="num">300€</td>
+            <td class="num trend down">&lt;250€ → action</td>
+          </tr>
+          <tr>
+            <td>CA mensuel TTC</td>
+            <td class="num">~7,000€</td>
+            <td class="num">~7,600€</td>
+            <td class="num">9,000€</td>
+            <td class="num trend down">&lt;8,000€ → bail</td>
+          </tr>
+          <tr>
+            <td>Tickets/jour</td>
+            <td class="num">12</td>
+            <td class="num">~13</td>
+            <td class="num">16</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>AOV</td>
+            <td class="num">22€</td>
+            <td class="num">~22€</td>
+            <td class="num">25€</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>Résultat mensuel (P&L)</td>
+            <td class="num trend down">-4,662€</td>
+            <td class="num trend down">~-4,000€</td>
+            <td class="num">-800€ (si 9K€)</td>
+            <td class="num">BEP à 16,500€ TTC</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- P4 B2B -->
+    <div class="card">
+      <h3>📦 Priorité 4 — B2B : combler les blancs</h3>
+      <p style="font-size:12px;color:#555;margin-bottom:14px">Un QBR sans données B2B est une réunion à moitié. Ces informations doivent être préparées <strong>avant le 18 août</strong>.</p>
+      <table>
+        <thead><tr><th>Donnée manquante</th><th class="num">Cible Q2</th><th>Responsable</th><th>Format attendu</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>CA GMS Q2</td>
+            <td class="num">112,000€</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">Factures Odoo + nombre displays actifs</td>
+          </tr>
+          <tr>
+            <td>CA HoReCa Q2</td>
+            <td class="num">68,000€</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">Factures Odoo</td>
+          </tr>
+          <tr>
+            <td>CA Revendeurs Q2</td>
+            <td class="num">65,000€</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">Factures Odoo</td>
+          </tr>
+          <tr>
+            <td>Pipeline B2B actif (prospects, stades, valeurs)</td>
+            <td class="num">—</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">Tableau ou export CRM</td>
+          </tr>
+          <tr>
+            <td>Taux de réachat revendeurs (actifs / dormants / perdus)</td>
+            <td class="num">—</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">RFM Odoo — dernière commande par client</td>
+          </tr>
+          <tr>
+            <td>Nombre de displays GMS actifs (cible : 20 fin Q2)</td>
+            <td class="num">20 displays</td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="muted">Liste par enseigne + localisation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 4. KPIs Q3 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">4</span> KPIs de Suivi Q3 — Revue lundi matin (15 min)</div>
+
+    <div class="card">
+      <table>
+        <thead><tr><th>KPI</th><th>Responsable</th><th class="num">Cible Q3</th><th class="num">Seuil alerte</th><th>Fréquence</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>CA POS total (4 boutiques)</strong></td>
+            <td><span class="owner">Stephan</span></td>
+            <td class="num">&gt;50,000€/mois</td>
+            <td class="num trend down">&lt;40,000€ → escalade</td>
+            <td class="muted">Hebdo</td>
+          </tr>
+          <tr>
+            <td><strong>CA Shopify semaine</strong></td>
+            <td><span class="owner">Audrey</span></td>
+            <td class="num">&gt;3,500€/sem</td>
+            <td class="num trend down">&lt;2,500€ → action</td>
+            <td class="muted">Hebdo</td>
+          </tr>
+          <tr>
+            <td><strong>CA Rocourt/jour</strong></td>
+            <td><span class="owner">Store mgr</span></td>
+            <td class="num">300€/j (juil.) → 400€/j (sept.)</td>
+            <td class="num trend down">&lt;200€/j → plan</td>
+            <td class="muted">Quotidien</td>
+          </tr>
+          <tr>
+            <td><strong>CA Waterloo/jour</strong></td>
+            <td><span class="owner">Stephan</span></td>
+            <td class="num">&gt;300€/j</td>
+            <td class="num trend down">&lt;250€/j → décision bail</td>
+            <td class="muted">Quotidien</td>
+          </tr>
+          <tr>
+            <td><strong>Nouveaux clients POS (4 bx)</strong></td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="num">&gt;50/semaine</td>
+            <td class="num">—</td>
+            <td class="muted">Hebdo</td>
+          </tr>
+          <tr>
+            <td><strong>CA GMS mensuel</strong></td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="num">&gt;37,500€ HT</td>
+            <td class="num trend down">&lt;25,000€ → appels clients</td>
+            <td class="muted">Mensuel</td>
+          </tr>
+          <tr>
+            <td><strong>Score NPS (3 boutiques + Rocourt)</strong></td>
+            <td><span class="owner">Nicolas</span></td>
+            <td class="num">&gt;60</td>
+            <td class="num">&lt;50 → investigation</td>
+            <td class="muted">Mensuel</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 5. AGENDA 18 AOÛT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">5</span> Agenda du 18 Août — 3h max, 9h00 → 12h00</div>
+
+    <div class="card">
+      <div class="agenda-row" style="font-weight:700;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;padding-bottom:6px">
+        <span>Heure</span><span>Sujet</span><span>Animateur</span><span>Output</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">09h00</span>
+        <div><div class="agenda-topic">1. Bilan Q2 — Résultats vs OGSM</div><div class="agenda-anim">Scorecard, chiffres réels, constat honnête</div></div>
+        <span class="agenda-anim">Stephan</span>
+        <span class="agenda-output">Scorecard validé</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">09h30</span>
+        <div><div class="agenda-topic">2. Deep-dive B2B — GMS, HoReCa, Revendeurs</div><div class="agenda-anim">Pipeline actif, displays, réachat, gap analysis</div></div>
+        <span class="agenda-anim">Nicolas</span>
+        <span class="agenda-output">Pipeline + gap</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">10h00</span>
+        <div><div class="agenda-topic">3. Waterloo — Décision</div><div class="agenda-anim">CA juillet réel → GO / renégociation / sortie</div></div>
+        <span class="agenda-anim">Stephan + Warren</span>
+        <span class="agenda-output">Décision actée</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">10h20</span>
+        <div><div class="agenda-topic">4. Rocourt — Plan Q3</div><div class="agenda-anim">Milestones, staffing, NPS, campagne ouverture</div></div>
+        <span class="agenda-anim">Stephan</span>
+        <span class="agenda-output">Milestone chart</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">10h40</span>
+        <div><div class="agenda-topic">5. E-commerce — Plan correctif</div><div class="agenda-anim">Calendrier emailings, SEO glacé, QR code POS</div></div>
+        <span class="agenda-anim">Dree + Audrey</span>
+        <span class="agenda-output">Calendrier juil-sept</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">11h00</span>
+        <div><div class="agenda-topic">6. Priorités Q3 — Qui fait quoi</div><div class="agenda-anim">Actions, noms, dates — pas de "on verra"</div></div>
+        <span class="agenda-anim">Zig</span>
+        <span class="agenda-output">Liste horodatée</span>
+      </div>
+      <div class="agenda-row">
+        <span class="agenda-time">11h20</span>
+        <div><div class="agenda-topic">7. Budget Q3 — Validation</div><div class="agenda-anim">Chiffres canal par canal, stress test, alertes</div></div>
+        <span class="agenda-anim">Warren</span>
+        <span class="agenda-output">Budget approuvé</span>
+      </div>
+      <div class="agenda-row" style="background:#f8f5ef;border-radius:0 0 6px 6px">
+        <span class="agenda-time">11h40</span>
+        <div><div class="agenda-topic">8. Clôture — 3 décisions, 3 dates</div><div class="agenda-anim">Résumé des décisions prises. Pas de compte-rendu : juste 3 actions avec noms et dates.</div></div>
+        <span class="agenda-anim">Stephan</span>
+        <span class="agenda-output">3 décisions max</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 6. CHECKLIST PRÉPARATION -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title"><span class="num">6</span> Checklist — À préparer avant le 18 août</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card">
+        <h3>Stephan</h3>
+        <ul class="checklist">
+          <li><div class="check-box"></div>CA juillet complet POS + Shopify → décision Waterloo<span class="checklist-owner">01/08</span></li>
+          <li><div class="check-box"></div>Budget Q3 validé avec Warren<span class="checklist-owner">10/08</span></li>
+          <li><div class="check-box"></div>Positionnement Rocourt Q3 (staffing, objectifs, NPS)<span class="checklist-owner">10/08</span></li>
+          <li><div class="check-box"></div>Décision Waterloo (loyer Fortamps si CA &lt;9K€ en juil.)<span class="checklist-owner">15/08</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Nicolas</h3>
+        <ul class="checklist">
+          <li><div class="check-box"></div>CA B2B Q2 complet (GMS / HoReCa / Revendeurs)<span class="checklist-owner">10/08</span></li>
+          <li><div class="check-box"></div>Nombre de displays GMS actifs + pipeline Q3<span class="checklist-owner">10/08</span></li>
+          <li><div class="check-box"></div>Analyse réachat revendeurs (actifs / dormants / perdus)<span class="checklist-owner">15/08</span></li>
+          <li><div class="check-box"></div>NPS Rocourt activé<span class="checklist-owner">07/07 ✓?</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Audrey + Dree</h3>
+        <ul class="checklist">
+          <li><div class="check-box"></div>Plan email Q3 (calendrier juillet-septembre, segments)<span class="checklist-owner">07/08</span></li>
+          <li><div class="check-box"></div>Rapport Shopify Q2 (sessions, conversion, top produits)<span class="checklist-owner">10/08</span></li>
+          <li><div class="check-box"></div>Statut actions glacé : qu'est-ce qui reste à faire en août ?<span class="checklist-owner">10/08</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Warren (Finance)</h3>
+        <ul class="checklist">
+          <li><div class="check-box"></div>Budget Q3 finalisé (forecast juillet publié ✓)<span class="checklist-owner">✓ fait</span></li>
+          <li><div class="check-box"></div>P&L Waterloo juillet réel vs budget<span class="checklist-owner">01/08</span></li>
+          <li><div class="check-box"></div>Scénarios Rocourt (ramp 3 / 6 / 12 mois)<span class="checklist-owner">15/08</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Règle de Zig -->
+  <div class="rule-box">
+    <strong>La règle de Zig pour ce QBR :</strong> chaque action sort avec un nom et une date.<br>
+    Pas de "on va essayer". Pas de "on verra". Si on ne sait pas <em>qui</em> ni <em>quand</em>, ce n'est pas une décision — c'est une discussion.<br><br>
+    <em>"La différence entre un bon Q2 et un mauvais Q2, c'est rarement la chance — c'est la clarté des décisions prises le trimestre précédent."</em>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower SA · QBR Q2 2026 · Réunion du 18 août 2026<br>
+  Document préparé par Zig Beaumont (Commercial) avec Warren (Finance) et Fabian (Odoo)<br>
+  Confidentiel — usage interne uniquement
+</div>
+
+</body>
+</html>
