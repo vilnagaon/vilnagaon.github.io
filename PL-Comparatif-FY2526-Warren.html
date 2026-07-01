@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Compte de Résultats — Teatower SA — Audit Warren</title>
+<style>
+  @page { size: A4 landscape; margin: 1.5cm; }
+  @media print { body { background:#fff; } .page { box-shadow:none; } }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f4f8; color:#1a1a1a; }
+  .page { max-width:1100px; margin:2rem auto; background:#fff; padding:2.5rem 3rem;
+           box-shadow:0 2px 12px rgba(0,0,0,.08); border-radius:8px; }
+
+  .header { display:flex; justify-content:space-between; align-items:flex-start;
+             border-bottom:3px solid #16393E; padding-bottom:1.2rem; margin-bottom:1.5rem; }
+  .company { font-size:1.6rem; font-weight:800; color:#16393E; }
+  .sub { font-size:.8rem; color:#6b7280; margin-top:3px; }
+  .meta { text-align:right; font-size:.75rem; color:#6b7280; line-height:1.7; }
+  .badge { display:inline-block; background:#D9B364; color:#000; font-weight:700;
+            font-size:.7rem; padding:3px 10px; border-radius:4px; margin-top:4px; }
+
+  .alert { background:#fff8e1; border-left:4px solid #D9B364; padding:.7rem 1rem;
+            border-radius:4px; font-size:.78rem; color:#5c4000; margin-bottom:1.2rem; }
+  .alert-red { background:#fef2f2; border-left:4px solid #dc2626; padding:.7rem 1rem;
+                border-radius:4px; font-size:.78rem; color:#7f1d1d; margin-bottom:1.2rem; }
+
+  table { width:100%; border-collapse:collapse; font-size:.78rem; margin-bottom:1.5rem; }
+  th { background:#1a3a5c; color:#fff; padding:6px 10px; text-align:left;
+        font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+  th.r { text-align:right; }
+  td { padding:5px 10px; border-bottom:1px solid #f1f5f9; }
+  td.r { text-align:right; font-variant-numeric:tabular-nums; }
+  td.pct { text-align:right; color:#64748b; font-size:.73rem; }
+  tr:hover td { background:#f8fafc; }
+  .section-header td { background:#e8f0f8; font-weight:700; color:#1a3a5c;
+                        font-size:.8rem; padding:6px 10px; border-top:1px solid #b0c4de; }
+  .subtotal td { background:#f0f4f8; font-weight:700; border-top:2px solid #1a3a5c; }
+  .total td { background:#1a3a5c; color:#fff; font-weight:800; font-size:.82rem; }
+  .total td.pct { color:rgba(255,255,255,.7); }
+  .highlight td { background:#D9B364 !important; color:#000 !important; font-weight:800; }
+  .neg { color:#dc2626; font-weight:700; }
+  .pos { color:#15803d; font-weight:700; }
+  .note { font-size:.68rem; color:#94a3b8; font-style:italic; }
+  .warn { color:#b45309; font-weight:700; }
+
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.2rem; margin-bottom:1.5rem; }
+  .card { border:1px solid #e2e8f0; border-radius:6px; padding:1rem 1.2rem; }
+  .card h3 { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.5px;
+              color:#64748b; margin-bottom:.8rem; border-bottom:1px solid #f1f5f9; padding-bottom:.4rem; }
+  .kpi-row { display:flex; justify-content:space-between; padding:3px 0; font-size:.78rem; }
+  .kpi-val { font-weight:700; }
+  .kpi-pct { color:#64748b; font-size:.73rem; }
+  .kpi-big { font-size:1.4rem; font-weight:800; color:#16393E; }
+  .kpi-label { font-size:.72rem; color:#64748b; margin-top:2px; }
+
+  .warren-box { background:#1a3a5c; color:#EFF0F5; padding:1.2rem 1.5rem;
+                border-radius:6px; margin-bottom:1.5rem; }
+  .warren-box h3 { font-size:.8rem; font-weight:700; text-transform:uppercase;
+                   letter-spacing:.5px; color:#D9B364; margin-bottom:.8rem; }
+  .warren-box p { font-size:.78rem; line-height:1.7; margin-bottom:.5rem; }
+  .warren-box ul { font-size:.78rem; line-height:1.8; padding-left:1rem; }
+  .warren-box li { margin-bottom:.2rem; }
+
+  h2.section { font-size:.9rem; font-weight:700; color:#1a3a5c; text-transform:uppercase;
+               letter-spacing:.5px; margin:1.5rem 0 .7rem; padding-bottom:.4rem;
+               border-bottom:2px solid #D9B364; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="company">TEATOWER SA</div>
+      <div class="sub">Compte de Résultats Comparatif — Audit Warren</div>
+      <div class="sub">FY 25-26 (juil. 2025 → juin 2026) vs FY 24-25</div>
+    </div>
+    <div class="meta">
+      Source : Odoo 18 Enterprise — tea-tree.odoo.com<br>
+      Extrait le : 01/07/2026<br>
+      Périmètre : écritures postées, comptes 6/7<br>
+      <span class="badge">WARREN — AUDIT COMPLET</span>
+    </div>
+  </div>
+
+  <!-- ALERTE LECTURE -->
+  <div class="alert">
+    ⚠️ <strong>Note de lecture :</strong> Le résultat financier FY 25-26 inclut des écritures de normalisation comptable sur les comptes 657100/757100 (différences de paiement, OD de régularisation) représentant un effet net de +72 785€. Ces entrées sont légitimes mais non récurrentes. L'EBITDA opérationnel (-78K€) est la métrique de pilotage. Les éléments exceptionnels FY 24-25 (690000/693000) représentent -138K€ de reports antérieurs sans impact cash.
+  </div>
+
+  <!-- KPIs CLÉS -->
+  <h2 class="section">Indicateurs Clés</h2>
+  <div class="grid3">
+    <div class="card" style="border-top:3px solid #16393E;">
+      <h3>Chiffre d'Affaires Net</h3>
+      <div class="kpi-big">1 918 939 €</div>
+      <div class="kpi-label">FY 25-26 · <span class="pos">+9,0% vs N-1</span></div>
+      <div style="margin-top:.8rem;">
+        <div class="kpi-row"><span>FY 24-25</span><span class="kpi-val">1 760 394 €</span></div>
+        <div class="kpi-row"><span>Delta</span><span class="kpi-val pos">+158 545 €</span></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid #D9B364;">
+      <h3>Marge Brute</h3>
+      <div class="kpi-big">1 271 242 €</div>
+      <div class="kpi-label">66,2% du CA · <span class="neg">-3,6pts vs N-1</span></div>
+      <div style="margin-top:.8rem;">
+        <div class="kpi-row"><span>FY 24-25</span><span class="kpi-val">1 229 408 € (69,8%)</span></div>
+        <div class="kpi-row"><span>Compression</span><span class="kpi-val neg">−3,6pts</span></div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid #dc2626;">
+      <h3>EBITDA Opérationnel</h3>
+      <div class="kpi-big neg">−78 062 €</div>
+      <div class="kpi-label">−4,1% du CA · <span class="neg">vs +9,6% en N-1</span></div>
+      <div style="margin-top:.8rem;">
+        <div class="kpi-row"><span>FY 24-25</span><span class="kpi-val pos">+169 085 €</span></div>
+        <div class="kpi-row"><span>Delta</span><span class="kpi-val neg">−247 147 €</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARREN VERDICT -->
+  <div class="warren-box">
+    <h3>Verdict Warren — 01/07/2026</h3>
+    <p><strong>Score de confiance : 7/10.</strong> Les données Odoo sont propres après l'audit comptable de juin 2026. L'exercice FY 25-26 est un <strong>exercice de transition</strong> : le CA croît +9% mais la structure de coûts a été profondément restructurée, avec deux effets simultanés qui écrasent l'EBITDA.</p>
+    <ul>
+      <li><strong>Loyers +138K€</strong> — Waterloo (de 2,5K à 53K) + Rocourt (nouvelle boutique) + Baillonville entrepôt (58K). Ce sont des coûts fixes permanents qui n'étaient pas présents en N-1.</li>
+      <li><strong>Honoraires de gestion +177K€</strong> (613290) — Conséquence directe de la restructuration managériale Q1 2026 : les 4 FTE (250K€/an) ont été remplacés par du consulting externe. La masse salariale baisse de 32K€ mais les honoraires coûtent 177K€ → coût net de la transition : +145K€.</li>
+      <li><strong>GMS +271K€ CA</strong> mais marge brute comprimée (−3,6pts) et transport +37K€ — le canal GMS dilue la marge.</li>
+    </ul>
+    <p style="margin-top:.6rem;"><strong>Lecture normalisée :</strong> En retirant les coûts de transition non récurrents (honoraires restructuration ~100K€ non pérennes) et en supposant que Waterloo/Rocourt atteignent leur CA cible, le résultat normalisé FY 26-27 est structurellement positif. Le vrai test sera H1 FY 26-27 : si les loyers restent à 254K€ mais que le CA passe à 2,2M€, l'EBITDA retrouve +8% de marge.</p>
+  </div>
+
+  <!-- COMPTE DE RÉSULTATS DÉTAILLÉ -->
+  <h2 class="section">Compte de Résultats Détaillé</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:6%">Compte</th>
+        <th style="width:34%">Libellé</th>
+        <th class="r" style="width:16%">FY 25-26</th>
+        <th class="r" style="width:8%">% CA</th>
+        <th class="r" style="width:16%">FY 24-25</th>
+        <th class="r" style="width:8%">% CA</th>
+        <th class="r" style="width:12%">Delta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- CHIFFRE D'AFFAIRES -->
+      <tr class="section-header"><td colspan="7">I. CHIFFRE D'AFFAIRES</td></tr>
+      <tr><td>700006</td><td>Ventes magasins 6% (retail)</td><td class="r">653 671</td><td class="pct">34,1%</td><td class="r">597 767</td><td class="pct">34,0%</td><td class="r pos">+55 904</td></tr>
+      <tr><td>700021</td><td>Ventes magasins 21% (accessoires)</td><td class="r">88 105</td><td class="pct">4,6%</td><td class="r">93 560</td><td class="pct">5,3%</td><td class="r neg">−5 455</td></tr>
+      <tr><td>700100-105</td><td>E-commerce (BE/FR/NL/LU)</td><td class="r">271 157</td><td class="pct">14,1%</td><td class="r">258 637</td><td class="pct">14,7%</td><td class="r pos">+12 520</td></tr>
+      <tr><td>700300</td><td>Ventes Horeca</td><td class="r">309 327</td><td class="pct">16,1%</td><td class="r">298 867</td><td class="pct">17,0%</td><td class="r pos">+10 460</td></tr>
+      <tr><td>700500</td><td>Ventes revendeurs</td><td class="r">211 450</td><td class="pct">11,0%</td><td class="r">177 882</td><td class="pct">10,1%</td><td class="r pos">+33 568</td></tr>
+      <tr><td>700600</td><td>Ventes GMS (grande distribution)</td><td class="r">333 197</td><td class="pct">17,4%</td><td class="r">61 805</td><td class="pct">3,5%</td><td class="r pos">+271 392</td></tr>
+      <tr><td>700700</td><td>Ventes Corporate / Institutions</td><td class="r">17 977</td><td class="pct">0,9%</td><td class="r">3 809</td><td class="pct">0,2%</td><td class="r pos">+14 168</td></tr>
+      <tr><td>700000/200/400</td><td>Autres ventes BE + Export + Direct</td><td class="r">35 476</td><td class="pct">1,8%</td><td class="r">268 185</td><td class="pct">15,2%</td><td class="r neg">−232 709</td></tr>
+      <tr><td>708xxx</td><td>Remises et ristournes accordées</td><td class="r neg">−2 437</td><td class="pct">−0,1%</td><td class="r neg">−3 117</td><td class="pct">−0,2%</td><td class="r pos">+680</td></tr>
+      <tr class="subtotal"><td colspan="2">CHIFFRE D'AFFAIRES NET</td><td class="r">1 918 939</td><td class="pct">100%</td><td class="r">1 760 394</td><td class="pct">100%</td><td class="r pos">+158 545</td></tr>
+
+      <!-- ACHATS -->
+      <tr class="section-header"><td colspan="7">II. ACHATS ET VARIATION DE STOCKS</td></tr>
+      <tr><td>600000/006</td><td>Achats matières premières</td><td class="r neg">−418 809</td><td class="pct">−21,8%</td><td class="r neg">−3 558</td><td class="pct">−0,2%</td><td class="r neg">−415 251</td></tr>
+      <tr><td>604024</td><td>Achats marchandises Teatower</td><td class="r neg">−225 631</td><td class="pct">−11,8%</td><td class="r neg">−749 471</td><td class="pct">−42,6%</td><td class="r pos">+523 840</td></tr>
+      <tr><td>601/603/604</td><td>Consommables, sous-traitance, divers</td><td class="r neg">−3 256</td><td class="pct">−0,2%</td><td class="r neg">−2 529</td><td class="pct">−0,1%</td><td class="r neg">−727</td></tr>
+      <tr><td>609400</td><td>Variation de stocks <span class="note">(N-1 seulement)</span></td><td class="r">—</td><td class="pct">—</td><td class="r pos">+224 572</td><td class="pct">+12,8%</td><td class="r neg">−224 572</td></tr>
+      <tr class="subtotal"><td colspan="2">MARGE BRUTE</td><td class="r">1 271 242</td><td class="pct">66,2%</td><td class="r">1 229 408</td><td class="pct">69,8%</td><td class="r pos">+41 834</td></tr>
+
+      <!-- SERVICES ET BIENS DIVERS -->
+      <tr class="section-header"><td colspan="7">III. SERVICES ET BIENS DIVERS</td></tr>
+      <tr><td>611121-125</td><td>Loyers magasins + entrepôt</td><td class="r neg">−283 675</td><td class="pct">−14,8%</td><td class="r neg">−94 660</td><td class="pct">−5,4%</td><td class="r neg">−189 015</td></tr>
+      <tr><td>611120</td><td>Refacturation loyer (intra-groupe)</td><td class="r neg">−28 712</td><td class="pct">−1,5%</td><td class="r neg">−23 313</td><td class="pct">−1,3%</td><td class="r neg">−5 399</td></tr>
+      <tr><td>611129/133</td><td>Licences informatiques</td><td class="r neg">−13 487</td><td class="pct">−0,7%</td><td class="r neg">−11 580</td><td class="pct">−0,7%</td><td class="r neg">−1 907</td></tr>
+      <tr><td>611300-307</td><td>Leasing & carburant véhicules</td><td class="r neg">−18 194</td><td class="pct">−0,9%</td><td class="r neg">−32 839</td><td class="pct">−1,9%</td><td class="r pos">+14 645</td></tr>
+      <tr><td>611320-358</td><td>Entretien bâtiments & matériel</td><td class="r neg">−15 150</td><td class="pct">−0,8%</td><td class="r neg">−53 465</td><td class="pct">−3,0%</td><td class="r pos">+38 315</td></tr>
+      <tr><td>612000-415</td><td>Fournitures & utilités (élec, eau, bureautique)</td><td class="r neg">−74 227</td><td class="pct">−3,9%</td><td class="r neg">−33 128</td><td class="pct">−1,9%</td><td class="r neg">−41 099</td></tr>
+      <tr><td>613099/230/250</td><td>Honoraires & frais divers</td><td class="r neg">−6 649</td><td class="pct">−0,3%</td><td class="r neg">−29 229</td><td class="pct">−1,7%</td><td class="r pos">+22 580</td></tr>
+      <tr><td>613240</td><td>Honoraires Adrianne & Nicolas</td><td class="r neg">−26 744</td><td class="pct">−1,4%</td><td class="r neg">−36 562</td><td class="pct">−2,1%</td><td class="r pos">+9 818</td></tr>
+      <tr><td>613290</td><td>Honoraires de gestion <span class="note warn">⚠ nouveau poste majeur</span></td><td class="r neg">−177 690</td><td class="pct">−9,3%</td><td class="r neg">−1 225</td><td class="pct">−0,1%</td><td class="r neg">−176 465</td></tr>
+      <tr><td>613310</td><td>Secrétariat social</td><td class="r neg">−12 274</td><td class="pct">−0,6%</td><td class="r neg">−4 300</td><td class="pct">−0,2%</td><td class="r neg">−7 974</td></tr>
+      <tr><td>613510/541/550</td><td>Assurances & location véhicules</td><td class="r neg">−18 711</td><td class="pct">−1,0%</td><td class="r neg">−1 387</td><td class="pct">−0,1%</td><td class="r neg">−17 324</td></tr>
+      <tr><td>614140</td><td>Frais de transport & logistique</td><td class="r neg">−60 493</td><td class="pct">−3,2%</td><td class="r neg">−23 798</td><td class="pct">−1,4%</td><td class="r neg">−36 695</td></tr>
+      <tr><td>615-616xxx</td><td>Marketing, pub, comm., télécom</td><td class="r neg">−89 231</td><td class="pct">−4,7%</td><td class="r neg">−82 717</td><td class="pct">−4,7%</td><td class="r neg">−6 514</td></tr>
+      <tr class="subtotal"><td colspan="2">TOTAL SERVICES & BIENS DIVERS</td><td class="r neg">−825 237</td><td class="pct">−43,0%</td><td class="r neg">−428 203</td><td class="pct">−24,3%</td><td class="r neg">−397 034</td></tr>
+
+      <!-- RÉMUNÉRATIONS -->
+      <tr class="section-header"><td colspan="7">IV. RÉMUNÉRATIONS & CHARGES SOCIALES</td></tr>
+      <tr><td>617/618</td><td>Intérimaires et personnel externe</td><td class="r neg">−43 738</td><td class="pct">−2,3%</td><td class="r neg">−1 610</td><td class="pct">−0,1%</td><td class="r neg">−42 128</td></tr>
+      <tr><td>620200-300</td><td>Rémunérations employés & ouvriers</td><td class="r neg">−370 116</td><td class="pct">−19,3%</td><td class="r neg">−425 763</td><td class="pct">−24,2%</td><td class="r pos">+55 647</td></tr>
+      <tr><td>621200-310</td><td>Charges patronales ONSS</td><td class="r neg">−90 788</td><td class="pct">−4,7%</td><td class="r neg">−100 868</td><td class="pct">−5,7%</td><td class="r pos">+10 080</td></tr>
+      <tr><td>623xxx</td><td>Autres frais personnel (chèques-repas, vêtements…)</td><td class="r neg">−31 555</td><td class="pct">−1,6%</td><td class="r neg">−32 869</td><td class="pct">−1,9%</td><td class="r pos">+1 314</td></tr>
+      <tr><td>625000</td><td>Pécule de vacances</td><td class="r neg">−37 399</td><td class="pct">−1,9%</td><td class="r neg">−43 629</td><td class="pct">−2,5%</td><td class="r pos">+6 230</td></tr>
+      <tr class="subtotal"><td colspan="2">TOTAL RÉMUNÉRATIONS</td><td class="r neg">−573 596</td><td class="pct">−29,9%</td><td class="r neg">−604 739</td><td class="pct">−34,4%</td><td class="r pos">+31 143</td></tr>
+
+      <!-- EBITDA -->
+      <tr class="highlight"><td colspan="2">EBITDA OPÉRATIONNEL</td><td class="r">−127 591</td><td class="pct">−6,6%</td><td class="r">196 466</td><td class="pct">11,2%</td><td class="r">−324 057</td></tr>
+
+      <!-- AMORTISSEMENTS -->
+      <tr class="section-header"><td colspan="7">V. AMORTISSEMENTS</td></tr>
+      <tr><td>630xxx</td><td>Amortissements immobilisations</td><td class="r neg">−3 632</td><td class="pct">−0,2%</td><td class="r neg">−11 296</td><td class="pct">−0,6%</td><td class="r pos">+7 664</td></tr>
+      <tr class="subtotal"><td colspan="2">RÉSULTAT D'EXPLOITATION (EBIT)</td><td class="r neg">−131 223</td><td class="pct">−6,8%</td><td class="r pos">185 170</td><td class="pct">10,5%</td><td class="r neg">−316 393</td></tr>
+
+      <!-- CHARGES FINANCIÈRES -->
+      <tr class="section-header"><td colspan="7">VI. RÉSULTAT FINANCIER</td></tr>
+      <tr><td>650xxx</td><td>Intérêts, commissions, frais bancaires</td><td class="r neg">−20 036</td><td class="pct">−1,0%</td><td class="r neg">−14 581</td><td class="pct">−0,8%</td><td class="r neg">−5 455</td></tr>
+      <tr><td>656501</td><td>Frais chèques-repas (fin.)</td><td class="r neg">−3 322</td><td class="pct">−0,2%</td><td class="r neg">−263</td><td class="pct">0%</td><td class="r neg">−3 059</td></tr>
+      <tr><td>657100</td><td>Différences de paiement négatives <span class="note">(ODs régularisation)</span></td><td class="r pos">+159 185</td><td class="pct">+8,3%</td><td class="r">—</td><td class="pct">—</td><td class="r pos">+159 185</td></tr>
+      <tr><td>757100</td><td>Différences de paiement positives <span class="note">(ODs régularisation)</span></td><td class="r neg">−86 400</td><td class="pct">−4,5%</td><td class="r">—</td><td class="pct">—</td><td class="r neg">−86 400</td></tr>
+      <tr><td>743xxx</td><td>Autres produits (ATN, AIP récup.)</td><td class="r pos">+5 047</td><td class="pct">+0,3%</td><td class="r pos">+8 704</td><td class="pct">+0,5%</td><td class="r neg">−3 657</td></tr>
+      <tr class="subtotal"><td colspan="2">RÉSULTAT FINANCIER NET</td><td class="r pos">+54 474</td><td class="pct">+2,8%</td><td class="r neg">−6 140</td><td class="pct">−0,3%</td><td class="r pos">+60 614</td></tr>
+
+      <!-- TAXES -->
+      <tr class="section-header"><td colspan="7">VII. TAXES ET IMPÔTS</td></tr>
+      <tr><td>640xxx/644</td><td>Taxes, redevances, amendes</td><td class="r neg">−3 202</td><td class="pct">−0,2%</td><td class="r neg">−13 016</td><td class="pct">−0,7%</td><td class="r pos">+9 814</td></tr>
+      <tr><td>670200</td><td>Impôts estimés sur résultat</td><td class="r">—</td><td class="pct">—</td><td class="r neg">−20 694</td><td class="pct">−1,2%</td><td class="r pos">+20 694</td></tr>
+
+      <!-- EXCEPTIONNELS N-1 -->
+      <tr class="section-header"><td colspan="7">VIII. ÉLÉMENTS EXCEPTIONNELS (FY 24-25 uniquement)</td></tr>
+      <tr><td>690000</td><td>Perte exercice précédent reportée</td><td class="r">—</td><td class="pct">—</td><td class="r neg">−64 092</td><td class="pct">−3,6%</td><td class="r">—</td></tr>
+      <tr><td>693000</td><td>Bénéfices à reporter</td><td class="r">—</td><td class="pct">—</td><td class="r neg">−53 641</td><td class="pct">−3,0%</td><td class="r">—</td></tr>
+
+      <!-- RÉSULTAT NET -->
+      <tr class="total"><td colspan="2">RÉSULTAT NET DE L'EXERCICE</td><td class="r neg">−79 951 €</td><td class="pct">−4,2%</td><td class="r pos">+207 €</td><td class="pct">0,0%</td><td class="r neg">−80 158 €</td></tr>
+    </tbody>
+  </table>
+
+  <!-- VENTILATION CA PAR CANAL -->
+  <h2 class="section">Ventilation CA par Canal — FY 25-26</h2>
+  <div class="grid2">
+    <table>
+      <thead>
+        <tr><th>Canal</th><th class="r">FY 25-26</th><th class="r">Mix</th><th class="r">FY 24-25</th><th class="r">Δ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Magasins retail (6%+21%)</td><td class="r">741 776</td><td class="pct">38,7%</td><td class="r">691 327</td><td class="r pos">+50 449</td></tr>
+        <tr><td>E-commerce total</td><td class="r">271 157</td><td class="pct">14,1%</td><td class="r">258 637</td><td class="r pos">+12 520</td></tr>
+        <tr><td>GMS (grande distribution)</td><td class="r">333 197</td><td class="pct">17,4%</td><td class="r">61 805</td><td class="r pos">+271 392</td></tr>
+        <tr><td>Horeca / CHR</td><td class="r">309 327</td><td class="pct">16,1%</td><td class="r">298 867</td><td class="r pos">+10 460</td></tr>
+        <tr><td>Revendeurs</td><td class="r">211 450</td><td class="pct">11,0%</td><td class="r">177 882</td><td class="r pos">+33 568</td></tr>
+        <tr><td>Corporate & autres</td><td class="r">52 032</td><td class="pct">2,7%</td><td class="r">271 876</td><td class="r neg">−219 844</td></tr>
+        <tr class="subtotal"><td>TOTAL CA NET</td><td class="r">1 918 939</td><td class="pct">100%</td><td class="r">1 760 394</td><td class="r pos">+158 545</td></tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div class="warren-box" style="margin-bottom:1rem;">
+        <h3>Lecture Warren — Mix Canal</h3>
+        <p>Le fait saillant : <strong>GMS x5,4 en un an</strong> (61K→333K). C'est une décision stratégique majeure. Le problème : la GMS est structurellement à marge inférieure et génère +37K€ de frais transport. La compression de marge brute (−3,6pts) s'explique largement par ce mix-shift.</p>
+        <p>La chute du poste "Corporate & autres" (272K→52K) est à vérifier : probable requalification de certaines ventes en 700600 GMS ou perte d'un client export significatif (700200 : 114K→1K).</p>
+      </div>
+      <div class="card">
+        <h3>Alert — Export effondré</h3>
+        <div class="kpi-row"><span>Export FY 24-25</span><span class="kpi-val">113 774 €</span></div>
+        <div class="kpi-row"><span>Export FY 25-26</span><span class="kpi-val neg">1 055 €</span></div>
+        <div class="kpi-row"><span>Delta</span><span class="kpi-val neg">−112 719 € (−99%)</span></div>
+        <div style="font-size:.72rem;color:#94a3b8;margin-top:.5rem;">Vérifier si ces ventes ont été reclassées en GMS ou si un client export a été perdu.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYSE DES COÛTS CLÉS -->
+  <h2 class="section">Analyse Coûts — Postes à Surveiller</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Poste</th>
+        <th class="r">FY 25-26</th>
+        <th class="r">% CA</th>
+        <th class="r">FY 24-25</th>
+        <th class="r">% CA N-1</th>
+        <th class="r">Delta €</th>
+        <th>Commentaire Warren</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Loyers (tous)</strong></td><td class="r neg">312 387</td><td class="pct">16,3%</td><td class="r neg">118 423</td><td class="pct">6,7%</td><td class="r neg">−193 964</td><td class="note">Waterloo + Rocourt + Baillonville entrepôt. Coût fixe permanent.</td></tr>
+      <tr><td><strong>Honoraires gestion (613290)</strong></td><td class="r neg">177 690</td><td class="pct">9,3%</td><td class="r neg">1 225</td><td class="pct">0,1%</td><td class="r neg">−176 465</td><td class="note warn">⚠ Nouveau poste. Restructuration Q1 2026. À monitorer : est-ce pérenne ?</td></tr>
+      <tr><td>Transport & logistique (614140)</td><td class="r neg">60 493</td><td class="pct">3,2%</td><td class="r neg">23 798</td><td class="pct">1,4%</td><td class="r neg">−36 695</td><td class="note">Corrélé à la croissance GMS. Variable.</td></tr>
+      <tr><td>Marketing (616600)</td><td class="r neg">57 425</td><td class="pct">3,0%</td><td class="r neg">41 348</td><td class="pct">2,3%</td><td class="r neg">−16 077</td><td class="note">Investissement croissance. À mesurer en ROI CA.</td></tr>
+      <tr><td>Rémunérations (620-625)</td><td class="r neg">407 515</td><td class="pct">21,2%</td><td class="r neg">469 392</td><td class="pct">26,7%</td><td class="r pos">+61 877</td><td class="note">Réduction team. Gain réel mais partiellement compensé par 613290.</td></tr>
+      <tr><td>Électricité (612130)</td><td class="r neg">36 165</td><td class="pct">1,9%</td><td class="r neg">3 015</td><td class="pct">0,2%</td><td class="r neg">−33 150</td><td class="note warn">⚠ x12 en un an. Vérifier : nouvelles boutiques + entrepôt Baillonville ?</td></tr>
+      <tr><td>Fournitures & petits matériels</td><td class="r neg">29 945</td><td class="pct">1,6%</td><td class="r neg">14 214</td><td class="pct">0,8%</td><td class="r neg">−15 731</td><td class="note">Ouverture boutiques. One-time.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ANALYSE NORMALISÉE -->
+  <h2 class="section">Résultat Normalisé — Vision Warren</h2>
+  <div class="grid2">
+    <table>
+      <thead><tr><th colspan="2">Retraitements FY 25-26</th><th class="r">Impact €</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2">Résultat net comptable</td><td class="r neg">−79 951</td></tr>
+        <tr class="section-header"><td colspan="3">+ Éléments non récurrents (ajout pour normalisation)</td></tr>
+        <tr><td colspan="2">Honoraires restructuration (estimation non-pérenne)</td><td class="r pos">+80 000</td></tr>
+        <tr><td colspan="2">Coûts ouverture Rocourt (one-time)</td><td class="r pos">+15 000</td></tr>
+        <tr><td colspan="2">657100/757100 ODs régularisation (net)</td><td class="r neg">−72 785</td></tr>
+        <tr class="section-header"><td colspan="3">− Éléments sous-chargés en N+1</td></tr>
+        <tr><td colspan="2">Rocourt à CA plein (+6 mois)</td><td class="r pos">+40 000</td></tr>
+        <tr><td colspan="2">Waterloo momentum (DTS plan)</td><td class="r pos">+30 000</td></tr>
+        <tr class="subtotal"><td colspan="2"><strong>Résultat normalisé estimé</strong></td><td class="r pos"><strong>+12 264</strong></td></tr>
+        <tr class="total"><td colspan="2">Marge normalisée</td><td class="r">~0,6% CA</td></tr>
+      </tbody>
+    </table>
+
+    <div class="warren-box">
+      <h3>Verdict de Clôture FY 25-26</h3>
+      <p><strong>Ce n'est pas une perte opérationnelle — c'est le coût d'une transformation.</strong></p>
+      <ul>
+        <li>Résultat comptable : <strong>−80K€</strong></li>
+        <li>Résultat normalisé estimé : <strong>~+12K€</strong></li>
+        <li>Le business sous-jacent est à l'équilibre après retraitements</li>
+        <li>La clé FY 26-27 : convertir les loyers fixes (312K€) en CA — il faut <strong>+2,2M€ CA</strong> pour retrouver 8% EBITDA</li>
+        <li>Le canal GMS est à analyser en marge nette : si la marge contributive < 20%, il dilue sans créer de valeur</li>
+      </ul>
+      <p style="margin-top:.6rem;font-size:.72rem;color:#D9B364;">
+        "Accounting is the language of business — but the story is told between the lines." — Warren
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e2e8f0;
+               display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:.7rem;color:#94a3b8;">
+      Teatower SA · Audit Warren · Données Odoo 18 au 01/07/2026<br>
+      Exercice fiscal : 01/07/2025 → 30/06/2026 · Monnaie : EUR
+    </div>
+    <div style="font-size:.7rem;color:#94a3b8;text-align:right;">
+      Généré automatiquement via API Odoo<br>
+      Confidentiel — Usage interne uniquement
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
