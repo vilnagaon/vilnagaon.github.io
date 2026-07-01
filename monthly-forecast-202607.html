@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forecast Juillet 2026 — Teatower</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Poppins','Century Gothic',Arial,sans-serif;background:#F2E5CA;color:#1a1a1a;font-size:14px}
+  /* header */
+  .header{background:#0a0a0a;padding:20px;text-align:center;border-bottom:3px solid #8B6F47}
+  .header img{height:48px}
+  .header h1{color:#EFF0F5;font-size:20px;font-weight:700;margin-top:12px;letter-spacing:-0.02em}
+  .header .sub{color:#D9B364;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;margin-top:4px}
+  /* container */
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  /* cards */
+  .card{background:#fff;border-radius:8px;padding:20px;margin-bottom:20px;border:1px solid #e0d5c0}
+  .card h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#16393E;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #D9B364}
+  /* kpi row */
+  .kpi-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+  .kpi{background:#16393E;color:#EFF0F5;border-radius:8px;padding:16px 20px;flex:1;min-width:140px}
+  .kpi .val{font-size:24px;font-weight:700;letter-spacing:-0.02em}
+  .kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#D9B364;margin-top:4px}
+  .kpi.gold{background:#D9B364;color:#000}
+  .kpi.gold .lbl{color:#000;opacity:0.7}
+  /* tables */
+  table{width:100%;border-collapse:collapse}
+  th{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#888;padding:6px 8px;text-align:left;border-bottom:2px solid #e0d5c0}
+  td{padding:8px;border-bottom:1px solid #f0ebe0;vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .neg{color:#c0392b}
+  .muted{color:#888}
+  .small{font-size:12px}
+  /* badges */
+  .badge{display:inline-block;color:#fff;font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 6px;border-radius:4px;letter-spacing:0.08em}
+  /* positive/negative */
+  .positive{color:#2ecc71;font-weight:600}
+  .negative{color:#c0392b;font-weight:600}
+  /* alerts */
+  .alert-row{display:grid;grid-template-columns:220px 160px 1fr;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid #f0ebe0}
+  .alert-row:last-child{border-bottom:none}
+  .alert-kpi{font-weight:600;font-size:13px}
+  .alert-seuil{background:#D9B364;color:#000;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;text-align:center}
+  .alert-action{color:#555;font-size:12px}
+  /* context */
+  .context{background:#16393E;color:#EFF0F5;border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:13px;line-height:1.6}
+  /* footer */
+  .footer{text-align:center;color:#888;font-size:11px;padding:24px 0}
+  /* confidence */
+  .conf-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:13px;color:#fff}
+  /* breakeven bar */
+  .bk-bar-wrap{background:#e0d5c0;border-radius:4px;height:8px;margin-top:6px;overflow:hidden}
+  .bk-bar{height:100%;border-radius:4px;background:#D9B364;transition:width 0.3s}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+  <h1>Forecast — Juillet 2026</h1>
+  <div class="sub">Généré le 01/07/2026 · Warren · Teatower SA</div>
+</div>
+
+<div class="container">
+
+  <!-- Context -->
+  <div class="context">📌 Premier mois plein Rocourt. DTS Waterloo actif. Collection glacée en pic. Risque canicule sur foot traffic boutiques.</div>
+
+  <!-- KPI Row -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="val">145 657€</div>
+      <div class="lbl">CA HT cible</div>
+    </div>
+    <div class="kpi">
+      <div class="val">82 002€</div>
+      <div class="lbl">Marge brute · 56.3%</div>
+    </div>
+    <div class="kpi" style="background:#4caf50">
+      <div class="val">27 102€</div>
+      <div class="lbl">Résultat exploitation · 18.6%</div>
+    </div>
+    <div class="kpi gold">
+      <div class="val"><span class="conf-badge" style="background:#e67e22">6/10</span></div>
+      <div class="lbl">Confiance modèle</div>
+    </div>
+  </div>
+
+  <!-- Break-even -->
+  <div class="card">
+    <h2>Seuil de rentabilité</h2>
+    <p style="font-size:13px;margin-bottom:8px">
+      Break-even : <strong>97 517€</strong> HT
+      — couverture actuelle : <strong>149.4%</strong>
+    </p>
+    <div class="bk-bar-wrap">
+      <div class="bk-bar" style="width:100%"></div>
+    </div>
+  </div>
+
+  <!-- CA par canal -->
+  <div class="card">
+    <h2>CA Budget par canal</h2>
+    <table>
+      <thead><tr>
+        <th>Canal</th><th class="num">TTC</th><th class="num">HT</th>
+        <th class="num">COGS</th><th class="num">Marge brute</th><th class="num">MB%</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge" style="background:#2D5016">POS</span> Namur</td>
+          <td class="num">26 000€</td>
+          <td class="num">21 488€</td>
+          <td class="num neg">7 521€</td>
+          <td class="num">13 967€</td>
+          <td class="num muted">65.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#2D5016">POS</span> Liège</td>
+          <td class="num">17 500€</td>
+          <td class="num">14 463€</td>
+          <td class="num neg">5 062€</td>
+          <td class="num">9 401€</td>
+          <td class="num muted">65.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#2D5016">POS</span> Waterloo</td>
+          <td class="num">7 000€</td>
+          <td class="num">5 785€</td>
+          <td class="num neg">2 025€</td>
+          <td class="num">3 760€</td>
+          <td class="num muted">65.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#2D5016">POS</span> Rocourt</td>
+          <td class="num">7 500€</td>
+          <td class="num">6 198€</td>
+          <td class="num neg">2 169€</td>
+          <td class="num">4 029€</td>
+          <td class="num muted">65.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#96bf48">E-com</span> E-commerce</td>
+          <td class="num">16 000€</td>
+          <td class="num">13 223€</td>
+          <td class="num neg">4 628€</td>
+          <td class="num">8 595€</td>
+          <td class="num muted">65.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#8B4513">B2B</span> GMS</td>
+          <td class="num">—</td>
+          <td class="num">37 500€</td>
+          <td class="num neg">18 750€</td>
+          <td class="num">18 750€</td>
+          <td class="num muted">50.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#8B4513">B2B</span> HoReCa</td>
+          <td class="num">—</td>
+          <td class="num">26 000€</td>
+          <td class="num neg">13 000€</td>
+          <td class="num">13 000€</td>
+          <td class="num muted">50.0%</td>
+        </tr>
+        <tr>
+          <td><span class="badge" style="background:#8B4513">B2B</span> Revendeurs</td>
+          <td class="num">—</td>
+          <td class="num">21 000€</td>
+          <td class="num neg">10 500€</td>
+          <td class="num">10 500€</td>
+          <td class="num muted">50.0%</td>
+        </tr>
+      <tr style="font-weight:700;background:#f8f5ef">
+        <td>TOTAL</td>
+        <td class="num">—</td>
+        <td class="num">145 657€</td>
+        <td class="num neg">63 655€</td>
+        <td class="num">82 002€</td>
+        <td class="num">56.3%</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Charges -->
+  <div class="card">
+    <h2>Structure de coûts</h2>
+    <table>
+      <thead><tr><th>Poste</th><th class="num">Montant</th><th class="num">% Marge brute</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Staff boutiques (4)</td>
+          <td class="num neg">17 500€</td>
+          <td class="num muted">21.3% MB</td>
+        </tr>
+        <tr>
+          <td>Loyers (4 bx)</td>
+          <td class="num neg">12 000€</td>
+          <td class="num muted">14.6% MB</td>
+        </tr>
+        <tr>
+          <td>Charges boutiques</td>
+          <td class="num neg">2 400€</td>
+          <td class="num muted">2.9% MB</td>
+        </tr>
+        <tr>
+          <td>Structure & G&A</td>
+          <td class="num neg">20 000€</td>
+          <td class="num muted">24.4% MB</td>
+        </tr>
+        <tr>
+          <td>Marketing (Meta+SEO)</td>
+          <td class="num neg">3 000€</td>
+          <td class="num muted">3.7% MB</td>
+        </tr>
+      <tr style="font-weight:700;background:#f8f5ef">
+        <td>TOTAL charges</td>
+        <td class="num neg">54 900€</td>
+        <td class="num">66.9%</td>
+      </tr>
+      <tr style="font-weight:700;font-size:15px">
+        <td>Résultat d'exploitation</td>
+        <td class="num" style="color:#4caf50">27 102€</td>
+        <td class="num" style="color:#4caf50">18.6%</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Stress test -->
+  <div class="card">
+    <h2>Stress test</h2>
+    <table>
+      <thead><tr><th>Scénario</th><th class="num">CA HT</th><th class="num">Marge brute</th><th class="num">EBIT</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="color:#c0392b;font-weight:600">⬇ Pessimiste</td>
+          <td class="num">109 243€</td>
+          <td class="num">61 502€</td>
+          <td class="num" style="color:#4caf50;font-weight:600">6 602€</td>
+          <td class="muted small">Canicule 5j+, Rocourt déçoit, GMS décalé</td>
+        </tr>
+        <tr>
+          <td style="color:#D9B364;font-weight:600">◼ Base</td>
+          <td class="num">145 657€</td>
+          <td class="num">82 002€</td>
+          <td class="num" style="color:#4caf50;font-weight:600">27 102€</td>
+          <td class="muted small">Hypothèses centrales</td>
+        </tr>
+        <tr>
+          <td style="color:#2ecc71;font-weight:600">⬆ Optimiste</td>
+          <td class="num">167 506€</td>
+          <td class="num">94 302€</td>
+          <td class="num" style="color:#4caf50;font-weight:600">39 402€</td>
+          <td class="muted small">Glacé sell-out, Rocourt >10K€, GMS livraisons avancées</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <!-- vs LY -->
+  <div class="card">
+    <h2>Comparaison vs Juillet 2025 (baseline estimée)</h2>
+    <table>
+      <thead><tr><th>Canal</th><th class="num">Juil. 2025</th><th class="num">Budget 2026</th><th class="num">Δ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Namur</td>
+          <td class="num">24 375€</td>
+          <td class="num">21 488€</td>
+          <td class="num" style="color:#f44336">-2 887€</td>
+        </tr>
+        <tr>
+          <td>Liège</td>
+          <td class="num">18 750€</td>
+          <td class="num">14 463€</td>
+          <td class="num" style="color:#f44336">-4 287€</td>
+        </tr>
+        <tr>
+          <td>Waterloo</td>
+          <td class="num">0€</td>
+          <td class="num">5 785€</td>
+          <td class="num" style="color:#4caf50">+5 785€</td>
+        </tr>
+        <tr>
+          <td>Rocourt</td>
+          <td class="num">0€</td>
+          <td class="num">6 198€</td>
+          <td class="num" style="color:#4caf50">+6 198€</td>
+        </tr>
+        <tr>
+          <td>E-commerce</td>
+          <td class="num">18 275€</td>
+          <td class="num">13 223€</td>
+          <td class="num" style="color:#f44336">-5 052€</td>
+        </tr>
+        <tr>
+          <td>GMS</td>
+          <td class="num">20 900€</td>
+          <td class="num">37 500€</td>
+          <td class="num" style="color:#4caf50">+16 600€</td>
+        </tr>
+        <tr>
+          <td>HoReCa</td>
+          <td class="num">22 800€</td>
+          <td class="num">26 000€</td>
+          <td class="num" style="color:#4caf50">+3 200€</td>
+        </tr>
+        <tr>
+          <td>Revendeurs</td>
+          <td class="num">23 000€</td>
+          <td class="num">21 000€</td>
+          <td class="num" style="color:#f44336">-2 000€</td>
+        </tr>
+      <tr style="font-weight:700;background:#f8f5ef">
+        <td>TOTAL</td>
+        <td class="num">128 100€</td>
+        <td class="num">145 657€</td>
+        <td class="num" style="color:#4caf50">+14%</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Alertes -->
+  <div class="card">
+    <h2>KPIs de suivi & alertes</h2>
+    
+        <div class="alert-row">
+          <span class="alert-kpi">GMS facturé juillet</span>
+          <span class="alert-seuil">>30,000€ HT</span>
+          <span class="alert-action">Si <25K€ → contacter clients GMS semaine 1</span>
+        </div>
+        <div class="alert-row">
+          <span class="alert-kpi">Rocourt CA/jour (sem. 2)</span>
+          <span class="alert-seuil">>250€/jour</span>
+          <span class="alert-action">Si <200€/j → promo locale + revoir staffing</span>
+        </div>
+        <div class="alert-row">
+          <span class="alert-kpi">Waterloo CA/jour</span>
+          <span class="alert-seuil">>300€/jour</span>
+          <span class="alert-action">Si <250€/j → intensifier Meta Ads DTS</span>
+        </div>
+        <div class="alert-row">
+          <span class="alert-kpi">E-commerce hebdo</span>
+          <span class="alert-seuil">>3,500€/sem</span>
+          <span class="alert-action">Mi-mois : si cumul <65K€ → code flash glacé</span>
+        </div>
+  </div>
+
+  <!-- Risques -->
+  <div class="card">
+    <h2>Inversion — Comment rater ce mois</h2>
+    <table>
+      <thead><tr><th>Risque</th><th class="num">Impact</th><th class="num">Prob.</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Canicule >5 jours</td>
+          <td class="num" style="color:#c0392b">-15% boutiques</td>
+          <td class="num" style="color:#c0392b">60%</td>
+          <td class="muted small">Glacés en vitrine, AC, horaires soir</td>
+        </tr>
+        <tr>
+          <td>Rocourt <3,000€</td>
+          <td class="num" style="color:#c0392b">-4,500€ vs bgt</td>
+          <td class="num" style="color:#e67e22">40%</td>
+          <td class="muted small">Staff flexible, promotions ouverture</td>
+        </tr>
+        <tr>
+          <td>GMS décalage livraisons</td>
+          <td class="num" style="color:#c0392b">-8,000€ HT</td>
+          <td class="num" style="color:#e67e22">35%</td>
+          <td class="muted small">Confirmer commandes avant le 10</td>
+        </tr>
+        <tr>
+          <td>Waterloo régresse</td>
+          <td class="num" style="color:#c0392b">-2,000€</td>
+          <td class="num" style="color:#f1c40f">30%</td>
+          <td class="muted small">Meta Ads DTS actifs tout juillet</td>
+        </tr>
+        <tr>
+          <td>Glacé en rupture stock</td>
+          <td class="num" style="color:#c0392b">-3,000€ ecom</td>
+          <td class="num" style="color:#f1c40f">25%</td>
+          <td class="muted small">Vérifier stock SKUs glacés avant J+5</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower SA · Forecast Juillet 2026 · Warren (inspiré Munger/Buffett)<br>
+  Données base : OGSM 2026, Q1 2026 actuals, dashboards juin 2026
+</div>
+
+</body>
+</html>
