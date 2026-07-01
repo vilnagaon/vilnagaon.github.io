@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Budget Forecast FY 26-27 — Teatower SA — Warren</title>
+<style>
+  @page { size: A4 landscape; margin: 1.5cm; }
+  @media print { body{background:#fff;} .page{box-shadow:none;} }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#1a1a1a;}
+  .page{max-width:1150px;margin:2rem auto;background:#fff;padding:2.5rem 3rem;
+        box-shadow:0 2px 12px rgba(0,0,0,.08);border-radius:8px;}
+
+  .header{display:flex;justify-content:space-between;align-items:flex-start;
+           border-bottom:3px solid #16393E;padding-bottom:1.2rem;margin-bottom:1.5rem;}
+  .company{font-size:1.6rem;font-weight:800;color:#16393E;}
+  .sub{font-size:.8rem;color:#6b7280;margin-top:3px;}
+  .meta{text-align:right;font-size:.75rem;color:#6b7280;line-height:1.7;}
+  .badge{display:inline-block;background:#D9B364;color:#000;font-weight:700;
+          font-size:.7rem;padding:3px 10px;border-radius:4px;margin-top:4px;}
+  .badge-green{background:#15803d;color:#fff;}
+  .badge-red{background:#dc2626;color:#fff;}
+  .badge-blue{background:#1a3a5c;color:#fff;}
+
+  table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:1.5rem;}
+  th{background:#1a3a5c;color:#fff;padding:6px 10px;text-align:left;
+      font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+  th.r{text-align:right;}
+  td{padding:5px 10px;border-bottom:1px solid #f1f5f9;}
+  td.r{text-align:right;font-variant-numeric:tabular-nums;}
+  td.pct{text-align:right;color:#64748b;font-size:.73rem;}
+  tr:hover td{background:#f8fafc;}
+  .section-header td{background:#e8f0f8;font-weight:700;color:#1a3a5c;
+                      font-size:.8rem;padding:6px 10px;border-top:1px solid #b0c4de;}
+  .subtotal td{background:#f0f4f8;font-weight:700;border-top:2px solid #1a3a5c;}
+  .total td{background:#1a3a5c;color:#fff;font-weight:800;font-size:.82rem;}
+  .total td.pct{color:rgba(255,255,255,.7);}
+  .highlight td{background:#D9B364!important;color:#000!important;font-weight:800;}
+  .neg{color:#dc2626;font-weight:700;}
+  .pos{color:#15803d;font-weight:700;}
+  .neutral{color:#92400e;font-weight:700;}
+  .note{font-size:.68rem;color:#94a3b8;font-style:italic;}
+  .warn{color:#b45309;font-weight:700;}
+  .q1{background:#fef3c7;}
+  .q2{background:#dcfce7;}
+  .q3{background:#e0f2fe;}
+  .q4{background:#f3e8ff;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-bottom:1.5rem;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+  .card{border:1px solid #e2e8f0;border-radius:6px;padding:1rem 1.2rem;}
+  .card h3{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+            color:#64748b;margin-bottom:.8rem;border-bottom:1px solid #f1f5f9;padding-bottom:.4rem;}
+  .kpi-big{font-size:1.4rem;font-weight:800;color:#16393E;}
+  .kpi-big.pos{color:#15803d;}
+  .kpi-big.neg{color:#dc2626;}
+  .kpi-label{font-size:.72rem;color:#64748b;margin-top:2px;}
+  .kpi-row{display:flex;justify-content:space-between;padding:3px 0;font-size:.78rem;}
+  .kpi-val{font-weight:700;}
+
+  .warren-box{background:#1a3a5c;color:#EFF0F5;padding:1.2rem 1.5rem;
+              border-radius:6px;margin-bottom:1.5rem;}
+  .warren-box h3{font-size:.8rem;font-weight:700;text-transform:uppercase;
+                 letter-spacing:.5px;color:#D9B364;margin-bottom:.8rem;}
+  .warren-box p{font-size:.78rem;line-height:1.7;margin-bottom:.5rem;}
+  .warren-box ul{font-size:.78rem;line-height:1.8;padding-left:1rem;}
+  .warren-box li{margin-bottom:.2rem;}
+
+  .alert{background:#fff8e1;border-left:4px solid #D9B364;padding:.7rem 1rem;
+          border-radius:4px;font-size:.78rem;color:#5c4000;margin-bottom:1.2rem;}
+  .alert-green{background:#f0fdf4;border-left-color:#15803d;color:#14532d;}
+
+  h2.section{font-size:.9rem;font-weight:700;color:#1a3a5c;text-transform:uppercase;
+             letter-spacing:.5px;margin:1.5rem 0 .7rem;padding-bottom:.4rem;
+             border-bottom:2px solid #D9B364;}
+
+  /* Waterfall */
+  .waterfall{display:flex;align-items:flex-end;gap:8px;height:120px;margin:1rem 0;}
+  .wf-bar{display:flex;flex-direction:column;align-items:center;flex:1;}
+  .wf-rect{width:100%;border-radius:4px 4px 0 0;}
+  .wf-label{font-size:.65rem;color:#64748b;margin-top:4px;text-align:center;line-height:1.3;}
+  .wf-val{font-size:.68rem;font-weight:700;margin-bottom:2px;text-align:center;}
+
+  /* Milestone timeline */
+  .timeline{position:relative;padding:0 0 1rem;}
+  .tl-item{display:flex;gap:1rem;margin-bottom:1rem;align-items:flex-start;}
+  .tl-dot{width:32px;height:32px;border-radius:50%;background:#1a3a5c;color:#fff;
+           font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+           flex-shrink:0;}
+  .tl-dot.gold{background:#D9B364;color:#000;}
+  .tl-dot.green{background:#15803d;}
+  .tl-content{flex:1;padding-top:4px;}
+  .tl-date{font-size:.7rem;font-weight:700;color:#D9B364;text-transform:uppercase;}
+  .tl-text{font-size:.77rem;line-height:1.6;color:#374151;}
+
+  /* Scenario table colors */
+  .scen-pess td{background:#fff1f2;}
+  .scen-base td{background:#f0fdf4;}
+  .scen-opti td{background:#eff6ff;}
+  .scen-pess .kpi-big{color:#dc2626;}
+  .scen-base .kpi-big{color:#15803d;}
+  .scen-opti .kpi-big{color:#1d4ed8;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="company">TEATOWER SA</div>
+    <div class="sub">Budget Forecast FY 26-27 — Juillet 2026 → Juin 2027</div>
+    <div class="sub">Intégrant restructuration complète (ETP + honoraires + shift staff)</div>
+  </div>
+  <div class="meta">
+    Établi par : Warren / Stephan Pire<br>
+    Date : 01/07/2026<br>
+    Base : Odoo 18 · Clôture FY 25-26 auditée<br>
+    <span class="badge">DOCUMENT DE PILOTAGE</span>
+    <span class="badge badge-blue" style="margin-left:4px;">CONFIDENTIEL</span>
+  </div>
+</div>
+
+<!-- ALERTE CONTEXTE -->
+<div class="alert alert-green">
+  ✅ <strong>Contexte :</strong> FY 25-26 clôturé à EBITDA −78K€ (−4,1%) après une année de transition (4 boutiques ouvertes, restructuration amorcée). Les actions engagées en FY 25-26 produisent leurs pleins effets en FY 26-27. Ce budget est <strong>un document de transformation, pas un budget de reconduction.</strong>
+</div>
+
+<!-- KPIs CIBLES FY26-27 -->
+<h2 class="section">Objectifs FY 26-27 — Scénario Base</h2>
+<div class="grid4">
+  <div class="card" style="border-top:3px solid #16393E;">
+    <h3>CA Net Cible</h3>
+    <div class="kpi-big pos">2 050 000€</div>
+    <div class="kpi-label">+6,8% vs FY 25-26 (1 919K€)</div>
+    <div style="margin-top:.6rem;font-size:.72rem;color:#64748b;">Rocourt full year +130K<br>Retail boutiques +7%<br>GMS/CHR stable</div>
+  </div>
+  <div class="card" style="border-top:3px solid #D9B364;">
+    <h3>Marge Brute</h3>
+    <div class="kpi-big pos">1 373 500€</div>
+    <div class="kpi-label">67,0% (vs 66,2% en N-1, +0,8pt)</div>
+    <div style="margin-top:.6rem;font-size:.72rem;color:#64748b;">Arrêt promos −10%/−50%<br>Mix canal stable</div>
+  </div>
+  <div class="card" style="border-top:3px solid #15803d;">
+    <h3>EBITDA Cible</h3>
+    <div class="kpi-big pos">+376 500€</div>
+    <div class="kpi-label">+18,4% du CA (vs −4,1% en N-1)</div>
+    <div style="margin-top:.6rem;font-size:.72rem;color:#64748b;">Swing total : +454K€<br>Restructuration : +452K€<br>CA : +88K€ marge</div>
+  </div>
+  <div class="card" style="border-top:3px solid #1d4ed8;">
+    <h3>Résultat Net Estimé</h3>
+    <div class="kpi-big pos">+350 000€</div>
+    <div class="kpi-label">+17,1% du CA (vs −1,6% en N-1)</div>
+    <div style="margin-top:.6rem;font-size:.72rem;color:#64748b;">Hors ODs non-récurrents<br>Après amort. + taxes</div>
+  </div>
+</div>
+
+<!-- WATERFALL RESTRUCTURATION -->
+<h2 class="section">Pont EBITDA FY 25-26 → FY 26-27</h2>
+<div class="grid2" style="align-items:start;">
+  <table>
+    <thead><tr><th>Levier</th><th class="r">Impact €</th><th class="r">Impact %CA</th></tr></thead>
+    <tbody>
+      <tr><td><strong>EBITDA FY 25-26 (réel)</strong></td><td class="r neg">−78 062€</td><td class="pct">−4,1%</td></tr>
+      <tr class="section-header"><td colspan="3">Levier CA</td></tr>
+      <tr><td>Rocourt pleine année (+130K CA × 67% marge)</td><td class="r pos">+87 100€</td><td class="pct">+4,3%</td></tr>
+      <tr><td>Arrêt promos −10%/−50% (marge récupérée)</td><td class="r pos">+20 000€</td><td class="pct">+1,0%</td></tr>
+      <tr><td>Croissance organique boutiques/e-com</td><td class="r pos">+1 000€</td><td class="pct">+0,1%</td></tr>
+      <tr class="section-header"><td colspan="3">Levier Coûts — Restructuration</td></tr>
+      <tr><td>Retrait honoraires 613240/290 (−80K)</td><td class="r pos">+80 000€</td><td class="pct">+3,9%</td></tr>
+      <tr><td>Retrait 3 ETP (plein effet FY26-27)</td><td class="r pos">+163 125€</td><td class="pct">+8,0%</td></tr>
+      <tr><td>Shift permanents → étudiants (4 boutiques)</td><td class="r pos">+162 032€</td><td class="pct">+7,9%</td></tr>
+      <tr><td>+2h ouverture (marge additionnelle nette)</td><td class="r pos">+10 200€</td><td class="pct">+0,5%</td></tr>
+      <tr><td>Rocourt coûts fixes additionnels (10 mois)</td><td class="r neg">−29 000€</td><td class="pct">−1,4%</td></tr>
+      <tr><td>Inflation / divers</td><td class="r neg">−10 000€</td><td class="pct">−0,5%</td></tr>
+      <tr class="highlight"><td><strong>EBITDA FY 26-27 (base)</strong></td><td class="r"><strong>+376 395€</strong></td><td class="pct"><strong>+18,4%</strong></td></tr>
+    </tbody>
+  </table>
+  <div>
+    <div class="warren-box">
+      <h3>Le pivot en un chiffre</h3>
+      <p><strong>+454K€ d'EBITDA</strong> entre FY 25-26 et FY 26-27, dont <strong>405K€ viennent purement de la restructuration des coûts</strong>. Ce n'est pas une promesse de croissance — c'est le résultat d'actions déjà engagées qui produisent leurs effets.</p>
+      <p>Le CA doit simplement ne pas s'effondrer. Avec un break-even recalculé à <strong>1 484K€</strong> (vs 2 038K€ avant restructuration), la marge de sécurité est désormais réelle.</p>
+      <ul>
+        <li>Si CA reste à 1 919K€ (flat) → EBITDA +344K€</li>
+        <li>Si CA −10% (1 728K€) → EBITDA +218K€</li>
+        <li>Si CA −20% (1 535K€) → EBITDA +88K€ — toujours positif</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-top:0;">
+      <h3>Break-even recalculé</h3>
+      <div class="kpi-row"><span>Charges fixes totales FY26-27</span><span class="kpi-val">997 000€</span></div>
+      <div class="kpi-row"><span>Taux marge brute</span><span class="kpi-val">67%</span></div>
+      <div class="kpi-row"><span><strong>Break-even CA</strong></span><span class="kpi-val pos"><strong>1 487 000€</strong></span></div>
+      <div class="kpi-row" style="color:#64748b;font-size:.72rem;"><span>vs N-1 break-even</span><span>2 038 000€</span></div>
+      <div class="kpi-row" style="color:#64748b;font-size:.72rem;"><span>Marge de sécurité vs CA cible</span><span class="pos">+563 000€ (+37,9%)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- P&L ANNUEL — 3 SCÉNARIOS -->
+<h2 class="section">P&L Comparatif — 3 Scénarios FY 26-27</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Ligne</th>
+      <th class="r" colspan="2" style="background:#b91c1c;">PESSIMISTE — CA 1 900K€</th>
+      <th class="r" colspan="2" style="background:#15803d;">BASE — CA 2 050K€</th>
+      <th class="r" colspan="2" style="background:#1d4ed8;">OPTIMISTE — CA 2 200K€</th>
+      <th class="r" style="background:#374151;">Réel FY 25-26</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th class="r" style="background:#fca5a5;color:#000;">Montant</th>
+      <th class="r" style="background:#fca5a5;color:#000;">% CA</th>
+      <th class="r" style="background:#86efac;color:#000;">Montant</th>
+      <th class="r" style="background:#86efac;color:#000;">% CA</th>
+      <th class="r" style="background:#93c5fd;color:#000;">Montant</th>
+      <th class="r" style="background:#93c5fd;color:#000;">% CA</th>
+      <th class="r" style="background:#9ca3af;color:#fff;">Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CA Net</strong></td>
+      <td class="r">1 900 000</td><td class="pct">100%</td>
+      <td class="r">2 050 000</td><td class="pct">100%</td>
+      <td class="r">2 200 000</td><td class="pct">100%</td>
+      <td class="r">1 918 939</td>
+    </tr>
+    <tr>
+      <td>Marge brute (taux)</td>
+      <td class="r">1 235 000</td><td class="pct">65,0%</td>
+      <td class="r">1 373 500</td><td class="pct">67,0%</td>
+      <td class="r">1 496 000</td><td class="pct">68,0%</td>
+      <td class="r">1 271 242</td>
+    </tr>
+    <tr>
+      <td>SBD (613-616)</td>
+      <td class="r neg">−730 000</td><td class="pct">−38,4%</td>
+      <td class="r neg">−717 000</td><td class="pct">−35,0%</td>
+      <td class="r neg">−710 000</td><td class="pct">−32,3%</td>
+      <td class="r neg">−772 276</td>
+    </tr>
+    <tr>
+      <td>Rémunérations (617-625)</td>
+      <td class="r neg">−310 000</td><td class="pct">−16,3%</td>
+      <td class="r neg">−280 000</td><td class="pct">−13,7%</td>
+      <td class="r neg">−260 000</td><td class="pct">−11,8%</td>
+      <td class="r neg">−577 029</td>
+    </tr>
+    <tr class="highlight">
+      <td><strong>EBITDA</strong></td>
+      <td class="r"><strong>+195 000</strong></td><td class="pct"><strong>+10,3%</strong></td>
+      <td class="r"><strong>+376 500</strong></td><td class="pct"><strong>+18,4%</strong></td>
+      <td class="r"><strong>+526 000</strong></td><td class="pct"><strong>+23,9%</strong></td>
+      <td class="r neg"><strong>−78 062</strong></td>
+    </tr>
+    <tr>
+      <td>Amortissements</td>
+      <td class="r neg">−4 000</td><td class="pct"></td>
+      <td class="r neg">−4 000</td><td class="pct"></td>
+      <td class="r neg">−4 000</td><td class="pct"></td>
+      <td class="r neg">−3 632</td>
+    </tr>
+    <tr class="subtotal">
+      <td>EBIT</td>
+      <td class="r pos">+191 000</td><td class="pct">+10,1%</td>
+      <td class="r pos">+372 500</td><td class="pct">+18,2%</td>
+      <td class="r pos">+522 000</td><td class="pct">+23,7%</td>
+      <td class="r neg">−81 694</td>
+    </tr>
+    <tr>
+      <td>Résultat financier (hors ODs)</td>
+      <td class="r neg">−23 000</td><td class="pct"></td>
+      <td class="r neg">−23 000</td><td class="pct"></td>
+      <td class="r neg">−23 000</td><td class="pct"></td>
+      <td class="r pos">+135 828 <span class="note">(ODs)</span></td>
+    </tr>
+    <tr>
+      <td>Taxes & autres</td>
+      <td class="r neg">−8 000</td><td class="pct"></td>
+      <td class="r neg">−8 000</td><td class="pct"></td>
+      <td class="r neg">−8 000</td><td class="pct"></td>
+      <td class="r neg">−84 555</td>
+    </tr>
+    <tr class="total">
+      <td>RÉSULTAT NET ESTIMÉ</td>
+      <td class="r">+160 000€</td><td class="pct">+8,4%</td>
+      <td class="r">+341 500€</td><td class="pct">+16,7%</td>
+      <td class="r">+491 000€</td><td class="pct">+22,3%</td>
+      <td class="r neg">−30 421€</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- DÉCOMPOSITION CA PAR CANAL -->
+<h2 class="section">Projection CA par Canal — Scénario Base 2 050K€</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Canal</th>
+      <th class="r">FY 25-26</th>
+      <th class="r">Mix N-1</th>
+      <th class="r">FY 26-27</th>
+      <th class="r">Mix</th>
+      <th class="r">Delta</th>
+      <th>Hypothèse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Magasins retail (dont Rocourt +10 mois)</td><td class="r">741 776</td><td class="pct">38,7%</td><td class="r"><strong>875 000</strong></td><td class="pct">42,7%</td><td class="r pos">+133 224</td><td class="note">Rocourt +130K full year ; Waterloo DTS +20K ; autres stables</td></tr>
+    <tr><td>E-commerce (teatower.com / .be)</td><td class="r">271 157</td><td class="pct">14,1%</td><td class="r"><strong>298 000</strong></td><td class="pct">14,5%</td><td class="r pos">+26 843</td><td class="note">+10% — SEO recovery EN/NL + campagnes email</td></tr>
+    <tr><td>GMS (grande distribution)</td><td class="r">333 197</td><td class="pct">17,4%</td><td class="r"><strong>340 000</strong></td><td class="pct">16,6%</td><td class="r pos">+6 803</td><td class="note">Stable — canal établi, pas de nouveaux référencements prévus</td></tr>
+    <tr><td>Horeca / CHR</td><td class="r">309 327</td><td class="pct">16,1%</td><td class="r"><strong>315 000</strong></td><td class="pct">15,4%</td><td class="r pos">+5 673</td><td class="note">+2% — légère croissance organique</td></tr>
+    <tr><td>Revendeurs</td><td class="r">211 450</td><td class="pct">11,0%</td><td class="r"><strong>220 000</strong></td><td class="pct">10,7%</td><td class="r pos">+8 550</td><td class="note">+4% — prospection Zig sur B2B</td></tr>
+    <tr><td>Corporate & autres</td><td class="r">54 452</td><td class="pct">2,8%</td><td class="r"><strong>64 000</strong></td><td class="pct">3,1%</td><td class="r pos">+9 548</td><td class="note">+18% — plan partenariats collaborateurs (Zig)</td></tr>
+    <tr><td>Remises</td><td class="r neg">−2 420</td><td class="pct">−0,1%</td><td class="r neg">−2 000</td><td class="pct">−0,1%</td><td class="r pos">+420</td><td class="note">Réduction remises accordées</td></tr>
+    <tr class="subtotal"><td><strong>TOTAL CA NET</strong></td><td class="r">1 918 939</td><td class="pct">100%</td><td class="r"><strong>2 110 000</strong></td><td class="pct">100%</td><td class="r pos"><strong>+191 061</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="alert" style="margin-top:-.8rem;margin-bottom:1.5rem;">
+  ℹ️ CA affiché à 2 110K€ dans la décomposition vs 2 050K€ dans le scénario base. Différence = <strong>60K€ de marge de prudence appliquée au global</strong> (−3% haircut sur le CA brut projeté). Conservative est toujours mieux qu'optimiste.
+</div>
+
+<!-- P&L TRIMESTRIEL -->
+<h2 class="section">P&L Trimestriel — Phasage Restructuration (Scénario Base)</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:28%">Ligne</th>
+      <th class="r q1" style="color:#92400e;background:#fef3c7;">Q1 Juil-Sep 26<br><small>Restructuration en cours</small></th>
+      <th class="r q2" style="color:#14532d;background:#dcfce7;">Q2 Oct-Déc 26<br><small>Run rate complet + peak</small></th>
+      <th class="r q3" style="color:#0c4a6e;background:#e0f2fe;">Q3 Jan-Mar 27<br><small>Post-Christmas</small></th>
+      <th class="r q4" style="color:#581c87;background:#f3e8ff;">Q4 Avr-Jun 27<br><small>Printemps / run rate</small></th>
+      <th class="r" style="background:#f1f5f9;">TOTAL FY 26-27</th>
+      <th class="r" style="background:#e2e8f0;color:#374151;font-size:.72rem;">FY 25-26</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CA Net</td>
+      <td class="r q1">471 500</td>
+      <td class="r q2">676 500</td>
+      <td class="r q3">430 500</td>
+      <td class="r q4">471 500</td>
+      <td class="r"><strong>2 050 000</strong></td>
+      <td class="r" style="color:#64748b;">1 918 939</td>
+    </tr>
+    <tr>
+      <td>% annuel</td>
+      <td class="pct q1">23%</td>
+      <td class="pct q2">33%</td>
+      <td class="pct q3">21%</td>
+      <td class="pct q4">23%</td>
+      <td class="pct">100%</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Marge brute (67%)</td>
+      <td class="r q1">315 905</td>
+      <td class="r q2">453 255</td>
+      <td class="r q3">288 435</td>
+      <td class="r q4">315 905</td>
+      <td class="r">1 373 500</td>
+      <td class="r" style="color:#64748b;">1 271 242</td>
+    </tr>
+    <tr>
+      <td>SBD</td>
+      <td class="r neg q1">−179 250</td>
+      <td class="r neg q2">−179 250</td>
+      <td class="r neg q3">−179 250</td>
+      <td class="r neg q4">−179 250</td>
+      <td class="r neg">−717 000</td>
+      <td class="r neg" style="color:#64748b;">−772 276</td>
+    </tr>
+    <tr>
+      <td>Rémunérations <span class="note">(phasing)</span></td>
+      <td class="r neg q1">−88 000 <span class="note warn">⚠</span></td>
+      <td class="r neg q2">−73 000</td>
+      <td class="r neg q3">−60 000</td>
+      <td class="r neg q4">−59 000</td>
+      <td class="r neg">−280 000</td>
+      <td class="r neg" style="color:#64748b;">−577 029</td>
+    </tr>
+    <tr class="highlight">
+      <td><strong>EBITDA</strong></td>
+      <td class="r q1"><strong>+48 655</strong></td>
+      <td class="r q2"><strong>+201 005</strong></td>
+      <td class="r q3"><strong>+49 185</strong></td>
+      <td class="r q4"><strong>+77 655</strong></td>
+      <td class="r"><strong>+376 500</strong></td>
+      <td class="r neg" style="color:#64748b;">−78 062</td>
+    </tr>
+    <tr>
+      <td>% EBITDA</td>
+      <td class="pct q1">+10,3%</td>
+      <td class="pct q2">+29,7%</td>
+      <td class="pct q3">+11,4%</td>
+      <td class="pct q4">+16,5%</td>
+      <td class="pct">+18,4%</td>
+      <td class="pct" style="color:#dc2626;">−4,1%</td>
+    </tr>
+    <tr>
+      <td colspan="7" style="padding:4px 10px;font-size:.71rem;color:#92400e;background:#fff8e1;">
+        ⚠ Q1 rémunérations élevées (88K€) : 3 ETPs encore présents en juillet (ETP1), août (ETP2), et ETP3 jusqu'en octobre. Peak saisonnier étudiant (été). Plein effet visible dès Q2.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- RESTRUCTURATION — TRACKER PHASAGE -->
+<h2 class="section">Tracker Restructuration — État d'Avancement</h2>
+<div class="grid2">
+  <div>
+    <table>
+      <thead><tr><th>Action</th><th class="r">Saving annuel</th><th>Statut</th><th>Plein effet</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Honoraires gestion −80K€</td>
+          <td class="r pos">+80 000€</td>
+          <td><span class="badge badge-green">ACTIF</span></td>
+          <td class="note">Avril 2026 ✅</td>
+        </tr>
+        <tr>
+          <td>Shift permanents → étudiants (4 boutiques)</td>
+          <td class="r pos">+162 032€</td>
+          <td><span class="badge badge-green">ACTIF</span></td>
+          <td class="note">Mars 2026 ✅</td>
+        </tr>
+        <tr>
+          <td>+2h ouverture (marge nette)</td>
+          <td class="r pos">+10 200€</td>
+          <td><span class="badge badge-green">ACTIF</span></td>
+          <td class="note">Mars 2026 ✅</td>
+        </tr>
+        <tr>
+          <td>Arrêt promos −10%/−50%</td>
+          <td class="r pos">+20 000€</td>
+          <td><span class="badge badge-green">ACTIF</span></td>
+          <td class="note">Mars 2026 ✅</td>
+        </tr>
+        <tr>
+          <td>ETP 1 (préavis fin juillet 2026)</td>
+          <td class="r pos">+67 500€</td>
+          <td><span class="badge" style="background:#f59e0b;color:#000;">EN COURS</span></td>
+          <td class="note">Août 2026</td>
+        </tr>
+        <tr>
+          <td>ETP 2 (préavis fin août 2026)</td>
+          <td class="r pos">+67 500€</td>
+          <td><span class="badge" style="background:#f59e0b;color:#000;">EN COURS</span></td>
+          <td class="note">Sept. 2026</td>
+        </tr>
+        <tr>
+          <td>ETP 3 (préavis fin octobre 2026)</td>
+          <td class="r pos">+67 500€</td>
+          <td><span class="badge" style="background:#f59e0b;color:#000;">EN COURS</span></td>
+          <td class="note">Nov. 2026</td>
+        </tr>
+        <tr class="subtotal">
+          <td><strong>TOTAL RUN RATE (dès nov. 2026)</strong></td>
+          <td class="r pos"><strong>+474 732€</strong></td>
+          <td></td>
+          <td class="note">Nov. 2026</td>
+        </tr>
+        <tr class="total">
+          <td>Impact FY 26-27 (phasé)</td>
+          <td class="r">+405 357€</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <!-- TIMELINE -->
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot gold">Fév</div>
+        <div class="tl-content">
+          <div class="tl-date">Février 2026 — Décision</div>
+          <div class="tl-text">Engagement de la restructuration par Stephan Pire. Notification des 3 ETP. Début des préavis légaux.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green">Mar</div>
+        <div class="tl-content">
+          <div class="tl-date">Mars 2026 — Volet opérationnel</div>
+          <div class="tl-text">Shift permanents → étudiants. Ouverture étendue à 50h/semaine. Arrêt des promos −10%/−50% sur mois complets.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green">Avr</div>
+        <div class="tl-content">
+          <div class="tl-date">Avril 2026 — Honoraires</div>
+          <div class="tl-text">Retrait des 80K€ d'honoraires de gestion (613240/290). Première économie comptable visible.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#f59e0b;color:#000;">Août</div>
+        <div class="tl-content">
+          <div class="tl-date">Août 2026 — ETP 1 sort</div>
+          <div class="tl-text">Premier poste libéré. Économie mensuelle : +5 625€/mois. Tâches redistribuées ou supprimées.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#f59e0b;color:#000;">Sep</div>
+        <div class="tl-content">
+          <div class="tl-date">Septembre 2026 — ETP 2 sort</div>
+          <div class="tl-text">Cumul économie : +11 250€/mois. Check NPS et CA hebdo obligatoire.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green">Nov</div>
+        <div class="tl-content">
+          <div class="tl-date">Novembre 2026 — RUN RATE COMPLET ✅</div>
+          <div class="tl-text">ETP 3 sorti fin octobre. Structure FY26-27 à plein régime. Économie mensuelle : +39 561€/mois vs FY 25-26. Point de contrôle H1 FY26-27.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KPIs DE PILOTAGE -->
+<h2 class="section">KPIs de Pilotage Mensuel — Tableau de Bord FY 26-27</h2>
+<table>
+  <thead>
+    <tr>
+      <th>KPI</th>
+      <th class="r">Cible mensuelle</th>
+      <th class="r">Seuil alerte (−10%)</th>
+      <th class="r">Seuil urgence (−20%)</th>
+      <th>Action si urgence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="section-header"><td colspan="5">CA & Volume</td></tr>
+    <tr><td>CA mensuel total</td><td class="r pos">170 833€</td><td class="r neutral">153 750€</td><td class="r neg">136 666€</td><td class="note">Review CA par canal, activation newsletter, promotions ciblées</td></tr>
+    <tr><td>CA boutiques (4 magasins)</td><td class="r pos">72 917€</td><td class="r neutral">65 625€</td><td class="r neg">58 333€</td><td class="note">DTS renforcé, NowJobs si manque staff, activation partenariats</td></tr>
+    <tr><td>CA e-commerce</td><td class="r pos">24 833€</td><td class="r neutral">22 350€</td><td class="r neg">19 866€</td><td class="note">Activation campagne email, review SEO Dree</td></tr>
+    <tr><td>Panier moyen boutique</td><td class="r pos">≥ 22€</td><td class="r neutral">19,80€</td><td class="r neg">17,60€</td><td class="note">Formation upsell, revue assortiment, merchandising</td></tr>
+    <tr class="section-header"><td colspan="5">Marge & Structure de Coûts</td></tr>
+    <tr><td>Taux marge brute</td><td class="r pos">≥ 67%</td><td class="r neutral">64%</td><td class="r neg">61%</td><td class="note">Review mix achats, revoir prix catalogue GMS</td></tr>
+    <tr><td>Masse salariale mensuelle</td><td class="r pos">≤ 23 333€</td><td class="r neutral">25 666€</td><td class="r neg">28 000€</td><td class="note">Audit NowJobs / heures étudiants, vérifier glissement permanent</td></tr>
+    <tr><td>SBD mensuel</td><td class="r pos">≤ 59 750€</td><td class="r neutral">65 725€</td><td class="r neg">71 700€</td><td class="note">Audit poste par poste, geler toute nouvelle dépense >500€</td></tr>
+    <tr class="section-header"><td colspan="5">Qualité Opérationnelle</td></tr>
+    <tr><td>NPS boutique (post-visite)</td><td class="r pos">≥ 4,3 / 5</td><td class="r neutral">4,0</td><td class="r neg">3,7</td><td class="note">Formation étudiants, renforcer encadrement, revue rotation</td></tr>
+    <tr><td>Taux de couverture (pas d'heure sans staff)</td><td class="r pos">100%</td><td class="r neutral">96%</td><td class="r neg">92%</td><td class="note">NowJobs en urgence, réviser planning hebdo</td></tr>
+    <tr class="section-header"><td colspan="5">Jalons Restructuration</td></tr>
+    <tr><td>ETP 1 sortie effective</td><td class="r">01/08/2026</td><td class="r">—</td><td class="r">—</td><td class="note">Si retard → coût transitoire +5 625€/mois. Notifier RH immédiatement.</td></tr>
+    <tr><td>ETP 2 sortie effective</td><td class="r">01/09/2026</td><td class="r">—</td><td class="r">—</td><td class="note">Idem.</td></tr>
+    <tr><td>ETP 3 sortie effective</td><td class="r">01/11/2026</td><td class="r">—</td><td class="r">—</td><td class="note">Idem. Dernier poste — point de contrôle run rate.</td></tr>
+  </tbody>
+</table>
+
+<!-- RISQUES -->
+<h2 class="section">Inversion — Comment Échouer en FY 26-27</h2>
+<div class="grid2">
+  <table>
+    <thead><tr><th>Risque</th><th class="r">Probabilité</th><th class="r">Impact EBITDA</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Décrochage CA boutiques</strong> — étudiants sous-performants, expertise thé perdue</td>
+        <td class="r neutral">Moyen (25%)</td>
+        <td class="r neg">−80 à −150K€</td>
+      </tr>
+      <tr>
+        <td><strong>Honoraires reviennent</strong> — nouveau consultant engagé sans validation</td>
+        <td class="r neutral">Moyen (30%)</td>
+        <td class="r neg">−40 à −80K€</td>
+      </tr>
+      <tr>
+        <td><strong>Rocourt sous-performe</strong> — ramp-up plus lent que prévu</td>
+        <td class="r neutral">Moyen (35%)</td>
+        <td class="r neg">−40 à −90K€</td>
+      </tr>
+      <tr>
+        <td><strong>GMS impayé</strong> — 1 client GMS (25% du CA canal) en defaut</td>
+        <td class="r pos">Faible (10%)</td>
+        <td class="r neg">−80K€ CA</td>
+      </tr>
+      <tr>
+        <td><strong>Turnover étudiants</strong> — instabilité RH Q3/Q4, coût NowJobs explose</td>
+        <td class="r neutral">Moyen (25%)</td>
+        <td class="r neg">−20 à −40K€</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warren-box">
+    <h3>Verdict Warren — FY 26-27</h3>
+    <p><strong>Score de confiance : 8/10.</strong> Ce budget est solide parce qu'il repose sur des actions déjà engagées, pas sur des hypothèses de croissance. Les coûts baissent mécaniquement à mesure que les préavis expirent — c'est du certain, pas du probable.</p>
+    <p>L'unique risque existentiel : que le CA baisse suffisamment pour neutraliser les savings. Pour cela, il faudrait une chute de CA de <strong>plus de 37%</strong> avant d'atteindre le break-even. Même dans le scénario pessimiste à 1 900K€ (−1% vs FY25-26), l'EBITDA atteint +195K€.</p>
+    <p><strong>Ce business a passé l'examen de survie. FY 26-27 est l'année de la restauration de la profitabilité.</strong></p>
+    <p style="margin-top:.5rem;font-size:.72rem;color:#D9B364;">
+      "You only find out who is swimming naked when the tide goes out." — Warren Buffett<br>
+      La marée est remontée. Maintenant : nager efficacement.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e2e8f0;
+             display:flex;justify-content:space-between;align-items:center;">
+  <div style="font-size:.7rem;color:#94a3b8;">
+    Teatower SA · Budget Forecast FY 26-27 · Warren · 01/07/2026<br>
+    Exercice fiscal : 01/07/2026 → 30/06/2027 · Monnaie : EUR<br>
+    Basé sur clôture Odoo 18 FY 25-26 + actions de restructuration documentées
+  </div>
+  <div style="font-size:.7rem;color:#94a3b8;text-align:right;">
+    Révision trimestrielle prévue : Oct 2026 / Jan 2027 / Avr 2027<br>
+    Confidentiel — Usage interne uniquement
+  </div>
+</div>
+
+</div>
+</body>
+</html>
