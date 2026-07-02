@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Facebook Teatower — Gary · Avril–Juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --tt-dark: #16393E;
+    --tt-warm: #F2E5CA;
+    --tt-gold: #D9B364;
+    --tt-black: #000000;
+    --tt-header-bg: #0a0a0a;
+    --tt-on-dark: #EFF0F5;
+    --tt-text-body: #1a1a1a;
+    --tt-card-bg: #FFFFFF;
+    --red: #c0392b;
+    --orange: #e67e22;
+    --yellow: #f39c12;
+    --green: #27ae60;
+  }
+
+  body {
+    font-family: 'Poppins', 'Century Gothic', 'Trebuchet MS', Arial, sans-serif;
+    background: var(--tt-warm);
+    color: var(--tt-text-body);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--tt-header-bg);
+    padding: 28px 0 0;
+    text-align: center;
+  }
+  .header img { width: 180px; }
+  .header-band {
+    height: 3px;
+    background: var(--tt-gold);
+    margin-top: 28px;
+  }
+  .meta-bar {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .meta-bar span { color: var(--tt-gold); font-weight: 700; }
+
+  /* LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* HERO */
+  .hero {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--tt-gold); }
+  .hero p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr 1fr; } }
+  .kpi-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+    border-top: 3px solid var(--tt-gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .kpi-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--tt-dark);
+    line-height: 1.1;
+  }
+  .kpi-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #666;
+    margin-top: 6px;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* SECTION TITLES */
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--tt-gold);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--tt-dark);
+    margin-bottom: 20px;
+  }
+
+  /* SECTION BLOCK */
+  .section { margin-bottom: 48px; }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .data-table thead {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+  }
+  .data-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0ebe0;
+    font-size: 13.5px;
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #fdf8ee; }
+  .num { font-weight: 700; color: var(--tt-dark); }
+  .num-red { font-weight: 700; color: var(--red); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .badge-green { background: #e8f5e9; color: var(--green); }
+  .badge-red { background: #fdecea; color: var(--red); }
+
+  /* PROBLEM CARDS */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .problem-card .pnum {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--tt-gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .problem-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tt-dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .problem-card p { font-size: 13.5px; line-height: 1.7; color: #444; margin-bottom: 12px; }
+  .fix-box {
+    background: #f0efe8;
+    border-left: 3px solid var(--tt-gold);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: var(--tt-dark);
+  }
+  .fix-box strong { color: var(--tt-dark); }
+
+  /* ACTION TABLE */
+  .priority-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+  .dot-red { background: var(--red); }
+  .dot-orange { background: var(--orange); }
+  .dot-yellow { background: var(--yellow); }
+
+  /* CADENCE BOX */
+  .cadence-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 600px) { .cadence-grid { grid-template-columns: 1fr 1fr; } }
+  .cadence-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .cadence-day {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tt-gold);
+    margin-bottom: 6px;
+  }
+  .cadence-content {
+    font-size: 13px;
+    color: var(--tt-dark);
+    line-height: 1.5;
+  }
+  .cadence-type {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    font-weight: 600;
+  }
+
+  /* WHAT WORKS SECTION */
+  .win-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .win-list li {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 3px solid var(--green);
+  }
+  .win-icon { font-size: 22px; flex-shrink: 0; }
+  .win-text strong { color: var(--tt-dark); font-size: 14px; display: block; margin-bottom: 4px; }
+  .win-text span { font-size: 13px; color: #555; }
+
+  /* BOTTOM LINE */
+  .bottom-line {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    border-radius: 12px;
+    padding: 32px 36px;
+    text-align: center;
+    margin-top: 48px;
+  }
+  .bottom-line p {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+  .bottom-line strong { color: var(--tt-gold); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--tt-header-bg);
+    color: #666;
+    text-align: center;
+    font-size: 12px;
+    padding: 24px;
+    margin-top: 60px;
+    letter-spacing: 0.06em;
+  }
+  .footer span { color: var(--tt-gold); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+  <div class="header-band"></div>
+</div>
+<div class="meta-bar">
+  Audit par <span>Gary</span> — Content Strategist · Facebook · <span>3 avril → 1er juillet 2026</span> · Généré le 2 juillet 2026
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Audit Facebook Teatower<br><span>Avril – Juillet 2026</span></h1>
+    <p>
+      Tu postes régulièrement mais tu joues en mode "informer" là où Facebook récompense <strong>l'émotion + le partage</strong>.
+      Tes 3 meilleurs posts à eux seuls font plus de reach que les 20 suivants combinés.
+      Le signal est clair : tu sais ce qui marche — tu ne le dupliques pas assez.
+    </p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section">
+    <div class="section-label">Vue d'ensemble</div>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-value">42</div>
+        <div class="kpi-label">Posts publiés</div>
+        <div class="kpi-sub">sur 90 jours</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">3,2</div>
+        <div class="kpi-label">Posts/semaine</div>
+        <div class="kpi-sub">cadence correcte</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--red)">4</div>
+        <div class="kpi-label">Reels publiés</div>
+        <div class="kpi-sub">9,5% du contenu ⚠️</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">~1 100</div>
+        <div class="kpi-label">Reach moyen</div>
+        <div class="kpi-sub">hors outliers</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">13 028</div>
+        <div class="kpi-label">Meilleur reach</div>
+        <div class="kpi-sub">Waterloo 1 an</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">2,98%</div>
+        <div class="kpi-label">Meilleur taux eng.</div>
+        <div class="kpi-sub">Rocourt ouverture</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP 5 -->
+  <div class="section">
+    <div class="section-label">Performances</div>
+    <h2>🏆 Les 5 posts qui ont tout écrasé</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Post</th>
+          <th>Reach</th>
+          <th>Engagements</th>
+          <th>Partages</th>
+          <th>Taux</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>19/06</td>
+          <td>🎉 Waterloo 1 an anniversaire</td>
+          <td><span class="num">13 028</span></td>
+          <td><span class="num">62</span></td>
+          <td>6</td>
+          <td><span class="badge badge-green">0,48%</span></td>
+        </tr>
+        <tr>
+          <td>11/06</td>
+          <td>🧊 3 thés glacés = 4ème offert</td>
+          <td><span class="num">11 475</span></td>
+          <td><span class="num">51</span></td>
+          <td>7</td>
+          <td><span class="badge badge-green">0,44%</span></td>
+        </tr>
+        <tr>
+          <td>25/06</td>
+          <td>🎉 Rocourt ouverture officielle</td>
+          <td><span class="num">5 569</span></td>
+          <td><span class="num" style="color:var(--green)">166</span></td>
+          <td><strong>13</strong></td>
+          <td><span class="badge badge-green">2,98% ⭐</span></td>
+        </tr>
+        <tr>
+          <td>08/04</td>
+          <td>🍓 Tips ice tea maison qui a du goût</td>
+          <td><span class="num">3 140</span></td>
+          <td><span class="num">43</span></td>
+          <td>3</td>
+          <td><span class="badge badge-green">1,37%</span></td>
+        </tr>
+        <tr>
+          <td>22/04</td>
+          <td>☀️ Grand retour thés glacés</td>
+          <td><span class="num">2 470</span></td>
+          <td><span class="num">38</span></td>
+          <td>1</td>
+          <td><span class="badge badge-green">1,54%</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px; font-size:13px; color:#666; font-style:italic;">
+      Pattern commun : milestones émotionnels, offres claires ou contenu éducatif utile. Ces 5 posts = ~80% du reach total.
+    </p>
+  </div>
+
+  <!-- FLOPS -->
+  <div class="section">
+    <div class="section-label">Performances</div>
+    <h2>🚫 Les 5 posts à ne plus reproduire</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Post</th>
+          <th>Reach</th>
+          <th>Engagements</th>
+          <th>Raison</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>27/04</td>
+          <td>Photo de couverture mise à jour</td>
+          <td><span class="num-red">2</span></td>
+          <td>14</td>
+          <td>Meta ne pousse pas les updates de profil</td>
+        </tr>
+        <tr>
+          <td>07/04</td>
+          <td>Journée mondiale de la santé -20%</td>
+          <td><span class="num-red">333</span></td>
+          <td>1</td>
+          <td>Promo froide sans émotion ni histoire</td>
+        </tr>
+        <tr>
+          <td>06/05</td>
+          <td>Coffrets Minuscule Pâtisserie</td>
+          <td><span class="num-red">255</span></td>
+          <td>3</td>
+          <td>Caption minimale, zéro accroche</td>
+        </tr>
+        <tr>
+          <td>24/06</td>
+          <td>Collab Sandrine Mix (vidéo)</td>
+          <td><span class="num-red">176</span></td>
+          <td>0</td>
+          <td>Pas de contexte, pas d'accroche</td>
+        </tr>
+        <tr>
+          <td>26/05</td>
+          <td>Thés glacés chez AD Delhaize</td>
+          <td><span class="num-red">741</span></td>
+          <td>10</td>
+          <td>Photo de rayon sans hook, pas de raison de partager</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px; font-size:13px; color:#666; font-style:italic;">
+      Pattern commun : posts transactionnels sans accroche, sans raison de commenter ou de partager.
+    </p>
+  </div>
+
+  <!-- PROBLEMS -->
+  <div class="section">
+    <div class="section-label">Diagnostic</div>
+    <h2>⚡ Les 4 vrais problèmes</h2>
+    <div class="problem-grid">
+
+      <div class="problem-card">
+        <div class="pnum">01</div>
+        <h3>Tu fais 4 Reels en 90 jours — c'est trop peu</h3>
+        <p>Facebook pousse massivement les Reels en reach organique. Tes 3 Reels de qualité (Waldorado, Matélé, Vergers d'été) ont cumulé <strong>~29 000 secondes visionnées</strong> pour une fraction de l'effort de tes photos. Tu laisses du reach gratuit sur la table chaque semaine.</p>
+        <div class="fix-box"><strong>Fix :</strong> 2 Reels/semaine minimum. 30 secondes, vertical, texte overlay. Document l'équipe en boutique, les dégustations, le réassort. Pas besoin de production.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">02</div>
+        <h3>Tu répètes le même post "thés glacés" sans varier l'angle</h3>
+        <p>Entre mai et juillet : <strong>10+ posts</strong> sur les thés glacés avec des captions quasi identiques. Le premier (22 avril, 2 470 reach) a bien marché. Ensuite c'est décroissant — même sujet, même angle.</p>
+        <div class="fix-box"><strong>Fix :</strong> Même produit, 5 angles distincts → Lancement · Tuto · Quiz · UGC · Promo. Tu l'as fait partiellement — fais-le systématiquement.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">03</div>
+        <h3>Tes promos sans ancre émotionnelle ne marchent pas</h3>
+        <p>Journée Mondiale de la Santé (333 reach, 1 réaction). Fête des Pères (428 reach). Vs. Waterloo 1 an (13 028). <strong>La différence :</strong> les fêtes calendaires n'appartiennent pas à Teatower. L'anniversaire de la boutique, oui.</p>
+        <div class="fix-box"><strong>Fix :</strong> Pour chaque promo calendaire, trouve l'ancre émotionnelle Teatower. Pas "PAPA10" — une histoire sur le rituel du thé du matin, puis le produit.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">04</div>
+        <h3>Zéro contenu "derrière les rideaux" ou storytelling équipe</h3>
+        <p>Sur 42 posts : <strong>0 photo de l'équipe en action, 0 BTS boutique, 0 histoire produit</strong> (d'où vient ce thé, qui le cultive). Facebook = réseau social. Les gens suivent des gens, pas des produits.</p>
+        <div class="fix-box"><strong>Fix :</strong> Hugues qui explique un accord matcha-fromage, Nicolas en train de monter le stand Rocourt à 7h du matin — ça, ça se partage. Filme le quotidien.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT WORKS -->
+  <div class="section">
+    <div class="section-label">Ce qui marche</div>
+    <h2>✅ À amplifier immédiatement</h2>
+    <ul class="win-list">
+      <li>
+        <div class="win-icon">🎭</div>
+        <div class="win-text">
+          <strong>Les ateliers comme pré-promo</strong>
+          <span>Les annonces atelier (Fleur Papier Ciseaux, Thé &amp; Fromages) génèrent 1 400–2 700 reach avec des taux d'engagement parmi les meilleurs. <strong>Le contenu éducatif/expérientiel surperforme le contenu produit.</strong> Les recaps sous-performent comparé à l'annonce — inverse le ratio.</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">📺</div>
+        <div class="win-text">
+          <strong>Les collabs médias (RTL, Matélé)</strong>
+          <span>Chaque passage médiatique = 2 posts minimum. Teaser avant + replay après. La crédibilité externe booste l'engagement organique. Cherche activement de nouvelles opportunités médias locaux.</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">❓</div>
+        <div class="win-text">
+          <strong>Les questions directes en caption</strong>
+          <span>"Team Matcha ou Team Thé ?", "Team pêche, fruits rouges ou exotique ?" génèrent systématiquement plus de commentaires. Continue — c'est l'un des rares formats qui invite réellement à l'interaction sur Facebook.</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">📖</div>
+        <div class="win-text">
+          <strong>Le contenu éducatif utile</strong>
+          <span>Le post "3 raisons pour lesquelles ton ice tea n'a pas de goût" (3 140 reach, 43 engagements) est ton meilleur post non-événementiel. Les gens partagent ce qui les aide. Une série éducative mensuelle est une évidence.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ACTION PLAN -->
+  <div class="section">
+    <div class="section-label">Plan d'action</div>
+    <h2>🎯 5 priorités Q3 2026</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Priorité</th>
+          <th>Action</th>
+          <th>Délai</th>
+          <th>Impact attendu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="priority-dot dot-red"></span><strong>🔴 #1</strong>
+          </td>
+          <td>Passer à <strong>2 Reels/semaine</strong> tournés en boutique (30s, vertical, spontané)</td>
+          <td>Cette semaine</td>
+          <td>+50–80% reach organique estimé</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="priority-dot dot-red"></span><strong>🔴 #2</strong>
+          </td>
+          <td><strong>1 post équipe/BTS</strong> par semaine — tournage spontané, pas producé</td>
+          <td>Cette semaine</td>
+          <td>Taux de partage ×2–3</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="priority-dot dot-orange"></span><strong>🟠 #3</strong>
+          </td>
+          <td>Série éducative : <strong>"Le guide du thé glacé parfait"</strong> — 5 posts sur juillet</td>
+          <td>Semaine prochaine</td>
+          <td>Reach éducatif régulier, SEO social</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="priority-dot dot-orange"></span><strong>🟠 #4</strong>
+          </td>
+          <td>Capitaliser sur <strong>Rocourt</strong> — premières semaines, premiers clients, équipe locale</td>
+          <td>En cours</td>
+          <td>Prolonger le momentum de l'ouverture</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="priority-dot dot-yellow"></span><strong>🟡 #5</strong>
+          </td>
+          <td><strong>Arrêter</strong> les posts "mise à jour profil/couverture" — zéro valeur organique</td>
+          <td>Immédiat</td>
+          <td>Qualité de feed perçue</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CADENCE -->
+  <div class="section">
+    <div class="section-label">Rythme recommandé</div>
+    <h2>📅 Cadence hebdomadaire cible</h2>
+    <div class="cadence-grid">
+      <div class="cadence-card">
+        <div class="cadence-day">Lundi</div>
+        <div class="cadence-content">Éducatif ou tips produit</div>
+        <span class="cadence-type">Photo / Carrousel</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Mercredi</div>
+        <div class="cadence-content">BTS boutique, dégustation, préparation</div>
+        <span class="cadence-type">🎥 Reel</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Vendredi</div>
+        <div class="cadence-content">Promo ou atelier avec ancre émotionnelle</div>
+        <span class="cadence-type">🎥 Reel</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Dimanche</div>
+        <div class="cadence-content">UGC ou question d'engagement</div>
+        <span class="cadence-type">Optionnel</span>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:13px; color:#666; text-align:center;">
+      3–4 posts/semaine dont <strong>2 Reels minimum</strong>. Qualité d'accroche &gt; fréquence brute.
+    </p>
+  </div>
+
+  <!-- BOTTOM LINE -->
+  <div class="bottom-line">
+    <p>
+      Tu as le meilleur asset content possible — des boutiques vivantes, une équipe passionnée, des produits visuels.<br>
+      <strong>Tu n'es pas encore en train de le filmer. Commence là.</strong>
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower · Audit Facebook · Rapport généré par <span>Gary</span> · 2 juillet 2026
+</div>
+
+</body>
+</html>
