@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Carousels Save-Bait Instagram — Teatower · Gary 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --tt-dark: #16393E;
+    --tt-warm: #F2E5CA;
+    --tt-gold: #D9B364;
+    --tt-header-bg: #0a0a0a;
+    --tt-on-dark: #EFF0F5;
+    --tt-text-body: #1a1a1a;
+    --tt-card-bg: #FFFFFF;
+    --ig-grad: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    --green: #27ae60;
+    --red: #c0392b;
+  }
+
+  body {
+    font-family: 'Poppins', 'Century Gothic', 'Trebuchet MS', Arial, sans-serif;
+    background: var(--tt-warm);
+    color: var(--tt-text-body);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .header { background: var(--tt-header-bg); padding: 28px 0 0; text-align: center; }
+  .header img { width: 180px; }
+  .header-band { height: 3px; background: var(--ig-grad); margin-top: 28px; }
+
+  .meta-bar {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .meta-bar span { color: var(--tt-gold); font-weight: 700; }
+  .ig-badge {
+    display: inline-block;
+    background: var(--ig-grad);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .container { max-width: 940px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* HERO */
+  .hero {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+  }
+  .hero h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 14px; }
+  .hero h1 span { color: var(--tt-gold); }
+  .hero p { font-size: 14.5px; line-height: 1.8; opacity: 0.9; }
+
+  /* RULE BOX */
+  .rule-box {
+    background: #fff8e1;
+    border-left: 4px solid var(--tt-gold);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    font-size: 13.5px;
+  }
+  .rule-box strong { color: var(--tt-dark); display: block; margin-bottom: 6px; font-size: 14px; }
+
+  /* SECTION */
+  .section { margin-bottom: 16px; }
+  .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; color: var(--tt-gold); margin-bottom: 8px; }
+  h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: var(--tt-dark); margin-bottom: 20px; }
+
+  /* CAROUSEL CARD */
+  .carousel-card {
+    background: var(--tt-card-bg);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid #f0ebe0;
+  }
+  .card-num {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--tt-gold);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 56px;
+    text-align: center;
+  }
+  .card-meta { flex: 1; }
+  .card-title { font-size: 17px; font-weight: 700; color: var(--tt-dark); line-height: 1.3; margin-bottom: 8px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .tag-week { background: #e8f5e9; color: #2e7d32; }
+  .tag-theme { background: #e3f2fd; color: #1565c0; }
+  .tag-save { background: #fff3e0; color: #e65100; }
+  .save-reason {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .save-reason strong { color: var(--tt-dark); font-style: normal; }
+
+  /* SLIDES */
+  .slides-section { padding: 20px 28px; border-bottom: 1px solid #f0ebe0; }
+  .slides-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #999; margin-bottom: 12px; }
+  .slides-grid { display: flex; flex-direction: column; gap: 0; }
+  .slide-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f9f4ea;
+    font-size: 13.5px;
+  }
+  .slide-row:last-child { border-bottom: none; }
+  .slide-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--tt-dark);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .slide-num.hook { background: var(--ig-grad); }
+  .slide-num.cta { background: var(--tt-gold); color: var(--tt-dark); }
+  .slide-content { flex: 1; line-height: 1.5; }
+  .slide-content em { color: #555; font-size: 13px; }
+
+  /* CAPTION */
+  .caption-section { padding: 20px 28px; }
+  .caption-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #999; margin-bottom: 10px; }
+  .caption-box {
+    background: #f9f6ef;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--tt-dark);
+    white-space: pre-line;
+    border-left: 3px solid var(--tt-gold);
+  }
+  .hashtags { color: #6a3ea1; font-size: 13px; margin-top: 6px; }
+
+  /* CALENDAR */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } }
+  .cal-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .cal-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--tt-gold);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .cal-info {}
+  .cal-week { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: #999; margin-bottom: 4px; }
+  .cal-title { font-size: 13.5px; font-weight: 700; color: var(--tt-dark); margin-bottom: 4px; }
+  .cal-context { font-size: 12px; color: #888; }
+
+  /* RULES */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } }
+  .rule-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--tt-gold);
+    font-size: 13.5px;
+  }
+  .rule-card .ri { font-size: 22px; margin-bottom: 8px; }
+  .rule-card strong { display: block; color: var(--tt-dark); margin-bottom: 6px; font-size: 14px; }
+
+  .bottom-line {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    border-radius: 12px;
+    padding: 32px 36px;
+    text-align: center;
+    margin-top: 48px;
+  }
+  .bottom-line p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+  .bottom-line strong { color: var(--tt-gold); }
+
+  .footer { background: var(--tt-header-bg); color: #666; text-align: center; font-size: 12px; padding: 24px; margin-top: 60px; letter-spacing: 0.06em; }
+  .footer span { color: var(--tt-gold); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+  <div class="header-band"></div>
+</div>
+<div class="meta-bar">
+  Plan par <span>Gary</span> — Content Strategist · <span class="ig-badge">Instagram</span> · <span>8 carousels · Juillet – Août 2026</span> · Généré le 2 juillet 2026
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Plan Carousels <span>Save-Bait</span><br>@tea_tower · Juillet – Août 2026</h1>
+    <p>
+      Les saves = le signal le plus fort sur Instagram. L'algo te montre à plus de monde la semaine après un save.
+      Ces 8 carousels sont conçus pour être bookmarkés — chacun répond à la question :
+      <em>"Pourquoi est-ce que je garderais ça ?"</em>
+    </p>
+  </div>
+
+  <!-- RULE BOX -->
+  <div class="rule-box">
+    <strong>📐 Règle d'or commune à chaque carousel</strong>
+    Slide 1 = stop the scroll (texte dominant, pas de photo produit en cover). Slides 2–8 = une idée par slide, valeur dense. Dernière slide = résumé visuel ou question directe. Le mot <strong>"sauvegarde"</strong> apparaît dans le hook ou la caption — c'est un trigger conscient. Publication le <strong>lundi</strong> (peak save intent, les gens planifient leur semaine).
+  </div>
+
+  <!-- CAROUSEL 1 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">01</div>
+      <div class="card-meta">
+        <div class="card-title">Le Guide de l'Ice Tea Parfait</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 1 juillet</span>
+          <span class="tag tag-theme">☀️ Pic été</span>
+          <span class="tag tag-save">💾 Recette de référence</span>
+        </div>
+        <div class="save-reason">Les gens sauvegardent les guides recette pour les relire avant de préparer. <strong>Ratio, temps, température</strong> = info utile à retrouver.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Ton ice tea n'a pas de goût ? C'est à cause de ça 👇 (sauvegarde pour cet été)" — fond foncé, texte bold</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">❌ Erreur #1 : trop d'eau → la boisson est fade avant d'être froide</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">❌ Erreur #2 : eau trop chaude sur les fruits → tue les arômes</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">❌ Erreur #3 : trop de glaçons trop tôt → dilue tout</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">✅ Le ratio parfait : 15g d'infusion pour 500ml d'eau à 85°</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">✅ Le temps : 5 min d'infusion max (l'amertume monte après)</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">✅ Secret final : refroidir avant les glaçons, fruits frais après</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>Récap visuel —</em> Infographie : Ratio · Temp · Temps · Ordre de mise en place</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">Ton ice tea maison mérite mieux que de l'eau chaude versée sur des fruits 🧊
+Sauvegarde ce guide et réessaie ce week-end.
+Quelle saveur tu utilises chez toi ? 👇
+<span class="hashtags">#icedtea #recette #teatips #théglacé #teatower</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 2 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">02</div>
+      <div class="card-meta">
+        <div class="card-title">5 Accords Thé × Fromage Qui Changent Tout</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 2 juillet</span>
+          <span class="tag tag-theme">🧀 Apéros estivaux</span>
+          <span class="tag tag-save">💾 Référence dégustation</span>
+        </div>
+        <div class="save-reason">Les gens qui organisent un apéro ou une soirée fromages vont sauvegarder. <strong>Très partageable</strong> — type de contenu qu'on envoie à ses amis.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "5 accords thé × fromage à connaître absolument 🧀🍵 (sauvegarde pour ton prochain apéro)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">🫖 Earl Grey Blue × Brie → les notes florales adoucissent le gras</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">🌿 Sencha × Chèvre frais → l'acidité végétale crée un équilibre parfait</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">🍂 Pu-Erh × Comté affiné → les deux sont umami, ils se renforcent mutuellement</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">🌸 Thé blanc × Mozzarella di bufala → délicatesse pour délicatesse</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">🔥 Lapsang Souchong × Gouda fumé → smoke on smoke, pour les aventuriers</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">💡 Règle simple : thé léger = fromage frais / thé fort = fromage affiné</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Envie de découvrir ces accords en live ? Nos ateliers Thé & Fromages → lien en bio"</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">Personne ne t'a appris ça à l'école 🧀🍵
+Mais maintenant tu sais. Sauvegarde pour ton prochain apéro, et tague quelqu'un qui doit voir ça 👇
+<span class="hashtags">#accordsgourmet #fromageetthé #teatime #atelierthe #teatower</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 3 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">03</div>
+      <div class="card-meta">
+        <div class="card-title">Quel Thé Pour Quelle Humeur ?</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 3 juillet</span>
+          <span class="tag tag-theme">☀️ Lifestyle été</span>
+          <span class="tag tag-save">💾 Guide quotidien de référence</span>
+        </div>
+        <div class="save-reason">Les guides "pour X situation, fais Y" sont des contenus à <strong>très haute rétention</strong>. Les gens y reviennent. Anti-scroll par excellence.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Le bon thé pour chaque moment de ta journée ☕ (sauvegarde ce guide)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">🌅 Réveil difficile → Thé noir Assam ou Guarana Boost : caféine directe</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">📚 Concentration longue → Maté Silhouette : énergie durable sans pic ni crash</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">😮‍💨 Pause 10 min → Sencha chaud : calme l'esprit, reste vif</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">🧊 Grosse chaleur → Thé glacé Pastèque Fraîcheur ou Pêche de Vigne</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">🌙 Décompression soir → Infusion Sérénité ou Panier de Grand Maman</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">💤 Sommeil difficile → Camomille & Tilleul : pas de théine, pur calme</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>Récap visuel —</em> Frise horaire : Matin → Midi → Après-midi → Soir → Nuit</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">T'as déjà bu un thé vert le soir et tu n'arrivais pas à dormir ? 👀
+Normal — pas le bon thé pour le bon moment.
+Sauvegarde ce guide, tu t'en souviendras plus souvent qu'on croit.
+Et toi, lequel c'est ton rituel du soir ? 👇
+<span class="hashtags">#ritueldujour #théfrance #bienetre #teatips #teatower</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 4 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">04</div>
+      <div class="card-meta">
+        <div class="card-title">Guide Matcha Pour Débutants — Les 3 Erreurs à Éviter</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 4 juillet</span>
+          <span class="tag tag-theme">🍵 Evergreen technique</span>
+          <span class="tag tag-save">💾 Mode d'emploi</span>
+        </div>
+        <div class="save-reason">Les débutants matcha sauvegardent ce type de contenu <strong>systématiquement</strong>. C'est leur mode d'emploi. Très partageable à quelqu'un qui veut se lancer.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Tu veux te mettre au matcha ? Lis ça avant 🍵 (sauvegarde)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">Matcha ≠ thé vert en poudre → pourquoi c'est différent (ombre, broyage à la pierre, qualité)</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">❌ Erreur #1 : eau bouillante (brûle les arômes → amer) → bonne temp : 70–80°</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">❌ Erreur #2 : pas tamisé → grumeaux → résultat rugueux en bouche</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">❌ Erreur #3 : trop de poudre → amer pour débuter → commencer par 1g</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">✅ La technique en 3 étapes : Tamiser · Chasen · Mouvement en W</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">Les 3 entrées chez Teatower : Matcha Nature · Biscuit · Fruit de la Passion</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Commence par Matcha Biscuit si tu n'aimes pas l'amer. Disponible en boutique & en ligne."</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">Le matcha c'est pas compliqué — mais il y a 3 erreurs que presque tout le monde fait au début 🍵
+Sauvegarde ça avant ta prochaine tasse.
+Et dis-moi : tu préfères matcha nature, biscuit ou fruit de la passion ? 👇
+<span class="hashtags">#matcha #matchalover #matchaguide #teatower #matchalatte</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 5 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">05</div>
+      <div class="card-meta">
+        <div class="card-title">Quelle Saveur de Thé Glacé Est Faite Pour Toi ?</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 1 août</span>
+          <span class="tag tag-theme">🧊 Fin d'été</span>
+          <span class="tag tag-save">💾 Guide de choix + conversion</span>
+        </div>
+        <div class="save-reason">Les guides "aide-moi à choisir" sont sauvegardés <strong>avant un achat</strong>. Contenu de décision = très fort en conversion directe.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Quelle saveur de thé glacé te correspond vraiment ? 🧊 (sauvegarde pour choisir)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">Tu aimes les fruits classiques → 🍑 Pêche de Vigne Bio</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">Tu veux dépaysement → 🥭 Mangue & Passion</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">Tu aimes la fraîcheur intense → 🍉 Pastèque Fraîcheur</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">Tu veux quelque chose de doux → 🍏 Vergers d'Été (Pomme & Poire)</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">Tu aimes les fruits rouges → 🍓 Fraise & Ananas</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">Tu aimes l'originalité → 🍊 Menthe & Fleur d'Oranger</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Disponibles dans nos 4 boutiques & en ligne. Commente ton numéro 👇"</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">6 saveurs, 1 seule qui est VRAIMENT pour toi 🍹
+Sauvegarde ce guide avant ta prochaine visite en boutique — et dis-moi ton numéro en commentaire 👇
+(1 = Pêche · 2 = Mangue · 3 = Pastèque · 4 = Pomme-Poire · 5 = Fraise · 6 = Menthe)
+<span class="hashtags">#théglacé #icedtea #summer #teatower #refreshing</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 6 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">06</div>
+      <div class="card-meta">
+        <div class="card-title">Comment Bien Conserver Son Thé (Ce Que Personne Ne Te Dit)</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 2 août</span>
+          <span class="tag tag-theme">🏠 Evergreen pratique</span>
+          <span class="tag tag-save">💾 Info utile à retrouver</span>
+        </div>
+        <div class="save-reason">Les amateurs qui ont investi dans de beaux thés vont sauvegarder pour <strong>ne pas gâcher leur achat</strong>. Contenu à très haute rétention.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Tu conserves bien ton thé ? Probablement pas 😬 (sauvegarde ce guide)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">☀️ Ennemi #1 : La lumière → oxyde les huiles essentielles en quelques semaines</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">💧 Ennemi #2 : L'humidité → fait moisir les feuilles, tue les arômes</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">👃 Ennemi #3 : Les odeurs → le thé absorbe tout (café, épices, savon)</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">🔩 Ennemi #4 : Le métal non hermétique → rouille et goût parasite</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">✅ La solution : boîte opaque, hermétique, à l'abri de la chaleur</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">⏱ Durée : thé noir 2–3 ans · vert 1 an · blanc 2 ans · matcha 3 mois après ouverture</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Nos thés sont livrés dans des sachets hermétiques conçus pour la conservation. En boutique."</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">T'as déjà goûté un thé qui avait perdu tout son parfum ? 😞
+C'est pas le thé — c'est la conservation.
+Sauvegarde ce guide, tu le partageras à quelqu'un qui collectionne les boîtes à thé mal rangées 😅
+<span class="hashtags">#thé #teatips #conservation #tealovers #teatower</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 7 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">07</div>
+      <div class="card-meta">
+        <div class="card-title">Le Maté : Tout Ce Que Tu Dois Savoir</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 3 août</span>
+          <span class="tag tag-theme">🧉 Pré-rentrée énergie</span>
+          <span class="tag tag-save">💾 Guide éducatif complet</span>
+        </div>
+        <div class="save-reason">Les curieux énergie/café sauvegardent les guides complets d'une nouvelle boisson. <strong>Très fort en pré-rentrée</strong> — les gens cherchent des alternatives au café.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "Le maté c'est quoi exactement ? Le guide complet 🧉 (sauvegarde pour partager)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">C'est quoi : plante d'Amérique du Sud, feuilles séchées, infusées — ni café, ni thé</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">Caféine vs café : autant de caféine mais libérée progressivement → pas de pic, pas de crash</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">Les bénéfices : concentration · énergie durable · antioxydants · coupe-faim naturel</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">Comment préparer : 70–80°, 3–5 min, pas bouillant (sinon amer)</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">Nos 4 saveurs : Silhouette (menthe-orange) · Amazónia (mangue-banane) · Nuage Coco · Granada (citron-grenade)</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">Pour qui : étudiant(e)s, sportif(ve)s, ceux qui veulent réduire le café</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Dégustez nos matés chaque semaine en boutique. Lequel tu veux tester en premier ? 👇"</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">Tu connais le café. Tu connais le thé. Mais le maté ? 🧉
+C'est la boisson que les sportifs et les étudiants adoptent depuis 10 ans — et c'est pour ça.
+Sauvegarde ce guide, et tague quelqu'un qui a besoin d'une alternative au café ☕
+<span class="hashtags">#maté #yerbamate #énergienaturelle #concentration #teatower</span></div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 8 -->
+  <div class="carousel-card">
+    <div class="card-header">
+      <div class="card-num">08</div>
+      <div class="card-meta">
+        <div class="card-title">5 Rituels Thé Pour Survivre à la Rentrée</div>
+        <div class="card-tags">
+          <span class="tag tag-week">Sem. 4 août</span>
+          <span class="tag tag-theme">🍂 Rentrée — très haut save intent</span>
+          <span class="tag tag-save">💾 Routine de référence</span>
+        </div>
+        <div class="save-reason">Les rituels de rentrée = <strong>contenu à save maximal</strong>. Les gens construisent leurs nouvelles routines en septembre et bookmarkent leurs ancres. Teatower se positionne comme routine, pas juste comme produit.</div>
+      </div>
+    </div>
+    <div class="slides-section">
+      <div class="slides-label">Structure slide par slide</div>
+      <div class="slides-grid">
+        <div class="slide-row"><div class="slide-num hook">H</div><div class="slide-content"><em>Hook —</em> "5 rituels thé pour une rentrée qui tient la route 🍂 (sauvegarde pour septembre)"</div></div>
+        <div class="slide-row"><div class="slide-num">2</div><div class="slide-content">☀️ Rituel réveil : Thé noir Assam + 5 min sans téléphone. Démarre la journée.</div></div>
+        <div class="slide-row"><div class="slide-num">3</div><div class="slide-content">📚 Rituel concentration : Maté Silhouette avant une session de travail. Pas de crash à 11h.</div></div>
+        <div class="slide-row"><div class="slide-num">4</div><div class="slide-content">🧘 Rituel pause midi : Sencha chaud en 10 min. Décompresse, recentre.</div></div>
+        <div class="slide-row"><div class="slide-num">5</div><div class="slide-content">🏃 Rituel post-sport : Rooibos froid ou thé glacé. Hydrate, récupère.</div></div>
+        <div class="slide-row"><div class="slide-num">6</div><div class="slide-content">🌙 Rituel soir : Infusion Sérénité ou Camomille. Coupe le mode travail.</div></div>
+        <div class="slide-row"><div class="slide-num">7</div><div class="slide-content">💡 Règle : un rituel = un thé spécifique. Le cerveau associe et se conditionne.</div></div>
+        <div class="slide-row"><div class="slide-num cta">8</div><div class="slide-content"><em>CTA —</em> "Retrouve tous ces thés dans nos boutiques et sur teatower.com · Lequel tu adoptes ? 👇"</div></div>
+      </div>
+    </div>
+    <div class="caption-section">
+      <div class="caption-label">Caption</div>
+      <div class="caption-box">La rentrée réussie ne se joue pas le 1er septembre — elle se prépare avec les bonnes routines 🍂
+5 rituels thé pour structurer tes journées sans te mettre la pression.
+Sauvegarde ça maintenant, tu le reliras fin août. Et dis-moi lequel tu vas tester 👇
+<span class="hashtags">#rentrée2026 #rituel #routinedumatins #teatower #bienetre</span></div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="section-label" style="margin-bottom:8px; margin-top:40px;">Calendrier</div>
+  <h2>📅 Planning de déploiement</h2>
+  <div class="calendar-grid">
+    <div class="cal-card"><div class="cal-num">01</div><div class="cal-info"><div class="cal-week">Sem. 1 juillet · Lundi</div><div class="cal-title">Guide Ice Tea Parfait</div><div class="cal-context">🔥 Pic été · recette de référence</div></div></div>
+    <div class="cal-card"><div class="cal-num">02</div><div class="cal-info"><div class="cal-week">Sem. 2 juillet · Lundi</div><div class="cal-title">5 Accords Thé × Fromage</div><div class="cal-context">🧀 Apéros estivaux · très partageable</div></div></div>
+    <div class="cal-card"><div class="cal-num">03</div><div class="cal-info"><div class="cal-week">Sem. 3 juillet · Lundi</div><div class="cal-title">Thé Pour Quelle Humeur ?</div><div class="cal-context">☀️ Lifestyle été · guide quotidien</div></div></div>
+    <div class="cal-card"><div class="cal-num">04</div><div class="cal-info"><div class="cal-week">Sem. 4 juillet · Lundi</div><div class="cal-title">Guide Matcha Débutants</div><div class="cal-context">🍵 Evergreen · mode d'emploi</div></div></div>
+    <div class="cal-card"><div class="cal-num">05</div><div class="cal-info"><div class="cal-week">Sem. 1 août · Lundi</div><div class="cal-title">Quelle Saveur Te Correspond ?</div><div class="cal-context">🧊 Aide au choix · fort en conversion</div></div></div>
+    <div class="cal-card"><div class="cal-num">06</div><div class="cal-info"><div class="cal-week">Sem. 2 août · Lundi</div><div class="cal-title">Conserver Son Thé</div><div class="cal-context">🏠 Evergreen pratique · haute rétention</div></div></div>
+    <div class="cal-card"><div class="cal-num">07</div><div class="cal-info"><div class="cal-week">Sem. 3 août · Lundi</div><div class="cal-title">Le Maté — Guide Complet</div><div class="cal-context">🧉 Pré-rentrée · alternative café</div></div></div>
+    <div class="cal-card"><div class="cal-num">08</div><div class="cal-info"><div class="cal-week">Sem. 4 août · Lundi</div><div class="cal-title">5 Rituels Rentrée</div><div class="cal-context">🍂 Save intent maximal · positionnement routine</div></div></div>
+  </div>
+
+  <!-- PRODUCTION RULES -->
+  <div class="section-label" style="margin-bottom:8px;">Règles de production</div>
+  <h2>⚙️ Standards communs à chaque carousel</h2>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="ri">🖤</div>
+      <strong>Slide 1 — fond foncé obligatoire</strong>
+      Texte dominant sur fond sombre. Pas de photo produit en cover — le texte arrête le scroll, pas la couleur.
+    </div>
+    <div class="rule-card">
+      <div class="ri">🔖</div>
+      <strong>"Sauvegarde" dans chaque hook ou caption</strong>
+      Trigger conscient. Ça paraît trop simple — c'est pour ça que ça marche. L'instruction directe augmente le taux de 20–40%.
+    </div>
+    <div class="rule-card">
+      <div class="ri">📐</div>
+      <strong>Une idée par slide, pas deux</strong>
+      Slides surchargées = abandon. Dense ≠ chargé. Une phrase claire, une info, un visuel. Passe à la slide suivante.
+    </div>
+    <div class="rule-card">
+      <div class="ri">📅</div>
+      <strong>Publication le lundi</strong>
+      Peak save intent en début de semaine — les gens planifient, bookmarkent, organisent. Le timing compte.
+    </div>
+    <div class="rule-card">
+      <div class="ri">❓</div>
+      <strong>Chaque caption = 1 question spécifique</strong>
+      "Lequel tu préfères ?" ne suffit plus. Donne un format de réponse : "Réponds avec le numéro 1, 2 ou 3 👇" — micro-friction qui fait commenter.
+    </div>
+    <div class="rule-card">
+      <div class="ri">🖼</div>
+      <strong>Dernière slide = récap visuel ou CTA</strong>
+      Jamais une slide vide ou un simple logo. Le dernier slide est celui qu'on voit en prévisualisation — il doit donner envie de sauvegarder.
+    </div>
+  </div>
+
+  <!-- BOTTOM LINE -->
+  <div class="bottom-line">
+    <p>
+      8 carousels · 8 raisons évidentes de sauvegarder.<br>
+      <strong>Le save est le nouveau like — il dit à l'algo que tu crées de la valeur.</strong><br>
+      Un carousel sauvegardé 10 fois vaut mieux que 100 likes sans saves.
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower · Plan Carousels Save-Bait · Rapport généré par <span>Gary</span> · 2 juillet 2026
+</div>
+
+</body>
+</html>
