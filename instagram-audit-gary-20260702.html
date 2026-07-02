@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Instagram Teatower — Gary · Avril–Juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --tt-dark: #16393E;
+    --tt-warm: #F2E5CA;
+    --tt-gold: #D9B364;
+    --tt-black: #000000;
+    --tt-header-bg: #0a0a0a;
+    --tt-on-dark: #EFF0F5;
+    --tt-text-body: #1a1a1a;
+    --tt-card-bg: #FFFFFF;
+    --ig-grad: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    --red: #c0392b;
+    --orange: #e67e22;
+    --yellow: #f39c12;
+    --green: #27ae60;
+  }
+
+  body {
+    font-family: 'Poppins', 'Century Gothic', 'Trebuchet MS', Arial, sans-serif;
+    background: var(--tt-warm);
+    color: var(--tt-text-body);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .header {
+    background: var(--tt-header-bg);
+    padding: 28px 0 0;
+    text-align: center;
+  }
+  .header img { width: 180px; }
+  .header-band { height: 3px; background: var(--ig-grad); margin-top: 28px; }
+
+  .meta-bar {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .meta-bar span { color: var(--tt-gold); font-weight: 700; }
+  .ig-badge {
+    display: inline-block;
+    background: var(--ig-grad);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .hero {
+    background: var(--tt-dark);
+    color: var(--tt-on-dark);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+  }
+  .hero h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 14px; }
+  .hero h1 span { color: var(--tt-gold); }
+  .hero p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+  .hero .vs-fb {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.07);
+    border-left: 3px solid var(--tt-gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13.5px;
+  }
+
+  /* PLATFORM SPLIT */
+  .split-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 600px) { .split-row { grid-template-columns: 1fr; } }
+  .split-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .split-card .platform { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .split-card .platform.ig { color: #dc2743; }
+  .split-card .platform.fb { color: #1877F2; }
+  .split-bars { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .bar-label { width: 130px; text-align: right; color: #666; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 10px; background: #f0ebe0; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; }
+  .fill-ig { background: var(--ig-grad); }
+  .fill-fb { background: #1877F2; }
+  .bar-val { width: 50px; font-weight: 700; font-size: 13px; color: var(--tt-dark); }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+  @media (max-width: 600px) { .kpi-row { grid-template-columns: 1fr 1fr; } }
+  .kpi-card {
+    background: var(--tt-card-bg);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .kpi-card.ig-border { border-top: 3px solid; border-image: var(--ig-grad) 1; border-top-color: #dc2743; }
+  .kpi-card.gold-border { border-top: 3px solid var(--tt-gold); }
+  .kpi-value { font-size: 30px; font-weight: 700; color: var(--tt-dark); line-height: 1.1; }
+  .kpi-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #666; margin-top: 6px; }
+  .kpi-sub { font-size: 12px; color: #999; margin-top: 4px; }
+
+  .section { margin-bottom: 48px; }
+  .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; color: var(--tt-gold); margin-bottom: 8px; }
+  h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--tt-dark); margin-bottom: 20px; }
+
+  .data-table { width: 100%; border-collapse: collapse; background: var(--tt-card-bg); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .data-table thead { background: var(--tt-dark); color: var(--tt-on-dark); }
+  .data-table th { padding: 12px 16px; text-align: left; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+  .data-table td { padding: 12px 16px; border-bottom: 1px solid #f0ebe0; font-size: 13.5px; vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #fdf8ee; }
+  .num { font-weight: 700; color: var(--tt-dark); }
+  .num-red { font-weight: 700; color: var(--red); }
+  .num-green { font-weight: 700; color: var(--green); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; }
+  .badge-green { background: #e8f5e9; color: var(--green); }
+  .badge-red { background: #fdecea; color: var(--red); }
+  .badge-ig { background: #fce4ec; color: #dc2743; }
+  .type-reel { background: #f3e5f5; color: #7b1fa2; }
+  .type-carousel { background: #e3f2fd; color: #1565c0; }
+
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-card { background: var(--tt-card-bg); border-radius: 10px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .problem-card .pnum { font-size: 36px; font-weight: 700; color: var(--tt-gold); line-height: 1; margin-bottom: 8px; }
+  .problem-card h3 { font-size: 15px; font-weight: 700; color: var(--tt-dark); margin-bottom: 10px; line-height: 1.3; }
+  .problem-card p { font-size: 13.5px; line-height: 1.7; color: #444; margin-bottom: 12px; }
+  .fix-box { background: #f0efe8; border-left: 3px solid var(--tt-gold); padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px; color: var(--tt-dark); }
+
+  /* FORMAT COMPARISON */
+  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .format-grid { grid-template-columns: 1fr; } }
+  .format-card { background: var(--tt-card-bg); border-radius: 10px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .format-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .format-stat { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0ebe0; font-size: 13px; }
+  .format-stat:last-child { border-bottom: none; }
+  .format-stat .val { font-weight: 700; color: var(--tt-dark); }
+
+  /* COLLAB SPOTLIGHT */
+  .collab-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .collab-box .collab-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; color: var(--tt-gold); margin-bottom: 10px; }
+  .collab-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .collab-box p { font-size: 13.5px; line-height: 1.7; opacity: 0.85; }
+  .collab-stats { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .collab-stat { text-align: center; }
+  .collab-stat .cv { font-size: 26px; font-weight: 700; color: var(--tt-gold); }
+  .collab-stat .cl { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
+
+  .win-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .win-list li { background: var(--tt-card-bg); border-radius: 10px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 3px solid var(--green); }
+  .win-icon { font-size: 22px; flex-shrink: 0; }
+  .win-text strong { color: var(--tt-dark); font-size: 14px; display: block; margin-bottom: 4px; }
+  .win-text span { font-size: 13px; color: #555; }
+
+  .cadence-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .cadence-grid { grid-template-columns: 1fr 1fr; } }
+  .cadence-card { background: var(--tt-card-bg); border-radius: 10px; padding: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .cadence-day { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tt-gold); margin-bottom: 6px; }
+  .cadence-content { font-size: 13px; color: var(--tt-dark); line-height: 1.5; }
+  .cadence-type { display: inline-block; margin-top: 8px; font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--tt-dark); color: var(--tt-on-dark); font-weight: 600; }
+
+  .bottom-line { background: var(--tt-dark); color: var(--tt-on-dark); border-radius: 12px; padding: 32px 36px; text-align: center; margin-top: 48px; }
+  .bottom-line p { font-size: 16px; line-height: 1.8; opacity: 0.9; }
+  .bottom-line strong { color: var(--tt-gold); }
+
+  .footer { background: var(--tt-header-bg); color: #666; text-align: center; font-size: 12px; padding: 24px; margin-top: 60px; letter-spacing: 0.06em; }
+  .footer span { color: var(--tt-gold); }
+
+  .alert-box { background: #fff8e1; border-left: 4px solid var(--yellow); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 24px; font-size: 13.5px; }
+  .alert-box strong { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+  <div class="header-band"></div>
+</div>
+<div class="meta-bar">
+  Audit par <span>Gary</span> — Content Strategist · <span class="ig-badge">Instagram</span> · <span>3 avril → 1er juillet 2026</span> · Généré le 2 juillet 2026
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Audit Instagram Teatower<br><span>Avril – Juillet 2026</span></h1>
+    <p>
+      Instagram, c'est mieux que Facebook — le ratio Reels est bon, le contenu est plus natif à la plateforme.
+      Mais le reach plafonne à ~800 depuis des semaines et les commentaires sont quasi inexistants.
+      La machine tourne, elle ne décolle pas encore.
+    </p>
+    <div class="vs-fb">
+      ⚡ <strong>vs Facebook :</strong> 65% de Reels sur IG contre 10% sur FB — c'est le bon réflexe, mais le reach max IG (1 799) reste 7× inférieur au reach max FB (13 028). Instagram demande une stratégie différente pour scaler.
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section">
+    <div class="section-label">Vue d'ensemble</div>
+    <div class="kpi-row">
+      <div class="kpi-card gold-border">
+        <div class="kpi-value">37</div>
+        <div class="kpi-label">Posts publiés</div>
+        <div class="kpi-sub">sur 87 jours</div>
+      </div>
+      <div class="kpi-card gold-border">
+        <div class="kpi-value">~3</div>
+        <div class="kpi-label">Posts/semaine</div>
+        <div class="kpi-sub">cadence correcte</div>
+      </div>
+      <div class="kpi-card gold-border">
+        <div class="kpi-value" style="color:var(--green)">65%</div>
+        <div class="kpi-label">Reels</div>
+        <div class="kpi-sub">24 Reels / 13 Carousels ✅</div>
+      </div>
+      <div class="kpi-card gold-border">
+        <div class="kpi-value">~780</div>
+        <div class="kpi-label">Reach moyen</div>
+        <div class="kpi-sub">plafond à briser</div>
+      </div>
+      <div class="kpi-card gold-border">
+        <div class="kpi-value">1 799</div>
+        <div class="kpi-label">Meilleur reach</div>
+        <div class="kpi-sub">Thés glacés dispo (24/04)</div>
+      </div>
+      <div class="kpi-card gold-border">
+        <div class="kpi-value">104</div>
+        <div class="kpi-label">Meilleur engagement</div>
+        <div class="kpi-sub">Rocourt ouverture (25/06)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMAT COMPARISON -->
+  <div class="section">
+    <div class="section-label">Formats</div>
+    <h2>📊 Reels vs Carousels — que dit la data ?</h2>
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="format-title"><span class="badge type-reel">🎥 Reels</span> 24 posts</div>
+        <div class="format-stat"><span>Reach moyen</span><span class="val">~900</span></div>
+        <div class="format-stat"><span>Views moyen</span><span class="val">~1 500</span></div>
+        <div class="format-stat"><span>Likes moyen</span><span class="val">28</span></div>
+        <div class="format-stat"><span>Saves moyen</span><span class="val">3,0</span></div>
+        <div class="format-stat"><span>✅ Fort en</span><span class="val">Reach, Views</span></div>
+      </div>
+      <div class="format-card">
+        <div class="format-title"><span class="badge type-carousel">📸 Carousels</span> 13 posts</div>
+        <div class="format-stat"><span>Reach moyen</span><span class="val">~750</span></div>
+        <div class="format-stat"><span>Views moyen</span><span class="val">~1 900</span></div>
+        <div class="format-stat"><span>Likes moyen</span><span class="val">28</span></div>
+        <div class="format-stat"><span>Saves moyen</span><span class="val">3,2</span></div>
+        <div class="format-stat"><span>✅ Fort en</span><span class="val">Saves, Views</span></div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:13px; color:#666; font-style:italic;">
+      Les Reels gagnent en reach, les Carousels en saves (signal qualité pour l'algo). La bonne stratégie : les deux, pour des raisons différentes.
+    </p>
+  </div>
+
+  <!-- TOP 5 -->
+  <div class="section">
+    <div class="section-label">Performances</div>
+    <h2>🏆 Les 5 posts qui ont tout écrasé</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Format</th>
+          <th>Post</th>
+          <th>Reach</th>
+          <th>Likes</th>
+          <th>Total Eng.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>24/04</td>
+          <td><span class="badge type-reel">Reel</span></td>
+          <td>🧊 Thés glacés sont dispo</td>
+          <td><span class="num">1 799</span></td>
+          <td>43</td>
+          <td><span class="num">54</span></td>
+        </tr>
+        <tr>
+          <td>01/05</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>💎 Atelier Thé & Pierres annonce</td>
+          <td><span class="num">1 749</span></td>
+          <td>42</td>
+          <td><span class="num">48</span></td>
+        </tr>
+        <tr>
+          <td>25/06</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>🎉 Rocourt ouverture officielle</td>
+          <td><span class="num">1 533</span></td>
+          <td><span class="num-green">84</span></td>
+          <td><span class="num-green">104 ⭐</span></td>
+        </tr>
+        <tr>
+          <td>03/04</td>
+          <td><span class="badge type-reel">Reel</span></td>
+          <td>🍫 Pâques — boire son chocolat</td>
+          <td><span class="num">1 466</span></td>
+          <td>38</td>
+          <td><span class="num">47</span></td>
+        </tr>
+        <tr>
+          <td>08/04</td>
+          <td><span class="badge type-reel">Reel</span></td>
+          <td>🍓 Tips ice tea sans goût</td>
+          <td><span class="num">1 349</span></td>
+          <td><span class="num">50</span></td>
+          <td><span class="num">58</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px; font-size:13px; color:#666; font-style:italic;">
+      Pattern : milestones (ouverture, atelier), contenu éducatif-utile, ou moment calendaire fort. Les events bien filmés écrasent le contenu produit.
+    </p>
+  </div>
+
+  <!-- COLLAB SPOTLIGHT -->
+  <div class="section">
+    <div class="section-label">Cas à part</div>
+    <h2>🤝 Le post qui devrait tout changer</h2>
+    <div class="collab-box">
+      <div class="collab-label">📡 Collab externe — @tpa.podcast × @tea_tower</div>
+      <h3>Concours "Rouge Printanier" avec Tu Prends l'Apéro ? podcast</h3>
+      <p>Ce post n'est pas sur votre compte — il est sur celui du podcast. Et c'est votre meilleur résultat de la période. <strong>3 839 vues, 47 likes, 20 partages, 23 commentaires.</strong> Pour comparaison, vos meilleurs posts sur votre compte propre font ~3 commentaires.</p>
+      <div class="collab-stats">
+        <div class="collab-stat"><div class="cv">3 839</div><div class="cl">Views</div></div>
+        <div class="collab-stat"><div class="cv">47</div><div class="cl">Likes</div></div>
+        <div class="collab-stat"><div class="cv">23</div><div class="cl">Commentaires</div></div>
+        <div class="collab-stat"><div class="cv">20</div><div class="cl">Partages</div></div>
+      </div>
+    </div>
+    <div class="alert-box">
+      <strong>⚡ Ce que ça prouve :</strong> La fonctionnalité Instagram <strong>Collab</strong> (co-auteur d'un post = apparaît dans les deux feeds) + un concours simple = la combinaison gagnante. Tu ne l'as pas encore utilisée sur ton propre compte. C'est le levier #1 pour briser le plafond de reach.
+    </div>
+  </div>
+
+  <!-- BOTTOM 5 -->
+  <div class="section">
+    <div class="section-label">Performances</div>
+    <h2>🚫 Les 5 posts à ne plus reproduire</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Format</th>
+          <th>Post</th>
+          <th>Reach</th>
+          <th>Eng.</th>
+          <th>Raison</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>27/06</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>Récap dégustations maté juin</td>
+          <td><span class="num-red">372</span></td>
+          <td>23</td>
+          <td>Recap sans accroche, contenu trop "rapport"</td>
+        </tr>
+        <tr>
+          <td>03/06</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>Maté mois de juin annonce</td>
+          <td><span class="num-red">407</span></td>
+          <td>16</td>
+          <td>Format trop long, pas de hook visuel fort</td>
+        </tr>
+        <tr>
+          <td>25/05</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>Thés glacés — avec ces chaleurs</td>
+          <td><span class="num-red">498</span></td>
+          <td>27</td>
+          <td>3ème post consécutif thés glacés, même angle</td>
+        </tr>
+        <tr>
+          <td>21/05</td>
+          <td><span class="badge type-reel">Reel</span></td>
+          <td>Le matcha c'est un rituel</td>
+          <td><span class="num-red">508</span></td>
+          <td>16</td>
+          <td>Caption trop courte, zéro call-to-action</td>
+        </tr>
+        <tr>
+          <td>06/04</td>
+          <td><span class="badge type-carousel">Carousel</span></td>
+          <td>Mini sélection infusions chaud/glacé</td>
+          <td><span class="num-red">603</span></td>
+          <td>21</td>
+          <td>Hook trop doux, pas de raison d'arrêter le scroll</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PROBLEMS -->
+  <div class="section">
+    <div class="section-label">Diagnostic</div>
+    <h2>⚡ Les 4 vrais problèmes</h2>
+    <div class="problem-grid">
+
+      <div class="problem-card">
+        <div class="pnum">01</div>
+        <h3>Le reach plafonne à ~800 depuis 6 semaines</h3>
+        <p>Entre mai et fin juin : quasi aucun post au-dessus de 900 reach. L'algo te cible sur ta base d'abonnés existants mais ne te fait plus découvrir. Tu n'es plus en phase de croissance — tu es en mode <strong>maintenance</strong>.</p>
+        <div class="fix-box"><strong>Fix :</strong> 3 leviers pour briser le plafond : 1) Fonctionnalité Collab avec des comptes qui ont une audience complémentaire. 2) Trending audio sur tes Reels (regarde les sons en hausse chaque semaine). 3) Format "Save this" = sauvegardable = algo reward.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">02</div>
+        <h3>Zéro commentaires sur la majorité des posts</h3>
+        <p>Sur 37 posts : <strong>16 posts à 0 commentaire</strong>. La plupart des autres ont 1. Seul le concours externe (TPA podcast) a généré 23 commentaires. Les commentaires = signal social fort pour l'algorithme IG.</p>
+        <div class="fix-box"><strong>Fix :</strong> Chaque caption doit finir avec une question spécifique + une réponse en commentaire demandée. "Dites-moi votre préféré 👇" ne suffit plus. Essaie : "Réponds avec le chiffre de ton choix 1, 2 ou 3 👇" — le format micro-friction fait commenter.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">03</div>
+        <h3>La fonctionnalité Collab n'est jamais utilisée</h3>
+        <p>Tu as collaboré avec Nasoha, Fleur Papier Ciseaux, La Fromagerie St Michel, Minuscule Pâtisserie, le podcast TPA… <strong>Aucun de ces partenariats n'a utilisé le bouton Collab Instagram</strong>. Chaque collab actuelle touche seulement ton audience. Avec Collab, tu touches aussi la leur.</p>
+        <div class="fix-box"><strong>Fix :</strong> Règle systématique dès maintenant : chaque atelier collab = 1 post co-auteur Instagram Collab. L'invite se fait depuis Meta Business Suite. Le post apparaît dans les deux feeds.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="pnum">04</div>
+        <h3>Waterloo 1 an : 605 reach sur IG vs 13 028 sur FB</h3>
+        <p>Le même événement, une fraction du résultat. La raison : le format. Sur FB une photo carousel d'anniversaire fonctionne. Sur IG, un Reel avec BTS de la déco, de l'équipe, des clients du premier jour — c'est ce qui aurait performé. <strong>Le contenu n'a pas été adapté à la plateforme.</strong></p>
+        <div class="fix-box"><strong>Fix :</strong> Pour Rocourt et chaque prochain milestone : plan de contenu distinct par plateforme. IG = Reel immersif 30–60s avec vraie narration visuelle. FB = photo carousel avec caption émotionnelle.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT WORKS -->
+  <div class="section">
+    <div class="section-label">Ce qui marche</div>
+    <h2>✅ Les formats natifs à amplifier</h2>
+    <ul class="win-list">
+      <li>
+        <div class="win-icon">😂</div>
+        <div class="win-text">
+          <strong>L'humour marche mieux sur IG que sur FB</strong>
+          <span>"Top 5 des films d'horreur version été" (Reach 1 229, 31 likes, 4 saves), "POV je tombe" (733 reach, 22 likes) — l'audience IG est plus jeune et réceptive au ton décalé. Ce format est <em>scalable</em> : une nouvelle liste absurde par mois coûte 0€ en production.</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">🔊</div>
+        <div class="win-text">
+          <strong>Le format ASMR "Sound on" — unique sur IG</strong>
+          <span>"Sound on… trust me" (767 reach, 26 likes, 4 saves, 0 production). Un son, une image, une ligne de texte. 4 saves = signal fort. C'est le type de contenu que les gens <em>bookmarkent</em> pour revenir dessus. Ce format est presque impossible à faire sur FB.</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">📌</div>
+        <div class="win-text">
+          <strong>Les carousels éducatifs accumulent les saves</strong>
+          <span>L'atelier Thé & Fromages (4 saves), Atelier Fleur Papier (3 saves), thé glacé recette (1 save). Les saves = l'algo IG te montre à plus de monde la semaine suivante. Chaque carousel devrait avoir une raison évidente d'être sauvegardé (guide, recette, liste, tips).</span>
+        </div>
+      </li>
+      <li>
+        <div class="win-icon">🎪</div>
+        <div class="win-text">
+          <strong>Les ateliers restent le meilleur contenu communautaire</strong>
+          <span>L'annonce Atelier Thé & Pierres (1 749 reach, 42 likes, 4 partages) est le 2ème meilleur post. Les ateliers créent de l'FOMO naturel — les gens qui n'ont pas pu venir taggent des amis. Format à pousser en Reel avec aperçu du déroulé pour maximiser l'envie.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ACTION PLAN -->
+  <div class="section">
+    <div class="section-label">Plan d'action</div>
+    <h2>🎯 5 priorités Q3 2026</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Priorité</th>
+          <th>Action</th>
+          <th>Délai</th>
+          <th>Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🔴 #1</strong></td>
+          <td>Activer <strong>Instagram Collab</strong> sur chaque prochain atelier partenaire (Nasoha, Fleur Papier, etc.)</td>
+          <td>Prochain atelier</td>
+          <td>Reach ×2 sur les posts collab</td>
+        </tr>
+        <tr>
+          <td><strong>🔴 #2</strong></td>
+          <td>Lancer un <strong>concours</strong> sur le compte principal — 1/mois, mécanique simple (liker + s'abonner + répondre)</td>
+          <td>Juillet</td>
+          <td>+commentaires, +followers</td>
+        </tr>
+        <tr>
+          <td><strong>🟠 #3</strong></td>
+          <td>Ajouter un <strong>trending audio</strong> sur chaque Reel (vérifier les sons en hausse sur IG chaque semaine)</td>
+          <td>Cette semaine</td>
+          <td>+reach organique discovery</td>
+        </tr>
+        <tr>
+          <td><strong>🟠 #4</strong></td>
+          <td>Créer 1 <strong>carousel "save-bait"</strong> par semaine (guide, recette, liste) — avec CTA explicit "🔖 Sauvegarde"</td>
+          <td>Cette semaine</td>
+          <td>Signal qualité algo, reach +1 semaine</td>
+        </tr>
+        <tr>
+          <td><strong>🟡 #5</strong></td>
+          <td>Filmer <strong>Rocourt en immersif</strong> — les premières semaines, l'équipe, les clients — série de 4 Reels</td>
+          <td>En cours</td>
+          <td>Prolonger l'élan de l'ouverture</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CADENCE -->
+  <div class="section">
+    <div class="section-label">Rythme recommandé</div>
+    <h2>📅 Cadence hebdomadaire cible</h2>
+    <div class="cadence-grid">
+      <div class="cadence-card">
+        <div class="cadence-day">Lundi</div>
+        <div class="cadence-content">Carousel "save-bait" — guide, recette, liste</div>
+        <span class="cadence-type">📸 Carousel</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Mercredi</div>
+        <div class="cadence-content">Reel BTS ou humour — trending audio</div>
+        <span class="cadence-type">🎥 Reel</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Vendredi</div>
+        <div class="cadence-content">Atelier, collab ou produit — avec Collab si partenaire</div>
+        <span class="cadence-type">🎥 Reel / Collab</span>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-day">Dimanche</div>
+        <div class="cadence-content">ASMR, ambiance, moment calme — format court</div>
+        <span class="cadence-type">Optionnel</span>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:13px; color:#666; text-align:center;">
+      Chaque caption = 1 question spécifique + demande de réponse en commentaire. Chaque carousel = CTA "Sauvegarde pour y revenir".
+    </p>
+  </div>
+
+  <!-- BOTTOM LINE -->
+  <div class="bottom-line">
+    <p>
+      Le contenu est bon. La cadence est bonne. Ce qui manque : <strong>la distribution.</strong><br>
+      Collab + concours + trending audio = trois leviers de distribution gratuits que tu n'actives pas encore.<br>
+      Le même effort, deux fois plus de reach.
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Teatower · Audit Instagram · Rapport généré par <span>Gary</span> · 2 juillet 2026
+</div>
+
+</body>
+</html>
