@@ -151,6 +151,17 @@ if (prefilledEmail) {
 let selectedScore = null;
 const buttons = document.querySelectorAll(".score-btn");
 const submitBtn = document.getElementById("submit-btn");
+
+const prefilledScore = params.get("score");
+if (prefilledScore !== null && /^(10|[0-9])$/.test(prefilledScore)) {
+  const btn = document.querySelector(`.score-btn[data-score="${prefilledScore}"]`);
+  if (btn) {
+    btn.classList.add("selected");
+    selectedScore = parseInt(prefilledScore, 10);
+    submitBtn.disabled = false;
+  }
+}
+
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
     buttons.forEach(b => b.classList.remove("selected"));
