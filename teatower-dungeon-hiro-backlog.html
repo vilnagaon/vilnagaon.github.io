@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiro — Design Backlog · Teatower Dungeon</title>
+  <style>
+    :root {
+      --bg: #0b1416;
+      --panel: #0f2226;
+      --panel-2: #142c32;
+      --border: #2a4a42;
+      --text: #e8f0ec;
+      --muted: #8aa39a;
+      --gold: #d4b05a;
+      --gold-dim: #8a7338;
+      --green: #3d7a5c;
+      --green-bright: #5cb87a;
+      --red: #c45c5c;
+      --blue: #4a6fa5;
+      --p0: #c45c5c;
+      --p1: #d4b05a;
+      --p2: #6b8a9a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "SF Mono", "Menlo", "Consolas", "Courier New", monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .hero {
+      background: linear-gradient(160deg, #0f2226 0%, #0b1416 55%, #1a2a1a 100%);
+      border-bottom: 2px solid var(--gold-dim);
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .hero .eyebrow {
+      color: var(--gold);
+      letter-spacing: 0.28em;
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .hero .sub {
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 18px;
+      font-size: 13px;
+    }
+    .hero .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .pill {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .pill strong { color: var(--gold); font-weight: 600; }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    .quote {
+      border-left: 3px solid var(--gold);
+      background: var(--panel);
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .quote strong { color: var(--gold); font-style: normal; }
+
+    h2 {
+      color: var(--gold);
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 36px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      color: var(--green-bright);
+      font-size: 13px;
+      margin: 20px 0 10px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .status-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+    }
+    .status-card .label {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .status-card .title { color: var(--text); font-weight: 700; margin-bottom: 6px; }
+    .status-card .score {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .score.weak { color: var(--red); border-color: var(--red); }
+    .score.medium { color: var(--gold); border-color: var(--gold-dim); }
+    .score.thin { color: var(--p2); }
+    .score.flavor { color: var(--muted); }
+    .score.oneshot { color: var(--green-bright); border-color: var(--green); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th {
+      background: var(--panel-2);
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(212, 176, 90, 0.04); }
+    .id {
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-right: 6px;
+    }
+    .badge.p0 { background: rgba(196, 92, 92, 0.2); color: var(--p0); border: 1px solid var(--p0); }
+    .badge.p1 { background: rgba(212, 176, 90, 0.15); color: var(--p1); border: 1px solid var(--gold-dim); }
+    .badge.p2 { background: rgba(107, 138, 154, 0.2); color: var(--p2); border: 1px solid var(--p2); }
+    .badge.shipped { background: rgba(92, 184, 122, 0.15); color: var(--green-bright); border: 1px solid var(--green); }
+    .badge.defer { background: rgba(107, 138, 154, 0.12); color: var(--muted); border: 1px solid var(--border); }
+
+    .flow {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    .flow .hi { color: var(--gold); }
+    .flow .ok { color: var(--green-bright); }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+    .tl-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 120px;
+      gap: 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .tl-row { grid-template-columns: 1fr; }
+    }
+    .tl-row .when { color: var(--gold); font-weight: 700; font-size: 12px; }
+    .tl-row .own { color: var(--muted); font-size: 11px; }
+
+    .order {
+      counter-reset: step;
+      list-style: none;
+    }
+    .order li {
+      counter-increment: step;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px 12px 52px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .order li::before {
+      content: counter(step);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--panel-2);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .card h4 { color: var(--gold); margin-bottom: 8px; font-size: 13px; }
+    .card p { color: var(--muted); font-size: 12px; }
+    .card .num {
+      color: var(--green-bright);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .not-list {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 18px;
+    }
+    .not-list li {
+      margin: 6px 0 6px 18px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">Gampa.be · Game Design</div>
+    <h1>Hiro — Design Backlog</h1>
+    <p class="sub">
+      Teatower Dungeon · living systems backlog (not an eng sprint list).
+      Goal: turn knowledge <em>checks</em> into interesting <em>decisions</em> without bloating a brand tower into Civ.
+    </p>
+    <div class="meta">
+      <span class="pill">Project: <strong>Teatower Dungeon</strong></span>
+      <span class="pill">Author: <strong>Hiro</strong></span>
+      <span class="pill">Updated: <strong>2026-07-31</strong></span>
+      <span class="pill">Stack: <strong>SpriteKit · SwiftUI · 5 floors</strong></span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="quote">
+      <strong>Sid Meier:</strong> “A game is a series of interesting decisions.”
+      Right now Teatower has a charming series of <strong>checks</strong>. This backlog is how we fix that.
+    </div>
+
+    <h2>1 · Current state (what ships)</h2>
+    <div class="status-grid">
+      <div class="status-card">
+        <div class="label">Loop</div>
+        <div class="title">Explore → NPC quiz → door</div>
+        <span class="badge shipped">SHIPPED</span>
+        <span class="score weak">Sid: weak</span>
+      </div>
+      <div class="status-card">
+        <div class="label">Loop</div>
+        <div class="title">Random battle (2/floor)</div>
+        <span class="badge shipped">SHIPPED</span>
+        <span class="score medium">Sid: medium</span>
+      </div>
+      <div class="status-card">
+        <div class="label">Loop</div>
+        <div class="title">Leaves → shop → items</div>
+        <span class="badge shipped">SHIPPED</span>
+        <span class="score thin">Sid: thin · lobby only</span>
+      </div>
+      <div class="status-card">
+        <div class="label">Loop</div>
+        <div class="title">Props (2/floor) + lore</div>
+        <span class="badge shipped">SHIPPED</span>
+        <span class="score flavor">flavor, not decisions</span>
+      </div>
+      <div class="status-card">
+        <div class="label">Payoff</div>
+        <div class="title">Chest → voucher DUNGEON20</div>
+        <span class="badge shipped">SHIPPED</span>
+        <span class="score oneshot">one-shot brand win</span>
+      </div>
+    </div>
+    <p style="color:var(--muted);margin-top:12px;">
+      <strong style="color:var(--text)">Core loop today:</strong> walk → fight / shop / quiz → permanent +1 stat → next floor.<br />
+      30-second loop works · 30-minute loop half-built · 30-hour loop almost absent (acceptable if we declare a ~45&nbsp;min campaign).
+    </p>
+
+    <h2>2 · P0 — Make existing systems interesting</h2>
+    <p style="color:var(--muted);margin-bottom:12px;">Highest ROI. Holes in systems already in the build.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>System</th>
+          <th>Problem</th>
+          <th>Design work</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id">D-01</td>
+          <td><span class="badge p0">P0</span> Quiz integrity</td>
+          <td>Correct answer is always <code>choices[0]</code> in data. Quizzes are pass/fail, not tradeoffs.</td>
+          <td>Risk/reward quizzes: wager leaves, difficulty tiers, confident vs safe answer. Content policy on answer order.</td>
+        </tr>
+        <tr>
+          <td class="id">D-02</td>
+          <td><span class="badge p0">P0</span> Battle decision density</td>
+          <td>Linear ATT/DEF/LUCK. Defend + Earl Shield = turtle. Few interesting choices after floor&nbsp;1.</td>
+          <td>Tea-type matchups or stances. Cap permanent stack or convert quiz power into spendable infusions.</td>
+        </tr>
+        <tr>
+          <td class="id">D-03</td>
+          <td><span class="badge p0">P0</span> Economy (leaves)</td>
+          <td>Sources: props, battles, quiz. Sink: one shop on floor&nbsp;0. Mid-tower leaves idle.</td>
+          <td>Floor shops (NPC-themed) or ascent rituals: spend before door for floor buffs. Always one leaf short.</td>
+        </tr>
+        <tr>
+          <td class="id">D-04</td>
+          <td><span class="badge p0">P0</span> Failure &amp; recovery</td>
+          <td>HP = 0 rules unclear / soft. Risk is fake if death costs nothing.</td>
+          <td>Spec death loop (lose half leaves, keep items; or one Nicolas bail-out per run).</td>
+        </tr>
+        <tr>
+          <td class="id">D-05</td>
+          <td><span class="badge p0">P0</span> Gate clarity</td>
+          <td>Door vs quiz vs 2 battles — what is required? Hidden rules fail Theme Hospital standard.</td>
+          <td>One-sentence rule players can recite, surfaced in UI.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3 · P1 — Floor fantasy (tea + staff + tower)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>System</th>
+          <th>Intent</th>
+          <th>Deliverable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id">D-10</td>
+          <td><span class="badge p1">P1</span> Floor identity</td>
+          <td>L3/L4 quizzes were TBD; rooms (kitchen, stock) aren’t gameplay.</td>
+          <td>Per-floor pack: quiz topic, unique prop behavior, unique enemy or shop item.</td>
+        </tr>
+        <tr>
+          <td class="id">D-11</td>
+          <td><span class="badge p1">P1</span> NPC dialog (light)</td>
+          <td>Staff feel like quiz kiosks.</td>
+          <td>2–3 branch dialogs each (flavor, tip, optional challenge). No full VN.</td>
+        </tr>
+        <tr>
+          <td class="id">D-12</td>
+          <td><span class="badge p1">P1</span> Monster roster</td>
+          <td>2 sprites reused; boss = +stats.</td>
+          <td>1 unique foe/floor + Ancestral Teapot phase rule (steam = DEF up → item timing).</td>
+        </tr>
+        <tr>
+          <td class="id">D-13</td>
+          <td><span class="badge p1">P1</span> Item design space</td>
+          <td>3 flat items: heal / shield / flee.</td>
+          <td>+1 mid exclusive, +1 late exclusive for build identity without jobs.</td>
+        </tr>
+        <tr>
+          <td class="id">D-14</td>
+          <td><span class="badge p1">P1</span> Endgame stance</td>
+          <td>Voucher is great brand payoff; zero mastery after.</td>
+          <td>Optional Expert Tower / NG+ <em>or</em> declare 45-min campaign and stop padding.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4 · P2 — Aspirational (defer)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>System</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id">D-20</td>
+          <td>Job / party (FF3)</td>
+          <td><span class="badge defer">DEFER</span> Needs 30h depth we don’t have. One hero × 5 floors is correct.</td>
+        </tr>
+        <tr>
+          <td class="id">D-21</td>
+          <td>First-person combat (Phantasy Star)</td>
+          <td><span class="badge defer">DEFER</span> Dual perspective doubles art + design. Overhead + menus already ship.</td>
+        </tr>
+        <tr>
+          <td class="id">D-22</td>
+          <td>Production chains (Anno / Settlers)</td>
+          <td><span class="badge defer">DEFER</span> Full sim no. Flavor props about flush → stock → shop yes.</td>
+        </tr>
+        <tr>
+          <td class="id">D-23</td>
+          <td>Tiled multi-room floors</td>
+          <td><span class="badge defer">DEFER</span> Only if exploration creates new decisions (hidden shop, rest vs risk).</td>
+        </tr>
+        <tr>
+          <td class="id">D-24</td>
+          <td>Online / Supabase progress</td>
+          <td><span class="badge defer">DEFER</span> Platform meta — after offline campaign is fun.</td>
+        </tr>
+        <tr>
+          <td class="id">D-25</td>
+          <td>Brew minigame (temp / time)</td>
+          <td><span class="badge defer">MAYBE</span> Interesting if it feeds combat. Spec after D-02.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5 · Economy snapshot</h2>
+    <h3>As designed today</h3>
+    <div class="flow"><span class="hi">SOURCES</span>                         <span class="hi">SINKS</span>
+props (1–2 leaves)       →      shop (3/4/5 leaves) — lobby only
+battle rewards           →      ? (nothing mid-tower)
+quiz permanent stats     →      (not a sink — power inflation)</div>
+    <h3>Target (P0 · D-03)</h3>
+    <div class="flow"><span class="ok">Every floor:</span> small income → optional spend (shop / door ritual / brew)
+<span class="ok">Permanent stats:</span> capped or split into temporary infusions
+<span class="ok">Feel:</span> player always slightly short of “perfect” kit for next boss</div>
+
+    <h2>6 · Balancing debt</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Risk</th>
+          <th>Symptom</th>
+          <th>Lever</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Stat inflation</td>
+          <td>Quiz + battle rewards stack ATT forever</td>
+          <td>Soft cap, or rewards become items not +1 ATT</td>
+        </tr>
+        <tr>
+          <td>Turtle meta</td>
+          <td>Defend + Earl Shield</td>
+          <td>Shield once/battle; defend reduces, doesn’t zero</td>
+        </tr>
+        <tr>
+          <td>Flee cheese</td>
+          <td>Smoke Leaf + high luck</td>
+          <td>1 guaranteed flee / floor; boss-immune</td>
+        </tr>
+        <tr>
+          <td>Quiz content</td>
+          <td>Correct index always 0</td>
+          <td>Pipeline rule + harder distractors</td>
+        </tr>
+        <tr>
+          <td>Optional combat</td>
+          <td>Skip fights if quiz alone opens door</td>
+          <td>Force 1 fight <em>or</em> fights = only power source</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>7 · Player experience timeline</h2>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="when">0–30 seconds</div>
+        <div>Move, see pixel floor, hear explore BGM</div>
+        <div class="own">Shipped</div>
+      </div>
+      <div class="tl-row">
+        <div class="when">First 5 minutes</div>
+        <div>Lobby Nicolas → shop decision → first quiz → first fight</div>
+        <div class="own">D-01 · D-03 · D-05</div>
+      </div>
+      <div class="tl-row">
+        <div class="when">~30–45 minutes</div>
+        <div>Climb 5 floors, kit under pressure, boss teapot, voucher</div>
+        <div class="own">D-02 · D-04 · D-10–13</div>
+      </div>
+      <div class="tl-row">
+        <div class="when">Replay</div>
+        <div>Only if Expert Tower / NG+ is intentional</div>
+        <div class="own">D-14</div>
+      </div>
+    </div>
+
+    <h2>8 · Build order (design → implement)</h2>
+    <ol class="order">
+      <li><strong>D-05</strong> — Gate rules (write the one-sentence rule)</li>
+      <li><strong>D-01</strong> — Quiz as decision + content integrity</li>
+      <li><strong>D-04</strong> — Death / recovery</li>
+      <li><strong>D-03</strong> — Per-floor leaf sinks</li>
+      <li><strong>D-02</strong> — Combat tension (matchups or spendable power)</li>
+      <li><strong>D-10–13</strong> — Floor flavor pack (content)</li>
+      <li><strong>D-14</strong> — Endgame stance (short campaign vs NG+)</li>
+      <li><strong>D-20+</strong> — Only after playtest says “more systems, not more content”</li>
+    </ol>
+
+    <h2>9 · Explicitly not on the backlog</h2>
+    <ul class="not-list">
+      <li>More stats without more decisions</li>
+      <li>Full dialogue VN for each staff member</li>
+      <li>Realistic tea chemistry simulation</li>
+      <li>Android feature parity as a <em>design</em> concern (platform, not systems)</li>
+    </ul>
+
+    <h2>10 · Next design sessions</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="num">SESSION A</div>
+        <h4>D-01 Quiz redesign</h4>
+        <p>Risk/reward knowledge checks. Full GDD: rules, parameters, UI, edge cases.</p>
+      </div>
+      <div class="card">
+        <div class="num">SESSION B</div>
+        <h4>D-03 Economy</h4>
+        <p>Floor shops + scarcity curve. Sources, sinks, inflation controls.</p>
+      </div>
+      <div class="card">
+        <div class="num">SESSION C</div>
+        <h4>D-02 Battle 1.2</h4>
+        <p>Tea-type matchups without a job system. Stance / item timing.</p>
+      </div>
+      <div class="card">
+        <div class="num">SESSION D</div>
+        <h4>D-04 Death loop</h4>
+        <p>Failure that creates “one more run” without punishing brand players.</p>
+      </div>
+    </div>
+
+    <footer>
+      Hiro · Lead Game Designer, Gampa.be · Teatower Dungeon design backlog<br />
+      Published on <a href="https://github.com/vilnagaon/vilnagaon.github.io">vilnagaon.github.io</a>
+      · Local copy: <code>docs/hiro-backlog.html</code>
+    </footer>
+  </main>
+</body>
+</html>
