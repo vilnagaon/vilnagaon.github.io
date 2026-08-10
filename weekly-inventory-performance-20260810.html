@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Inventory Performance — Teatower — Semaine du 3 août 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a1a1a; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  .header { background: #1a3a5c; color: #fff; padding: 22px 28px; border-radius: 10px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
+  .header .sub { font-size: 11px; opacity: .7; margin-top: 4px; }
+  .header .badge { background: #D9B364; color: #000; font-weight: 700; font-size: 11px; padding: 4px 14px; border-radius: 99px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: #fff; border-radius: 8px; padding: 14px 16px; border: 1px solid #dde3ea; }
+  .kpi .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: .6px; font-weight: 600; margin-bottom: 6px; }
+  .kpi .value { font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .kpi .value.green { color: #15803d; }
+  .kpi .value.red { color: #dc2626; }
+  .kpi .value.orange { color: #d97706; }
+  .kpi .value.navy { color: #1a3a5c; }
+  .kpi .sub { font-size: 10.5px; color: #94a3b8; margin-top: 4px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card { background: #fff; border-radius: 8px; border: 1px solid #dde3ea; padding: 16px 18px; }
+  .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #64748b; margin-bottom: 12px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #f8fafc; color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 7px 10px; text-align:left; border-bottom: 2px solid #e2e8f0; }
+  th.r { text-align:right; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; }
+  td.r { text-align:right; font-weight:600; }
+  td.red { color:#dc2626; font-weight:700; }
+  td.green { color:#15803d; font-weight:700; }
+  td.orange { color:#d97706; font-weight:700; }
+  tr:last-child td { border-bottom:none; }
+  .total-row td { font-weight:700; background:#f8fafc; border-top: 2px solid #1a3a5c; }
+
+  .status-ok { display:inline-block; background:#dcfce7; color:#15803d; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .status-warn { display:inline-block; background:#fef9c3; color:#a16207; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+  .status-bad { display:inline-block; background:#fee2e2; color:#dc2626; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; }
+
+  .bar-wrap { height:8px; background:#f1f5f9; border-radius:4px; margin-top:6px; }
+  .bar-fill { height:8px; border-radius:4px; }
+
+  .obs { background: #1a3a5c; color:#fff; border-radius:8px; padding:18px 22px; margin-bottom:16px; }
+  .obs h3 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#D9B364; margin-bottom:12px; }
+  .obs-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; font-size:12px; line-height:1.7; }
+  .obs-item strong { color:#D9B364; display:block; margin-bottom:3px; }
+
+  .footnote { font-size:10.5px; color:#94a3b8; text-align:center; margin-top:16px; padding-top:12px; border-top:1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div style="font-size:20px;font-weight:800;">Weekly Inventory Performance</div>
+    <div class="sub">Teatower SA · Semaine S32 · 3 août 2026 – 9 août 2026 · Nick (Supply Chain) + Fabian (Odoo)</div>
+  </div>
+  <div class="badge">10 août 2026</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="label">Stock négatif (vendable)</div>
+    <div class="value red">136</div>
+    <div class="sub">116 produits · Cible : 0</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Ruptures produits A</div>
+    <div class="value green">0 / 111</div>
+    <div class="sub">Cible &lt; 5%</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Ajustements S32</div>
+    <div class="value red">24</div>
+    <div class="sub">vs 14 S31 · +10 · Cible : ↓</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Valorisation totale</div>
+    <div class="value orange">355 826€</div>
+    <div class="sub">vs baseline 295 987€ · +20.2%</div>
+  </div>
+  <div class="kpi">
+    <div class="label">A à risque (1–5 u.)</div>
+    <div class="value orange">3</div>
+    <div class="sub">Offrande des Rois Mages (100 g vrac)</div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">KPI 1 — Stock négatif vendable (top 15 par ampleur, sur 136 lignes / 116 produits)</div>
+    <table>
+      <thead><tr><th>Produit</th><th>Emplacement</th><th class="r">Qté</th><th>Statut</th></tr></thead>
+      <tbody><tr><td>[I0868] Citron meringué (20 infusettes)</td><td>TT/Stock/PICK/A-09-00-01-01</td><td class="r red">-49</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[V0279] Le panier de grand maman (80 g vrac)</td><td>TT/Stock/PICK/B-04-00-01-02</td><td class="r red">-30</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1110] Perles Fruitées Pêche - Bubble Tea 240g</td><td>TT/Stock/PICK/C-01-00-00-01</td><td class="r red">-18</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1109] Perles Fruitées Passion - Bubble Tea 240g</td><td>TT/Stock/PICK/C-01-00-00-01</td><td class="r red">-18</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1107] Perles fruitées Fraise des bois - Bubble Tea 240g</td><td>TT/Stock/PICK/C-01-00-00-01</td><td class="r red">-18</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1108] Perles fruitées Litchi - Bubble Tea 240g</td><td>TT/Stock/PICK/C-01-00-00-01</td><td class="r red">-18</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1114] Tasse casse-noisette verte</td><td>TT/Stock</td><td class="r red">-18</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[I0847] Couleur Mojito (20 infusettes)</td><td>TT/Stock/PICK/A-14-00-00-02</td><td class="r red">-15</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1075] Verre à Matcha à double bulle motif coeur</td><td>TT/Stock/PICK/B-27-00-02-01</td><td class="r red">-15</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[V0710] Mandarine (80 g vrac)</td><td>TT/Stock/PICK</td><td class="r red">-14</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[V0735] Pêche de vigne - BIO (100 g vrac)</td><td>TT/Stock/PICK/B-12-00</td><td class="r red">-14</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A0421] Filtre en coton BIO</td><td>NAM/Stock</td><td class="r red">-13</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[I0301] Tisane tropicale (20 infusettes)</td><td>TT/Stock/PICK/A-27-00-01-02</td><td class="r red">-13</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[A1109] Perles Fruitées Passion - Bubble Tea 240g</td><td>TT/Stock/PICK/B-16-00-00-02</td><td class="r red">-12</td><td><span class="status-warn">Négatif</span></td></tr><tr><td>[V0820] Marrakech Sunset - BIO (100 g vrac)</td><td>TT/Stock/PICK/B-14-00-02-01</td><td class="r red">-12</td><td><span class="status-warn">Négatif</span></td></tr></tbody>
+    </table>
+    <div style="margin-top:10px;font-size:11px;color:#64748b;background:#fff8e1;border-radius:6px;padding:8px 12px;">
+      ⚠ 136 lignes négatives sur produits vendables (thés vrac, infusettes, accessoires) réparties sur 116 produits — dont 107 en entrepôt (TT/Stock + PICK). Ateliers, chèques cadeaux, matières premières (MP_) et tests exclus du scope vendable.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">KPI 2 — ABC Classification & Ruptures</div>
+    <table>
+      <thead><tr><th>Classe</th><th class="r">Produits</th><th>Ruptures (qty≤0)</th><th>À risque (1–5u)</th></tr></thead>
+      <tbody>
+        <tr class="total-row" style="background:#dcfce7!important">
+          <td><strong>A — Top vendeurs (80% des ventes)</strong></td><td class="r"><strong>111</strong></td>
+          <td class="green"><strong>0 🟢</strong></td><td class="orange">3</td>
+        </tr>
+        <tr><td>B — Vendeurs secondaires (15%)</td><td class="r">134</td><td>—</td><td>—</td></tr>
+        <tr><td>C — Longue traîne (5%)</td><td class="r">633</td><td>—</td><td>—</td></tr>
+        <tr class="total-row"><td><strong>TOTAL (vendable, storable)</strong></td><td class="r"><strong>878</strong></td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:8px;font-size:11px;color:#64748b;">
+      <table style="margin-top:4px;">
+        <thead><tr><th>Ruptures A</th><th class="r">Qté</th></tr></thead>
+        <tbody><tr><td colspan="2" style="color:#94a3b8;">Aucune rupture 🟢</td></tr></tbody>
+      </table>
+      <table style="margin-top:8px;">
+        <thead><tr><th>À risque A (1–5u)</th><th class="r">Qté</th></tr></thead>
+        <tbody><tr><td>[V0711] Offrande des Rois Mages (100 g vrac)</td><td class="r orange">3</td></tr><tr><td>[V0913] Féérie d'Hivers</td><td class="r orange">1</td></tr><tr><td>[GI0911] Paradise Punch - Infusion de fruits : Litchi - Ananas</td><td class="r orange">1</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">KPI 3 — Stock produits A par boutique</div>
+    <table>
+      <thead><tr><th>Boutique</th><th class="r">Ruptures locales A</th><th class="r">/ Total A</th><th>Taux</th><th>Cible</th></tr></thead>
+      <tbody><tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D5016;margin-right:6px;"></span>Waterloo</td><td class="r green">8</td><td class="r">111</td><td class="green">7.2%</td><td>&lt; 10%</td></tr><tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8B4513;margin-right:6px;"></span>Namur</td><td class="r green">8</td><td class="r">111</td><td class="green">7.2%</td><td>&lt; 10%</td></tr><tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a5276;margin-right:6px;"></span>Liège</td><td class="r orange">18</td><td class="r">111</td><td class="orange">16.2%</td><td>&lt; 10%</td></tr><tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7d3c98;margin-right:6px;"></span>Rocourt</td><td class="r orange">20</td><td class="r">111</td><td class="orange">18.0%</td><td>&lt; 10%</td></tr></tbody>
+    </table>
+    <div style="margin-top:6px;font-size:10.5px;color:#64748b;background:#f8fafc;border-radius:4px;padding:6px 10px;">
+      Rocourt (ouvert depuis fin juin) intégré au reporting boutique pour la première fois cette semaine.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">KPI 4 — Ajustements d'inventaire WoW</div>
+    <table>
+      <thead><tr><th>Semaine</th><th class="r">Ajustements</th><th class="r">Δ</th><th>Tendance</th></tr></thead>
+      <tbody>
+        <tr><td>S31</td><td class="r">14</td><td class="r">—</td><td>—</td></tr>
+        <tr class="total-row">
+          <td><strong>S32</strong></td>
+          <td class="r red"><strong>24</strong></td>
+          <td class="r red"><strong>+10</strong></td>
+          <td><span class="status-warn">↑ En hausse</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;">
+      <div style="font-size:10.5px;color:#64748b;margin-bottom:4px;">S31 vs S32</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:58%;background:#e2e8f0;"></div></div>
+      <div class="bar-wrap" style="margin-top:4px;"><div class="bar-fill" style="width:100%;background:#dc2626;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:3px;"><span>S31: 14</span><span>S32: 24 (+71%)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-title">KPI 5 — Valorisation du stock par emplacement</div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px;">
+    <div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Waterloo</div><div style="font-size:18px;font-weight:800;color:#2D5016;">10 159€</div><div style="font-size:10px;color:#94a3b8;">stock magasin</div></div><div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Liège</div><div style="font-size:18px;font-weight:800;color:#1a5276;">9 302€</div><div style="font-size:10px;color:#94a3b8;">stock magasin</div></div><div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Namur</div><div style="font-size:18px;font-weight:800;color:#8B4513;">11 442€</div><div style="font-size:10px;color:#94a3b8;">stock magasin</div></div><div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Rocourt</div><div style="font-size:18px;font-weight:800;color:#7d3c98;">8 308€</div><div style="font-size:10px;color:#94a3b8;">stock magasin</div></div><div style="background:#f8fafc;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Entrepôt (TT)</div><div style="font-size:18px;font-weight:800;color:#1a3a5c;">316 615€</div><div style="font-size:10px;color:#94a3b8;">stock + PICK</div></div><div style="background:#1a3a5c;border-radius:6px;padding:12px;text-align:center;"><div style="font-size:10px;color:#EFF0F5;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">TOTAL</div><div style="font-size:18px;font-weight:800;color:#D9B364;">355 826€</div><div style="font-size:10px;color:#EFF0F5;opacity:.7;">vs baseline 295 987€ · <span style="color:#D9B364">+20.2%</span></div></div>
+  </div>
+  <div style="font-size:11px;color:#64748b;background:#f8fafc;border-radius:6px;padding:8px 12px;">
+    Baseline 295 987€ du 04/04/2026 n'incluait pas encore Rocourt (ouvert fin juin). Croissance valorisation entrepôt (+120 615€ vs baseline ~196K€) cohérente avec le réappro pré-ouverture Rocourt et la préparation de la rentrée.
+  </div>
+</div>
+
+
+<div class="card" style="margin-bottom:16px;border-left:4px solid #dc2626;">
+  <div class="card-title">⚠ Anomalie data — écart hors norme (à investiguer prioritairement)</div>
+  <table><thead><tr><th>Produit</th><th>Emplacement</th><th class="r">Qté</th></tr></thead>
+  <tbody><tr><td>[INFUSETTE THE GLACE] Infusette thé glacé</td><td>TT/Stock</td><td class="r red">-122504</td></tr></tbody></table>
+</div>
+
+<div class="obs">
+  <h3>Observations & Actions — Semaine S32</h3>
+  <div class="obs-grid">
+    <div class="obs-item">
+      <strong>✅ Points positifs</strong>
+      0 rupture sur les 111 produits A cette semaine. Rocourt intégré au suivi boutique. Valorisation totale stable en tendance malgré la croissance du réseau.
+    </div>
+    <div class="obs-item">
+      <strong>⚠ Points d'attention</strong>
+      136 lignes en stock négatif vendable (116 produits) à régulariser, majoritairement en entrepôt. Ajustements en hausse de 10 WoW (+71%). 3 produit(s) A proche de la rupture.
+    </div>
+    <div class="obs-item">
+      <strong>🔴 Actions prioritaires</strong>
+      1. Investiguer l'anomalie data "Infusette thé glacé" (écart massif hors norme) · 2. Régulariser stock négatif entrepôt (majorité des 136 lignes) · 3. Réappro produits A à risque : Offrande des Rois Mages (100 g vrac), Féérie d'Hivers, Paradise Punch - Infusion de fruits : Litchi - Ananas · 4. Vérifier cause hausse ajustements WoW
+    </div>
+  </div>
+</div>
+
+<div class="footnote">
+  Teatower SA · Weekly Inventory Performance S32 · 10 août 2026 · Nick (Supply Chain) + Fabian (Odoo v18)<br>
+  Données : Odoo stock.quant + stock.move + product.product · Baseline valuation : 04/04/2026 (295 987€)<br>
+  Cibles : Neg. stock vendable = 0 · Ruptures A &lt; 5% · A risque par store &lt; 10% · Ajustements ↓ · Valorisation ±5%
+</div>
+
+</div>
+</body>
+</html>
