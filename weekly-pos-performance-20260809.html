@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly POS Performance S32 — Teatower</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#1a1a1a;}
+  .page{max-width:1100px;margin:0 auto;padding:24px;}
+  .header{background:#16393E;color:#EFF0F5;padding:22px 28px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;}
+  .header .badge{background:#D9B364;color:#000;font-weight:700;font-size:11px;padding:4px 14px;border-radius:99px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+  .kpi{background:#fff;border-radius:8px;padding:14px 16px;border:1px solid #dde3ea;}
+  .kpi .label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px;}
+  .kpi .value{font-size:22px;font-weight:800;color:#16393E;line-height:1.1;}
+  .kpi .sub{font-size:11px;color:#94a3b8;margin-top:4px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+  .card{background:#fff;border-radius:8px;border:1px solid #dde3ea;padding:16px 18px;}
+  .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#64748b;margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{background:#f8fafc;color:#64748b;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:7px 10px;text-align:left;border-bottom:2px solid #e2e8f0;}
+  th.r{text-align:right;} td{padding:7px 10px;border-bottom:1px solid #f1f5f9;}
+  td.r{text-align:right;font-weight:600;color:#16393E;}
+  tr:last-child td{border-bottom:none;}
+  .total-row td{font-weight:700;background:#f0fdf4;border-top:2px solid #16393E;}
+  .obs{background:#16393E;color:#EFF0F5;border-radius:8px;padding:18px 22px;margin-bottom:16px;}
+  .obs h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#D9B364;margin-bottom:12px;}
+  .obs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:12px;line-height:1.7;}
+  .obs-item strong{color:#D9B364;display:block;margin-bottom:3px;}
+  .footnote{font-size:10.5px;color:#94a3b8;text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div style="font-size:20px;font-weight:800;">Weekly POS Performance</div>
+    <div style="font-size:11px;opacity:.7;margin-top:4px;">Teatower SA · S32 · 3 au 9 August 2026 · POS Odoo + E-commerce Shopify + NPS</div>
+  </div>
+  <div class="badge">Semaine 32 · 2026</div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="label">CA POS semaine</div>
+    <div class="value">16,022€</div>
+    <div class="sub"><span style="color:#dc2626;font-weight:700;">↓0.2%</span> vs S-1 (16,054€)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Tickets POS</div>
+    <div class="value">683</div>
+    <div class="sub"><span style="color:#dc2626;font-weight:700;">↓1.3%</span> vs S-1 (692)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Panier moyen</div>
+    <div class="value">23.46€</div>
+    <div class="sub"><span style="color:#15803d;font-weight:700;">↑1.1%</span> vs S-1 (23.20€)</div>
+  </div>
+  <div class="kpi">
+    <div class="label">E-commerce</div>
+    <div class="value">2,352€</div>
+    <div class="sub"><span style="color:#dc2626;font-weight:700;">↓34.8%</span> vs S-1 · AOV 65€</div>
+  </div>
+  <div class="kpi">
+    <div class="label">CA Total semaine</div>
+    <div class="value" style="color:#16393E;">18,373€</div>
+    <div class="sub"><span style="color:#dc2626;font-weight:700;">↓6.5%</span> vs S-1 (19,658€)</div>
+  </div>
+</div>
+
+<div class="grid4">
+  <div style="background:#8B4513;border-radius:8px;padding:16px;color:#fff;">
+    <div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Namur</div>
+    <div style="font-size:26px;font-weight:800;">5,907€</div>
+    <div style="font-size:11px;opacity:.8;margin-top:2px;">254 tickets · 23.3€ AOV</div>
+    <div style="height:8px;background:rgba(255,255,255,.25);border-radius:4px;margin-top:6px;">
+      <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.8);width:37%;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;opacity:.8;">
+      <span>Part CA : 37%</span>
+      <span style="color:#fca5a5;font-weight:700;">↓18.7% vs S-1</span>
+    </div>
+    <div style="margin-top:6px;font-size:10.5px;opacity:.7;">S-1 : 7,267€ / 335 tkts</div>
+  </div>
+  <div style="background:#1a5276;border-radius:8px;padding:16px;color:#fff;">
+    <div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Liège</div>
+    <div style="font-size:26px;font-weight:800;">4,998€</div>
+    <div style="font-size:11px;opacity:.8;margin-top:2px;">189 tickets · 26.4€ AOV</div>
+    <div style="height:8px;background:rgba(255,255,255,.25);border-radius:4px;margin-top:6px;">
+      <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.8);width:31%;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;opacity:.8;">
+      <span>Part CA : 31%</span>
+      <span style="color:#86efac;font-weight:700;">↑6.2% vs S-1</span>
+    </div>
+    <div style="margin-top:6px;font-size:10.5px;opacity:.7;">S-1 : 4,704€ / 174 tkts</div>
+  </div>
+  <div style="background:#2D5016;border-radius:8px;padding:16px;color:#fff;">
+    <div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Waterloo</div>
+    <div style="font-size:26px;font-weight:800;">1,596€</div>
+    <div style="font-size:11px;opacity:.8;margin-top:2px;">73 tickets · 21.9€ AOV</div>
+    <div style="height:8px;background:rgba(255,255,255,.25);border-radius:4px;margin-top:6px;">
+      <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.8);width:10%;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;opacity:.8;">
+      <span>Part CA : 10%</span>
+      <span style="color:#fca5a5;font-weight:700;">↓0.3% vs S-1</span>
+    </div>
+    <div style="margin-top:6px;font-size:10.5px;opacity:.7;">S-1 : 1,602€ / 71 tkts</div>
+  </div>
+  <div style="background:#6A4C93;border-radius:8px;padding:16px;color:#fff;">
+    <div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Rocourt</div>
+    <div style="font-size:26px;font-weight:800;">3,520€</div>
+    <div style="font-size:11px;opacity:.8;margin-top:2px;">167 tickets · 21.1€ AOV</div>
+    <div style="height:8px;background:rgba(255,255,255,.25);border-radius:4px;margin-top:6px;">
+      <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.8);width:22%;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;opacity:.8;">
+      <span>Part CA : 22%</span>
+      <span style="color:#86efac;font-weight:700;">↑41.9% vs S-1</span>
+    </div>
+    <div style="margin-top:6px;font-size:10.5px;opacity:.7;">S-1 : 2,481€ / 112 tkts</div>
+  </div></div>
+
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">Comparaison S32 vs S31</div>
+    <table>
+      <thead><tr><th>Canal</th><th class="r">S-1</th><th class="r">S32</th><th class="r">Δ</th><th class="r">Tickets</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8B4513;margin-right:6px;"></span>Namur</td>
+          <td class="r" style="color:#94a3b8;">7,267€</td>
+          <td class="r">5,907€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓18.7%</td>
+          <td class="r" style="color:#64748b;">254</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a5276;margin-right:6px;"></span>Liège</td>
+          <td class="r" style="color:#94a3b8;">4,704€</td>
+          <td class="r">4,998€</td>
+          <td class="r" style="color:#15803d;font-weight:700;">↑6.2%</td>
+          <td class="r" style="color:#64748b;">189</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D5016;margin-right:6px;"></span>Waterloo</td>
+          <td class="r" style="color:#94a3b8;">1,602€</td>
+          <td class="r">1,596€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓0.3%</td>
+          <td class="r" style="color:#64748b;">73</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#6A4C93;margin-right:6px;"></span>Rocourt</td>
+          <td class="r" style="color:#94a3b8;">2,481€</td>
+          <td class="r">3,520€</td>
+          <td class="r" style="color:#15803d;font-weight:700;">↑41.9%</td>
+          <td class="r" style="color:#64748b;">167</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#96bf48;margin-right:6px;"></span>Shopify</td>
+          <td class="r" style="color:#94a3b8;">3,604€</td>
+          <td class="r">2,352€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓34.8%</td>
+          <td class="r" style="color:#64748b;">36 cmd</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>TOTAL</strong></td>
+          <td class="r">19,658€</td>
+          <td class="r">18,373€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓6.5%</td>
+          <td class="r">719</td>
+        </tr></tbody>
+    </table>
+    <div class="card-title" style="margin-top:16px;">Comparaison S32 vs S-52 (année dernière)</div>
+    <table>
+      <thead><tr><th>Canal</th><th class="r">S-52</th><th class="r">S32</th><th class="r">Δ</th><th class="r">Tickets</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8B4513;margin-right:6px;"></span>Namur</td>
+          <td class="r" style="color:#94a3b8;">6,902€</td>
+          <td class="r">5,907€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓14.4%</td>
+          <td class="r" style="color:#64748b;">254</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a5276;margin-right:6px;"></span>Liège</td>
+          <td class="r" style="color:#94a3b8;">4,862€</td>
+          <td class="r">4,998€</td>
+          <td class="r" style="color:#15803d;font-weight:700;">↑2.8%</td>
+          <td class="r" style="color:#64748b;">189</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D5016;margin-right:6px;"></span>Waterloo</td>
+          <td class="r" style="color:#94a3b8;">1,792€</td>
+          <td class="r">1,596€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓10.9%</td>
+          <td class="r" style="color:#64748b;">73</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#6A4C93;margin-right:6px;"></span>Rocourt</td>
+          <td class="r" style="color:#94a3b8;">0€</td>
+          <td class="r">3,520€</td>
+          <td class="r" style="color:#15803d;font-weight:700;">↑0.0%</td>
+          <td class="r" style="color:#64748b;">167</td>
+        </tr>
+        <tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#96bf48;margin-right:6px;"></span>Shopify</td>
+          <td class="r" style="color:#94a3b8;">4,876€</td>
+          <td class="r">2,352€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓51.8%</td>
+          <td class="r" style="color:#64748b;">36 cmd</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>TOTAL</strong></td>
+          <td class="r">18,431€</td>
+          <td class="r">18,373€</td>
+          <td class="r" style="color:#dc2626;font-weight:700;">↓0.3%</td>
+          <td class="r">719</td>
+        </tr></tbody>
+    </table>
+    <div style="margin-top:8px;background:#f1f5f9;border-radius:6px;padding:8px 12px;font-size:11px;color:#64748b;">ℹ Données S-52 reconstruites depuis l'historique de commandes Shopify (avant Odoo POS / reset API live) — canal <code>pos</code> par boutique + canal en ligne.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Top 10 produits POS — S32</div>
+    
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+      <div style="flex:1;color:#334155;">Matcha japonais</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">529€</div><div style="font-size:10.5px;color:#94a3b8;">27 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+      <div style="flex:1;color:#334155;">Citron meringué (100 g vrac)</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">492€</div><div style="font-size:10.5px;color:#94a3b8;">51 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+      <div style="flex:1;color:#334155;">Marrakech Sunset - BIO glacé</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">416€</div><div style="font-size:10.5px;color:#94a3b8;">47 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+      <div style="flex:1;color:#334155;">Coffret Cadeau Ensemble Matcha Traditionne…</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">396€</div><div style="font-size:10.5px;color:#94a3b8;">10 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+      <div style="flex:1;color:#334155;">Le panier de grand maman (80 g vrac)</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">395€</div><div style="font-size:10.5px;color:#94a3b8;">40 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</div>
+      <div style="flex:1;color:#334155;">Pêche de vigne - BIO (100 g vrac)</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">338€</div><div style="font-size:10.5px;color:#94a3b8;">34 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</div>
+      <div style="flex:1;color:#334155;">La Nana de Wépion (100 g vrac)</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">323€</div><div style="font-size:10.5px;color:#94a3b8;">33 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</div>
+      <div style="flex:1;color:#334155;">Passion Exotique - Infusion de fruits : Ma…</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">303€</div><div style="font-size:10.5px;color:#94a3b8;">32 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</div>
+      <div style="flex:1;color:#334155;">Pêche de Vigne - BIO glacée</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">300€</div><div style="font-size:10.5px;color:#94a3b8;">34 u</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:12px;">
+      <div style="width:20px;height:20px;border-radius:50%;background:#16393E;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">10</div>
+      <div style="flex:1;color:#334155;">Assortiment découverte</div>
+      <div style="text-align:right;"><div style="font-weight:700;color:#16393E;">285€</div><div style="font-size:10.5px;color:#94a3b8;">19 u</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-title">Répartition horaire POS — S32 (heure belge)</div>
+  <div style="display:flex;align-items:flex-end;gap:4px;height:80px;padding:0 4px;">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">11€</div>
+      <div style="height:2px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.50;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">1005€</div>
+      <div style="height:30px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.72;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2296€</div>
+      <div style="height:70px;width:100%;background:#D9B364;border-radius:3px 3px 0 0;opacity:1.00;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">1823€</div>
+      <div style="height:55px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.90;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2073€</div>
+      <div style="height:63px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.95;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2262€</div>
+      <div style="height:68px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.99;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2007€</div>
+      <div style="height:61px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.94;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">1653€</div>
+      <div style="height:50px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.86;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2265€</div>
+      <div style="height:69px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.99;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">610€</div>
+      <div style="height:18px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.63;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">16€</div>
+      <div style="height:2px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.50;"></div>
+    </div></div>
+  <div style="display:flex;gap:4px;padding:0 4px;margin-top:4px;"><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">9h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">10h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">11h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">12h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">13h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">14h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">15h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">16h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">17h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">18h</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">19h</div></div>
+</div>
+
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-title">Répartition jour de la semaine POS — S32</div>
+  <div style="display:flex;align-items:flex-end;gap:4px;height:80px;padding:0 4px;">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2008€</div>
+      <div style="height:31px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.73;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2170€</div>
+      <div style="height:34px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.75;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2372€</div>
+      <div style="height:37px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.77;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2754€</div>
+      <div style="height:43px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.81;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">2303€</div>
+      <div style="height:36px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.76;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">4415€</div>
+      <div style="height:70px;width:100%;background:#D9B364;border-radius:3px 3px 0 0;opacity:1.00;"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:9px;color:#94a3b8;margin-bottom:2px;">0€</div>
+      <div style="height:2px;width:100%;background:#16393E;border-radius:3px 3px 0 0;opacity:0.50;"></div>
+    </div></div>
+  <div style="display:flex;gap:4px;padding:0 4px;margin-top:4px;"><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Lun</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Mar</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Mer</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Jeu</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Ven</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Sam</div><div style="flex:1;text-align:center;font-size:9px;color:#94a3b8;">Dim</div></div>
+</div>
+
+
+<!-- NPS SECTION -->
+<div class="card" style="margin-bottom:16px;border-top:3px solid #D9B364;">
+  <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+    <span>NPS — Net Promoter Score</span>
+    <span style="font-size:10px;color:#94a3b8;font-weight:400;text-transform:none;letter-spacing:0;">Score 30 jours glissants · Réponses hebdo en détail</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:4px;">
+    
+    <div style="background:#f8fafc;border-radius:8px;padding:14px 16px;border-left:4px solid #8B4513;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;">Namur</div>
+          <div style="font-size:32px;font-weight:800;color:#15803d;line-height:1.1;margin-top:4px;">92</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">37 réponses 30j · moy. 9.8/10</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.4px;">Cette sem.</div>
+          <div style="font-size:18px;font-weight:700;color:#16393E;">12</div>
+          <div style="font-size:10px;color:#94a3b8;">117 envoyés · 10.3%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden;">
+        <div style="flex:75;background:#15803d;min-width:2px;"></div>
+        <div style="flex:25;background:#d97706;min-width:2px;"></div>
+        <div style="flex:0;background:#dc2626;min-width:0px;"></div>
+        
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9.5px;margin-top:3px;">
+        <span style="color:#15803d;">● Promo 9</span>
+        <span style="color:#d97706;">● Passifs 3</span>
+        <span style="color:#dc2626;">● Détract. 0</span>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:14px 16px;border-left:4px solid #1a5276;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;">Liège</div>
+          <div style="font-size:32px;font-weight:800;color:#15803d;line-height:1.1;margin-top:4px;">96</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">24 réponses 30j · moy. 9.7/10</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.4px;">Cette sem.</div>
+          <div style="font-size:18px;font-weight:700;color:#16393E;">7</div>
+          <div style="font-size:10px;color:#94a3b8;">113 envoyés · 6.2%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden;">
+        <div style="flex:100;background:#15803d;min-width:2px;"></div>
+        <div style="flex:0;background:#d97706;min-width:0px;"></div>
+        <div style="flex:0;background:#dc2626;min-width:0px;"></div>
+        
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9.5px;margin-top:3px;">
+        <span style="color:#15803d;">● Promo 7</span>
+        <span style="color:#d97706;">● Passifs 0</span>
+        <span style="color:#dc2626;">● Détract. 0</span>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:14px 16px;border-left:4px solid #2D5016;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;">Waterloo</div>
+          <div style="font-size:32px;font-weight:800;color:#15803d;line-height:1.1;margin-top:4px;">93</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">14 réponses 30j · moy. 9.8/10</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.4px;">Cette sem.</div>
+          <div style="font-size:18px;font-weight:700;color:#16393E;">2</div>
+          <div style="font-size:10px;color:#94a3b8;">29 envoyés · 6.9%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden;">
+        <div style="flex:100;background:#15803d;min-width:2px;"></div>
+        <div style="flex:0;background:#d97706;min-width:0px;"></div>
+        <div style="flex:0;background:#dc2626;min-width:0px;"></div>
+        
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9.5px;margin-top:3px;">
+        <span style="color:#15803d;">● Promo 2</span>
+        <span style="color:#d97706;">● Passifs 0</span>
+        <span style="color:#dc2626;">● Détract. 0</span>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border-radius:8px;padding:14px 16px;border-left:4px solid #6A4C93;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div>
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600;">Rocourt</div>
+          <div style="font-size:32px;font-weight:800;color:#15803d;line-height:1.1;margin-top:4px;">86</div>
+          <div style="font-size:10px;color:#94a3b8;margin-top:2px;">51 réponses 30j · moy. 9.4/10</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.4px;">Cette sem.</div>
+          <div style="font-size:18px;font-weight:700;color:#16393E;">10</div>
+          <div style="font-size:10px;color:#94a3b8;">88 envoyés · 11.4%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:2px;height:8px;border-radius:4px;overflow:hidden;">
+        <div style="flex:80;background:#15803d;min-width:2px;"></div>
+        <div style="flex:20;background:#d97706;min-width:2px;"></div>
+        <div style="flex:0;background:#dc2626;min-width:0px;"></div>
+        
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9.5px;margin-top:3px;">
+        <span style="color:#15803d;">● Promo 8</span>
+        <span style="color:#d97706;">● Passifs 2</span>
+        <span style="color:#dc2626;">● Détract. 0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div style="margin-top:12px;">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#64748b;margin-bottom:8px;">Verbatims clients</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:#fafafa;border-radius:6px;padding:10px 12px;border-left:3px solid #16393E;font-size:11.5px;color:#334155;line-height:1.6;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:10px;font-weight:700;color:#16393E;">online</span>
+          <span style="font-size:10px;color:#D9B364;font-weight:700;">⭐⭐⭐⭐⭐</span>
+        </div>
+        <em>"Commande facile, livraison en point relais et service clientèle réactif. Produits de qualité. Lady Dodo est ma tisane de chaque soir depuis très longtemps. C'es…"</em>
+      </div>
+      <div style="background:#fafafa;border-radius:6px;padding:10px 12px;border-left:3px solid #6A4C93;font-size:11.5px;color:#334155;line-height:1.6;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:10px;font-weight:700;color:#6A4C93;">Rocourt</span>
+          <span style="font-size:10px;color:#D9B364;font-weight:700;">⭐⭐⭐⭐⭐</span>
+        </div>
+        <em>"Ma première visite très bien passé .La vendeuse très polie et à l’écoute.Très belle boutique et en plus de mes achats reçu quelques échantillons de thé gratuit …"</em>
+      </div>
+      <div style="background:#fafafa;border-radius:6px;padding:10px 12px;border-left:3px solid #6A4C93;font-size:11.5px;color:#334155;line-height:1.6;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:10px;font-weight:700;color:#6A4C93;">Rocourt</span>
+          <span style="font-size:10px;color:#D9B364;font-weight:700;">⭐⭐⭐⭐⭐</span>
+        </div>
+        <em>"Superbe magasin, très grand choix, vendeuses super sympa. Je recommande"</em>
+      </div>
+      <div style="background:#fafafa;border-radius:6px;padding:10px 12px;border-left:3px solid #6A4C93;font-size:11.5px;color:#334155;line-height:1.6;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:10px;font-weight:700;color:#6A4C93;">Rocourt</span>
+          <span style="font-size:10px;color:#D9B364;font-weight:700;">⭐⭐⭐⭐⭐</span>
+        </div>
+        <em>"La dame est vraiment très gentille et elle m a bien conseillée"</em>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END NPS -->
+
+
+<!-- EMAIL EFFICIENCY SECTION -->
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+    <span>Efficacité email — Revenu Shopify réel / 1000 destinataires</span>
+    <span style="font-size:10px;color:#94a3b8;font-weight:400;text-transform:none;letter-spacing:0;">Fenêtre 48h post-envoi · ⚠ = envoi &gt;6000 destinataires</span>
+  </div>
+  <table>
+    <thead><tr><th>Campagne</th><th class="r">Destinataires</th><th class="r">Cmd (48h)</th><th class="r">Revenu (48h)</th><th class="r">€/1000</th><th class="r">Attrib. MC</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>Ateliers Waterloo — Août 2026</td>
+          <td class="r">3,556</td>
+          <td class="r">7</td>
+          <td class="r">628€</td>
+          <td class="r" style="font-weight:700;color:#16393E;">176.7€</td>
+          <td class="r" style="color:#94a3b8;">0€</td>
+        </tr></tbody>
+  </table>
+  
+    <div style="margin-top:8px;background:#fef2f2;border-radius:6px;padding:8px 12px;font-size:11px;color:#991b1b;">
+      ⚠ Attribution e-commerce Mailchimp à 0€ sur 1/1 campagnes cette semaine malgré du revenu Shopify réel — intégration à corriger (owner: Dree).
+    </div>
+</div>
+<!-- END EMAIL EFFICIENCY -->
+
+<div class="obs">
+  <h3>Observations — S32</h3>
+  <div class="obs-grid">
+    <div class="obs-item"><strong>📊 Performance globale</strong>
+    CA total S32 : 18,373€ vs 19,658€ S-1 (-6.5%). POS : 16,022€ / 683 tickets. E-commerce : 2,352€ / 36 commandes (AOV 65€).</div>
+    <div class="obs-item"><strong>🏪 Par boutique</strong>
+    Namur : 5,907€ (-18.7% vs S-1) · Liège : 4,998€ · Waterloo : 1,596€ · Rocourt : 3,520€.</div>
+    <div class="obs-item"><strong>⭐ NPS</strong>
+    Scores 30j — Namur : 92 · Liège : 96 · Waterloo : 93 · Rocourt : 86. 36 réponses cette semaine sur 394 envoyées.</div>
+  </div>
+</div>
+
+<div class="footnote">
+  Teatower SA · Weekly POS Performance S32 · 3 au 9 August 2026 · Données Odoo POS + Shopify GraphQL + Supabase NPS<br>
+  POS : 683 tickets · Shopify : 36 commandes · Total : 18,373€
+</div>
+
+</div>
+</body>
+</html>
