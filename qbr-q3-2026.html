@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QBR B2B &amp; CRM Q3 2026 — Teatower</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins','Century Gothic',Arial,sans-serif;background:#F2E5CA;color:#1a1a1a;font-size:14px;line-height:1.6}
+.header{background:#0a0a0a;padding:24px 20px;text-align:center;border-bottom:3px solid #8B6F47}
+.header img{height:52px}
+.header h1{color:#EFF0F5;font-size:22px;font-weight:700;margin-top:14px;letter-spacing:-0.02em}
+.header .meta{color:#D9B364;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;margin-top:6px}
+.container{max-width:980px;margin:0 auto;padding:28px 16px}
+.section{margin-bottom:28px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#D9B364;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #D9B364;display:flex;align-items:center;gap:8px}
+.section-title .num{background:#16393E;color:#D9B364;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.card{background:#fff;border-radius:8px;padding:20px 24px;margin-bottom:16px;border:1px solid #e0d5c0}
+.card h3{font-size:13px;font-weight:700;color:#16393E;margin-bottom:12px}
+.kpi-strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.kpi{flex:1;min-width:130px;background:#16393E;color:#EFF0F5;border-radius:8px;padding:16px 18px}
+.kpi .val{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+.kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#D9B364;margin-top:6px}
+.kpi.red{background:#c0392b}.kpi.amber{background:#e67e22}.kpi.green{background:#27ae60}
+.kpi.gold{background:#D9B364;color:#000}.kpi.gold .lbl{color:rgba(0,0,0,0.6)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;padding:7px 10px;text-align:left;border-bottom:2px solid #e0d5c0;white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid #f0ebe0;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fdfaf5}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.muted{color:#888;font-size:12px}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap}
+.badge-ok{background:#e8f5e9;color:#2e7d32}
+.badge-warn{background:#fff3e0;color:#e65100}
+.badge-crit{background:#ffebee;color:#c62828}
+.badge-new{background:#e3f2fd;color:#1565c0}
+.truth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:8px}
+@media(max-width:700px){.truth-grid{grid-template-columns:1fr}}
+.truth-block{border-radius:8px;padding:16px 18px}
+.truth-block.green{background:#e8f5e9;border-left:4px solid #2e7d32}
+.truth-block.amber{background:#fff8e1;border-left:4px solid #f9a825}
+.truth-block.red{background:#ffebee;border-left:4px solid #c62828}
+.truth-block .icon{font-size:18px;margin-bottom:8px}
+.truth-block h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;color:#333}
+.truth-block ul{list-style:none;padding:0}
+.truth-block li{font-size:12px;padding:3px 0;color:#444;border-bottom:1px solid rgba(0,0,0,0.06)}
+.truth-block li:last-child{border-bottom:none}
+.truth-block li::before{content:"→ ";color:#888}
+.action-table td:first-child{font-weight:600;color:#16393E}
+.owner{background:#16393E;color:#D9B364;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;white-space:nowrap}
+.deadline{color:#c0392b;font-weight:600;font-size:12px}
+.decision-box{border:2px solid #c0392b;border-radius:8px;padding:16px 20px;background:#fff}
+.decision-box h4{color:#c0392b;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px}
+.decision-row{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #f0ebe0}
+.decision-row:last-child{border-bottom:none}
+.decision-trigger{font-weight:700;color:#16393E;min-width:160px;font-size:13px}
+.decision-action{color:#555;font-size:12px}
+.agenda-row{display:grid;grid-template-columns:80px 1fr 100px 120px;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid #f0ebe0}
+.agenda-row:last-child{border-bottom:none}
+.agenda-time{font-size:11px;color:#888;font-weight:600}
+.agenda-topic{font-weight:600;font-size:13px}
+.agenda-anim{font-size:12px;color:#555}
+.agenda-output{font-size:11px;background:#f8f5ef;border-radius:4px;padding:3px 7px;color:#16393E;font-weight:600}
+.checklist{list-style:none;padding:0}
+.checklist li{display:flex;align-items:start;gap:10px;padding:8px 0;border-bottom:1px solid #f0ebe0;font-size:13px}
+.checklist li:last-child{border-bottom:none}
+.check-box{width:18px;height:18px;border:2px solid #D9B364;border-radius:3px;flex-shrink:0;margin-top:1px}
+.checklist-owner{color:#888;font-size:11px;margin-left:auto;white-space:nowrap}
+.rule-box{background:#16393E;color:#EFF0F5;border-radius:8px;padding:16px 20px;margin-top:20px;font-size:13px;line-height:1.7;border-left:4px solid #D9B364}
+.rule-box strong{color:#D9B364}
+.context-banner{background:#16393E;color:#EFF0F5;border-radius:8px;padding:14px 20px;margin-bottom:20px;font-size:13px;line-height:1.7}
+.priority-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.priority-pill{background:#D9B364;color:#000;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.06em}
+.priority-pill.p1{background:#c0392b;color:#fff}
+.priority-pill.p2{background:#e67e22;color:#fff}
+.priority-pill.p3{background:#16393E;color:#D9B364}
+.odoo-badge{display:inline-flex;align-items:center;gap:5px;background:#714B67;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:0.06em}
+.trend-up{color:#27ae60;font-weight:700}
+.trend-down{color:#c0392b;font-weight:700}
+.trend-flat{color:#888;font-weight:600}
+.h1-bar{height:8px;border-radius:4px;background:#D9B364;margin-top:4px}
+.footer{text-align:center;color:#888;font-size:11px;padding:28px 0 20px}
+</style>
+</head><body>
+<div class="header"><img src="https://teatower.com/cdn/shop/files/Teatower_-_logo_-BELGIAN_TEA_HOUSE.png?v=1718883133" alt="Teatower">
+<h1>QBR B2B &amp; Pipeline — Q3 2026</h1>
+<div class="meta">Données au 30 septembre 2026 &nbsp;·&nbsp; Confidentiel &nbsp;·&nbsp; Zig + Fabian + Nicolas</div></div>
+<div class="container">
+<div class="context-banner"><strong style="color:#D9B364">Ce QBR répond à 3 questions dans cet ordre :</strong><br>
+1. <strong>Où en est le B2B, vraiment ?</strong> — chiffres Odoo (facturé), pas le CRM.<br>
+2. <strong>Le CRM s'est-il amélioré depuis le QBR Q2 ?</strong> — mesures avant/après.<br>
+3. <strong>Qu'est-ce qu'on fait différemment en Q4 ?</strong> — propositions à valider en séance.</div>
+
+<div class="decision-box" style="margin-bottom:20px"><h4>🔎 Points d'attention <span class="odoo-badge">⬡ Odoo, extraction 01/10/2026</span></h4>
+<div class="decision-row"><span class="decision-trigger">GMS en décélération</span><span class="decision-action">36,950€ en juillet → 27,516€ en août → 20,084€ en septembre. Delhaize Le Lion : 11,959€ en juillet puis ~5,5K€ en août et septembre.</span></div>
+<div class="decision-row"><span class="decision-trigger">Torrefactory + Delahaut</span><span class="decision-action">Le QBR Q2 les donnait à <strong>0€ en juin et juillet</strong> ; Odoo montre en réalité des factures chaque mois (Delahaut 1,950€ juin / 1,162€ juillet ; Torrefactory 2,450€ / 1,300€). Ce n'est donc pas un arrêt complet, mais une baisse (le chiffre du QBR Q2 est à revérifier). Torrefactory : rien facturé en septembre.</span></div>
+<div class="decision-row"><span class="decision-trigger">Rollup incomplet</span><span class="decision-action"><strong>74,644€</strong> (34% du B2B) reste sans catégorie GMS/HoReCa/Revendeur dans Odoo. Les canaux ci-dessous sont donc sous-estimés. Les magasins Delhaize/Carrefour/Intermarché sans tag ont été reclassés GMS par nom.</span></div></div>
+
+<div class="section"><div class="section-title"><span class="num">1</span> Scorecard B2B — CA facturé (Odoo réel)</div>
+<div class="card"><h3>CA B2B par canal — Q3 2026 <span class="odoo-badge">⬡ Odoo Réel</span></h3>
+<table><thead><tr><th>Canal</th><th class="num">Q3 2025</th><th class="num">Q2 2026</th><th class="num">Juil</th><th class="num">Août</th><th class="num">Sept</th><th class="num"><strong>Q3 2026</strong></th><th class="num">Cible Q3</th><th class="num">vs Cible</th><th class="num">vs LY</th><th class="num">vs Q2</th></tr></thead><tbody><tr><td><strong>GMS</strong></td><td class="num muted">43,307€</td><td class="num">110,465€</td><td class="num">36,950€</td><td class="num">27,516€</td><td class="num">20,084€</td><td class="num"><strong>84,550€</strong></td><td class="num">—</td><td class=num>—</td><td class="num trend-up">+95%</td><td class="num trend-down">-23%</td></tr><tr><td><strong>HoReCa</strong></td><td class="num muted">39,356€</td><td class="num">54,576€</td><td class="num">8,209€</td><td class="num">13,304€</td><td class="num">18,500€</td><td class="num"><strong>40,013€</strong></td><td class="num">—</td><td class=num>—</td><td class="num trend-flat">+2%</td><td class="num trend-down">-27%</td></tr><tr><td><strong>Revendeurs</strong></td><td class="num muted">25,005€</td><td class="num">28,370€</td><td class="num">3,095€</td><td class="num">7,515€</td><td class="num">12,838€</td><td class="num"><strong>23,447€</strong></td><td class="num">—</td><td class=num>—</td><td class="num trend-down">-6%</td><td class="num trend-down">-17%</td></tr><tr><td><strong>Non catégorisé</strong></td><td class="num muted">78,752€</td><td class="num">91,893€</td><td class="num">25,187€</td><td class="num">20,834€</td><td class="num">28,623€</td><td class="num"><strong>74,644€</strong></td><td class="num">—</td><td class=num>—</td><td class="num trend-down">-5%</td><td class="num trend-down">-19%</td></tr><tr style="font-weight:700;background:#f8f5ef"><td>TOTAL B2B net</td><td class="num muted">186,420€</td><td class="num">285,305€</td><td class="num">73,441€</td><td class="num">69,169€</td><td class="num">80,045€</td><td class="num"><strong>222,655€</strong></td><td class="num">—</td><td class="num">—</td><td class="num trend-up">+19%</td><td class="num trend-down">-22%</td></tr></tbody></table>
+<p class="muted" style="margin-top:8px;font-size:11px">Source : Odoo tea-tree.odoo.com — account.move posted, journal INV, net des avoirs, hors interco Vilna Gaon, hors « Tea Touch » (magasin Namur) et « Tea Tree Caisse » (ventes POS pré-migration). Les chiffres Q2 2026 sont recalculés avec la même méthode et diffèrent donc du QBR Q2 (classification par nom pour GMS).</p></div>
+<div class="card"><h3>Top 10 clients B2B — Q3 2026 <span class="odoo-badge">⬡ Odoo Réel</span></h3>
+<table><thead><tr><th>#</th><th>Client</th><th>Canal</th><th class="num">CA HT Q3 2026</th><th class="num">CA HT Q2 2026</th><th class="num">Δ vs Q2</th></tr></thead><tbody><tr><td>1</td><td><strong>Delhaize Le Lion S.A</strong></td><td><span class="badge" style="background:#2D5016;color:#fff">GMS</span></td><td class="num">23,336€</td><td class="num muted">33,348€</td><td class="num trend-down">-30%</td></tr><tr><td>2</td><td><strong>Carrefour Belgium</strong></td><td><span class="badge" style="background:#2D5016;color:#fff">GMS</span></td><td class="num">13,645€</td><td class="num muted">16,801€</td><td class="num trend-down">-19%</td></tr><tr><td>3</td><td><strong>Newpharma</strong></td><td><span class="badge" style="background:#888;color:#fff">Non catégorisé</span></td><td class="num">7,986€</td><td class="num muted">NC</td><td class=num>—</td></tr><tr><td>4</td><td><strong>Cafes Delahaut</strong></td><td><span class="badge" style="background:#8B4513;color:#fff">HoReCa</span></td><td class="num">5,322€</td><td class="num muted">8,040€</td><td class="num trend-down">-34%</td></tr><tr><td>5</td><td><strong>Café Ventuno</strong></td><td><span class="badge" style="background:#8B4513;color:#fff">HoReCa</span></td><td class="num">4,875€</td><td class="num muted">5,288€</td><td class="num trend-down">-8%</td></tr><tr><td>6</td><td><strong>The Torrefactory Project Sa</strong></td><td><span class="badge" style="background:#888;color:#fff">Non catégorisé</span></td><td class="num">4,457€</td><td class="num muted">7,000€</td><td class="num trend-down">-36%</td></tr><tr><td>7</td><td><strong>PC DISTRIBUTION SRL - Point Chaud</strong></td><td><span class="badge" style="background:#8B4513;color:#fff">HoReCa</span></td><td class="num">2,662€</td><td class="num muted">2,775€</td><td class="num trend-flat">-4%</td></tr><tr><td>8</td><td><strong>Carrefour Market Remouchamps</strong></td><td><span class="badge" style="background:#2D5016;color:#fff">GMS</span></td><td class="num">2,565€</td><td class="num muted">3,846€</td><td class="num trend-down">-33%</td></tr><tr><td>9</td><td><strong>DelEmbourg SRL - Delhaize Embourg</strong></td><td><span class="badge" style="background:#2D5016;color:#fff">GMS</span></td><td class="num">2,122€</td><td class="num muted">2,602€</td><td class="num trend-down">-18%</td></tr><tr><td>10</td><td><strong>Sorescol S.A.</strong></td><td><span class="badge" style="background:#888;color:#fff">Non catégorisé</span></td><td class="num">2,122€</td><td class="num muted">2,528€</td><td class="num trend-down">-16%</td></tr></tbody></table></div></div>
+
+<div class="section"><div class="section-title"><span class="num">2</span> Inspection CRM — avant / après QBR Q2 <span class="odoo-badge">⬡ crm.lead</span></div>
+<div class="kpi-strip">
+<div class="kpi amber"><div class="val">122,400€</div><div class="lbl">Pipeline ouvert affiché (283 leads) — Q2 : 124,900€</div></div>
+<div class="kpi red"><div class="val">17/20</div><div class="lbl">Deals « Gagné » Q3 à 0€ — Q2 : 54/61</div></div>
+<div class="kpi"><div class="val">1/5</div><div class="lbl">Deals « Perdu » Q3 avec raison — Q2 : 3/12</div></div>
+<div class="kpi red"><div class="val">1</div><div class="lbl">Leads ouverts avec date_deadline — Q2 : 1/270</div></div></div>
+<div class="card"><h3>Discipline pipeline</h3><table><thead><tr><th>Indicateur</th><th>QBR Q2 (juillet)</th><th>Q3 (1er octobre)</th></tr></thead><tbody>
+<tr><td>Stubs GMS 2,500€ flat sans partner_id</td><td class="num">180</td><td class="num">44 <span class="muted">(nettoyage en cours)</span></td></tr>
+<tr><td>Leads dans le stage « Prospect dormant...??» (nom non nettoyé)</td><td class="num">—</td><td class="num">53</td></tr>
+<tr><td>Leads ouverts assignés à un seul propriétaire (Jerome)</td><td class="num">2 propriétaires au total</td><td class="num">278/283</td></tr>
+<tr><td>Nouveaux leads créés en Q3</td><td class="num">—</td><td class="num">33</td></tr>
+<tr><td>Fiches CRM Torrefactory / Delahaut / displays GMS / prospects HoReCa</td><td class="num">0</td><td class="num">0 <span class="muted">(aucune opportunité à ces noms)</span></td></tr></tbody></table>
+<p class="muted" style="margin-top:8px;font-size:11px">Le champ « prochaine étape » n'a pas été mesuré cette fois ; seul date_deadline l'est.</p></div></div>
+
+<div class="section"><div class="section-title"><span class="num">3</span> Plan Q4 — propositions à valider en séance</div>
+<div class="priority-strip"><span class="priority-pill p1">P0 — GMS : comprendre la décélération Aug–Sept</span><span class="priority-pill p1">P1 — CRM : finir le nettoyage</span><span class="priority-pill p2">P2 — HoReCa : consolider la reprise (8,209€ → 18,500€)</span><span class="priority-pill p3">P3 — Catégorisation partenaires (74,644€ non classés)</span></div>
+<div class="card"><table class="action-table"><thead><tr><th>Action proposée</th><th>Responsable</th><th>Deadline</th></tr></thead><tbody>
+<tr><td>Revue Delhaize Le Lion : pourquoi 12K€ en juillet puis 5,5K€/mois ? Réassort, ruptures displays, extension de références</td><td><span class="owner">Nicolas</span></td><td class="deadline">À fixer</td></tr>
+<tr><td>Appeler Torrefactory (rien en septembre) et Delahaut (volume divisé par ~2 vs Q2)</td><td><span class="owner">Nicolas</span></td><td class="deadline">À fixer</td></tr>
+<tr><td>Créer les fiches CRM manquantes (Torrefactory, Delahaut, displays GMS, prospects HoReCa) — toujours à 0</td><td><span class="owner">Nicolas</span></td><td class="deadline">À fixer</td></tr>
+<tr><td>Finir le nettoyage des 44 stubs GMS restants et renommer le stage « Prospect dormant...?? »</td><td><span class="owner">Jerome</span></td><td class="deadline">À fixer</td></tr>
+<tr><td>Catégoriser les partenaires B2B non tagués (Newpharma, Torrefactory, Sorescol, Mix F&amp;B…) et ré-extraire</td><td><span class="owner">Fabian</span></td><td class="deadline">À fixer</td></tr></tbody></table></div></div>
+
+<div class="section"><div class="section-title"><span class="num">4</span> KPIs de suivi Q4</div><div class="card"><table><thead><tr><th>KPI</th><th class="num">Dernière mesure</th><th class="num">Cible</th></tr></thead><tbody>
+<tr><td>GMS CA mensuel (facturé)</td><td class="num">20,084€ (sept.)</td><td class="num">&gt;120,000€ HT/mois</td></tr>
+<tr><td>HoReCa CA mensuel</td><td class="num">18,500€ (sept.)</td><td class="num">&gt;20,000€ HT/mois</td></tr>
+<tr><td>% B2B catégorisé dans Odoo</td><td class="num">66%</td><td class="num">100%</td></tr>
+<tr><td>% deals « Perdu » avec lost_reason</td><td class="num">1/5</td><td class="num">100%</td></tr>
+<tr><td>Leads ouverts avec date_deadline</td><td class="num">1/283</td><td class="num">&gt;80%</td></tr></tbody></table></div></div>
+</div>
+<div class="footer">Teatower SA · QBR B2B &amp; Pipeline Q3 2026<br>Données : Odoo tea-tree.odoo.com — account.move posted, journal INV + crm.lead, extraits le 1er octobre 2026 (scripts/qbr_b2b_extract.py)<br>Confidentiel — usage interne uniquement</div>
+</body></html>
