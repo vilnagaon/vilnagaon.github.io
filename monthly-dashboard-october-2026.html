@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Teatower — Bilan Octobre 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#fafafa; color:#222; margin:0; padding:20px; }
+  .wrap { max-width:1200px; margin:0 auto; }
+  .header { background:#1a3a5c; color:#fff; padding:30px; border-radius:12px; margin-bottom:24px; }
+  .header h1 { margin:0; font-size:32px; font-weight:300; }
+  .header .sub { opacity:0.85; margin-top:8px; font-size:14px; }
+  .header .total-ca { font-size:48px; font-weight:600; margin-top:18px; }
+  .header .yoy { display:inline-block; margin-left:14px; font-size:18px; padding:4px 12px; border-radius:20px; }
+  .yoy-up { background:rgba(76,175,80,0.25); color:#a5d6a7; }
+  .yoy-down { background:rgba(244,67,54,0.25); color:#ef9a9a; }
+  .yoy-flat { background:rgba(255,255,255,0.15); color:#ddd; }
+  .grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:24px; }
+  @media (max-width: 800px) { .grid { grid-template-columns:repeat(2, 1fr); } }
+  .card { background:#fff; padding:18px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .card h3 { margin:0 0 12px; display:flex; align-items:center; font-size:16px; }
+  .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:8px; }
+  .ca { font-size:26px; font-weight:600; margin:6px 0 4px; }
+  .detail { color:#666; font-size:13px; }
+  .badge { display:inline-block; padding:3px 9px; border-radius:11px; font-size:12px; font-weight:600; margin-left:6px; }
+  .badge-up { background:#e8f5e9; color:#2e7d32; }
+  .badge-down { background:#ffebee; color:#c62828; }
+  .badge-flat { background:#f5f5f5; color:#616161; }
+  .compare { font-size:11px; color:#888; margin-top:4px; }
+  .section { background:#fff; padding:24px; border-radius:8px; margin-bottom:20px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .section h2 { margin:0 0 16px; font-size:18px; color:#1a3a5c; padding-bottom:10px; border-bottom:2px solid #f0f0f0; }
+  table { width:100%; border-collapse:collapse; }
+  th { text-align:left; padding:10px 8px; background:#f7f7f7; font-size:12px; color:#666; border-bottom:1px solid #ddd; }
+  td { padding:10px 8px; font-size:14px; border-bottom:1px solid #f0f0f0; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  th.num { text-align:right; }
+  tr:hover td { background:#fafafa; }
+  .stack { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+  @media (max-width: 800px) { .stack { grid-template-columns:1fr; } }
+  .note { font-size:12px; color:#888; margin-top:8px; font-style:italic; }
+  canvas { max-width:100%; height:250px; }
+  .footer { text-align:center; color:#888; font-size:12px; margin:30px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <h1>📊 Bilan Octobre 2026 — Teatower</h1>
+  <div class="sub">Du 1er au 31 octobre 2026 · Tous canaux confondus (POS Waterloo / Namur / Liège + Shopify online)</div>
+  <div class="total-ca">105 610€
+    <span class="yoy yoy-up">YoY +5.7%</span>
+    <span class="yoy yoy-up">MoM +44.3%</span>
+  </div>
+  <div class="sub">3 886 tickets/commandes · vs 2 821 en septembre 2026</div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h3><span class="dot" style="background:#2D5016"></span>Waterloo</h3>
+    <div class="ca">7 810€</div>
+    <div class="detail">383 tickets · AOV 20.4€ · 252€/jour</div>
+    <div style="margin-top:10px;">
+      <span class="badge badge-down">YoY -20.0%</span>
+      <span class="badge badge-up">MoM +13.1%</span>
+    </div>
+    <div class="compare">vs Sep26: 6 903€ · vs Oct25: 9 768€</div>
+  </div>
+  <div class="card">
+    <h3><span class="dot" style="background:#8B4513"></span>Namur</h3>
+    <div class="ca">37 663€</div>
+    <div class="detail">1 548 tickets · AOV 24.3€ · 1 215€/jour</div>
+    <div style="margin-top:10px;">
+      <span class="badge badge-up">YoY +7.9%</span>
+      <span class="badge badge-up">MoM +48.2%</span>
+    </div>
+    <div class="compare">vs Sep26: 25 414€ · vs Oct25: 34 904€</div>
+  </div>
+  <div class="card">
+    <h3><span class="dot" style="background:#1a5276"></span>Liège</h3>
+    <div class="ca">21 442€</div>
+    <div class="detail">831 tickets · AOV 25.8€ · 692€/jour</div>
+    <div style="margin-top:10px;">
+      <span class="badge badge-down">YoY -11.7%</span>
+      <span class="badge badge-up">MoM +24.0%</span>
+    </div>
+    <div class="compare">vs Sep26: 17 291€ · vs Oct25: 24 285€</div>
+  </div>
+  <div class="card">
+    <h3><span class="dot" style="background:#7B2D8B"></span>Rocourt</h3>
+    <div class="ca">17 317€</div>
+    <div class="detail">775 tickets · AOV 22.3€ · 559€/jour</div>
+    <div style="margin-top:10px;">
+      <span class="badge badge-up">🆕 nouveau</span>
+      <span class="badge badge-up">MoM +56.2%</span>
+    </div>
+    <div class="compare">vs Sep26: 11 087€ · vs Oct25: n/a</div>
+  </div>
+  <div class="card">
+    <h3><span class="dot" style="background:#96bf48"></span>Shopify</h3>
+    <div class="ca">21 377€</div>
+    <div class="detail">349 tickets · AOV 61.3€ · 690€/jour</div>
+    <div style="margin-top:10px;">
+      <span class="badge badge-down">YoY -31.0%</span>
+      <span class="badge badge-up">MoM +71.1%</span>
+    </div>
+    <div class="compare">vs Sep26: 12 492€ · vs Oct25: 30 993€</div>
+  </div></div>
+<div class="section">
+  <h2>📈 Évolution quotidienne du CA — Octobre 2026</h2>
+  <canvas id="chart" width="1100" height="250"></canvas>
+  <div class="note">Total combiné des 4 canaux par jour. Les pics du samedi sont visibles sur les courbes POS.</div>
+</div>
+
+<div class="section">
+  <h2>🔍 Comparaison détaillée par canal</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Canal</th>
+        <th class="num">CA Oct26</th>
+        <th class="num">Tickets Oct26</th>
+        <th class="num">AOV Oct26</th>
+        <th class="num">vs Sep26</th>
+        <th class="num">vs Oct25</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="dot" style="background:#2D5016; width:10px; height:10px;"></span>Waterloo</td>
+        <td class="num">7 810€</td>
+        <td class="num">383</td>
+        <td class="num">20.4€</td>
+        <td class="num">+13.1%</td>
+        <td class="num">-20.0%</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:#8B4513; width:10px; height:10px;"></span>Namur</td>
+        <td class="num">37 663€</td>
+        <td class="num">1 548</td>
+        <td class="num">24.3€</td>
+        <td class="num">+48.2%</td>
+        <td class="num">+7.9%</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:#1a5276; width:10px; height:10px;"></span>Liège</td>
+        <td class="num">21 442€</td>
+        <td class="num">831</td>
+        <td class="num">25.8€</td>
+        <td class="num">+24.0%</td>
+        <td class="num">-11.7%</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:#7B2D8B; width:10px; height:10px;"></span>Rocourt</td>
+        <td class="num">17 317€</td>
+        <td class="num">775</td>
+        <td class="num">22.3€</td>
+        <td class="num">+56.2%</td>
+        <td class="num">🆕 nouveau</td>
+      </tr>
+      <tr>
+        <td><span class="dot" style="background:#96bf48; width:10px; height:10px;"></span>Shopify</td>
+        <td class="num">21 377€</td>
+        <td class="num">349</td>
+        <td class="num">61.3€</td>
+        <td class="num">+71.1%</td>
+        <td class="num">-31.0%</td>
+      </tr>
+      <tr style="background:#f7f7f7; font-weight:600;">
+        <td>TOTAL Teatower</td>
+        <td class="num">105 610€</td>
+        <td class="num">3 886</td>
+        <td class="num">27.2€</td>
+        <td class="num">+44.3%</td>
+        <td class="num">+5.7%</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">2025 : reconstitué depuis Shopify CSV export (POS tournait sur Shopify avant la migration Odoo POS de juin 2025).</div>
+</div>
+
+<div class="section">
+  <h2>🏆 Top 10 produits — tous canaux confondus (Octobre 2026)</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Produit</th><th class="num">Quantité</th><th class="num">CA</th><th class="num">CA 2025</th><th class="num">Évol. YoY</th></tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td>[C0195] Calendrier de l&#x27;avent 2026</td><td class='num'>175</td><td class='num'>5 082€</td><td class='num'>6 510€</td><td class='num'>-21.9%</td></tr><tr><td>2</td><td>[V0919] Halloween 2026 - 100g</td><td class='num'>507</td><td class='num'>3 953€</td><td class='num'><span style='color:#888;'>—</span></td><td class='num'><span style='color:#888;'>🆕 nouveau</span></td></tr><tr><td>3</td><td>Calendrier de l&#x27;Avent 2026 - 24 moments magiques, thés et infusions - Teatower</td><td class='num'>89</td><td class='num'>2 670€</td><td class='num'>6 510€</td><td class='num'>-59.0%</td></tr><tr><td>4</td><td>[C0197] Coffret découverte Noël 2026 - 25 tea bags</td><td class='num'>132</td><td class='num'>1 929€</td><td class='num'><span style='color:#888;'>—</span></td><td class='num'><span style='color:#888;'>🆕 nouveau</span></td></tr><tr><td>5</td><td>[V0711] Récolte enchantée (100 g vrac)</td><td class='num'>151</td><td class='num'>1 756€</td><td class='num'>23€</td><td class='num'>+7600.0%</td></tr><tr><td>6</td><td>[V0895] Matcha japonais</td><td class='num'>92</td><td class='num'>1 749€</td><td class='num'>700€</td><td class='num'>+149.9%</td></tr><tr><td>7</td><td>[V0279] Le panier de grand maman (80 g vrac)</td><td class='num'>152</td><td class='num'>1 487€</td><td class='num'>770€</td><td class='num'>+93.1%</td></tr><tr><td>8</td><td>[V0918] Au coin du feu - 100g</td><td class='num'>83</td><td class='num'>965€</td><td class='num'><span style='color:#888;'>—</span></td><td class='num'><span style='color:#888;'>🆕 nouveau</span></td></tr><tr><td>9</td><td>[I0279] Le panier de grand maman (20 infusettes)</td><td class='num'>84</td><td class='num'>905€</td><td class='num'>770€</td><td class='num'>+17.6%</td></tr><tr><td>10</td><td>[V0880] Blue Earl Grey BIO (100 g vrac)</td><td class='num'>79</td><td class='num'>807€</td><td class='num'>286€</td><td class='num'>+182.1%</td></tr></tbody></table></div><div class="section"><h2>🏆 Top 5 par boutique (Oct 2026)</h2><div class="stack"><div>
+    <h3 style="color:#2D5016; font-size:15px; margin:0 0 10px;"><span class="dot" style="background:#2D5016"></span>Waterloo</h3>
+    <table><tr><td>[V0919] Halloween 2026 - 100g</td><td class='num'>283€</td></tr><tr><td>[C0195] Calendrier de l&#x27;avent 2026</td><td class='num'>268€</td></tr><tr><td>[V0638] Sérénité - BIO (100 g vrac)</td><td class='num'>209€</td></tr><tr><td>[V0279] Le panier de grand maman (80 g vra</td><td class='num'>204€</td></tr><tr><td>[V0895] Matcha japonais</td><td class='num'>199€</td></tr></table></div><div>
+    <h3 style="color:#8B4513; font-size:15px; margin:0 0 10px;"><span class="dot" style="background:#8B4513"></span>Namur</h3>
+    <table><tr><td>[C0195] Calendrier de l&#x27;avent 2026</td><td class='num'>2 109€</td></tr><tr><td>[V0919] Halloween 2026 - 100g</td><td class='num'>1 490€</td></tr><tr><td>[C0197] Coffret découverte Noël 2026 - 25 </td><td class='num'>777€</td></tr><tr><td>[V0711] Récolte enchantée (100 g vrac)</td><td class='num'>687€</td></tr><tr><td>[V0918] Au coin du feu - 100g</td><td class='num'>664€</td></tr></table></div><div>
+    <h3 style="color:#1a5276; font-size:15px; margin:0 0 10px;"><span class="dot" style="background:#1a5276"></span>Liège</h3>
+    <table><tr><td>[C0195] Calendrier de l&#x27;avent 2026</td><td class='num'>1 281€</td></tr><tr><td>[V0919] Halloween 2026 - 100g</td><td class='num'>1 067€</td></tr><tr><td>[V0895] Matcha japonais</td><td class='num'>549€</td></tr><tr><td>[V0711] Récolte enchantée (100 g vrac)</td><td class='num'>475€</td></tr><tr><td>[C0197] Coffret découverte Noël 2026 - 25 </td><td class='num'>395€</td></tr></table></div><div>
+    <h3 style="color:#7B2D8B; font-size:15px; margin:0 0 10px;"><span class="dot" style="background:#7B2D8B"></span>Rocourt</h3>
+    <table><tr><td>[C0195] Calendrier de l&#x27;avent 2026</td><td class='num'>1 424€</td></tr><tr><td>[V0919] Halloween 2026 - 100g</td><td class='num'>1 113€</td></tr><tr><td>[C0197] Coffret découverte Noël 2026 - 25 </td><td class='num'>758€</td></tr><tr><td>[V0711] Récolte enchantée (100 g vrac)</td><td class='num'>593€</td></tr><tr><td>[V0895] Matcha japonais</td><td class='num'>432€</td></tr></table></div></div></div>
+<div class="section">
+  <h2>📧 Mailchimp — Activité Octobre 2026</h2>
+  <div class="grid" style="grid-template-columns:repeat(3, 1fr);">
+    <div class="card"><h3 style="color:#c5a000;">Campagnes envoyées</h3><div class="ca" style="color:#c5a000;">175</div><div class="detail">120 408 emails au total</div></div>
+    <div class="card"><h3 style="color:#c5a000;">Open rate moyen</h3><div class="ca" style="color:#c5a000;">51.1%</div><div class="detail">Industrie retail : 25-30%</div></div>
+    <div class="card"><h3 style="color:#c5a000;">Click rate moyen</h3><div class="ca" style="color:#c5a000;">10.23%</div><div class="detail">Industrie : 2-3%</div></div>
+  </div>
+
+  <h3 style="font-size:15px; margin-top:22px;">📊 Comparatif YoY — octobre 2025 vs octobre 2026</h3>
+  <table>
+    <tr><th>Métrique</th><th class="num">Octobre 2025</th><th class="num">Octobre 2026</th><th class="num">Évol.</th></tr>
+    <tr><td>Broadcasts envoyés (emails)</td><td class='num'>937 220</td><td class='num'>118 331</td><td class='num'>-87.4%</td></tr>
+    <tr><td>Open rate broadcasts</td><td class="num">16.8%</td><td class="num">36.1%</td><td class="num">+19.3 pt</td></tr>
+    <tr><td>Click rate broadcasts</td><td class="num">0.31%</td><td class="num">1.14%</td><td class="num">+0.83 pt</td></tr>
+    <tr><td>Campagnes NPS/micro (post-visite)</td><td class='num'>0</td><td class='num'>153</td><td class='num'>n/a</td></tr>
+    <tr><td>Abonnés actifs (fin de mois)</td><td class='num'>56 775</td><td class='num'>43 077</td><td class='num'>-24.1%</td></tr>
+    <tr><td>Désabonnés cumulés (fin de mois)</td><td class='num'>11 681</td><td class='num'>16 577</td><td class='num'>+41.9%</td></tr>
+    <tr><td>Nouveaux opt-in du mois</td><td class='num'>492</td><td class='num'>790</td><td class='num'>+60.6%</td></tr>
+    <tr><td>... dont encore actifs aujourd'hui</td><td class="num">315 (64%)</td><td class="num">686 (87%)</td><td class="num">—</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h2>🧠 Lecture stratégique</h2>
+  <p><strong>Le mois en une phrase :</strong> Octobre 2026 a battu octobre 2025 (+5.7% YoY). CA total 105 610€ sur 3 886 tickets/commandes.</p>
+
+  <h3 style="font-size:15px; margin-top:18px;">📊 Performance par canal</h3>
+  <ul>
+    <li><strong>POS Namur</strong> : 37 663€ (+7.9% YoY)</li>
+    <li><strong>POS Liège</strong> : 21 442€ (-11.7% YoY)</li>
+    <li><strong>POS Waterloo</strong> : 7 810€ (-20.0% YoY)</li>
+    <li><strong>Shopify online</strong> : 21 377€ (-31.0% YoY) — 349 commandes</li>
+  </ul>
+
+  <h3 style="font-size:15px; margin-top:18px;">📌 Contexte</h3>
+  <ul>
+    <li>Migration Odoo POS de juin 2025 → tous les canaux POS sont sortis de Shopify entre juin et octobre 2025</li>
+    <li>Migration thème Shopify mars 2026 → 96K impressions Google perdues (recovery via 170 actions SEO)</li>
+    <li>NPS pilot lancé fin avril 2026 — pas de données NPS pour octobre 2026</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Rapport généré le 2026-11-01 · Données POS via Odoo (depuis juin 2025), Web via Shopify Admin API, Email via Mailchimp · 2025 reconstruit depuis exports Shopify CSV pré-migration.
+</div>
+
+</div>
+
+<script>
+const chartData = {"days": ["2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09", "2026-10-10", "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "series": {"Waterloo": [127.0, 236.22, 486.53, 54.24, 154.87, 9.5, 380.07, 232.4, 225.38, 595.5899999999999, 0, 214.75, 109.28, 119.5, 147.5, 253.29999999999998, 566.9200000000001, 0, 234.72, 183.51000000000002, 283.87, 144.27, 248.24, 555.87, 0, 144.4, 312.26, 422.6, 337.3, 447.51, 582.8400000000001, 0], "Namur": [532.9900000000001, 796.9599999999999, 2654.6800000000003, 1238.8000000000004, 776.52, 842.46, 943.9599999999999, 975.73, 920.6499999999999, 2267.4600000000005, 0, 1327.03, 652.82, 568.4799999999999, 1033.08, 1184.8200000000002, 2632.029999999999, 0, 979.73, 742.8900000000002, 1212.59, 1342.0900000000001, 965.96, 2901.23, 0, 1234.82, 1279.6800000000003, 948.6, 1350.2399999999998, 1840.49, 3515.7599999999998, 0], "Li\u00e8ge": [547.1, 877.2900000000001, 1706.1600000000003, 193.89000000000001, 521.36, 190.23999999999998, 481.2700000000001, 461.62, 272.36, 1029.58, 0, 383.87, 346.98, 492.3300000000001, 691.0199999999999, 593.1199999999999, 1034.92, 0, 698.12, 600.8399999999999, 547.8100000000001, 678.38, 795.91, 1583.8700000000003, 71.0, 478.07, 947.16, 794.01, 811.8099999999998, 1321.21, 2291.12, 0], "Rocourt": [484.38, 650.5500000000001, 1401.3499999999997, 427.0299999999999, 309.88, 438.86, 262.29999999999995, 277.08, 799.4499999999998, 876.8299999999999, 0, 512.31, 592.89, 393.44000000000005, 502.99000000000007, 291.43999999999994, 1156.76, 0, 453.83000000000004, 504.7600000000001, 368.05999999999995, 354.99000000000007, 653.6, 1282.99, 0, 560.1400000000001, 592.7800000000001, 616.39, 549.9499999999999, 949.3899999999999, 1052.5600000000002, 0], "Shopify": [520.1999999999999, 567.7900000000001, 721.23, 277.33, 627.89, 780.81, 438.3, 452.83000000000004, 768.51, 257.31, 998.5400000000001, 1330.8600000000001, 990.71, 557.95, 750.74, 517.87, 979.55, 614.0999999999999, 724.6700000000001, 728.95, 476.21000000000004, 315.64, 823.9600000000002, 553.94, 447.03999999999996, 806.31, 475.39, 990.6299999999999, 852.87, 778.8199999999999, 1215.3799999999999, 35.0]}};
+const colors = {"Waterloo": "#2D5016", "Namur": "#8B4513", "Li\u00e8ge": "#1a5276", "Rocourt": "#7B2D8B", "Shopify": "#96bf48"};
+const canvas = document.getElementById('chart');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const padL = 50, padR = 20, padT = 20, padB = 30;
+const innerW = W - padL - padR, innerH = H - padT - padB;
+ctx.clearRect(0,0,W,H);
+const days = chartData.days;
+const series = chartData.series;
+const allValues = [];
+for (const s in series) allValues.push(...series[s]);
+const maxY = Math.max(...allValues, 100);
+ctx.strokeStyle = '#eee'; ctx.lineWidth = 1; ctx.fillStyle = '#888'; ctx.font = '11px sans-serif';
+for (let i = 0; i <= 5; i++) {
+  const y = padT + innerH * (1 - i/5);
+  const v = (maxY * i/5);
+  ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W-padR, y); ctx.stroke();
+  ctx.fillText(Math.round(v) + '€', 5, y+4);
+}
+ctx.fillStyle = '#888';
+for (let i = 0; i < days.length; i += 5) {
+  const x = padL + (i/(days.length-1)) * innerW;
+  const day = days[i].slice(8);
+  ctx.fillText(day, x-6, H - 8);
+}
+for (const store in series) {
+  const data = series[store];
+  ctx.strokeStyle = colors[store] || '#888';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (let i = 0; i < data.length; i++) {
+    const x = padL + (i/(data.length-1)) * innerW;
+    const y = padT + innerH * (1 - data[i]/maxY);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+let lx = padL + 10, ly = padT + 15;
+for (const store in series) {
+  ctx.fillStyle = colors[store] || '#888';
+  ctx.fillRect(lx, ly-9, 12, 12);
+  ctx.fillStyle = '#333';
+  ctx.fillText(store, lx + 16, ly);
+  lx += 90;
+}
+</script>
+</body></html>
