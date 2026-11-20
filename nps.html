@@ -11,7 +11,6 @@
   .container{background:white;border-radius:16px;max-width:520px;width:100%;padding:0 0 40px 0;box-shadow:0 4px 20px rgba(0,0,0,0.06);overflow:hidden}
   .logo-wrap{text-align:center;background:#0a0a0a;padding:32px 24px;margin-bottom:32px;border-radius:16px 16px 0 0}
   .logo-wrap img{max-width:220px;height:auto;display:inline-block}
-  .body-pad{padding:0 32px}
   h1{font-family:Georgia,serif;font-size:26px;line-height:1.3;text-align:center;margin-bottom:8px;font-weight:normal}
   .lead{text-align:center;color:#666;font-size:15px;line-height:1.5;margin-bottom:32px}
   .score-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin-bottom:8px}
@@ -24,6 +23,7 @@
   input[type="email"]{width:100%;border:1.5px solid #e8e2d6;border-radius:8px;padding:12px 14px;font-family:inherit;font-size:14px;margin-top:12px}
   input[type="email"]:focus{outline:none;border-color:#8b6914}
   .field-label{font-size:13px;color:#666;margin-bottom:6px;margin-top:18px;font-weight:500}
+  .opt{color:#aaa;font-weight:normal}
   .submit-btn{width:100%;background:#2c2c2c;color:white;border:none;padding:16px;border-radius:8px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:24px;font-family:Georgia,serif;transition:opacity 0.15s}
   .submit-btn:hover{opacity:0.85}
   .submit-btn:disabled{opacity:0.4;cursor:not-allowed}
@@ -33,7 +33,7 @@
   .thank-you.active{display:block}
   .thank-you h2{font-family:Georgia,serif;font-size:24px;margin-bottom:12px;font-weight:normal}
   .thank-you p{color:#666;font-size:15px;line-height:1.6;margin-bottom:20px}
-  .cta-link{display:inline-block;background:#fdf9f0;border:2px solid #c9a96e;color:#8b6914;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;letter-spacing:0.5px;font-family:Georgia,serif;margin-top:8px;transition:all 0.15s}
+  .cta-link{display:inline-block;background:#fdf9f0;border:2px solid #c9a96e;color:#8b6914;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;letter-spacing:0.5px;font-family:Georgia,serif;margin-top:8px;transition:all 0.15s;cursor:pointer;font-size:16px}
   .cta-link:hover{background:#f5edc7}
   .cta-link.dark{background:#2c2c2c;border-color:#2c2c2c;color:white}
   .cta-link.dark:hover{background:#3c3c3c}
@@ -53,10 +53,10 @@
   <!-- ============ FORM ============ -->
   <div id="form-section" class="form-section">
 
-    <h1>Comment c'était <span id="store-name">chez nous</span> ?</h1>
-    <p class="lead">Votre avis nous aide à faire mieux. <strong>30 secondes maximum.</strong></p>
+    <h1 id="h1"></h1>
+    <p class="lead" id="lead"></p>
 
-    <div class="field-label">Sur une échelle de 0 à 10, recommanderiez-vous Teatower à un proche ?</div>
+    <div class="field-label" id="score-q"></div>
     <div class="score-grid" id="score-grid">
       <button class="score-btn" data-score="0">0</button>
       <button class="score-btn" data-score="1">1</button>
@@ -70,44 +70,42 @@
       <button class="score-btn" data-score="9">9</button>
       <button class="score-btn" data-score="10">10</button>
     </div>
-    <div class="score-labels"><span>Pas du tout</span><span>Absolument</span></div>
+    <div class="score-labels"><span id="lab-low"></span><span id="lab-high"></span></div>
 
-    <div class="field-label">Un mot pour nous dire pourquoi <span style="color:#aaa;font-weight:normal">(optionnel)</span></div>
-    <textarea id="comment" placeholder="Ce qui vous a marqué, en bien ou en moins bien…"></textarea>
+    <div class="field-label"><span id="comment-label"></span> <span class="opt" id="optional"></span></div>
+    <textarea id="comment"></textarea>
 
-    <div class="field-label">Votre email <span style="color:#aaa;font-weight:normal">(pour vous recontacter si besoin)</span></div>
-    <input type="email" id="email" placeholder="vous@email.com">
+    <div class="field-label" id="email-label"></div>
+    <input type="email" id="email">
 
-    <button class="submit-btn" id="submit-btn" disabled>Envoyer mon avis</button>
-    <div class="err" id="err">Une erreur est survenue. Réessayez dans un instant.</div>
+    <button class="submit-btn" id="submit-btn" disabled></button>
+    <div class="err" id="err"></div>
 
-    <div class="meta">
-      Vos données sont gérées par Teatower et ne sont jamais partagées.<br>
-      Aucun cookie marketing.
-    </div>
+    <div class="meta" id="meta"></div>
   </div>
 
   <!-- ============ PROMOTER (9-10) ============ -->
   <div id="thanks-promoter" class="thank-you">
-    <h2>Merci ❤️</h2>
-    <p>Ça nous touche.<br>Si vous avez 1 minute de plus, votre avis Google fait toute la différence pour les prochains qui cherchent un thé qui leur ressemble.</p>
-    <a class="cta-link dark" id="google-review-link" href="#" target="_blank">⭐ Laisser un avis Google</a>
-    <p style="margin-top:24px;font-size:13px;color:#aaa">Vous pouvez aussi simplement fermer cette page — votre score est déjà enregistré.</p>
+    <h2 id="pr-h2"></h2>
+    <p id="pr-p"></p>
+    <a class="cta-link dark" id="google-review-link" href="#" target="_blank" rel="noopener"></a>
+    <p style="margin-top:16px"><button type="button" class="cta-link" id="share-btn"></button></p>
+    <p style="margin-top:8px;font-size:13px;color:#aaa" id="pr-close"></p>
   </div>
 
   <!-- ============ PASSIVE (7-8) ============ -->
   <div id="thanks-passive" class="thank-you">
-    <h2>Merci pour votre retour</h2>
-    <p>Bonne note — il nous reste un peu de chemin pour vous faire passer en mode "absolument".<br>On y travaille.</p>
-    <a class="cta-link" href="https://teatower.com">Retour au site</a>
+    <h2 id="pa-h2"></h2>
+    <p id="pa-p"></p>
+    <a class="cta-link back-link" href="https://teatower.com"></a>
   </div>
 
   <!-- ============ DETRACTOR (0-6) ============ -->
   <div id="thanks-detractor" class="thank-you">
-    <h2>Merci de nous le dire.</h2>
-    <p>Ça compte plus que vous ne pensez. Stephan, notre fondateur, va lire votre commentaire personnellement aujourd'hui — et il vous écrira pour comprendre.</p>
-    <p style="font-size:14px;color:#888;margin-top:20px">Si vous voulez en parler directement&nbsp;:<br><strong>stephan.pire@teatower.com</strong></p>
-    <a class="cta-link" href="https://teatower.com">Retour au site</a>
+    <h2 id="dt-h2"></h2>
+    <p id="dt-p"></p>
+    <p style="font-size:14px;color:#888;margin-top:20px"><span id="dt-contact"></span><br><strong>stephan.pire@teatower.com</strong></p>
+    <a class="cta-link back-link" href="https://teatower.com"></a>
   </div>
 
 </div>
@@ -124,33 +122,159 @@ const GOOGLE_REVIEW_URLS = {
   rocourt:  "https://search.google.com/local/writereview?placeid=ChIJCR25O177wEcRX-P6HKNwDEk",
   online:   "https://search.google.com/local/writereview?placeid=ChIJnz0g_KLRw0cRJnHde7S6I8s"  // online → Waterloo Google review
 };
+const STORES = ["waterloo", "namur", "liege", "rocourt", "online"];
+const SHARE_URL = "https://teatower.com/?utm_source=nps&utm_medium=share&utm_campaign=promoter";
 
-const STORE_LABEL = {
-  waterloo: "à Waterloo",
-  namur: "à Namur",
-  liege: "à Liège",
-  rocourt: "à Rocourt",
-  online: "en ligne",
+// Textes par langue (FR source). Mêmes 5 langues que l'e-mail (send_nps_online.py).
+const I18N = {
+  fr: {
+    title: "Comment c'était ? — Teatower", h1: "Comment c'était {where} ?",
+    where: {def: "chez nous", waterloo: "à Waterloo", namur: "à Namur", liege: "à Liège", rocourt: "à Rocourt", online: "en ligne"},
+    lead: "Votre avis nous aide à faire mieux. <strong>30 secondes maximum.</strong>",
+    scoreQ: "Sur une échelle de 0 à 10, recommanderiez-vous Teatower à un proche ?", low: "Pas du tout", high: "Absolument",
+    c_none: "Un mot pour nous dire pourquoi", c_promoter: "Qu'avez-vous préféré ?", c_passive: "Qu'est-ce qui en ferait un 10 ?", c_detractor: "Que s'est-il passé ? Nous voulons comprendre.",
+    p_none: "Ce qui vous a marqué, en bien ou en moins bien…", p_promoter: "Un produit, un conseil, la livraison…", p_passive: "Une chose à améliorer, même petite…", p_detractor: "Dites-nous ce qui n'a pas été.",
+    optional: "(optionnel)", email: "Votre email (pour vous recontacter si besoin)", emailLow: "Votre email (pour que nous puissions vous répondre)", emailPh: "vous@email.com",
+    submit: "Envoyer mon avis", sending: "Envoi…", err: "Une erreur est survenue. Réessayez dans un instant.",
+    meta: "Vos données sont gérées par Teatower et ne sont jamais partagées.<br>Aucun cookie marketing.",
+    pr_h2: "Merci ❤️", pr_p: "Ça nous touche.<br>Si vous avez 1 minute de plus, votre avis Google fait toute la différence pour les prochains qui cherchent un thé qui leur ressemble.",
+    pr_google: "⭐ Laisser un avis Google", pr_share: "Faire découvrir Teatower à un proche", copied: "Lien copié ✓", shareText: "Je viens de découvrir Teatower, une maison de thé belge qui vaut le détour.",
+    pr_close: "Vous pouvez aussi simplement fermer cette page — votre score est déjà enregistré.",
+    pa_h2: "Merci pour votre retour", pa_p: "Bonne note — il nous reste un peu de chemin pour vous faire passer en mode \"absolument\".<br>On y travaille.", back: "Retour au site",
+    dt_h2: "Merci de nous le dire.",
+    dt_p_yes: "Ça compte plus que vous ne pensez. Stephan, notre fondateur, va lire votre commentaire personnellement aujourd'hui — et il vous écrira pour comprendre.",
+    dt_p_no: "Ça compte plus que vous ne pensez. Stephan, notre fondateur, lira votre commentaire personnellement.",
+    dt_contact_yes: "Si vous voulez en parler directement :", dt_contact_no: "Pour recevoir une réponse, écrivez-lui directement :"
+  },
+  en: {
+    title: "How was it? — Teatower", h1: "How was it {where}?",
+    where: {def: "with us", waterloo: "in Waterloo", namur: "in Namur", liege: "in Liège", rocourt: "in Rocourt", online: "online"},
+    lead: "Your feedback helps us do better. <strong>30 seconds at most.</strong>",
+    scoreQ: "On a scale of 0 to 10, how likely are you to recommend Teatower to a friend?", low: "Not at all", high: "Absolutely",
+    c_none: "A word on why", c_promoter: "What did you like best?", c_passive: "What would make it a 10?", c_detractor: "What happened? We want to understand.",
+    p_none: "What stood out, for better or worse…", p_promoter: "A product, some advice, the delivery…", p_passive: "One thing to improve, even a small one…", p_detractor: "Tell us what went wrong.",
+    optional: "(optional)", email: "Your email (so we can get back to you if needed)", emailLow: "Your email (so we can reply to you)", emailPh: "you@email.com",
+    submit: "Send my feedback", sending: "Sending…", err: "Something went wrong. Please try again in a moment.",
+    meta: "Your data is handled by Teatower and never shared.<br>No marketing cookies.",
+    pr_h2: "Thank you ❤️", pr_p: "That means a lot.<br>If you have one more minute, your Google review makes a real difference for the next people looking for a tea that suits them.",
+    pr_google: "⭐ Leave a Google review", pr_share: "Introduce a friend to Teatower", copied: "Link copied ✓", shareText: "I just discovered Teatower, a Belgian tea house worth the detour.",
+    pr_close: "You can also just close this page — your score is already saved.",
+    pa_h2: "Thank you for your feedback", pa_p: "A good score — we still have a little way to go to earn a perfect one.<br>We're working on it.", back: "Back to the site",
+    dt_h2: "Thank you for telling us.",
+    dt_p_yes: "It matters more than you think. Stephan, our founder, will read your comment personally today — and will write to you to understand.",
+    dt_p_no: "It matters more than you think. Stephan, our founder, will read your comment personally.",
+    dt_contact_yes: "If you'd like to talk about it directly:", dt_contact_no: "To get a reply, write to him directly:"
+  },
+  nl: {
+    title: "Hoe was het? — Teatower", h1: "Hoe was het {where}?",
+    where: {def: "bij ons", waterloo: "in Waterloo", namur: "in Namen", liege: "in Luik", rocourt: "in Rocourt", online: "online"},
+    lead: "Uw mening helpt ons beter te worden. <strong>Maximaal 30 seconden.</strong>",
+    scoreQ: "Op een schaal van 0 tot 10: hoe waarschijnlijk is het dat u Teatower aanbeveelt bij een naaste?", low: "Helemaal niet", high: "Absoluut",
+    c_none: "Een woordje waarom", c_promoter: "Wat vond u het fijnst?", c_passive: "Wat zou er een 10 van maken?", c_detractor: "Wat is er gebeurd? We willen het begrijpen.",
+    p_none: "Wat u opviel, in positieve of negatieve zin…", p_promoter: "Een product, een advies, de levering…", p_passive: "Iets wat beter kan, hoe klein ook…", p_detractor: "Vertel ons wat er misging.",
+    optional: "(optioneel)", email: "Uw e-mailadres (om u zo nodig te kunnen contacteren)", emailLow: "Uw e-mailadres (zodat we u kunnen antwoorden)", emailPh: "u@email.com",
+    submit: "Mijn mening versturen", sending: "Verzenden…", err: "Er is iets misgegaan. Probeer het zo meteen opnieuw.",
+    meta: "Uw gegevens worden beheerd door Teatower en nooit gedeeld.<br>Geen marketingcookies.",
+    pr_h2: "Bedankt ❤️", pr_p: "Dat raakt ons.<br>Hebt u nog een minuutje? Uw Google-beoordeling maakt echt een verschil voor wie op zoek is naar een thee die bij hem of haar past.",
+    pr_google: "⭐ Een Google-beoordeling achterlaten", pr_share: "Laat een naaste Teatower ontdekken", copied: "Link gekopieerd ✓", shareText: "Ik ontdekte net Teatower, een Belgisch theehuis dat een omweg waard is.",
+    pr_close: "U kunt deze pagina ook gewoon sluiten — uw score is al opgeslagen.",
+    pa_h2: "Bedankt voor uw feedback", pa_p: "Een goede score — we hebben nog een stukje te gaan om u echt te overtuigen.<br>We werken eraan.", back: "Terug naar de site",
+    dt_h2: "Bedankt dat u het ons zegt.",
+    dt_p_yes: "Het betekent meer dan u denkt. Stephan, onze oprichter, leest uw opmerking vandaag persoonlijk — en schrijft u om het te begrijpen.",
+    dt_p_no: "Het betekent meer dan u denkt. Stephan, onze oprichter, leest uw opmerking persoonlijk.",
+    dt_contact_yes: "Wilt u er rechtstreeks over praten:", dt_contact_no: "Wilt u een antwoord, schrijf hem dan rechtstreeks:"
+  },
+  de: {
+    title: "Wie war es? — Teatower", h1: "Wie war es {where}?",
+    where: {def: "bei uns", waterloo: "in Waterloo", namur: "in Namur", liege: "in Lüttich", rocourt: "in Rocourt", online: "online"},
+    lead: "Ihre Meinung hilft uns, besser zu werden. <strong>Höchstens 30 Sekunden.</strong>",
+    scoreQ: "Auf einer Skala von 0 bis 10: Wie wahrscheinlich ist es, dass Sie Teatower einem Bekannten weiterempfehlen?", low: "Überhaupt nicht", high: "Auf jeden Fall",
+    c_none: "Ein Wort, warum", c_promoter: "Was hat Ihnen am besten gefallen?", c_passive: "Was würde daraus eine 10 machen?", c_detractor: "Was ist passiert? Wir möchten es verstehen.",
+    p_none: "Was Ihnen aufgefallen ist, im Guten wie im Schlechten…", p_promoter: "Ein Produkt, eine Beratung, die Lieferung…", p_passive: "Etwas, das besser werden kann, und sei es klein…", p_detractor: "Sagen Sie uns, was nicht gestimmt hat.",
+    optional: "(optional)", email: "Ihre E-Mail-Adresse (um Sie bei Bedarf zu kontaktieren)", emailLow: "Ihre E-Mail-Adresse (damit wir Ihnen antworten können)", emailPh: "sie@email.com",
+    submit: "Meine Meinung senden", sending: "Wird gesendet…", err: "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es gleich noch einmal.",
+    meta: "Ihre Daten werden von Teatower verwaltet und niemals weitergegeben.<br>Keine Marketing-Cookies.",
+    pr_h2: "Danke ❤️", pr_p: "Das freut uns sehr.<br>Wenn Sie noch eine Minute Zeit haben: Ihre Google-Bewertung hilft allen, die einen Tee suchen, der zu ihnen passt.",
+    pr_google: "⭐ Google-Bewertung abgeben", pr_share: "Teatower einem Bekannten zeigen", copied: "Link kopiert ✓", shareText: "Ich habe gerade Teatower entdeckt, ein belgisches Teehaus, das einen Umweg wert ist.",
+    pr_close: "Sie können diese Seite auch einfach schließen — Ihre Bewertung ist bereits gespeichert.",
+    pa_h2: "Danke für Ihr Feedback", pa_p: "Eine gute Note — bis zur Bestnote ist es noch ein Stück.<br>Wir arbeiten daran.", back: "Zurück zur Website",
+    dt_h2: "Danke, dass Sie es uns sagen.",
+    dt_p_yes: "Das bedeutet uns mehr, als Sie denken. Stephan, unser Gründer, liest Ihren Kommentar heute persönlich — und schreibt Ihnen, um es zu verstehen.",
+    dt_p_no: "Das bedeutet uns mehr, als Sie denken. Stephan, unser Gründer, liest Ihren Kommentar persönlich.",
+    dt_contact_yes: "Wenn Sie direkt darüber sprechen möchten:", dt_contact_no: "Für eine Antwort schreiben Sie ihm direkt:"
+  },
+  es: {
+    title: "¿Qué tal? — Teatower", h1: "¿Cómo fue su experiencia {where}?",
+    where: {def: "con nosotros", waterloo: "en Waterloo", namur: "en Namur", liege: "en Lieja", rocourt: "en Rocourt", online: "en línea"},
+    lead: "Su opinión nos ayuda a mejorar. <strong>30 segundos como máximo.</strong>",
+    scoreQ: "En una escala del 0 al 10, ¿recomendaría Teatower a un conocido?", low: "Nada en absoluto", high: "Totalmente",
+    c_none: "Unas palabras para contarnos por qué", c_promoter: "¿Qué es lo que más le gustó?", c_passive: "¿Qué lo convertiría en un 10?", c_detractor: "¿Qué pasó? Queremos entenderlo.",
+    p_none: "Lo que le llamó la atención, para bien o para mal…", p_promoter: "Un producto, un consejo, la entrega…", p_passive: "Algo que mejorar, por pequeño que sea…", p_detractor: "Cuéntenos qué no fue bien.",
+    optional: "(opcional)", email: "Su correo electrónico (para contactarle si hace falta)", emailLow: "Su correo electrónico (para poder responderle)", emailPh: "usted@email.com",
+    submit: "Enviar mi opinión", sending: "Enviando…", err: "Se ha producido un error. Inténtelo de nuevo en un momento.",
+    meta: "Teatower gestiona sus datos y nunca los comparte.<br>Sin cookies de marketing.",
+    pr_h2: "Gracias ❤️", pr_p: "Nos llega al corazón.<br>Si tiene un minuto más, su opinión en Google marca la diferencia para quienes buscan un té que les represente.",
+    pr_google: "⭐ Dejar una opinión en Google", pr_share: "Dar a conocer Teatower a un conocido", copied: "Enlace copiado ✓", shareText: "Acabo de descubrir Teatower, una casa de té belga que merece el desvío.",
+    pr_close: "También puede cerrar esta página — su puntuación ya está registrada.",
+    pa_h2: "Gracias por su opinión", pa_p: "Buena nota — aún nos queda camino para conseguir un «totalmente».<br>Estamos en ello.", back: "Volver al sitio",
+    dt_h2: "Gracias por decírnoslo.",
+    dt_p_yes: "Importa más de lo que cree. Stephan, nuestro fundador, leerá su comentario personalmente hoy — y le escribirá para entenderlo.",
+    dt_p_no: "Importa más de lo que cree. Stephan, nuestro fundador, leerá su comentario personalmente.",
+    dt_contact_yes: "Si prefiere hablarlo directamente:", dt_contact_no: "Para recibir una respuesta, escríbale directamente:"
+  }
 };
 
-// Parse query params
+// Paramètres d'URL
 const params = new URLSearchParams(window.location.search);
 const store = (params.get("store") || "").toLowerCase();
 const channel = (params.get("channel") || "manual").toLowerCase();
 const sourceCampaign = params.get("source") || "";
 const prefilledEmail = params.get("email") || "";
+const dry = params.get("dry") === "1";  // aperçu : affiche la page de remerciement sans rien écrire dans Supabase
 
-if (store && STORE_LABEL[store]) {
-  document.getElementById("store-name").textContent = STORE_LABEL[store];
-}
-if (prefilledEmail) {
-  document.getElementById("email").value = prefilledEmail;
-}
+// Langue : ?lang= (posé par l'e-mail), sinon langue du navigateur, sinon FR
+const lang = (() => {
+  const p = (params.get("lang") || "").toLowerCase().slice(0, 2);
+  if (I18N[p]) return p;
+  const n = (navigator.language || "fr").slice(0, 2).toLowerCase();
+  return I18N[n] ? n : "fr";
+})();
+const T = I18N[lang];
+const $ = id => document.getElementById(id);
+const knownStore = STORES.includes(store);
 
-// Score selection
+document.documentElement.lang = lang;
+document.title = T.title;
+$("h1").textContent = T.h1.replace("{where}", T.where[knownStore ? store : "def"]);
+$("lead").innerHTML = T.lead;
+$("score-q").textContent = T.scoreQ;
+$("lab-low").textContent = T.low; $("lab-high").textContent = T.high;
+$("optional").textContent = T.optional;
+$("email").placeholder = T.emailPh;
+$("submit-btn").textContent = T.submit;
+$("meta").innerHTML = T.meta;
+$("pr-h2").textContent = T.pr_h2; $("pr-p").innerHTML = T.pr_p;
+$("google-review-link").textContent = T.pr_google; $("share-btn").textContent = T.pr_share; $("pr-close").textContent = T.pr_close;
+$("pa-h2").textContent = T.pa_h2; $("pa-p").innerHTML = T.pa_p;
+$("dt-h2").textContent = T.dt_h2;
+document.querySelectorAll(".back-link").forEach(a => a.textContent = T.back);
+
+if (prefilledEmail) $("email").value = prefilledEmail;
+
+// Segment NPS selon le score
+const band = s => s === null ? "none" : s >= 9 ? "promoter" : s >= 7 ? "passive" : "detractor";
+
+// La question et le champ e-mail s'adaptent au score choisi
 let selectedScore = null;
+function refreshPrompts() {
+  const b = band(selectedScore);
+  $("comment-label").textContent = T["c_" + b];
+  $("comment").placeholder = T["p_" + b];
+  $("email-label").textContent = b === "detractor" ? T.emailLow : T.email;
+}
+
 const buttons = document.querySelectorAll(".score-btn");
-const submitBtn = document.getElementById("submit-btn");
+const submitBtn = $("submit-btn");
 
 const prefilledScore = params.get("score");
 if (prefilledScore !== null && /^(10|[0-9])$/.test(prefilledScore)) {
@@ -161,6 +285,7 @@ if (prefilledScore !== null && /^(10|[0-9])$/.test(prefilledScore)) {
     submitBtn.disabled = false;
   }
 }
+refreshPrompts();
 
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -168,21 +293,50 @@ buttons.forEach(btn => {
     btn.classList.add("selected");
     selectedScore = parseInt(btn.dataset.score, 10);
     submitBtn.disabled = false;
+    refreshPrompts();
   });
 });
 
-// Submit
+// Partage (pas encore de programme de parrainage : simple recommandation, sans code ni suivi)
+$("share-btn").addEventListener("click", async () => {
+  try {
+    if (navigator.share) {
+      await navigator.share({title: "Teatower", text: T.shareText, url: SHARE_URL});
+    } else {
+      await navigator.clipboard.writeText(T.shareText + " " + SHARE_URL);
+      $("share-btn").textContent = T.copied;
+    }
+  } catch (e) { /* partage annulé : rien à faire */ }
+});
+
+function showThanks() {
+  $("form-section").classList.add("hidden");
+  const b = band(selectedScore);
+  if (b === "promoter") {
+    $("google-review-link").href = GOOGLE_REVIEW_URLS[store] || GOOGLE_REVIEW_URLS.waterloo;
+  } else if (b === "detractor") {
+    // On ne promet une réponse que si on a de quoi répondre
+    const hasEmail = !!$("email").value.trim();
+    $("dt-p").textContent = hasEmail ? T.dt_p_yes : T.dt_p_no;
+    $("dt-contact").textContent = hasEmail ? T.dt_contact_yes : T.dt_contact_no;
+  }
+  $("thanks-" + b).classList.add("active");
+}
+
+// Envoi
 submitBtn.addEventListener("click", async () => {
   if (selectedScore === null) return;
   submitBtn.disabled = true;
-  submitBtn.textContent = "Envoi…";
-  document.getElementById("err").classList.remove("show");
+  submitBtn.textContent = T.sending;
+  $("err").classList.remove("show");
+
+  if (dry) { showThanks(); return; }
 
   const payload = {
-    p_email: document.getElementById("email").value.trim() || null,
+    p_email: $("email").value.trim() || null,
     p_score: selectedScore,
-    p_comment: document.getElementById("comment").value.trim() || null,
-    p_store: store && STORE_LABEL[store] ? store : null,
+    p_comment: $("comment").value.trim() || null,
+    p_store: knownStore ? store : null,
     p_channel: ["pos","online","manual"].includes(channel) ? channel : "manual",
     p_source: sourceCampaign || null,
     p_user_agent: navigator.userAgent.substring(0, 200),
@@ -204,21 +358,12 @@ submitBtn.addEventListener("click", async () => {
       console.error("NPS submit failed", res.status, errText);
       throw new Error("HTTP " + res.status);
     }
-    // Hide form, show thank-you per segment
-    document.getElementById("form-section").classList.add("hidden");
-    if (selectedScore >= 9) {
-      document.getElementById("thanks-promoter").classList.add("active");
-      const reviewUrl = GOOGLE_REVIEW_URLS[store] || GOOGLE_REVIEW_URLS.waterloo;
-      document.getElementById("google-review-link").href = reviewUrl;
-    } else if (selectedScore >= 7) {
-      document.getElementById("thanks-passive").classList.add("active");
-    } else {
-      document.getElementById("thanks-detractor").classList.add("active");
-    }
+    showThanks();
   } catch (err) {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Envoyer mon avis";
-    document.getElementById("err").classList.add("show");
+    submitBtn.textContent = T.submit;
+    $("err").textContent = T.err;
+    $("err").classList.add("show");
   }
 });
 </script>
